@@ -1,0 +1,1 @@
+export const  AllLanguage = ["Hindi",'Bengali','Telugu','Marathi','Tamil','Urdu','Gujarati','Kannada','Punjabi','Malayalam','Odia','Assamese','Bhojpuri','Haryanvi','Rajasthani','Sindhi','Konkani','Manipuri','Maithili','Santali','Kashmiri','Nepali','Dogri','Kokborok','Khasi','Mizo (Lushai)','Tulu','Garhwali','Kumaoni','Bhili' , 'English']

@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+
+.applied_Application_wrapper{
+    overflow-x: hidden;
+}
+
+.applied_event_text{
+    font-family: Poppins;
+
+        font-size: 24px;
+        font-weight: 500;
+        
+
+}
+.applied_event_Detail_Container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    font-family: Poppins;
+
+}
+
+.applied_Event_details{
+    /* background-color: red; */
+    height: auto;
+    width: 100%;
+    padding-bottom: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 32px; 
+    grid-column-gap:20px;
+    font-family: Poppins;
+
+    justify-items: center;
+}
+
+.single_applied_eventWrapper{
+    width: 571px;
+    height: 325px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: -1px 1px 10px -4px rgba(0,0,0,0.75);
+    padding-left: 30px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+     
+    font-family: Poppins;
+
+}
+
+.Hired_text{
+    width: 90px;
+    height:25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #DAFFE8;
+    color: #00B027;
+    border-radius: 10px;
+    font-family: Poppins;
+
+}
+
+.InProgress_text{
+    width: 120px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF8B7;
+    border-radius: 10px;
+    color: #F1BC00;
+}
+
+.single_applied_heading{
+    color: #AD2F3B;
+    font-weight: 500;
+    font-size: 24px;
+    font-family: Poppins;
+
+}
+
+.single_applied_para{
+    font-weight: 500;
+    font-size: 16px;
+    font-family: Poppins;
+}
+
+.applied_button_wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (max-width:1280px) {
+    .applied_Event_details{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width:600px) {
+    .single_applied_eventWrapper{
+         width: 95%;
+    }
+    .single_applied_heading{
+        font-size: 20px;
+    }
+}
+
+@media (max-width:500px) {
+    .single_applied_heading{
+        font-size: 16px;
+    }
+
+    .applied_event_text{
+        font-size: 18px;
+    }
+}
+
+@media (max-width:410px) {
+ .single_applied_heading{
+    font-size: 14px;
+ }
+
+ .single_applied_eventWrapper{
+    padding-left: 10px;
+ }
+ .single_applied_para{
+    font-size: 14px;
+ }
+}
