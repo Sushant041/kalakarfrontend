@@ -61,11 +61,7 @@ const personalForm = [
   },
 ];
 
-
 function PatronProfile() {
-
-
-
   return (
     <div className="patronProfile_wrapper">
       {/* actual navbar */}
@@ -92,19 +88,16 @@ function PatronProfile() {
               {personalForm.map((data, index) => (
                 <label key={index} htmlFor="" className="single_personal_info">
                   <p className="form_title">{data.title}</p>
-                  <input
-                    className={`personal_form_input ${data.title === 'About us' ? ('aboutUs_input ') : ('')} `}
-                    required
-                    type={data.type}
-                  />
+                  <input className={`personal_form_input ${data.title === "About us" ? "aboutUs_input " : ""} `} required type={data.type} />
                 </label>
               ))}
             </div>
-
           </form>
         </main>
 
-        <button type="submit" className="updateButton">Update</button>
+        <button type="submit" className="updateButton">
+          Update
+        </button>
       </section>
     </div>
   );

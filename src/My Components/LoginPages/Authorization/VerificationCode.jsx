@@ -10,10 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function VerificationCode() {
-
-
-  const {resetEmail} = useSelector((state)=>state.auth);
-  console.log("resetEmail" , resetEmail);
+  const { resetEmail } = useSelector((state) => state.auth);
+  console.log("resetEmail", resetEmail);
 
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
@@ -24,12 +22,8 @@ function VerificationCode() {
     expirationDate.setTime(expirationDate.getTime() + 10 * 60 * 1000);
     const toastId = toast.loading("Loading...");
     try {
-      const response = await makeUnauthenticatedPOSTRequest(
-        endpoints.FORGOTPASSWORD_VERIFYOTP_API,
-        { otp }
-      );
+      const response = await makeUnauthenticatedPOSTRequest(endpoints.FORGOTPASSWORD_VERIFYOTP_API, { otp });
 
-      
       if (response.success === "success") {
         const { accessToken, refreshToken } = response.data;
         localStorage.setItem("accessToken", accessToken);
@@ -48,19 +42,16 @@ function VerificationCode() {
     toast.dismiss(toastId);
   };
 
-  useEffect(()=>{
-  if(!resetEmail){
-    navigate("/login");
-  }
-  },[])
+  useEffect(() => {
+    if (!resetEmail) {
+      navigate("/login");
+    }
+  }, []);
 
-  const resendOtpHandler =async  ()=>{
+  const resendOtpHandler = async () => {
     const toastId = toast.loading("Loading...");
     try {
-      const response = await makeUnauthenticatedPOSTRequest(
-        endpoints.FORGOTPASSWORD_SENDOTP_API,
-        {email:resetEmail}
-      );
+      const response = await makeUnauthenticatedPOSTRequest(endpoints.FORGOTPASSWORD_SENDOTP_API, { email: resetEmail });
       if (response.success === "success") {
         toast.success("OTP Send Successfully");
       } else {
@@ -71,8 +62,8 @@ function VerificationCode() {
     }
 
     toast.dismiss(toastId);
-  }
-  
+  };
+
   return (
     <AuthTemplate>
       <div className="verifyCodeWrapper">
@@ -105,7 +96,10 @@ function VerificationCode() {
           Continue
         </button>
         <p className="verifyCodeResend">
-          Didn’t receive any code? <span onClick={resendOtpHandler} className="Resend_OTP_text" >Resend</span>
+          Didn’t receive any code?{" "}
+          <span onClick={resendOtpHandler} className="Resend_OTP_text">
+            Resend
+          </span>
         </p>
       </form>
     </AuthTemplate>

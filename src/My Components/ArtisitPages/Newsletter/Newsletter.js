@@ -48,52 +48,24 @@ export function Newsletter() {
         <div className="NewsletterPage">
           <div className="NewsletterPage_BDA">
             <div className="NewsletterPage_left">
-              <p className="NewsletterPage_BDA_text">
-                {imageNews[0]?.title?.split(" ").slice(0, 2).join(" ")}...
-              </p>
+              <p className="NewsletterPage_BDA_text">{imageNews[0]?.title?.split(" ").slice(0, 2).join(" ")}...</p>
 
               <div className="NewsletterPage_BDA_image_text">
-                <img
-                  className="newLetter_img"
-                  onClick={() => (window.location.href = imageNews[0].url)}
-                  src={imageNews[0]?.urlToImage}
-                />
-                <p className="newsLetter_para">
-                  {" "}
-                  {imageNews[0]?.description
-                    ?.split(" ")
-                    .slice(0, 15)
-                    .join(" ")}{" "}
-                  ...
-                </p>
+                <img className="newLetter_img" onClick={() => (window.location.href = imageNews[0].url)} src={imageNews[0]?.urlToImage} />
+                <p className="newsLetter_para"> {imageNews[0]?.description?.split(" ").slice(0, 15).join(" ")} ...</p>
 
-                <button
-                  onClick={() => (window.location.href = imageNews[0].url)}
-                >
-                  {" "}
-                  Continue Reading
-                </button>
+                <button onClick={() => (window.location.href = imageNews[0].url)}> Continue Reading</button>
               </div>
             </div>
             <div className="NewsletterPage_BDA_Today">
               <p>Today</p>
               <div className="NewsletterPage_BDA_Today_images">
-                <img
-                  onClick={() => (window.location.href = imageNews[1].url)}
-                  src={imageNews[1]?.urlToImage}
-                />
-                <div className="NewsletterPage_BDA_Today_images_text">
-                  {imageNews[1]?.source?.name}
-                </div>
+                <img onClick={() => (window.location.href = imageNews[1].url)} src={imageNews[1]?.urlToImage} />
+                <div className="NewsletterPage_BDA_Today_images_text">{imageNews[1]?.source?.name}</div>
               </div>
               <div className="NewsletterPage_BDA_Today_images">
-                <img
-                  onClick={() => (window.location.href = imageNews[2].url)}
-                  src={imageNews[2]?.urlToImage}
-                />
-                <div className="NewsletterPage_BDA_Today_images_text">
-                  {imageNews[2]?.source?.name}{" "}
-                </div>
+                <img onClick={() => (window.location.href = imageNews[2].url)} src={imageNews[2]?.urlToImage} />
+                <div className="NewsletterPage_BDA_Today_images_text">{imageNews[2]?.source?.name} </div>
               </div>
             </div>
           </div>
@@ -105,19 +77,9 @@ export function Newsletter() {
               {newsId.map((data, index) => (
                 <div key={index} className="single_latest_news_wrapper">
                   <div className="single_latest_news">
-                    <img
-                      className="latest_news_img"
-                      onClick={() =>
-                        (window.location.href = imageNews[data].url)
-                      }
-                      src={imageNews[data].urlToImage}
-                      alt=""
-                    />
+                    <img className="latest_news_img" onClick={() => (window.location.href = imageNews[data].url)} src={imageNews[data].urlToImage} alt="" />
                     <div className="latest_news_title">
-                      {imageNews[data]?.title
-                        ?.split(" ")
-                        .slice(0, 15)
-                        .join(" ")}
+                      {imageNews[data]?.title?.split(" ").slice(0, 15).join(" ")}
                       ...
                     </div>
                   </div>
@@ -125,15 +87,11 @@ export function Newsletter() {
                     {imageNews[data]?.author && (
                       <div className="NewsletterPage_Article_Content_Profile">
                         <img src="../assets/Newsletter/Profile.png"></img>
-                        <p className="single_news_author">
-                          {imageNews[data]?.author}{" "}
-                        </p>
+                        <p className="single_news_author">{imageNews[data]?.author} </p>
                       </div>
                     )}
 
-                    <p className="single_news_name">
-                      {imageNews[data]?.source?.name}{" "}
-                    </p>
+                    <p className="single_news_name">{imageNews[data]?.source?.name} </p>
                   </div>
                 </div>
               ))}
@@ -144,121 +102,51 @@ export function Newsletter() {
             <h1 className="trending_news_heading">Trending News</h1>
 
             <div className="all_trending_News">
-              <Swiper
-                navigation={true}
-                modules={[Pagination, Navigation]}
-                className="mySwiper"
-              >
+              <Swiper navigation={true} modules={[Pagination, Navigation]} className="mySwiper">
                 <SwiperSlide>
                   {" "}
                   <div className="single_image_wrapper">
-                    <img
-                      onClick={() => (window.location.href = imageNews[9].url)}
-                      className="trending_news_img"
-                      src={latestNews[9]?.urlToImage}
-                      alt=""
-                    />
-                    <p className="imageText">
-                      {imageNews[9]?.description
-                        ?.split(" ")
-                        .slice(0, 50)
-                        .join(" ")}{" "}
-                      ...
-                    </p>
+                    <img onClick={() => (window.location.href = imageNews[9].url)} className="trending_news_img" src={latestNews[9]?.urlToImage} alt="" />
+                    <p className="imageText">{imageNews[9]?.description?.split(" ").slice(0, 50).join(" ")} ...</p>
                   </div>{" "}
                 </SwiperSlide>
                 <SwiperSlide>
                   {" "}
                   <div className="single_image_wrapper">
-                    <img
-                      onClick={() => (window.location.href = imageNews[10].url)}
-                      className="trending_news_img"
-                      src={latestNews[10]?.urlToImage}
-                      alt=""
-                    />
-                    <p className="imageText">
-                      {imageNews[10]?.description
-                        ?.split(" ")
-                        .slice(0, 50)
-                        .join(" ")}{" "}
-                      ...
-                    </p>
+                    <img onClick={() => (window.location.href = imageNews[10].url)} className="trending_news_img" src={latestNews[10]?.urlToImage} alt="" />
+                    <p className="imageText">{imageNews[10]?.description?.split(" ").slice(0, 50).join(" ")} ...</p>
                   </div>{" "}
                 </SwiperSlide>
 
                 <SwiperSlide>
                   {" "}
                   <div className="single_image_wrapper">
-                    <img
-                      onClick={() => (window.location.href = imageNews[11].url)}
-                      className="trending_news_img"
-                      src={latestNews[11]?.urlToImage}
-                      alt=""
-                    />
-                    <p className="imageText">
-                      {imageNews[11]?.description
-                        ?.split(" ")
-                        .slice(0, 50)
-                        .join(" ")}{" "}
-                      ...
-                    </p>
+                    <img onClick={() => (window.location.href = imageNews[11].url)} className="trending_news_img" src={latestNews[11]?.urlToImage} alt="" />
+                    <p className="imageText">{imageNews[11]?.description?.split(" ").slice(0, 50).join(" ")} ...</p>
                   </div>
                 </SwiperSlide>
 
                 <SwiperSlide>
                   {" "}
                   <div className="single_image_wrapper">
-                    <img
-                      onClick={() => (window.location.href = imageNews[12].url)}
-                      className="trending_news_img"
-                      src={latestNews[12]?.urlToImage}
-                      alt=""
-                    />
-                    <p className="imageText">
-                      {imageNews[12]?.description
-                        ?.split(" ")
-                        .slice(0, 50)
-                        .join(" ")}{" "}
-                      ...
-                    </p>
+                    <img onClick={() => (window.location.href = imageNews[12].url)} className="trending_news_img" src={latestNews[12]?.urlToImage} alt="" />
+                    <p className="imageText">{imageNews[12]?.description?.split(" ").slice(0, 50).join(" ")} ...</p>
                   </div>{" "}
                 </SwiperSlide>
 
                 <SwiperSlide>
                   {" "}
                   <div className="single_image_wrapper">
-                    <img
-                      onClick={() => (window.location.href = imageNews[13].url)}
-                      className="trending_news_img"
-                      src={latestNews[13]?.urlToImage}
-                      alt=""
-                    />
-                    <p className="imageText">
-                      {imageNews[13]?.description
-                        ?.split(" ")
-                        .slice(0, 50)
-                        .join(" ")}{" "}
-                      ...
-                    </p>
+                    <img onClick={() => (window.location.href = imageNews[13].url)} className="trending_news_img" src={latestNews[13]?.urlToImage} alt="" />
+                    <p className="imageText">{imageNews[13]?.description?.split(" ").slice(0, 50).join(" ")} ...</p>
                   </div>
                 </SwiperSlide>
 
                 <SwiperSlide>
                   {" "}
                   <div className="single_image_wrapper">
-                    <img
-                      onClick={() => (window.location.href = imageNews[14].url)}
-                      className="trending_news_img"
-                      src={latestNews[14]?.urlToImage}
-                      alt=""
-                    />
-                    <p className="imageText">
-                      {imageNews[14]?.description
-                        ?.split(" ")
-                        .slice(0, 50)
-                        .join(" ")}{" "}
-                      ...
-                    </p>
+                    <img onClick={() => (window.location.href = imageNews[14].url)} className="trending_news_img" src={latestNews[14]?.urlToImage} alt="" />
+                    <p className="imageText">{imageNews[14]?.description?.split(" ").slice(0, 50).join(" ")} ...</p>
                   </div>
                 </SwiperSlide>
               </Swiper>
@@ -270,20 +158,13 @@ export function Newsletter() {
             <div className="NewsletterPage_Articledisplay">
               {relatedNews.map((data, index) => (
                 <div key={index} className="NewsletterPage_Article_Content">
-                  <img
-                    onClick={() => (window.location.href = imageNews[data].url)}
-                    src={imageNews[data]?.urlToImage}
-                  />
+                  <img onClick={() => (window.location.href = imageNews[data].url)} src={imageNews[data]?.urlToImage} />
                   <div className="NewsletterPage_Article_Content_Profile">
                     <img src="../assets/Newsletter/Profile.png"></img>
                     <p>{imageNews[data]?.author}</p>
                   </div>
                   <p className="NewsletterPage_Article_Content_p1">
-                    {imageNews[data]?.description
-                      ?.split(" ")
-                      .slice(0, 5)
-                      .join(" ")}{" "}
-                    ...<br></br>
+                    {imageNews[data]?.description?.split(" ").slice(0, 5).join(" ")} ...<br></br>
                   </p>
                 </div>
               ))}
@@ -297,18 +178,9 @@ export function Newsletter() {
               </p>
               <div className="NewsletterPage_Subs_Email_input">
                 <form>
-                  <input
-                    type="email"
-                    placeholder="youremail@something.com"
-                  ></input>
+                  <input type="email" placeholder="youremail@something.com"></input>
                   <button>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      fill="none"
-                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
                       <path
                         d="M0.734299 18.1562C0.343775 18.5467 0.343775 19.1799 0.734299 19.5704C1.12482 19.9609 1.75799 19.9609 2.14851 19.5704L0.734299 18.1562ZM19.468 1.83666C19.468 1.28438 19.0203 0.83666 18.468 0.83666L9.46803 0.83666C8.91574 0.83666 8.46803 1.28438 8.46803 1.83666C8.46803 2.38894 8.91574 2.83666 9.46803 2.83666L17.468 2.83666L17.468 10.8367C17.468 11.3889 17.9157 11.8367 18.468 11.8367C19.0203 11.8367 19.468 11.3889 19.468 10.8367L19.468 1.83666ZM2.14851 19.5704L19.1751 2.54377L17.7609 1.12955L0.734299 18.1562L2.14851 19.5704Z"
                         fill="#EBEEF3"
@@ -326,13 +198,7 @@ export function Newsletter() {
           <div className="NewsletterPage_footer">
             <div className="NewsletterPage_footer_Social">
               <a href="">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="187"
-                  height="49"
-                  viewBox="0 0 187 49"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="187" height="49" viewBox="0 0 187 49" fill="none">
                   <path
                     d="M162.814 48.1259C175.799 48.1259 186.326 37.3526 186.326 24.063C186.326 10.7734 175.799 0 162.814 0C149.828 0 139.301 10.7734 139.301 24.063C139.301 37.3526 149.828 48.1259 162.814 48.1259Z"
                     fill="#AD2F3B"
@@ -366,13 +232,7 @@ export function Newsletter() {
             </div>
             <div className="NewsletterPage_footer_pageno">
               <button>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="27"
-                  height="16"
-                  viewBox="0 0 27 16"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
                   <path
                     d="M25.9951 9C26.5474 9 26.9951 8.55228 26.9951 8C26.9951 7.44772 26.5474 7 25.9951 7L25.9951 9ZM1.20873 7.2929C0.818207 7.68342 0.818207 8.31658 1.20873 8.70711L7.57269 15.0711C7.96322 15.4616 8.59638 15.4616 8.98691 15.0711C9.37743 14.6805 9.37743 14.0474 8.98691 13.6569L3.33005 8L8.98691 2.34315C9.37743 1.95262 9.37743 1.31946 8.98691 0.928934C8.59638 0.538409 7.96322 0.538409 7.57269 0.928934L1.20873 7.2929ZM25.9951 7L1.91584 7L1.91584 9L25.9951 9L25.9951 7Z"
                     fill="#EBEEF3"
@@ -380,21 +240,9 @@ export function Newsletter() {
                 </svg>
               </button>
               <p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="35"
-                  height="40"
-                  viewBox="0 0 35 35"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="35" height="40" viewBox="0 0 35 35" fill="none">
                   <circle cx="17.5" cy="17.5" r="17.5" fill="#AD2F3B" />
-                  <text
-                    x="50%"
-                    y="50%"
-                    dominant-baseline="middle"
-                    style={{ fontSize: "20px", fill: "white" }}
-                    text-anchor="middle"
-                  >
+                  <text x="50%" y="50%" dominant-baseline="middle" style={{ fontSize: "20px", fill: "white" }} text-anchor="middle">
                     1
                   </text>
                 </svg>
@@ -403,13 +251,7 @@ export function Newsletter() {
               <p>3</p>
               <p>4</p>
               <button>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="27"
-                  height="16"
-                  viewBox="0 0 27 16"
-                  fill="none"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="16" viewBox="0 0 27 16" fill="none">
                   <path
                     d="M1.91602 7C1.36373 7 0.916016 7.44772 0.916016 8C0.916016 8.55228 1.36373 9 1.91602 9V7ZM26.7024 8.70711C27.0929 8.31658 27.0929 7.68342 26.7024 7.29289L20.3384 0.928932C19.9479 0.538408 19.3148 0.538408 18.9242 0.928932C18.5337 1.31946 18.5337 1.95262 18.9242 2.34315L24.5811 8L18.9242 13.6569C18.5337 14.0474 18.5337 14.6805 18.9242 15.0711C19.3148 15.4616 19.9479 15.4616 20.3384 15.0711L26.7024 8.70711ZM1.91602 9L25.9953 9V7L1.91602 7V9Z"
                     fill="#EBEEF3"
