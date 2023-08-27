@@ -31,6 +31,9 @@ import ViewArtist from "../PatronPages/PatronViewAritist/ViewArtist";
 import EventApplication from "../PatronPages/PatronViewAritist/EventApplication";
 import ArtistApplication from "../PatronPages/PatronViewAritist/ArtistApplication";
 import Partner_Profile from "../PartnersPages/ProfilePage/Partner_Profile";
+import AboutPartner from "../PartnersPages/AboutUs/AboutPartner";
+import EditAboutPartner from "../PartnersPages/AboutUs/EditAboutPartner"
+import SellProduct from "../PartnersPages/SellProduct/SellProduct"
 
 export default function RouterPage() {
   const { accessToken, refreshToken } = useSelector((state) => state.auth);
@@ -67,6 +70,10 @@ export default function RouterPage() {
         <Route path="/patron-event-appli" element={<EventApplication />} />
         <Route path="/patron-artist-appli" element={<ArtistApplication />} />
         <Route path="/partner-profile" element={<Partner_Profile />} />
+
+        <Route path="/About_Partner" exact element={<AboutPartner />} />
+        <Route path="/Edit_About_Partner" exact element={<EditAboutPartner />} />
+        <Route path="/SellProduct" exact element={<SellProduct />} />
       </Routes>
     </div>
   );
