@@ -106,16 +106,6 @@
   line-height: normal;
 }
 
-.ArtistProfiles_allprofilecards button{
-  border: none;
-  background: #ad2f3b;
-  height: 40px;
-  width: 150px;
-  color: white;
-  border-radius: 10px;
-  visibility: hidden;
-}
-
 .ArtistProfiles_allprofilecards_content {
   width: 970px;
   padding: 30px;
@@ -129,8 +119,7 @@
   width: 431px;
   height: 217.998px;
   border-radius: 4px;
-  box-shadow: 0px 0px 4.541623115539551px 1.816649317741394px
-    rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 4.541623115539551px 1.816649317741394px rgba(0, 0, 0, 0.15);
   margin: 20px 0px;
   padding: 20px;
   background-image: url("../Images/Rectangle\ 3945.png");
@@ -238,76 +227,4 @@
   background: #ad2f3b;
   border: 1px solid #ad2f3b;
   color: white;
-}
-
-@media (max-width:1030px) {
-  .ArtistProfiles_Image{
-    width: 980px;
-  }
-  .ArtistProfiles_Main{
-    width: 980px;
-  }
-  .ArtistProfiles_allprofilecards{
-    width: 980px ;
-  }
-  .ArtistProfiles_Allfilters{
-    display: none;
-  }
-  .ArtistProfiles_allprofilecards button{
-    visibility: visible;
-  }
-}
-
-@media (max-width:800px) {
-  .ArtistProfiles_Image{
-    width: 720px;
-  }
-  .ArtistProfiles_Image_Content{
-    justify-content: center;
-  }
-  .ArtistProfiles_Main{
-    width: 720px;
-  }
-  .ArtistProfiles_allprofilecards{
-    width: 720px ;
-  }
-  .ArtistProfiles_allprofilecards_content{
-    width: 720px;
-    justify-content: center;
-  }
-}
-
-@media (max-width:500px) {
-  .ArtistProfiles_Image{
-    width: 90vw;
-  }
-  .ArtistProfiles_Image_Content p{
-  font-size: 40px;
-  }
-  .ArtistProfiles_Main{
-    width: 90vw;
-  }
-  .ArtistProfiles_allprofilecards{
-    width: 90vw ;
-    padding: 0px;
-  }
-  .ArtistProfiles_allprofilecards_content{
-    width: 90vw;
-  }
-  .ArtistProfiles_ProfileCard{
-    width: 90vw;
-    background-image: none;
-  }
-  .ArtistProfiles_allprofilecards_content{
-    padding: 10px 0px;
-  }
-}
-
-@media (max-width:400px) {
-  .ArtistProfiles_ProfileCard {
-    padding: 5px;
-  }
-  .ArtistProfiles_ProfileCard_left_components_social {
-    font-size: 6px;
-  }
 }

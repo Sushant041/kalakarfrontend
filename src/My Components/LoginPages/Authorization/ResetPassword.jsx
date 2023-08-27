@@ -2,30 +2,30 @@ import "./resetPassword.css";
 import AuthTemplate from "../../Common/AuthTemplate";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Cookies } from "react-cookie";
+import Cookies from "js-cookie";
 import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
 import { endpoints } from "../../../services/apis";
-import {  toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 function ResetPassword() {
   const navigate = useNavigate();
 
-  let accessToken =
-    localStorage.getItem("accessToken") || Cookies.get("accessToken");
+  let accessToken = localStorage.getItem("accessToken") || Cookies.get("accessToken");
 
   const [formData, setFormData] = useState({
     password: "",
     passwordConfirm: "",
   });
 
-  const changeHandler=(event)=>{
-    const {name , value} = event.target;
- setFormData((prev)=>{
-  return {
-    ...prev , [name]:value
-  }
- })
-  }
+  const changeHandler = (event) => {
+    const { name, value } = event.target;
+    setFormData((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
 
   function cancelHandler() {
     Cookies.remove("accessToken");
@@ -38,18 +38,13 @@ function ResetPassword() {
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    if(formData.password !== formData.passwordConfirm){
+    if (formData.password !== formData.passwordConfirm) {
       return toast.error("Password do not match");
     }
 
     try {
-      const response = await makeAuthenticatedPOSTRequest(
-        endpoints.RESETPASSWORD_API,
-        formData,
-        accessToken
-      );
+      const response = await makeAuthenticatedPOSTRequest(endpoints.RESETPASSWORD_API, formData, accessToken);
 
-      
       if (response.success === "success") {
         toast.success("successfuly reset password");
         Cookies.remove("accessToken");
@@ -74,39 +69,17 @@ function ResetPassword() {
     <AuthTemplate>
       <div className="resetPasswordWrapper ">
         <h1 className="resetPasswordHeading">Reset your Password</h1>
-        <p className="resetPasswordPara  ">
-          The password must be different than before
-        </p>
+        <p className="resetPasswordPara  ">The password must be different than before</p>
       </div>
 
       <form onSubmit={submitHandler} className=" resetPasswordForm ">
-        <input
-        onChange={changeHandler}
-          required
-          type="password"
-          value={formData.password}
-          name="password"
-          className="resetPasswordInput"
-          placeholder="Enter your new password"
-        />
-        <input
-        onChange={changeHandler}
-          required
-          type="password"
-          name="passwordConfirm"
-          value={formData.passwordConfirm}
-          className="resetPasswordInput"
-          placeholder="confrim new password"
-        />
+        <input onChange={changeHandler} required type="password" value={formData.password} name="password" className="resetPasswordInput" placeholder="Enter your new password" />
+        <input onChange={changeHandler} required type="password" name="passwordConfirm" value={formData.passwordConfirm} className="resetPasswordInput" placeholder="confrim new password" />
         <div className="resetPasswordButtonWrapper">
           <button type="submit" className="continueButton">
             Continue
           </button>
-          <button
-            onClick={cancelHandler}
-            type="button"
-            className="ResetPasswordcancelButton"
-          >
+          <button onClick={cancelHandler} type="button" className="ResetPasswordcancelButton">
             Cancel
           </button>
         </div>

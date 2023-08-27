@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Newsletter.css";
 import Artist_navbar from "../Artist_navbar";
 import { Swiper, SwiperSlide } from "swiper/react";
+
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
