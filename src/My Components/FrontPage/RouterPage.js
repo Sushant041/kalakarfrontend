@@ -32,8 +32,11 @@ import EventApplication from "../PatronPages/PatronViewAritist/EventApplication"
 import ArtistApplication from "../PatronPages/PatronViewAritist/ArtistApplication";
 import Partner_Profile from "../PartnersPages/ProfilePage/Partner_Profile";
 import AboutPartner from "../PartnersPages/AboutUs/AboutPartner";
-import EditAboutPartner from "../PartnersPages/AboutUs/EditAboutPartner"
-import SellProduct from "../PartnersPages/SellProduct/SellProduct"
+import EditAboutPartner from "../PartnersPages/AboutUs/EditAboutPartner";
+import SellProduct from "../PartnersPages/SellProduct/SellProduct";
+import MyProductsandCourses from "../PartnersPages/MyProducts/MyProductsandCourses";
+import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment"
+import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories"
 
 export default function RouterPage() {
   const { accessToken, refreshToken } = useSelector((state) => state.auth);
@@ -70,10 +73,13 @@ export default function RouterPage() {
         <Route path="/patron-event-appli" element={<EventApplication />} />
         <Route path="/patron-artist-appli" element={<ArtistApplication />} />
         <Route path="/partner-profile" element={<Partner_Profile />} />
+        <Route path="/skilldevelopment" element={<SkillDevelopment />} />
+        <Route path="/CourseCategories" exact element={<CourseCategories />} />
 
         <Route path="/About_Partner" exact element={<AboutPartner />} />
         <Route path="/Edit_About_Partner" exact element={<EditAboutPartner />} />
         <Route path="/SellProduct" exact element={<SellProduct />} />
+        <Route path="/Partner_ProductsandCourses" exact element={<MyProductsandCourses />} />
       </Routes>
     </div>
   );
