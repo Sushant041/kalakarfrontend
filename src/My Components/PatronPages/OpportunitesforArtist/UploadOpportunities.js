@@ -1,11 +1,12 @@
 import React from 'react';
 import './UploadOpportunities.css';
 import Patron_Navbar from '../Patron_Navbar';
+import { Link } from 'react-router-dom';
 
 export function UploadOpportunities() {
   return (
     <>
-      <Patron_Navbar/>
+      <Patron_Navbar />
       <div className='ArtistOpportunities_Page'>
         <div className='ArtistOpportunities_Image'>
           <div className='ArtistOpportunities_Image_Content'>
@@ -89,14 +90,19 @@ export function UploadOpportunities() {
               </div>
               <div className='ArtistOpportunities_Page_Infoform_inputfield'>
                 <label>Any Other Requirements</label>
-                <input style={{height:"200px"}} type='text'></input>
+                <input style={{ height: "200px" }} type='text'></input>
               </div>
               <div className='ArtistOpportunities_Page_Infoform_inputfield'>
                 <label>Do you Offer any Additional Facilities</label>
-                <input style={{height:"200px"}} type='text'></input>
+                <input style={{ height: "200px" }} type='text'></input>
               </div>
             </div>
-            <button type='Submit'>Upload Opportunity</button>
+            <div className='ArtistOpportunities_Page_Infoform_btns'>
+              <button type='Submit'>Upload Opportunity</button>
+              <Link style={{textDecoration:"none"}} to={"/UploadedOpportunities"}>
+                <button type='button'>Uploaded Opportunities</button>
+              </Link>
+            </div>
           </form>
         </div>
       </div>

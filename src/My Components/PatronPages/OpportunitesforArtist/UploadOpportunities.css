@@ -85,6 +85,12 @@
   border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
+.ArtistOpportunities_Page_Infoform_btns{
+  display: flex;
+  width: 40%;
+  justify-content: space-around;
+}
+
 .ArtistOpportunities_Page_Infoform_inputfield select {
   width: 430px;
   height: 60px;
@@ -111,7 +117,30 @@
   font-style: normal;
   font-weight: 600;
   line-height: normal;
+  margin: 10px;
 }
+
+.ArtistOpportunities_Page_Infoform form button[type="button"] {
+  display: flex;
+  width: 260px;
+  height: 50px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background: #fff;
+  border: none;
+  color: #ad2f3b;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  border: 1px solid #ad2f3b;
+  margin: 10px;
+}
+
+
 
 @media (max-width: 1030px) {
   .ArtistOpportunities_Image {
@@ -124,6 +153,9 @@
   .ArtistOpportunities_Page_Infoform_Contentone,
   .ArtistOpportunities_Page_Infoform_Contenttwo {
     width: 980px;
+  }
+  .ArtistOpportunities_Page_Infoform_btns{
+    width: 60%;
   }
 }
 
@@ -143,6 +175,9 @@
   .ArtistOpportunities_Page_Infoform_inputfield input,
   .ArtistOpportunities_Page_Infoform_inputfield select {
     width: 330px;
+  }
+  .ArtistOpportunities_Page_Infoform_btns{
+    width: 80%;
   }
 }
 
@@ -167,5 +202,10 @@
   .ArtistOpportunities_Page_Infoform_inputfield input,
   .ArtistOpportunities_Page_Infoform_inputfield select {
     width: 95vw;
+  }
+  .ArtistOpportunities_Page_Infoform_btns{
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
   }
 }
