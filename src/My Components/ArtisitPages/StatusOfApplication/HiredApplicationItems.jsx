@@ -4,36 +4,8 @@ import hireNoData from "./assets/hireNoData.svg"
 import { Link } from 'react-router-dom';
 
 
-function HiredApplicationItems({ currentEvent }) {
-  const jobData = [
-    {
-      title: "Dancer for Entertain the Regular Audience",
-      location: "Mumbai Hotel",
-      dateOfPerformance: "23/08/23",
-      amount: "5,000 INR",
-      language: "Hindi",
-      applicationDueDate: "08/08/23",
-      postedondate: "28/07/23",
-      description: "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.Gorem ipsum dolor sit amet, consectetur adipiscing elit.",
-      role: "Kathak Dancer",
-      expertise: "Acting, Dancing, Time Management",
-      opening: "5",
-      category: "Dance",
-      appliedOn: "Applied on 06/08/23",
-      perk1: "Accommodation",
-      perk2: "Food",
-      perk3: "Paycheck"
-    },
-    {
-      title: "Foreign Delegation",
-      location: "Delhi",
-      dateOfPerformance: "23/08/23",
-      amount: "5,000 INR",
-      language: "English",
-      applicationDueDate: "08/08/23"
-    },
-    // Add more job objects as needed
-  ];
+function HiredApplicationItems({ currentEvent  , jobData}) {
+ 
   return (
     <div className="hired_Application_wrapper">
       <p className="hired_event_text">

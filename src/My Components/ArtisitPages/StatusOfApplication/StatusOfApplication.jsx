@@ -6,6 +6,10 @@ import InProgressApplicationItems from "./InProgressApplicationItems";
 import AppliedApplicationItems from "./AppliedApplicationItems";
 import SaveApplicationItems from "./SaveApplicationItems";
 import Artist_navbar from "../Artist_navbar";
+import { statusOfAppliPoints } from "../../../services/apis";
+import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
 
 const navItems = [
   {
@@ -28,16 +32,76 @@ const navItems = [
 function StatusOfApplication() {
   const [currentEvent, setCurrentEvent] = useState("Saved");
 
+  const {accessToken} = useSelector((state)=>state.auth);
+  const [loading , setLoading] = useState(false);
+  const [appliedData , setAppliedData] = useState([]);
+  const [inProgressData , setInProgressData] = useState([]);
+  const [hiredData , setHiredData] = useState([]);
+  const [rejectData , setRejectData] = useState([]);
+
+  const fetchApplication = async()=>{
+    setLoading(true);
+    try{ 
+ const response = await makeAuthenticatedGETRequest(statusOfAppliPoints.FETCH_APPLIED_APPLI_API , accessToken);
+ console.log('response' , response); 
+ const {data} = response;
+ console.log('data' , data);
+  
+  if(response.success === 'success'){
+        setAppliedData(response.data);
+
+        // next step for inprogress data 
+        const inprogressAppli = data?.filter((event) => {
+          const appliStatus = event.status;
+          return appliStatus === 'In-Progress'
+        })
+        const rejectAppli = data?.filter((event) => {
+          const appliStatus = event.status;
+          return appliStatus === 'Rejected'
+        })
+        const hiredAppli = data?.filter((event) => {
+          const appliStatus = event.status;
+          return appliStatus === 'Hired'
+        })
+
+        if(inprogressAppli.length > 0 ){
+          setInProgressData(inprogressAppli);
+        }
+        if(rejectAppli.length > 0 ){
+          setRejectData(inprogressAppli);
+        }
+        if(hiredAppli.length > 0 ){
+          setHiredData(inprogressAppli);
+        }
+
+        
+
+        
+  }
+  else {
+    toast.error('Cannot fetch Applied Appliction , please refresh page');
+  }
+    }catch(error){
+      console.log(error);
+
+    }
+    setLoading(false);
+  }
+
   useEffect(() => {
     if (sessionStorage.getItem('currentEvent')) {
 
       setCurrentEvent(sessionStorage.getItem('currentEvent'));
     }
+    fetchApplication();
+
   }, [])
 
   useEffect(() => {
     sessionStorage.setItem('currentEvent', currentEvent);
   }, [currentEvent])
+
+
 
   return (
     <>
@@ -69,19 +133,19 @@ function StatusOfApplication() {
             </div>
           </nav>
           {currentEvent === navItems[0].title && (
-            <SaveApplicationItems currentEvent={currentEvent} />
+            <SaveApplicationItems  setLoading={setLoading} loading={loading}  currentEvent={currentEvent} />
           )}
           {currentEvent === navItems[1].title && (
-            <AppliedApplicationItems currentEvent={currentEvent} />
+            <AppliedApplicationItems jobData = {appliedData} loading={loading} currentEvent={currentEvent} />
           )}
           {currentEvent === navItems[2].title && (
-            <InProgressApplicationItems currentEvent={currentEvent} />
+            <InProgressApplicationItems jobData={inProgressData} currentEvent={currentEvent} />
           )}
           {currentEvent === navItems[3].title && (
-            <HiredApplicationItems currentEvent={currentEvent} />
+            <HiredApplicationItems jobData={hiredData} currentEvent={currentEvent} />
           )}
           {currentEvent === navItems[4].title && (
-            <RejectedApplicationItems currentEvent={currentEvent} />
+            <RejectedApplicationItems jobData={rejectData} currentEvent={currentEvent} />
           )}
         </div>
 

@@ -17,4 +17,23 @@ export const artistProfilePoints = {
 export const artistOpportunityPoints = {
   FETCH_OPPOR_DATA_API: BASE_URL + `/artists/opportunities`,
   APPLY_OPPOR_API: BASE_URL + `/artists/opportunities`,
+  RETRIVE_APPLIED_APPLI :BASE_URL + `/artists/opportunities`,
+  FETCH_OPPOR_BY_ID: BASE_URL + `/artists/opportunities`,
+  SAVE_OPPR_BY_ID: BASE_URL + `/artists/opportunities/saved`
 };
+
+export const statusOfAppliPoints = {
+  FETCH_APPLIED_APPLI_API : BASE_URL +`/artists/opportunities/applications`,
+  FETCH_SAVED_APPLI_API : BASE_URL +`/artists/opportunities/saved`
+}
+
+export const patronProfilePoints = {
+  FETCH_PATRON_APPLI_API : BASE_URL + `/patrons/profile`,
+  UPLOAD_OPPOR_API : BASE_URL + `/patrons/opportunities`,
+  FETCH_PATRON_APPLI_API : BASE_URL + `/patrons/opportunities`,
+  
+}
+export const contactUsPoints = {
+  POST_QUERY_API : BASE_URL + `/quries/post-query`,
+}
+

@@ -64,7 +64,7 @@ export default function RouterPage() {
         <Route path="/Patron_Profile" element={<PatronProfile />} />
         <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
         <Route path="/patron-view-artist" element={<ViewArtist />} />
-        <Route path="/patron-event-appli" element={<EventApplication />} />
+        <Route path="/patron-event-appli/:id" element={<EventApplication />} />
         <Route path="/patron-artist-appli" element={<ArtistApplication />} />
         <Route path="/partner-profile" element={<Partner_Profile />} />
       </Routes>

@@ -133,3 +133,23 @@ export const makeAuthenticatedDATADELETERequest = async(route ,body , token)=>{
     console.log(`error in fetch api `, error);
   }
 }
+
+export const makeAuthenticatedPOSTRequestWithoutBody = async(route , token)=>{
+  try {
+    const response = await fetch( route, {
+      method: "POST",
+      
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      // the body will send like this to backend
+     
+    });
+
+    const formattedResponse = await response.json();
+    return formattedResponse;
+  } catch (error) {
+    console.log(`error in fetch api `, error);
+  }
+}

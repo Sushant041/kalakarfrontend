@@ -1,25 +1,57 @@
-import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import {  useLocation, useNavigate } from "react-router-dom";
 import "./Artist_OpportunitiesMoreInfo.css";
-import { Navbar_frontpage } from "../../FrontPage/Navbar";
+// import { Navbar_frontpage } from "../../FrontPage/Navbar";
 import { useState } from "react";
 import Artist_navbar from "../Artist_navbar";
 import { toast } from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
+import { makeAuthenticatedGETRequest, makeAuthenticatedPOSTRequest, makeAuthenticatedPOSTRequestWithoutBody } from "../../../services/serverHelper";
 import { artistOpportunityPoints } from "../../../services/apis";
 import applyFilter from "./assets/applyFilter.svg";
+
 
 export function Artist_OpportunitiesMoreInfo() {
   const navigate = useNavigate();
   const location = useLocation();
-  const job = location.state.job;
+  let job = location.state?.job;
+
+  const [currentId , setCurrentId] = useState(null);
+
   const [OpportunityapplynowPopup, setOpportunityapplynowPopup] = useState(null);
 
   const { accessToken } = useSelector((state) => state.auth);
   const [applyAns, setApplyAns] = useState("");
 
   console.log("josb", job);
+
+  const [jobData , setJobData] = useState(null);
+
+  // for fetch the data 
+  const fetchAppliedOpp =async() =>{
+    const response = await makeAuthenticatedGETRequest(artistOpportunityPoints.FETCH_OPPOR_BY_ID + `/${job.id}` , accessToken);
+    console.log('fiteres' , response);
+      if(response.success  ===  'success'){
+        setJobData(response.data);
+        
+      }
+      else{
+        toast.error('something went wrong , please try again');
+      }
+  }
+
+  useEffect(()=>{
+   if(job?.status === 'Applied'){
+    setCurrentId(job.id);
+    fetchAppliedOpp();
+   }
+   else {
+    setCurrentId(job._id);
+    setJobData(job);
+   }
+  },[])
+
+  console.log('currentId' , currentId);
 
   const applySubmitHandler = async (event) => {
     const toastId = toast.loading("Loading...");
@@ -43,38 +75,59 @@ export function Artist_OpportunitiesMoreInfo() {
     toast.dismiss(toastId);
   };
 
+const savedHandler = async()=>{
+  const toastId = toast.loading('Loading...');
+  try{
+
+    const response = await makeAuthenticatedPOSTRequestWithoutBody(artistOpportunityPoints.SAVE_OPPR_BY_ID + `/${currentId}`,accessToken);
+    console.log('response saved' , response);
+    if(response.success === 'success'){
+      toast.success('successfully Saved');
+           navigate("/statusOfApplication");
+    }
+    else{
+      toast.error(response.message);
+    }
+
+  }catch(error){
+    console.log(error);
+    toast.error('something went wrong , Please try again');
+  }
+  toast.dismiss(toastId);
+}
+
   return (
     <>
       <Artist_navbar />
       <div className="OpportunitiesMoreInfoPage">
         <div className="OpportunitiesMoreInfoPage_Topbox">
-          <h1>{job.title}</h1>
+          <h1>{jobData?.title}</h1>
           <div className="OpportunitiesMoreInfoPage_Topboxcontent">
             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
               <p>
-                Category :&emsp;<span>{job.role}</span>
+                Category :&emsp;<span>{jobData?.role}</span>
               </p>
               <p>
-                Posted on :&emsp;<span>{new Date(job.applicationPeriod.start).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
+                Posted on :&emsp;<span>{new Date(jobData?.applicationPeriod?.start).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
               </p>
               <p>
-                Due Date :&emsp; <span>{new Date(job.applicationPeriod.end).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
+                Due Date :&emsp; <span>{new Date(jobData?.applicationPeriod?.end).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
               </p>
               <p>
                 {" "}
-                Opening :&emsp; <span>{job.openings}</span>
+                Opening :&emsp; <span>{jobData?.openings}</span>
               </p>
             </div>
             <div className="OpportunitiesMoreInfoPage_Topboxbtns">
               <button className="btnone">Share</button>
-              <button className="btntwo">Save</button>
+              <button onClick={savedHandler} className="btntwo">Save</button>
             </div>
           </div>
         </div>
 
         <div className="OpportunitiesMoreInfoPage_bottombox">
           <h1>Description</h1>
-          <p>{job.description}</p>
+          <p>{jobData?.description}</p>
           <h1>Other Details</h1>
           <div className="OpportunitiesMoreInfoPage_bottombox_RSO">
             <div>
@@ -94,64 +147,78 @@ export function Artist_OpportunitiesMoreInfo() {
             </div>
             <div>
               <p>
-                <span>{job.expertise}</span>
+                <span>{jobData?.expertise}</span>
               </p>
               <p>
-                <span>{job.location}</span>
+                <span>{jobData?.location}</span>
               </p>
               <p>
                 <span>
-                  {job.languages?.map((lag, index) => (
+                  {jobData?.languages?.map((lag, index) => (
                     <span key={index}>{lag} </span>
                   ))}
                 </span>
               </p>
               <p>
-                <span>{job.budget}</span>
+                <span>{jobData?.budget}</span>
               </p>
               <p>
-                <span>{job.theme}</span>
+                <span>{jobData?.theme}</span>
               </p>
               <p>
-                <span>{job.timeSlot}</span>
+                <span>{jobData?.timeSlot}</span>
               </p>
               <p>
-                <span>{job.performanceDuration}</span>
+                <span>{jobData?.performanceDuration}</span>
               </p>
               <p>
-                <span>{job.artNature}</span>
+                <span>{jobData?.artNature}</span>
               </p>
               <p>
-                <span>{job.performanceType}</span>
+                <span>{jobData?.performanceType}</span>
               </p>
               <p>
-                <span>{job.mediaType}</span>
+                <span>{jobData?.mediaType}</span>
               </p>
               <p>
-                <span>{job.artLevel}</span>
+                <span>{jobData?.artLevel}</span>
               </p>
               <p>
-                <span>{job.location}</span>
+                <span>{jobData?.location}</span>
               </p>
               <p>
-                <span>{job.postedBy}</span>
+                <span>{jobData?.postedBy}</span>
               </p>
             </div>
           </div>
           <h1>Perks and Benefits</h1>
           <div className="OpportunitiesMoreInfoPage_bottombox_PB">
-            {job.incentives?.map((data, index) => (
+            {jobData?.incentives?.map((data, index) => (
               <p key={index}>{data}</p>
             ))}
           </div>
-          <div className="OpportunitiesMoreInfoPage_bottombox_btns">
-            <button className="btnone" onClick={() => navigate(-1)}>
-              Back
-            </button>
-            <button className="btntwo" onClick={() => setOpportunityapplynowPopup(true)}>
-              Apply Now
-            </button>
-          </div>
+          {
+            job?.status === 'Applied' ?(
+              <div className="OpportunitiesMoreInfoPage_bottombox_btns">
+
+              <button className="notAppliedBtn" >
+                Already Applied
+              </button>
+              </div>
+            ):(
+              <div className="OpportunitiesMoreInfoPage_bottombox_btns">
+              <button className="btnone" onClick={() => navigate(-1)}>
+                Back
+              </button>
+              <button className="btntwo" onClick={() => setOpportunityapplynowPopup(true)}>
+                Apply Now
+              </button>
+            </div>
+            )
+          }
+        
+
+          
         </div>
 
         {/* this is for pop up  */}
@@ -163,18 +230,18 @@ export function Artist_OpportunitiesMoreInfo() {
             <div className="Opportunityapplynowpopup">
               <button onClick={() => setOpportunityapplynowPopup(false)}>X</button>
               <div className="Opportunityapplynowpopup_content">
-                <h4>{job.title}</h4>
+                <h4>{jobData?.title}</h4>
                 <div className="Opportunityapplynowpopup_contentone">
                   <p>
-                    Posted on: <span>{job.postedondate}</span>
+                    Posted on: <span>{jobData.postedondate}</span>
                   </p>
                   <p>
-                    Last Date to apply: <span>{job.applicationDueDate}</span>
+                    Last Date to apply: <span>{jobData.applicationDueDate}</span>
                   </p>
                 </div>
               </div>
               <h1>Description</h1>
-              <p>{job.description}</p>
+              <p>{jobData?.description}</p>
               <div className="Opportunityapplynowpopup_contentone">
                 <h1>Other Details</h1>
                 <a href="#" style={{ color: "#AD2F3B" }}>
@@ -183,23 +250,23 @@ export function Artist_OpportunitiesMoreInfo() {
               </div>
               <div className="OpportunitiesPage_displayonejob_contentdetailsone">
                 <p>
-                  Role : &emsp;&emsp;&emsp;&emsp; <span>{job.role}</span>
+                  Role : &emsp;&emsp;&emsp;&emsp; <span>{jobData?.role}</span>
                 </p>
                 <p>
-                  Expertise :&emsp;&emsp;<span>{job.expertise}</span>
+                  Expertise :&emsp;&emsp;<span>{jobData?.expertise}</span>
                 </p>
                 <p>
-                  Location :&emsp;&emsp; <span>{job.location}</span>
+                  Location :&emsp;&emsp; <span>{jobData?.location}</span>
                 </p>
                 <p>
-                  Language : &emsp; <span>{job.language}</span>
+                  Language : &emsp; <span>{jobData?.language}</span>
                 </p>
                 <p>
-                  Amount : &emsp; &emsp;<span>{job.amount}</span>
+                  Amount : &emsp; &emsp;<span>{jobData?.amount}</span>
                 </p>
                 <p>
                   {" "}
-                  Opening :&emsp;&emsp; <span>{job.opening}</span>
+                  Opening :&emsp;&emsp; <span>{jobData?.opening}</span>
                 </p>
               </div>
               <h1>Why do you want ot Apply for this Role?</h1>

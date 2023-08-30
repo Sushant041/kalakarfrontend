@@ -175,8 +175,8 @@
 }
 
 .minmaxamount input {
-  width: 86px;
-  height: 40px;
+   width: 86px; 
+  height: 40px; 
 }
 
 .minmaxamount label {
@@ -544,4 +544,11 @@
   .OpportunitiesPage_displayonejob_contentdetailsbuttons button {
     width: 120px;
   }
+}
+
+
+.addWrongValueCss{
+  width: 500px;
+  border: 1px solid red;
+  background-color: aqua;
 }

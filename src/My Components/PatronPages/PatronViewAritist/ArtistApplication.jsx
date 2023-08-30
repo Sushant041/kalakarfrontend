@@ -1,6 +1,13 @@
 import "./artistApplication.css";
 import bgFilter from "./assets/bgFilter.svg";
 import background from "./assets/background.svg";
+import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
+import { patronProfilePoints } from "../../../services/apis";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { Link ,NavLink } from "react-router-dom";
+
 
 const filterData = [
   {
@@ -62,53 +69,33 @@ const artistForm = [
   },
 ];
 
-const eventAppli = [
-    {
-        date:"12/03/23",
-        event:"Kathak Dancer For Festival",
-        application:"4",
-        status:"Open",
-        deadline:"30/03/23"
-    },
-    {
-        date:"12/03/23",
-        event:"Kathak Dancer For Festival",
-        application:"4",
-        status:"Open",
-        deadline:"30/03/23"
-    },
-    {
-        date:"12/03/23",
-        event:"Kathak Dancer For Festival",
-        application:"4",
-        status:"Open",
-        deadline:"30/03/23"
-    },
-    {
-        date:"12/03/23",
-        event:"Kathak Dancer For Festival",
-        application:"4",
-        status:"Closed",
-        deadline:"30/03/23"
-    },
-    {
-        date:"12/03/23",
-        event:"Kathak Dancer For Festival",
-        application:"4",
-        status:"Closed",
-        deadline:"30/03/23"
-    },
-    {
-        date:"12/03/23",
-        event:"Kathak Dancer For Festival",
-        application:"4",
-        status:"Closed",
-        deadline:"30/03/23"
-    },
-]
-
-
 function ArtistApplication() {
+  const { accessToken } = useSelector((state) => state.auth);
+
+  const [artistForm, setArtistForm] = useState([]);
+
+  const fetchArtistAppli = async () => {
+    try {
+      const response = await makeAuthenticatedGETRequest(
+        patronProfilePoints.FETCH_PATRON_APPLI_API,
+        accessToken
+      );
+      console.log("res", response);
+      if (response.success === "success") {
+        setArtistForm(response.data);
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong , please try again");
+    }
+  };
+
+  useEffect(() => {
+    fetchArtistAppli();
+  }, []);
+
   return (
     <div className="patron_artist_appli_wrapper">
       <section className="artist_image_section">
@@ -118,7 +105,7 @@ function ArtistApplication() {
       </section>
 
       <section className="artist_filter_section">
-        {filterData.map((data, index) => (
+        {  filterData.map((data, index) => (
           <div key={index} className="single_artist_filter">
             <p className="single_artist_title">{data.title}</p>
             <select name="" id="" className="single_artist_select">
@@ -146,13 +133,28 @@ function ArtistApplication() {
         </div>
 
         <div className="artist_form_body">
-          {artistForm.map((data, index) => (
+          {artistForm.length > 0 &&  artistForm.map((data, index) => (
             <div key={index} className="single_artist_body_row">
-              <p className="body_date artist_body ">{data.date}</p>
-              <p className="body_event artist_body">{data.event}</p>
-              <p className="body_appli artist_body">{data.application} <span className="view_appli_text artist_body">(View Applications)</span> </p>
-              <p className={`body_status artist_body ${data.status=== 'Closed'?('statusClose'):('statusOpen')} `}>{data.status}</p>
-              <p className="body_deadline artist_body">{data.deadline}</p>
+              <p className="body_date artist_body ">{new Date(data.applicationPeriod.start)
+  .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
+              <p className="body_event artist_body">{data.performanceType}</p>
+             <Link to={`/patron-event-appli/${data._id}`} >
+             <p  className="body_appli artist_body">
+                {data.application}{" "}
+                <span className="view_appli_text artist_body">
+                  (View Applications)
+                </span>{" "}
+              </p>
+             </Link> 
+              <p
+                className={`body_status artist_body ${
+                  !data.active ? "statusClose" : "statusOpen"
+                } `}
+              >
+                {data.active ?('Open'):('Close')}
+              </p>
+              <p className="body_deadline artist_body">{new Date(data.applicationPeriod.end)
+  .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
             </div>
           ))}
         </div>
@@ -160,32 +162,41 @@ function ArtistApplication() {
 
       {/* table section for small width */}
       <section className="artist_event_appli_container">
-              {
-                eventAppli.map((data , index)=>(
-                    <div key={index} className="single_artist_event">
-                     <div className="single_element">
-                        <p className="single_ele_title">Date</p>
-                        <p >{data.date}</p>
-                     </div>
-                     <div  className="single_element">
-                        <p className="single_ele_title">Event</p>
-                        <p>{data.event}</p>
-                     </div>
-                     <div className="single_element">
-                        <p className="single_ele_title">Applications</p>
-                        <p>{data.application} <span className="view_appli_text">(View Applications)</span></p>
-                     </div>
-                     <div className="single_element" > 
-                        <p className="single_ele_title">Application Status</p>
-                        <p className={`${data.status === 'Closed'?('statusClose'):('statusOpen')}`}>{data.status}</p>
-                     </div>
-                     <div className="single_element">
-                        <p className="single_ele_title">Deadline</p>
-                        <p>{data.deadline}</p>
-                     </div>
-                    </div>
-                ))
-              }
+        {artistForm.map((data, index) => (
+          <div key={index} className="single_artist_event">
+            <div className="single_element">
+              <p className="single_ele_title">Date</p>
+              <p>{data.date}</p>
+            </div>
+            <div className="single_element">
+              <p className="single_ele_title">Event</p>
+              <p>{data.event}</p>
+            </div>
+            <div className="single_element">
+              <p className="single_ele_title">Applications</p>
+             <Link to={`/patron-event-appli/${data._id}`} >
+             <p style={{cursor:"pointer"}}>
+                {data.application}{" "}
+                <span className="view_appli_text">(View Applications)</span>
+              </p>
+             </Link> 
+            </div>
+            <div className="single_element">
+              <p className="single_ele_title">Application Status</p>
+              <p
+                className={`${
+                  data.status === "Closed" ? "statusClose" : "statusOpen"
+                }`}
+              >
+                {data.status}
+              </p>
+            </div>
+            <div className="single_element">
+              <p className="single_ele_title">Deadline</p>
+              <p>{data.deadline}</p>
+            </div>
+          </div>
+        ))}
       </section>
     </div>
   );

@@ -1,6 +1,6 @@
 import "./eventApplication.css";
 import bgFilter from "./assets/bgFilter.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import category from "./assets/category.svg";
 import date from "./assets/date.svg";
 import opening from "./assets/opening.svg";
@@ -14,6 +14,11 @@ import facebookimg from "./assets/facebookimg.svg";
 import DP from "./assets/DP.svg";
 import anvelop from "./assets/anvelop.svg";
 import eventBg from "./assets/eventBg.jpg";
+import { useParams } from "react-router-dom";
+import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
+import { useSelector } from "react-redux";
+import { patronProfilePoints } from "../../../services/apis";
+import { toast } from "react-hot-toast";
 
 const jobDescPara =
   "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.Gorem ipsum dolor sit amet, consectetur adipiscing elit.";
@@ -105,7 +110,72 @@ const userName = "Mano Selva Vijay";
 const userProfession = "Dancer";
 
 function EventApplication() {
+  
   const [currentEvent, setCurrentEvent] = useState("Application");
+  const {accessToken} = useSelector((state)=>state.auth);
+  const [eventDetail , setEventDetail] = useState([]);
+  const {id} = useParams();
+
+  const [jobOverview , setJobOverview] = useState([
+    {
+      image: category,
+      title1: "category",
+      title2: "",
+    },
+    {
+      image: posted,
+      title1: "Application Posted",
+      title2: "",
+    },
+    {
+      image: date,
+      title1: "application due date",
+      title2: "",
+    },
+    {
+      image: opening,
+      title1: "openings",
+      title2: "",
+    },
+  ])
+
+  const updateTitle2 = (index, newTitle2) => {
+    setJobOverview(prevJobOverview => {
+      const updatedJobOverview = prevJobOverview.map((item, i) =>
+        i === index ? { ...item, title2: newTitle2 } : item
+      );
+      return updatedJobOverview;
+    });
+  };
+
+  const fetchOpporById = async()=>{
+    try{
+      const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API + `/${id}` , accessToken);
+      console.log('res',response);
+      if(response.success === 'success'){
+          const {applicationPeriod , openings , artNature} = response.data;
+            updateTitle2(0 , artNature);
+            updateTitle2(1 , new Date(applicationPeriod.start).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
+            updateTitle2(2 , new Date(applicationPeriod.end).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
+            updateTitle2(3 , openings);
+
+        setEventDetail(response.data);
+        
+      }
+      else{
+        toast.error(response.message);
+      }
+    } catch(error){
+      console.log(error);
+      toast.error('something went wrong , please try again');
+    }
+  }
+
+
+  console.log('evend' ,eventDetail);
+useEffect(()=>{
+ fetchOpporById();
+},[])
 
   return (
     <div className="patron_event_appli_wrapper">
@@ -123,7 +193,7 @@ function EventApplication() {
         {/* left side */}
         <div className="job_description_container">
           <p className="job_description_text">Job Description</p>
-          <p className="job_description_para">{jobDescPara}</p>
+          <p className="job_description_para">{eventDetail.description}</p>
           <ul className="job_des_allList">
             {jobDesList.map((desc, index) => (
               <li className="job_des_list" key={index}>
@@ -168,7 +238,7 @@ function EventApplication() {
 {/* ⚠️ when actual data of all application will come , use map funtion and put this section inside it  */}
       {/* user detail box   */}
 
-      {/* for application section  */}
+      {/* ⚠️ for application section  */}
       {
         currentEvent === 'Application' && 
       
@@ -229,6 +299,12 @@ function EventApplication() {
         <p ></p>
     </div>    
   
+</div>
+
+{/* ṃiddle part */}
+<div style={{width:"90%" , }}>
+  <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Why do you want ot Apply for this Role?</p>
+  <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Qorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
 </div>
 
 {/* bottom button */}

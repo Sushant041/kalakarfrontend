@@ -148,8 +148,13 @@ border-radius: 10px;
 
 }
 .body_appli{
-    width:20% ;
+    
+    width:100% ;
  text-align: center;
+ text-decoration: none !important;
+ /* background-color: #25D366; */
+ color: black;
+ cursor: pointer;
 }
 .body_status{
     width:20% ;

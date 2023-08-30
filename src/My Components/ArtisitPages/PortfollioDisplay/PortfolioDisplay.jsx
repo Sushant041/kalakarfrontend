@@ -11,6 +11,12 @@ import instagram from "./assets/instagram.svg";
 import facebookimg from "./assets/facebookimg.svg";
 import PortfolioPhotoSection from "./PortfolioPhotoSection";
 import PortfolioVideoSection from "./PortfolioVideoSection";
+import mail from "./assets/Mail.svg"
+import { artistProfilePoints } from "../../../services/apis";
+import { useEffect, useState } from "react";
+import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
 
 const userProfessionDetail = [
   {
@@ -66,7 +72,7 @@ const userDetails = [
     data: "1234568901",
   },
   {
-    // image: mail,
+    image: mail,
     data: "randomemail@gmail.com",
   },
   {
@@ -77,11 +83,42 @@ const userDetails = [
 
 const aboutMe =
   "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.";
+
 const userName = "Mano Selva Vijay";
 const profession = "Dancer";
 
 function PortfolioDisplay() {
+  const {accessToken} = useSelector((state)=>state.auth)
   const navigate = useNavigate();
+
+  const [portfolioData , setPortfolioData] = useState(null);
+  const [loading , setLoading] = useState(false);
+
+
+const fetchUserData = async()=>{
+  setLoading(true);
+  try{
+    
+    const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API , accessToken);
+    console.log("res" , response);
+    if(response.success === 'success'){
+      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt} = response.data;
+    setPortfolioData({
+      phoneNumber , email,address , handles , firstName , lastName , natureOfArt
+    })
+    }else{
+      toast.error('something went wrong , please refresh the page');
+    }
+
+  } catch(error){
+    console.log(error);
+  }
+  setLoading(false);
+}
+
+  useEffect(()=>{
+   fetchUserData();
+  },[])
 
   return (
     <div className="portfolioDisplay_wrapper">
@@ -90,7 +127,7 @@ function PortfolioDisplay() {
       <h1 className="portfolio_display_heading">YOUR PORTFOLIO</h1>
 
       {/* portfolio card */}
-      <PortfolioCardTemplate socalMedia={socalMedia} userDetails={userDetails} profession={profession} userName={userName} />
+      <PortfolioCardTemplate portfolioData={portfolioData} socalMedia={socalMedia} userDetails={userDetails} userName={userName} />
 
       {/* two buttons */}
       <section className="card_button_wrapper">
@@ -135,12 +172,44 @@ function PortfolioDisplay() {
         </div>
 
         <div className="user_profession_details">
-          {userProfessionDetail.map((item, index) => (
-            <div key={index} className="single_userProfession_detail">
-              <p className="profession_title">{item.title}</p>
-              <p className="profession_info">{item.info}</p>
+         
+        <div  className="single_userProfession_detail">
+              <p className="profession_title">Profession :</p>
+              <p className="profession_info">{portfolioData?.natureOfArt ?(portfolioData?.natureOfArt):('your Profession')}</p>
             </div>
-          ))}
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Talents :</p>
+              <p className="profession_info">{portfolioData?.handles.youtube ?(portfolioData?.handles.youtube):('your_talent')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Location :</p>
+              <p className="profession_info">{portfolioData?.address.state ?(portfolioData.address.state):('your_location')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Experience :</p>
+              <p className="profession_info">{portfolioData?.experience ?(portfolioData.experience):('your_experience')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Events Type :</p>
+              <p className="profession_info">{portfolioData?.eventType ?(portfolioData.eventType):('your_eventType')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Minimum Budget :</p>
+              <p className="profession_info">{portfolioData?.minimumBudget ?(portfolioData.minimumBudget):('your_minBudget')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Instagram :</p>
+              <p className="profession_info">{portfolioData?.handles.instagram ?(portfolioData?.handles.instagram):('Random__Channel')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Facebook :</p>
+              <p className="profession_info">{portfolioData?.handles.facebook ?(portfolioData?.handles.facebook):('Random__Channel')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Youtube :</p>
+              <p className="profession_info">{portfolioData?.handles.youtube ?(portfolioData?.handles.youtube):('Random__Channel')}</p>
+            </div>
+         
         </div>
       </section>
 

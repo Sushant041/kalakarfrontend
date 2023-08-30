@@ -9,7 +9,12 @@ import { Link } from "react-router-dom";
 import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+import profile from "./assets/profile.svg"
 import { artistProfilePoints } from "../../../services/apis";
+import star from "./assets/star.svg"
+import expected from "./assets/expected.svg"
+import art from "./assets/art.svg"
+import performance from "./assets/performance.svg"
 
 export function Artist_Profile() {
   const { accessToken, refreshToken } = useSelector((state) => state.auth);
@@ -565,6 +570,8 @@ export function Artist_Profile() {
     setAccountPopupVisible(!AccountpopupVisible);
   };
 
+
+  
   return (
     <div className="Profile_Page">
       <div className="ProfilePage_Navbar">
@@ -597,16 +604,16 @@ export function Artist_Profile() {
                     Basic Profile
                   </button>
                   <button className={activeSection === "art" ? "active" : ""} onClick={() => handleClick("art")}>
-                    <img src="assets/Basic Profile/ArtProfile.svg" /> Art Profile
+                    <img src={art} /> Art Profile
                   </button>
                   <button className={activeSection === "performance" ? "active" : ""} onClick={() => handleClick("performance")}>
-                    <img src="assets/Basic Profile/PerformanceProfiile.svg" /> Performance Profile
+                    <img src={performance} /> Performance Profile
                   </button>
                   <button className={activeSection === "award" ? "active" : ""} onClick={() => handleClick("award")}>
-                    <img src="assets/Basic Profile/AwardProfile.svg" /> Award Profile
+                    <img src={star} /> Award Profile
                   </button>
                   <button className={activeSection === "expected" ? "active" : ""} onClick={() => handleClick("expected")}>
-                    <img src="assets/Basic Profile/Expected.svg" /> Expected Opportunities
+                    <img src={expected} /> Expected Opportunities
                   </button>
                 </Nav>
               </div>
@@ -793,20 +800,20 @@ export function Artist_Profile() {
             Basic Profile
           </button>
           <button className={activeSection === "art" ? "active" : ""} onClick={() => handleClick("art")}>
-            <img src="assets/Basic Profile/ArtProfile.svg" /> Art Profile
+            <img src={art} /> Art Profile
           </button>
           <button className={activeSection === "performance" ? "active" : ""} onClick={() => handleClick("performance")}>
-            <img src="assets/Basic Profile/PerformanceProfiile.svg" /> Performance Profile
+            <img src={performance} /> Performance Profile
           </button>
           <button className={activeSection === "award" ? "active" : ""} onClick={() => handleClick("award")}>
-            <img src="assets/Basic Profile/AwardProfile.svg" /> Award Profile
+            <img src={star} /> Award Profile
           </button>
           <button className={activeSection === "expected" ? "active" : ""} onClick={() => handleClick("expected")}>
-            <img src="assets/Basic Profile/Expected.svg" /> Expected Opportunities
+            <img src={expected} /> Expected Opportunities
           </button>
         </div>
         <div className="BasicProfile_avatar">
-          <img src="assets/Basic Profile/Avatar.svg" />
+          <img src={profile} />
           <button className="BasicProfile_editavatar">Edit Profile Picture</button>
           <button className="BasicProfile_removeavatar">Remove Avatar</button>
         </div>
@@ -819,7 +826,7 @@ export function Artist_Profile() {
         </div>
       </div>
       {activeSection === "basic" && (
-        <div className="BasicProfile_Infoform">
+        <div style={{fontFamily:"Poppins"}} className="BasicProfile_Infoform">
           <form onSubmit={basicSubmitHandler}>
             <h4>PERSONAL INFORMATIONAL</h4>
             <div className="BasicProfile_PersonalINfo">
@@ -919,7 +926,7 @@ export function Artist_Profile() {
               </div>
               <div className="BasicProfile_inputfield BasicProfile_Addresslong">
                 <label>Detailed Address</label>
-                <input onChange={changeHandler} name="address.detailedAddress" value={basicFormData.address.detailedAddress} type="text"></input>
+                <textarea style={{width:"100%" , height:"150px" , resize:"none" , borderRadius:"10px" , padding:"10px"}} onChange={changeHandler} name="address.detailedAddress" value={basicFormData.address.detailedAddress} type="text" />
               </div>
             </div>
             <h4>
@@ -952,7 +959,7 @@ export function Artist_Profile() {
               </div>
               <div className="BasicProfile_inputfield">
                 <label>UPI Id</label>
-                <input onChange={changeHandler} value={basicFormData.upiId} name="upiId" type="text"></input>
+                <input onChange={changeHandler} value={basicFormData.upiId} name="upiId" type="number"></input>
               </div>
             </div>
             <h4>SOCIAL PROOF</h4>
@@ -985,8 +992,9 @@ export function Artist_Profile() {
           </form>
         </div>
       )}
+
       {activeSection === "art" && (
-        <div className="ArtProfile_Infoform">
+        <div style={{fontFamily:"Poppins"}} className="ArtProfile_Infoform">
           <form onSubmit={artSubmitHandler}>
             <h4>ART INFORMATION</h4>
             <div className="ArtProfile_ArtInfo">
@@ -1170,7 +1178,7 @@ export function Artist_Profile() {
       )}
 
       {activeSection === "performance" && (
-        <div className="PerformanceProfile_Infoform">
+        <div style={{fontFamily:"Poppins"}} className="PerformanceProfile_Infoform">
           <form onSubmit={perforSubmitHandler}>
             <h4>PERFORMANCE INFORMATION</h4>
             <div className="PerformanceProfile_PerformInfo">
@@ -1259,7 +1267,7 @@ export function Artist_Profile() {
               </div>
               <div className="PerformanceProfile_inputfield">
                 <label>Name Top 5 Performance of Yours</label>
-                <input value={performanceFormData.topFivePerformance} onChange={perforChangeHandler} name="topFivePerformance" type="text" style={{ height: "190px" }}></input>
+                <textarea className="performanaceProfile_textarea"  value={performanceFormData.topFivePerformance} onChange={perforChangeHandler} name="topFivePerformance" type="text" style={{ width:"440px" , height:"190px" , resize:"none" , borderRadius:"10px" , padding:"10px"}} />
               </div>
               <div className="PerformanceProfile_inputfield">
                 <label value={performanceFormData.performanceEvents} onChange={perforChangeHandler} name="performanceEvents">
@@ -1341,7 +1349,7 @@ export function Artist_Profile() {
       )}
 
       {activeSection === "award" && (
-        <div className="AwardProfile_Infoform">
+        <div style={{fontFamily:"Poppins"}} className="AwardProfile_Infoform">
           <form onSubmit={awardSubmitHandler}>
             <h4>AWARDS</h4>
             <div className="AwardProfile_AwardInfo">
@@ -1486,7 +1494,7 @@ export function Artist_Profile() {
       )}
 
       {activeSection === "expected" && (
-        <div className="ExpectedoppoProfile_Infoform">
+        <div style={{fontFamily:"Poppins"}} className="ExpectedoppoProfile_Infoform">
           <form onSubmit={expectedSubmitHandler}>
             <h4>EXPECTED OPPORTUNITIES</h4>
             <div className="ExpectedoppoProfile_Expectedoppo">

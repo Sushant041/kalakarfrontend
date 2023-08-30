@@ -5,24 +5,33 @@ import doorImage from "./assets/doorImage.svg"
 import location from "./assets/location.svg"
 import phone from "./assets/phone.svg"
 import mail from "./assets/mail.svg"
+import { useState } from "react";
+import { contactUsPoints } from "../../../services/apis";
+import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
+import { useSelector } from "react-redux";
+import { toast } from "react-hot-toast";
 
 
 const formDetail = [
     {
         placeholder:"Enter your name" , 
-        type:"text"
+        type:"text" , 
+        name:"name"
     },
     {
         placeholder:"Enter your email" , 
-        type:"email"
+        type:"email" , 
+        name:"email"
     },
     {
         placeholder:"Enter your contact number",
-        type:'number'
+        type:'number' , 
+        name:"phoneNumber"
     },
     {
         placeholder:"Enter subject",
-        type:"text"
+        type:"text",
+        name:"subject"
     },
 
 
@@ -47,7 +56,58 @@ const boxDetail = [
 
 ]
 
+
+
 function ContactUs() {
+
+    const {accessToken} = useSelector((state)=>state.auth)
+
+    const [formData , setFormData ] = useState({
+        name:"",
+        email:"",
+        message:"",
+        phoneNumber:"" , 
+        subject:""
+    })
+    
+    const changeHandler = (event)=>{
+        const {name , value} = event.target;
+        setFormData((prev)=>({
+            ...prev , 
+            [name]:value
+        }))
+    }
+    console.log('fir' ,formData);
+
+    const submitHandler = async(event)=>{
+      const toastId =  toast.loading('Loading...');
+        event.preventDefault();
+        try{
+
+            const response = await makeAuthenticatedPOSTRequest(contactUsPoints.POST_QUERY_API , formData ,accessToken );
+            console.log('res' , response);
+            if(response.success === 'success'){
+                toast.success('Successfully send');
+                setFormData({
+                    name:"",
+                    subject:"",
+                    message:"",
+                    email:"",
+                    phoneNumber:""
+                })
+            }
+            else{
+                toast.error(response.message);
+            }
+
+        }catch(error){
+            console.log(error);
+            toast.error('something went wrong ,please try again');
+        }
+
+        toast.dismiss(toastId);
+    }
+
   return (
     <div className="contactUs_wrapper">
       {/* actual navbar section */}
@@ -67,14 +127,14 @@ function ContactUs() {
            <img src={doorImage} alt="" className="contact_doorImg" />
 
            {/* form */}
-           <form  className="form_container" >
+           <form onSubmit={submitHandler} className="form_container" >
                {formDetail.map((detail , index)=>(
-                <input key={index} type={detail.type} placeholder={detail.placeholder} className="contactUs_input" />
+                <input required key={index} name={detail.name} value={formData[detail.name]} onChange={changeHandler} type={detail.type} placeholder={detail.placeholder} className="contactUs_input" />
                ))}
 
-               <textarea rows={9} placeholder="Your message" className="contactUs_textarea" />
+               <textarea required rows={9} name="message" value={formData.message} onChange={changeHandler} placeholder="Your message" className="contactUs_textarea" />
 
-               <button className="contactUs_sendBtn">Send</button>
+               <button type="submit" className="contactUs_sendBtn">Send</button>
            </form>
         </main>
 
