@@ -6,14 +6,15 @@ import Navbar from "react-bootstrap/Navbar";
 import logo from "../../FrontPage/Images/eK_Logo_Trasnparent_1.png";
 import "../../FrontPage/Navbar.css";
 import { Link } from "react-router-dom";
-import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest } from "../../../services/serverHelper";
+import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest, makeAuthenticated_Multi_Patch_REQ } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import profile from "./assets/profile.svg"
-import { artistProfilePoints } from "../../../services/apis";
-import star from "./assets/star.svg"
-import expected from "./assets/expected.svg"
+import { artistOpportunityPoints, artistProfilePoints } from "../../../services/apis";
+import Artist_navbar from "../Artist_navbar";
 import art from "./assets/art.svg"
+import expected from "./assets/expected.svg"
+import star from "./assets/star.svg"
 import performance from "./assets/performance.svg"
 
 export function Artist_Profile() {
@@ -27,23 +28,23 @@ export function Artist_Profile() {
   };
 
   // !  for basic proile
-
   const [basicFormData, setBasicFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phoneNumber: "",
-    dob: "",
+    age: "",
     gender: "",
     language: "",
     monthlyIncome: "",
+    aboutJourney:"",
     address: {
       state: "",
-      numOfperformanceLastYear: "",
       district: "",
       pincode: "",
       detailedAddress: "",
     },
+    numOfperformanceLastYear:"",
     handles: {
       instagram: "",
       facebook: "",
@@ -113,6 +114,7 @@ export function Artist_Profile() {
     natureOfArt: "",
     areaOfInterest: "",
     genre: "",
+    artForm:"",
     performanceType: "",
     artEducation: "",
     artName: "",
@@ -193,7 +195,7 @@ export function Artist_Profile() {
     nameOfTheAffiliatedOrg: "",
     totalNoOfPerformance: "",
     highestLevelOfPerformance: "",
-    topFivePerformance: "",
+    topFivePerformance: [],
     performanceEvents: "",
     thematic: "",
     NoOfPerformanceLastYear: "",
@@ -207,19 +209,40 @@ export function Artist_Profile() {
 
   const perforChangeHandler = (event) => {
     const { name, value } = event.target;
-
-    setPerformanceFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  
+    if (name.startsWith('topFivePerformance.')) {
+      // Parse the index from the name
+      const index = parseInt(name.replace('topFivePerformance.', ''), 10);
+  
+      // Create a copy of the current topFivePerformance array
+      const updatedPerformanceArray = [...performanceFormData.topFivePerformance];
+  
+      // Update the specific element at the index with the new value
+      updatedPerformanceArray[index] = value;
+  
+      // Update the performanceFormData state with the modified array
+      setPerformanceFormData((prevData) => ({
+        ...prevData,
+        topFivePerformance: updatedPerformanceArray,
+      }));
+    } else {
+      // Handle other form fields as needed
+      setPerformanceFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
   };
+  
 
   const perforSubmitHandler = async (event) => {
     event.preventDefault();
 
     const toastId = toast.loading("Loading...");
     try {
+      console.log('performmda' ,performanceFormData);
       const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, performanceFormData, accessToken);
+      console.log('response ' , response);
       if (response.success === "success") {
         toast.success("successfully updated ");
         setActiveSection("award");
@@ -236,7 +259,6 @@ export function Artist_Profile() {
   };
 
   // ! for expected opprotunity
-
   const [expectedFormData, setExpectedFormData] = useState({
     natureOfExpectedOpp: "",
     nameOfTheArtPerformed: "",
@@ -284,7 +306,6 @@ export function Artist_Profile() {
   };
 
   // ! for award profile
-
   const [awardFormData, setAwardFormData] = useState({
     totalAwards: "",
     totalNoOfLocalAwards: "",
@@ -292,7 +313,8 @@ export function Artist_Profile() {
     totalNoOfStateAwards: "",
     totalNoOfNationalAwards: "",
     totalNoOfInternationalAwards: "",
-    awards: [],
+    awards: [
+    ],
   });
 
   const awardChangeHandler = (event) => {
@@ -314,7 +336,6 @@ export function Artist_Profile() {
     });
   };
 
-  console.log("awardform", awardFormData);
 
   const awardSubmitHandler = async (event) => {
     event.preventDefault();
@@ -372,8 +393,9 @@ export function Artist_Profile() {
         firstName,
         lastName,
         email,
+        aboutJourney,
         phoneNumber,
-        dob,
+        age,
         gender,
         language,
         monthlyIncome,
@@ -414,7 +436,7 @@ export function Artist_Profile() {
         performanceDuration,
         chargesPerPerformance,
         averagePerformanceIncome,
-        aboutJourney,
+       
         natureOfExpectedOpp,
         nameOfTheArtPerformed,
         typeOfExpectedOpp,
@@ -438,21 +460,23 @@ export function Artist_Profile() {
         awards: [...awards],
       } = response.data;
 
-      if (dob) {
-        const year = dob.substring(0, 4);
-        const month = dob.substring(5, 7);
-        const day = dob.substring(8, 10);
-        var formattedDate = `${year}-${month}-${day}`;
-      }
+      // if (dob) {
+      //   const year = dob.substring(0, 4);
+      //   const month = dob.substring(5, 7);
+      //   const day = dob.substring(8, 10);
+      //   var formattedDate = `${year}-${month}-${day}`;
+      // }
 
       setBasicFormData((prev) => ({
         ...prev,
         firstName,
         lastName,
         email,
+        age,
         phoneNumber,
-        dob: formattedDate,
+        // dob: formattedDate,
         gender,
+        aboutJourney,
         language,
         monthlyIncome,
         aadharNumber,
@@ -515,6 +539,7 @@ export function Artist_Profile() {
         aboutJourney,
       }));
 
+
       setExpectedFormData((prev) => ({
         ...prev,
         natureOfExpectedOpp,
@@ -541,13 +566,23 @@ export function Artist_Profile() {
         totalNoOfStateAwards,
         totalNoOfNationalAwards,
         totalNoOfInternationalAwards,
-        awards,
+        awards: awards.length === 0
+    ? [
+      {
+        name: "",
+        level: "",
+        category: "",
+        nameOfTheStage: "",
+        year: "",
+        givenBy: ""
+      }
+    ]
+    : awards 
       }));
     } catch (error) {
       console.log(error);
     }
   };
-  console.log("award", awardFormData.awards);
 
   useEffect(() => {
     fetchProileData();
@@ -563,18 +598,31 @@ export function Artist_Profile() {
     marginLeft: "0vh",
     marginTop: "-2vh",
   };
-  const [AccountpopupVisible, setAccountPopupVisible] = useState(false);
-  const accountPopupRef = useRef(null);
+  // const [AccountpopupVisible, setAccountPopupVisible] = useState(false);
 
-  const toggleAccountPopup = () => {
-    setAccountPopupVisible(!AccountpopupVisible);
+  const handleButtonClick = () => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.jpg, .jpeg, .png'; // Specify the allowed file types
+    fileInput.onchange = handleFileChange;
+    fileInput.click();
   };
 
+  const handleFileChange = async (event) => {
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+     const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API ,{"avatar": selectedFile} ,  accessToken);
+     console.log('res' , response);
+    }
+  };
+
+  console.log('per' , performanceFormData);
 
   
   return (
     <div className="Profile_Page">
       <div className="ProfilePage_Navbar">
+        <Artist_navbar/>
         <Navbar
           style={{ zIndex: "99" }}
           className="navbar nav_frontpage navbar-expand-lg "
@@ -583,18 +631,21 @@ export function Artist_Profile() {
         >
           {/* <Container> */}
           <div className="container-fluid">
-            <Navbar.Brand className="navbar-brand" style={{ position: "static", marginLeft: "0px" }}>
-              {" "}
-              <Link to="/">
-                <img src={logo} height="60px" width="80px" alt="logo" />
-              </Link>
-            </Navbar.Brand>
+            
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav" style={mystyle}>
               <div className="navbar-nav" style={back}>
                 <Nav className="Profile_navbarbutton">
-                  <button className={activeSection === "basic" ? "active" : ""} onClick={() => handleClick("basic")}>
-                    <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <button
+                    className={activeSection === "basic" ? "active" : ""}
+                    onClick={() => handleClick("basic")}
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         id="Vector"
                         d="M10 0C11.3261 0 12.5979 0.526784 13.5355 1.46447C14.4732 2.40215 15 3.67392 15 5C15 6.32608 14.4732 7.59785 13.5355 8.53553C12.5979 9.47322 11.3261 10 10 10C8.67392 10 7.40215 9.47322 6.46447 8.53553C5.52678 7.59785 5 6.32608 5 5C5 3.67392 5.52678 2.40215 6.46447 1.46447C7.40215 0.526784 8.67392 0 10 0ZM10 20C10 20 20 20 20 17.5C20 14.5 15.125 11.25 10 11.25C4.875 11.25 0 14.5 0 17.5C0 20 10 20 10 20Z"
@@ -604,184 +655,20 @@ export function Artist_Profile() {
                     Basic Profile
                   </button>
                   <button className={activeSection === "art" ? "active" : ""} onClick={() => handleClick("art")}>
-                    <img src={art} /> Art Profile
+                    <img src="assets/Basic Profile/ArtProfile.svg" /> Art Profile
                   </button>
                   <button className={activeSection === "performance" ? "active" : ""} onClick={() => handleClick("performance")}>
-                    <img src={performance} /> Performance Profile
+                    <img src="assets/Basic Profile/PerformanceProfiile.svg" /> Performance Profile
                   </button>
                   <button className={activeSection === "award" ? "active" : ""} onClick={() => handleClick("award")}>
-                    <img src={star} /> Award Profile
+                    <img src="assets/Basic Profile/AwardProfile.svg" /> Award Profile
                   </button>
                   <button className={activeSection === "expected" ? "active" : ""} onClick={() => handleClick("expected")}>
-                    <img src={expected} /> Expected Opportunities
+                    <img src="assets/Basic Profile/Expected.svg" /> Expected Opportunities
                   </button>
                 </Nav>
               </div>
             </Navbar.Collapse>
-            <div>
-              <Link to={"/chatApp"}>
-                <button style={{ border: "none", background: "none" }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
-                    <g filter="url(#filter0_d_422_1847)">
-                      <circle cx="30" cy="29" r="20" fill="white" />
-                      <circle cx="30" cy="29" r="19.5" stroke="black" stroke-opacity="0.2" />
-                    </g>
-                    <path
-                      d="M36.7692 21H23.2308C22.9044 21 22.5913 21.1405 22.3605 21.3905C22.1297 21.6406 22 21.9797 22 22.3333V35.6667C21.9986 35.9209 22.065 36.1702 22.1912 36.3846C22.3174 36.5989 22.4981 36.7692 22.7116 36.875C22.8742 36.957 23.0514 36.9997 23.2308 37C23.5197 36.9993 23.7991 36.8877 24.0193 36.685C24.0229 36.6824 24.0263 36.6793 24.0293 36.6758L26.5 34.3333H36.7692C37.0957 34.3333 37.4087 34.1929 37.6395 33.9428C37.8703 33.6928 38 33.3536 38 33V22.3333C38 21.9797 37.8703 21.6406 37.6395 21.3905C37.4087 21.1405 37.0957 21 36.7692 21ZM36.7692 33H26.5C26.2102 32.9999 25.9296 33.1105 25.7077 33.3125L25.6985 33.3217L23.2308 35.6667V22.3333H36.7692V33Z"
-                      fill="black"
-                    />
-                    <defs>
-                      <filter id="filter0_d_422_1847" x="0" y="0" width="60" height="60" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                        <feOffset dy="1" />
-                        <feGaussianBlur stdDeviation="5" />
-                        <feComposite in2="hardAlpha" operator="out" />
-                        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
-                        <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_422_1847" />
-                        <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_422_1847" result="shape" />
-                      </filter>
-                    </defs>
-                  </svg>
-                </button>
-              </Link>
-
-              <button onClick={toggleAccountPopup} style={{ border: "none", background: "none" }}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
-                  <g filter="url(#filter0_d_422_1850)">
-                    <circle cx="30" cy="29" r="20" fill="#AD2F3B" />
-                  </g>
-                  <path
-                    d="M30 21C31.0609 21 32.0783 21.4214 32.8284 22.1716C33.5786 22.9217 34 23.9391 34 25C34 26.0609 33.5786 27.0783 32.8284 27.8284C32.0783 28.5786 31.0609 29 30 29C28.9391 29 27.9217 28.5786 27.1716 27.8284C26.4214 27.0783 26 26.0609 26 25C26 23.9391 26.4214 22.9217 27.1716 22.1716C27.9217 21.4214 28.9391 21 30 21ZM30 23C29.4696 23 28.9609 23.2107 28.5858 23.5858C28.2107 23.9609 28 24.4696 28 25C28 25.5304 28.2107 26.0391 28.5858 26.4142C28.9609 26.7893 29.4696 27 30 27C30.5304 27 31.0391 26.7893 31.4142 26.4142C31.7893 26.0391 32 25.5304 32 25C32 24.4696 31.7893 23.9609 31.4142 23.5858C31.0391 23.2107 30.5304 23 30 23ZM30 30C32.67 30 38 31.33 38 34V37H22V34C22 31.33 27.33 30 30 30ZM30 31.9C27.03 31.9 23.9 33.36 23.9 34V35.1H36.1V34C36.1 33.36 32.97 31.9 30 31.9Z"
-                    fill="white"
-                  />
-                  <defs>
-                    <filter id="filter0_d_422_1850" x="0" y="0" width="60" height="60" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
-                      <feOffset dy="1" />
-                      <feGaussianBlur stdDeviation="5" />
-                      <feComposite in2="hardAlpha" operator="out" />
-                      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0" />
-                      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_422_1850" />
-                      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_422_1850" result="shape" />
-                    </filter>
-                  </defs>
-                </svg>
-              </button>
-
-              {AccountpopupVisible && (
-                <div
-                  ref={accountPopupRef}
-                  className="Accountpopup"
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    background: "white",
-                    position: "absolute",
-                    width: "297px",
-                    marginLeft: "-170px",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <Link
-                    to={"/Artist_Profile"}
-                    style={{
-                      height: "48px",
-                      boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)",
-                      textDecoration: "none",
-                      color: "black",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "20px",
-                    }}
-                  >
-                    Profile
-                  </Link>
-                  <Link
-                    style={{
-                      height: "48px",
-                      boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)",
-                      textDecoration: "none",
-                      color: "black",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "20px",
-                    }}
-                  >
-                    Dashboard
-                  </Link>
-                  <Link
-                    to={"/Artist_Opportunities"}
-                    style={{
-                      height: "48px",
-                      boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)",
-                      textDecoration: "none",
-                      color: "black",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "20px",
-                    }}
-                  >
-                    Opportunities
-                  </Link>
-                  <Link
-                    to={"/statusOfApplication"}
-                    style={{
-                      height: "48px",
-                      boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)",
-                      textDecoration: "none",
-                      color: "black",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "20px",
-                    }}
-                  >
-                    Status of Application
-                  </Link>
-                  <Link
-                    style={{
-                      height: "48px",
-                      boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)",
-                      textDecoration: "none",
-                      color: "black",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "20px",
-                    }}
-                  >
-                    Skill Development
-                  </Link>
-                  <Link
-                    to={"/Newsletter"}
-                    style={{
-                      height: "48px",
-                      boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)",
-                      textDecoration: "none",
-                      color: "black",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "20px",
-                    }}
-                  >
-                    Latest News
-                  </Link>
-                  <Link
-                    style={{
-                      height: "48px",
-                      boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)",
-                      textDecoration: "none",
-                      color: "black",
-                      display: "flex",
-                      alignItems: "center",
-                      padding: "20px",
-                    }}
-                  >
-                    Logout
-                  </Link>
-                </div>
-              )}
-            </div>
           </div>
         </Navbar>
       </div>
@@ -813,8 +700,8 @@ export function Artist_Profile() {
           </button>
         </div>
         <div className="BasicProfile_avatar">
-          <img src={profile} />
-          <button className="BasicProfile_editavatar">Edit Profile Picture</button>
+          <img src={`api.ekalakaar.com/uploads/avatars`} />
+          <button onClick={handleButtonClick} className="BasicProfile_editavatar">Edit Profile Picture</button>
           <button className="BasicProfile_removeavatar">Remove Avatar</button>
         </div>
         <div className="BasicProfile_name">
@@ -846,10 +733,12 @@ export function Artist_Profile() {
                 <label htmlFor="phoneNumber">Contact Number</label>
                 <input onChange={changeHandler} name="phoneNumber" value={basicFormData.phoneNumber} type="tel"></input>
               </div>
+
               <div className="BasicProfile_inputfield">
-                <label htmlFor="dob">Date of Birth</label>
-                <input type="date" name="dob" onChange={changeHandler} value={basicFormData.dob}></input>
+                <label htmlFor="age">Age</label>
+                <input type="number" name="age" onChange={changeHandler} value={basicFormData.age}></input>
               </div>
+
               <div className="BasicProfile_inputfield gender">
                 <label>Gender</label>
                 <div className="Genderinfo">
@@ -867,6 +756,23 @@ export function Artist_Profile() {
                   </label>
                 </div>
               </div>
+              <div className="BasicProfile_inputfield">
+                <label htmlFor="age">Language Known*</label>
+                <select onChange={changeHandler} style={{fontFamily:"Poppins" ,background:"transparent" , color:"black" , width:"450px" , height:"60px", border:"1px solid black"}} name="" id="">
+                  <option value="" selected defaultChecked >You can select multiple languages</option>
+                </select>
+              </div>
+
+              <div className="BasicProfile_inputfield">
+                <label htmlFor="age">Monthly Income*</label>
+                <input type="number" name="monthlyIncome" onChange={changeHandler} placeholder="Enter your monthly income" value={basicFormData.monthlyIncome}></input>
+              </div>
+
+              <div style={{width:"100%" , marginTop:"20px"}}>
+                  <label htmlFor="aboutJourney">About My Journey</label>
+                  <textarea name="aboutJourney" value={basicFormData.aboutJourney} onChange={changeHandler} style={{width:"100%"  , border:"2px solid rgb(0,0,0,0.5)" , padding:"10px", borderRadius:"10px" , resize:"none" , height:"166px" }}  />
+              </div>
+
             </div>
             <h4>ADDRESS</h4>
             <div className="BasicProfile_Address">
@@ -934,33 +840,26 @@ export function Artist_Profile() {
             </h4>
             <div className="BasicProfile_OtherDetails">
               <div className="BasicProfile_inputfield">
-                <label>Languages Known</label>
-                <input onChange={changeHandler} name="language" value={basicFormData.language} type="text"></input>
+                <label>No of Performance Last Year</label>
+                <input onChange={changeHandler} name="numOfperformanceLastYear" placeholder="Enter no of performance" value={basicFormData.numOfperformanceLastYear} type="text"></input>
               </div>
               <div className="BasicProfile_inputfield">
-                <label>Monthly Income</label>
-                <input onChange={changeHandler} name="monthlyIncome" value={basicFormData.monthlyIncome} type="number"></input>
-              </div>
-              <div className="BasicProfile_inputfield">
-                <label>No of Performances Last Year</label>
-                <input onChange={changeHandler} name="numOfperformanceLastYear" value={basicFormData.numOfperformanceLastYear} type="number" />
-              </div>
-              <div className="BasicProfile_inputfield">
-                <label>Pan Number</label>
-                <input onChange={changeHandler} value={basicFormData.panNumber} name="panNumber" type="number"></input>
+                <label>PAN Number</label>
+                <input onChange={changeHandler} name="panNumber" placeholder="Enter PAN number" value={basicFormData.panNumber} type="number"></input>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Aadhar Number</label>
-                <input onChange={changeHandler} value={basicFormData.aadharNumber} name="aadharNumber" type="number"></input>
+                <input onChange={changeHandler} placeholder="1234  -  5678  -  9012  -  3456" name="aadharNumber" value={basicFormData.aadharNumber} type="number" />
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Passport Number</label>
-                <input onChange={changeHandler} value={basicFormData.passportNumber} name="passportNumber" type="number"></input>
+                <input onChange={changeHandler} placeholder="Enter Passport Number" value={basicFormData.passportNumber} name="passportNumber" type="number"></input>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>UPI Id</label>
-                <input onChange={changeHandler} value={basicFormData.upiId} name="upiId" type="number"></input>
+                <input onChange={changeHandler} value={basicFormData.upiId} placeholder="Enter UPI Id" name="upiId" type="number"></input>
               </div>
+            
             </div>
             <h4>SOCIAL PROOF</h4>
             <div className="BasicProfile_Social">
@@ -978,7 +877,7 @@ export function Artist_Profile() {
               </div>
               <div className="BasicProfile_inputfield">
                 <label>LinkedIn</label>
-                <input onChange={changeHandler} value={basicFormData.handles.linkedIn} name="handles.linkedIn" type="text"></input>
+                <input onChange={changeHandler} value={basicFormData.handles.linkedin} name="handles.linkedin" type="text"></input>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Website</label>
@@ -999,14 +898,34 @@ export function Artist_Profile() {
             <h4>ART INFORMATION</h4>
             <div className="ArtProfile_ArtInfo">
               <div className="ArtProfile_inputfield">
-                <label>Nature of Art</label>
-                <input onChange={artChangeHandler} name="natureOfArt" value={artFormData.natureOfArt} type="text"></input>
+                <label>Nature of Art*</label>
+                <input placeholder="Select art nature " onChange={artChangeHandler} name="natureOfArt" value={artFormData.natureOfArt} type="text"></input>
               </div>
               <div className="ArtProfile_inputfield">
-                <label>Area of Interest</label>
-                <input onChange={artChangeHandler} value={artFormData.areaOfInterest} name="areaOfInterest" type="text"></input>
+                <label>Art form*</label>
+                <select onChange={artChangeHandler} value={artFormData.artForm} name="artForm" placeholder="Select art form" >
+                  <option selected hidden>
+                  Select art form
+                  </option>
+                </select>
               </div>
               <div className="ArtProfile_inputfield">
+                <label>Name of the Art*</label>
+                <select onChange={artChangeHandler} value={artFormData.artForm} name="artForm" placeholder="Select name of the art " >
+                  <option selected hidden>
+                  Select name of the art
+                  </option>
+                </select>
+              </div>
+              <div className="ArtProfile_inputfield">
+                <label>Performance Type*</label>
+                <select onChange={artChangeHandler} value={artFormData.artForm} name="artForm" placeholder="Select name of the art " >
+                  <option selected hidden>
+                  Select performance type
+                  </option>
+                </select>
+              </div>
+              {/* <div className="ArtProfile_inputfield">
                 <label>Genre</label>
                 <input onChange={artChangeHandler} value={artFormData.genre} name="genre" type="text"></input>
               </div>
@@ -1017,7 +936,7 @@ export function Artist_Profile() {
                     Select type
                   </option>
                 </select>
-              </div>
+              </div> */}
               <div className="ArtProfile_inputfield artedu">
                 <label>Art Education / Learning</label>
                 <div className="Arteduinfo">
@@ -1074,10 +993,10 @@ export function Artist_Profile() {
                 <label>Year of Completion</label>
                 <input value={artFormData.yearOfCompletation} name="yearOfCompletation" onChange={artChangeHandler} type="text" />
               </div>
-              <div className="ArtProfile_inputfield">
+              {/* <div className="ArtProfile_inputfield">
                 <label>Certificate</label>
                 <input type="file" value={artFormData.certificateOfArt} name="certificateOfArt" onChange={artChangeHandler}></input>
-              </div>
+              </div> */}
             </div>
             <div className="ArtProfile_Professional_Courses">
               <h4>PROFESSIONAL</h4>
@@ -1133,10 +1052,10 @@ export function Artist_Profile() {
                     />
                   </div>
                 </div>
-                <div className="ArtProfile_inputfield">
+                {/* <div className="ArtProfile_inputfield">
                   <label>Certificate</label>
                   <input onChange={artChangeHandler} value={artFormData.certificateOfAcademicQualification} name="certificateOfAcademicQualification" type="file"></input>
-                </div>
+                </div> */}
               </div>
               <h4>CERTIFICATE COURSES</h4>
               <div className="ArtProfile_Certificate">
@@ -1163,10 +1082,10 @@ export function Artist_Profile() {
                     <input type="text" placeholder="End Date" onFocus={(e) => (e.target.type = "date")} onBlur={(e) => (e.target.type = "text")} />
                   </div>
                 </div>
-                <div className="ArtProfile_inputfield">
+                {/* <div className="ArtProfile_inputfield">
                   <label>Certificate</label>
                   <input type="file"></input>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -1267,7 +1186,15 @@ export function Artist_Profile() {
               </div>
               <div className="PerformanceProfile_inputfield">
                 <label>Name Top 5 Performance of Yours</label>
-                <textarea className="performanaceProfile_textarea"  value={performanceFormData.topFivePerformance} onChange={perforChangeHandler} name="topFivePerformance" type="text" style={{ width:"440px" , height:"190px" , resize:"none" , borderRadius:"10px" , padding:"10px"}} />
+                
+                <div  style={{display:"flex" , flexWrap:"wrap" , gap:"20px"}}>
+                  <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.0`} value={performanceFormData.topFivePerformance[0]}  placeholder="Performance 1" />
+                  <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.1`} value={performanceFormData.topFivePerformance[1]} placeholder="Performance 2" />
+                  <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.2`} value={performanceFormData.topFivePerformance[2]} placeholder="Performance 3" />
+                  <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.3`} value={performanceFormData.topFivePerformance[3]} placeholder="Performance 4" />
+                  <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.4`} value={performanceFormData.topFivePerformance[4]} placeholder="Performance 5" />
+                </div>
+  
               </div>
               <div className="PerformanceProfile_inputfield">
                 <label value={performanceFormData.performanceEvents} onChange={perforChangeHandler} name="performanceEvents">
@@ -1308,27 +1235,24 @@ export function Artist_Profile() {
                 </select>
               </div>
               <div className="PerformanceProfile_inputfield">
-                <label>Average Performance Income</label>
+                <label>Income for Performing Art*</label>
                 <select value={performanceFormData.averagePerformanceIncome} onChange={perforChangeHandler} name="averagePerformanceIncome">
                   <option selected hidden>
                     Select average income
                   </option>
                 </select>
               </div>
-              <div className="PerformanceProfile_inputfield">
-                <label>About My Journey</label>
-                <input value={performanceFormData.aboutJourney} onChange={perforChangeHandler} name="aboutJourney" type="text" style={{ height: "166px", width: "935px" }}></input>
-              </div>
+
               <h4>PERFORMANCE IMAGES</h4>
               <div className="PerformanceProfile_inputfield performancefilebox">
-                <input
+                {/* <input
                   type="file"
                   id="Profile_fileinputimg"
                   value={performanceFormData.performanceImages === "" ? null : performanceFormData.performanceImages}
                   onChange={perforChangeHandler}
                   name="performanceImages"
                   accept="image/*"
-                ></input>
+                ></input> */}
                 <label htmlFor="Profile_fileinputimg" className="fileinput_uploadfile">
                   Upload file
                 </label>
@@ -1336,7 +1260,7 @@ export function Artist_Profile() {
               </div>
               <h4>PERFORMANCE VIDEOS</h4>
               <div className="PerformanceProfile_inputfield performancefilebox">
-                <input type="file" id="Profile_fileinputvideo" accept="video/*" value={performanceFormData.performancevideos} onChange={perforChangeHandler} name="performancevideos"></input>
+                {/* <input type="file" id="Profile_fileinputvideo" accept="video/*" value={performanceFormData.performancevideos} onChange={perforChangeHandler} name="performancevideos"></input> */}
                 <label htmlFor="Profile_fileinputvideo" className="fileinput_uploadfile">
                   Upload file
                 </label>

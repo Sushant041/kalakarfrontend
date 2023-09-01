@@ -77,6 +77,27 @@ export const makeAuthenticatedUPDATERequest = async (route , body , token) => {
   }
 };
 
+// ! patch with multipart/form-data 
+export const makeAuthenticated_Multi_Patch_REQ = async(route , body , token)=>{
+  console.log(body);
+  try {
+    const response = await fetch(route, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+
+    });
+   
+    const formattedResponse = await response.json();
+    return formattedResponse;
+  } catch (error) {
+    console.log(`error in fetch api `, error);
+  }
+}
+
 // ! update request of application/json
 export const makeAuthenticatedPATCHRequest = async (route , body , token) => {
   console.log(`body` , body);

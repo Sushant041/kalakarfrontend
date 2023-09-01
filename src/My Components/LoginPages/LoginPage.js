@@ -61,7 +61,7 @@ export function LoginPage() {
         dispatch(setRefreshToken(refreshToken));
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        navigate("/profile");
+        navigate("/artist_profile");
       } else {
         toast.error(response.message);
       }

@@ -40,20 +40,18 @@ const editSocalMedia = [
 ];
 
 function EditPortfolio() {
-  const [loading , setLoading] = useState(false);
   const { accessToken } = useSelector((state) => state.auth);
   const [portfolioData , setPortfolioData] = useState(null);
 
   const fetchUserData = async()=>{
-    setLoading(true);
     try{
       
       const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API , accessToken);
-      console.log("res" , response);
+      // console.log("res" , response);
       if(response.success === 'success'){
-        const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt} = response.data;
+        const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , category , age , chargePerPerformance , experience , eventType , minimumBudget , noOfPerformance , performanceType } = response.data;
       setPortfolioData({
-        phoneNumber , email,address , handles , firstName , lastName , natureOfArt
+        phoneNumber , email,address , handles , firstName , lastName , natureOfArt , category ,  age , chargePerPerformance ,experience , eventType , minimumBudget , noOfPerformance  ,performanceType
       })
       }else{
         toast.error('something went wrong , please refresh the page');
@@ -62,7 +60,6 @@ function EditPortfolio() {
     } catch(error){
       console.log(error);
     }
-    setLoading(false);
   }
   
     useEffect(()=>{
@@ -78,7 +75,7 @@ function EditPortfolio() {
 
       <ApplicationButton text={"Upload Profile Picture"} />
 
-      <PortfolioUpdateForm portfolioData={portfolioData} />
+      <PortfolioUpdateForm />
     </div>
   );
 }

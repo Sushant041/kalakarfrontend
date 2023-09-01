@@ -18,44 +18,7 @@ import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 
-const userProfessionDetail = [
-  {
-    title: "Profession : ",
-    info: "Dancer",
-  },
-  {
-    title: "Talents :",
-    info: "Dancing, Signing",
-  },
-  {
-    title: "Location :",
-    info: "Bangalore",
-  },
-  {
-    title: "Experience :",
-    info: "2 Years",
-  },
-  {
-    title: "Events Type :",
-    info: "Wedding, House Party",
-  },
-  {
-    title: "Minimum Budget :",
-    info: "10K - 20K",
-  },
-  {
-    title: "Instagram :",
-    info: "randomusername_1234",
-  },
-  {
-    title: "Facebook :",
-    info: "Random_Username",
-  },
-  {
-    title: "Youtube :",
-    info: "Random__Channel",
-  },
-];
+
 const socalMedia = [
   {
     image: instagram,
@@ -85,27 +48,24 @@ const aboutMe =
   "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.";
 
 const userName = "Mano Selva Vijay";
-const profession = "Dancer";
 
 function PortfolioDisplay() {
   const {accessToken} = useSelector((state)=>state.auth)
   const navigate = useNavigate();
 
   const [portfolioData , setPortfolioData] = useState(null);
-  const [loading , setLoading] = useState(false);
 
 
 const fetchUserData = async()=>{
-  setLoading(true);
   try{
     
     const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API , accessToken);
-    console.log("res" , response);
+
     if(response.success === 'success'){
-      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt} = response.data;
+      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName } = response.data;
     setPortfolioData({
-      phoneNumber , email,address , handles , firstName , lastName , natureOfArt
-    })
+      phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName
+    }) 
     }else{
       toast.error('something went wrong , please refresh the page');
     }
@@ -113,7 +73,6 @@ const fetchUserData = async()=>{
   } catch(error){
     console.log(error);
   }
-  setLoading(false);
 }
 
   useEffect(()=>{
@@ -172,22 +131,36 @@ const fetchUserData = async()=>{
         </div>
 
         <div className="user_profession_details">
+
+        <div  className="single_userProfession_detail">
+              <p className="profession_title">Category :</p>
+              <p className="profession_info">{portfolioData?.category ?(portfolioData?.category):('your_category')}</p>
+            </div>
          
         <div  className="single_userProfession_detail">
-              <p className="profession_title">Profession :</p>
-              <p className="profession_info">{portfolioData?.natureOfArt ?(portfolioData?.natureOfArt):('your Profession')}</p>
+              <p className="profession_title">Art Name :</p>
+              <p className="profession_info">{portfolioData?.artName ?(portfolioData?.artName):('Art_Name')}</p>
             </div>
-            <div  className="single_userProfession_detail">
-              <p className="profession_title">Talents :</p>
-              <p className="profession_info">{portfolioData?.handles.youtube ?(portfolioData?.handles.youtube):('your_talent')}</p>
-            </div>
+          
             <div  className="single_userProfession_detail">
               <p className="profession_title">Location :</p>
               <p className="profession_info">{portfolioData?.address.state ?(portfolioData.address.state):('your_location')}</p>
             </div>
             <div  className="single_userProfession_detail">
+              <p className="profession_title">Age :</p>
+              <p className="profession_info">{portfolioData?.age ?(portfolioData.age):('Your_age')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Performance Type :</p>
+              <p className="profession_info">{portfolioData?.performanceType ?(portfolioData?.performanceType):('performance_type')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
+              <p className="profession_title">Charge per performance :</p>
+              <p className="profession_info">{portfolioData?.chargePerPerformance ?(portfolioData?.chargePerPerformance):('performance_charge')}</p>
+            </div>
+            <div  className="single_userProfession_detail">
               <p className="profession_title">Experience :</p>
-              <p className="profession_info">{portfolioData?.experience ?(portfolioData.experience):('your_experience')}</p>
+              <p className="profession_info">{portfolioData?.yearOfExperience ?(portfolioData.yearOfExperience):('your_experience')}</p>
             </div>
             <div  className="single_userProfession_detail">
               <p className="profession_title">Events Type :</p>

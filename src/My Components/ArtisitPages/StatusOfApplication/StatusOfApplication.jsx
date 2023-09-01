@@ -57,8 +57,9 @@ function StatusOfApplication() {
         })
         const rejectAppli = data?.filter((event) => {
           const appliStatus = event.status;
-          return appliStatus === 'Rejected'
+          return appliStatus === "Rejected"
         })
+        console.log('reje' , rejectAppli);
         const hiredAppli = data?.filter((event) => {
           const appliStatus = event.status;
           return appliStatus === 'Hired'
@@ -68,10 +69,10 @@ function StatusOfApplication() {
           setInProgressData(inprogressAppli);
         }
         if(rejectAppli.length > 0 ){
-          setRejectData(inprogressAppli);
+          setRejectData(rejectAppli);
         }
         if(hiredAppli.length > 0 ){
-          setHiredData(inprogressAppli);
+          setHiredData(hiredAppli);
         }
 
         

@@ -31,6 +31,13 @@ import ViewArtist from "../PatronPages/PatronViewAritist/ViewArtist";
 import EventApplication from "../PatronPages/PatronViewAritist/EventApplication";
 import ArtistApplication from "../PatronPages/PatronViewAritist/ArtistApplication";
 import Partner_Profile from "../PartnersPages/ProfilePage/Partner_Profile";
+import AboutPartner from "../PartnersPages/AboutUs/AboutPartner";
+import EditAboutPartner from "../PartnersPages/AboutUs/EditAboutPartner";
+import SellProduct from "../PartnersPages/SellProduct/SellProduct";
+import MyProductsandCourses from "../PartnersPages/MyProducts/MyProductsandCourses";
+import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment"
+import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories"
+import PatronPortfolioDisplay from "../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
 
 export default function RouterPage() {
   const { accessToken, refreshToken } = useSelector((state) => state.auth);
@@ -55,6 +62,7 @@ export default function RouterPage() {
         <Route path="/statusOfApplication" element={<StatusOfApplication />} />
         <Route path="/Artist_OpportunityDetails" exact element={<Artist_OpportunitiesMoreInfo />} />
         <Route path="/PortfolioDisplay" element={<PortfolioDisplay />} />
+        <Route path="/patron_view_artist/:id" element={<PatronPortfolioDisplay />} />
         <Route path="/EditPortfolio" element={<EditPortfolio />} />
         <Route path="/Newsletter" exact element={<Newsletter />} />
         <Route path="/contactUs" element={<ContactUs />} />
@@ -67,7 +75,14 @@ export default function RouterPage() {
         <Route path="/patron-event-appli/:id" element={<EventApplication />} />
         <Route path="/patron-artist-appli" element={<ArtistApplication />} />
         <Route path="/partner-profile" element={<Partner_Profile />} />
-      </Routes>
+        <Route path="/skilldevelopment" element={<SkillDevelopment />} />
+        <Route path="/CourseCategories" exact element={<CourseCategories />} />
+
+        <Route path="/About_Partner" exact element={<AboutPartner />} />
+        <Route path="/Edit_About_Partner" exact element={<EditAboutPartner />} />
+        <Route path="/SellProduct" exact element={<SellProduct />} />
+        <Route path="/Partner_ProductsandCourses" exact element={<MyProductsandCourses />} />
+   </Routes>
     </div>
   );
 }

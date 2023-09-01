@@ -137,12 +137,12 @@ function ArtistApplication() {
             <div key={index} className="single_artist_body_row">
               <p className="body_date artist_body ">{new Date(data.applicationPeriod.start)
   .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
-              <p className="body_event artist_body">{data.performanceType}</p>
+              <p className="body_event artist_body">{data.position?.split("").slice(0,30).join("")}..</p>
              <Link to={`/patron-event-appli/${data._id}`} >
              <p  className="body_appli artist_body">
                 {data.application}{" "}
                 <span className="view_appli_text artist_body">
-                  (View Applications)
+                  {data.totalApplicants}(View Applications)
                 </span>{" "}
               </p>
              </Link> 

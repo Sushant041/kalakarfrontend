@@ -12,8 +12,8 @@ import facebookimg from "./assets/facebookimg.svg";
 
 
 
-function PortfolioDisplayTemplate({ portfolioData,socalMedia , profession , userDetails , userName , editCard = false}) {
-  console.log('port' ,portfolioData);
+function PortfolioDisplayTemplate({ portfolioData,  editCard = false}) {
+  // console.log('port' ,portfolioData);
   return (
 
       <section className="portfolio_card">
@@ -44,7 +44,7 @@ function PortfolioDisplayTemplate({ portfolioData,socalMedia , profession , user
                   {" "}
                   <img src={location} alt="" />{" "}
                 </div>
-                <p className="card_detail_text">{portfolioData?.address?.district} {portfolioData?.address?.state} {portfolioData?.address?.pincode} {portfolioData?.address?.detailedAddress}</p>
+                <p className="card_detail_text">{portfolioData?.address?.district} {portfolioData?.address?.state} {portfolioData?.address?.pincode}</p>
               </div>
             
           </div>

@@ -60,7 +60,7 @@ const CourseCategories = (props) => {
       </div>
       {/* <Categories /> */}
 
-    <Link to="/CourseCategories"> <button id="course-categories-explore-more-button">Explore All</button></Link> 
+    <Link to="/CourseCategories" style={{textDecoration:"none"}}> <button id="course-categories-explore-more-button">Explore All</button></Link> 
     </div>
   );
 };

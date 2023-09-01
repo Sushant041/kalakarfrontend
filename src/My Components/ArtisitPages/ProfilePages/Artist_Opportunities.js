@@ -12,6 +12,9 @@ import { useSelector } from "react-redux";
 import { artistOpportunityPoints } from "../../../services/apis";
 import { toast } from "react-hot-toast";
 import { AllLanguage } from "../../../CommonData/language";
+import natureOfArt from "./assets/natureOfArt.svg"
+import language from "./assets/language.svg"
+import category from "./assets/category.svg"
 
 const filterAmount = [
   {
@@ -426,6 +429,15 @@ export function Artist_Opportunities() {
                 <div className="OpportunitiesPage_displayonejob_contentdetailsone">
                   <div className="OpportunitiesPage_displayonejob_contentdetailsone_text">
                     <div>
+                    <p style={{display:"flex",gap:"4px"}}>
+                        <img src={natureOfArt} alt="" />
+                        Nature of Art:
+                      </p>
+                    <p style={{display:"flex",gap:"4px"}}>
+                        <img src={category} alt="" />
+                        Category :
+                      </p>
+
                       <p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -444,6 +456,7 @@ export function Artist_Opportunities() {
                         </svg>{" "}
                         Location:
                       </p>
+                     
                       <p>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -507,6 +520,8 @@ export function Artist_Opportunities() {
                     </div>
 
                     <div className="OpportunitiesPage_displayonejob_contentdetailstwo">
+                      <p>{job.artNature}</p>
+                      <p>{job.category}</p>
                       <p>{job.location}</p>
                       <p>
                         {new Date(job.performanceDate).toLocaleDateString(
@@ -561,14 +576,14 @@ export function Artist_Opportunities() {
                         X
                       </button>
                       <div className="Opportunityapplynowpopup_content">
-                        <h4>{job.title}</h4>
+                        <h4>{job.position}</h4>
                         <div className="Opportunityapplynowpopup_contentone">
                           <p>
-                            Posted on: <span>{job.postedondate}</span>
+                            Posted on: <span>{new Date(job.applicationPeriod.start).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
                           </p>
                           <p>
                             Last Date to apply:{" "}
-                            <span>{job.applicationDueDate}</span>
+                            <span>{new Date(job.applicationPeriod.end).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
                           </p>
                         </div>
                       </div>
@@ -582,8 +597,8 @@ export function Artist_Opportunities() {
                       </div>
                       <div className="OpportunitiesPage_displayonejob_contentdetailsone">
                         <p>
-                          Role : &emsp;&emsp;&emsp;&emsp;{" "}
-                          <span>{job.role}</span>
+                          Nature Of Art : {" "}
+                          <span>{job.artNature}</span>
                         </p>
                         <p>
                           Expertise :&emsp;&emsp;<span>{job.expertise}</span>
@@ -604,7 +619,7 @@ export function Artist_Opportunities() {
                         </p>
                         <p>
                           {" "}
-                          Opening :&emsp;&emsp; <span>{job.openings}</span>
+                          Opening :&emsp;&emsp; <span>{job.requiredArtists}</span>
                         </p>
                       </div>
                       <h1>Why do you want ot Apply for this Role?</h1>

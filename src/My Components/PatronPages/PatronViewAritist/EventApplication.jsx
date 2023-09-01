@@ -19,9 +19,9 @@ import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { patronProfilePoints } from "../../../services/apis";
 import { toast } from "react-hot-toast";
+import PatronPortfolioDisplay from "../../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
 
-const jobDescPara =
-  "Gorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.Gorem ipsum dolor sit amet, consectetur adipiscing elit.";
+
 
 const jobDesList = [
   {
@@ -54,44 +54,6 @@ const btnData = [
   },
 ];
 
-const jobOverview = [
-  {
-    image: category,
-    title1: "category",
-    title2: "Kathak Dance",
-  },
-  {
-    image: posted,
-    title1: "Application Posted",
-    title2: "28/07/23",
-  },
-  {
-    image: date,
-    title1: "application due date",
-    title2: "08/08/23",
-  },
-  {
-    image: opening,
-    title1: "openings",
-    title2: "5",
-  },
-];
-
-const cardDetail = [
-  {
-    image: phone,
-    title: "1234568901",
-  },
-  {
-    image: anvelop,
-    title: "randomemail@gmail.com",
-  },
-  {
-    image: location,
-    title:
-      "123 random street, random city - 123456 random district random state",
-  },
-];
 
 const socialDetail = [
   {
@@ -104,8 +66,6 @@ const socialDetail = [
   },
 ];
 
-
-
 const userName = "Mano Selva Vijay";
 const userProfession = "Dancer";
 
@@ -114,7 +74,27 @@ function EventApplication() {
   const [currentEvent, setCurrentEvent] = useState("Application");
   const {accessToken} = useSelector((state)=>state.auth);
   const [eventDetail , setEventDetail] = useState([]);
+
+  const [cardDetail , setCardDetail] = useState( [
+    {
+      image: phone,
+      title: "1234568901",
+    },
+    {
+      image: anvelop,
+      title: "randomemail@gmail.com",
+    },
+    {
+      image: location,
+      title:
+        "123 random street, random city - 123456 random district random state",
+    },
+  ]
+  );
+  
+  const [appliId , setAppliId] = useState(null);
   const {id} = useParams();
+
 
   const [jobOverview , setJobOverview] = useState([
     {
@@ -148,16 +128,25 @@ function EventApplication() {
     });
   };
 
+
+
   const fetchOpporById = async()=>{
     try{
       const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API + `/${id}` , accessToken);
       console.log('res',response);
       if(response.success === 'success'){
-          const {applicationPeriod , openings , artNature} = response.data;
+            
+
+
+          const {applicationPeriod , requiredArtists , artNature ,_id} = response.data;
+          console.log('idd' ,_id);
+          
+          setAppliId(_id);
+
             updateTitle2(0 , artNature);
             updateTitle2(1 , new Date(applicationPeriod.start).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
             updateTitle2(2 , new Date(applicationPeriod.end).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
-            updateTitle2(3 , openings);
+            updateTitle2(3 , requiredArtists);
 
         setEventDetail(response.data);
         
@@ -171,11 +160,26 @@ function EventApplication() {
     }
   }
 
-
   console.log('evend' ,eventDetail);
 useEffect(()=>{
  fetchOpporById();
 },[])
+
+const fetchOpporApplication = async()=>{
+  try{
+
+    const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_SINGLE__APPLI_API + `/${appliId}` , accessToken);
+    console.log('alpppli' ,response);
+
+  } catch(error){
+    console.log(error);
+    toast.error('something went wrong , please try again');
+  }
+}
+
+useEffect(()=>{
+ fetchOpporApplication();
+},[appliId])
 
   return (
     <div className="patron_event_appli_wrapper">
@@ -243,7 +247,7 @@ useEffect(()=>{
         currentEvent === 'Application' && 
       
       <section className="patron_event_detail_Section">
-        {/*box ka left part */}
+        {/*box ka left part ==> card  */}
         <div className="event_card_wrapper">
           {/* card ka left part */}
           <div className="card_left_container">

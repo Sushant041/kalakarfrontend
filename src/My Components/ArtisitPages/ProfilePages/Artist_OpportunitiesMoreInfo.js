@@ -21,6 +21,7 @@ export function Artist_OpportunitiesMoreInfo() {
   const [OpportunityapplynowPopup, setOpportunityapplynowPopup] = useState(null);
 
   const { accessToken } = useSelector((state) => state.auth);
+  
   const [applyAns, setApplyAns] = useState("");
 
   console.log("josb", job);
@@ -105,7 +106,7 @@ const savedHandler = async()=>{
           <div className="OpportunitiesMoreInfoPage_Topboxcontent">
             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
               <p>
-                Category :&emsp;<span>{jobData?.role}</span>
+                Category :&emsp;<span>{jobData?.category}</span>
               </p>
               <p>
                 Posted on :&emsp;<span>{new Date(jobData?.applicationPeriod?.start).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
@@ -115,7 +116,7 @@ const savedHandler = async()=>{
               </p>
               <p>
                 {" "}
-                Opening :&emsp; <span>{jobData?.openings}</span>
+                Opening :&emsp; <span>{jobData?.requiredArtists}</span>
               </p>
             </div>
             <div className="OpportunitiesMoreInfoPage_Topboxbtns">
@@ -233,10 +234,10 @@ const savedHandler = async()=>{
                 <h4>{jobData?.title}</h4>
                 <div className="Opportunityapplynowpopup_contentone">
                   <p>
-                    Posted on: <span>{jobData.postedondate}</span>
+                    Posted on: <span>{new Date(job.applicationPeriod.start).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
                   </p>
                   <p>
-                    Last Date to apply: <span>{jobData.applicationDueDate}</span>
+                    Last Date to apply: <span>{new Date(job.applicationPeriod.end).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
                   </p>
                 </div>
               </div>
@@ -259,14 +260,16 @@ const savedHandler = async()=>{
                   Location :&emsp;&emsp; <span>{jobData?.location}</span>
                 </p>
                 <p>
-                  Language : &emsp; <span>{jobData?.language}</span>
+                  Language : &emsp; <span>{job.languages?.map((lag, index) => (
+                              <span key={index}>{lag} </span>
+                            ))}</span>
                 </p>
                 <p>
-                  Amount : &emsp; &emsp;<span>{jobData?.amount}</span>
+                  Amount : &emsp; &emsp;<span>{jobData?.budget}</span>
                 </p>
                 <p>
                   {" "}
-                  Opening :&emsp;&emsp; <span>{jobData?.opening}</span>
+                  Opening :&emsp;&emsp; <span>{jobData?.requiredArtists}</span>
                 </p>
               </div>
               <h1>Why do you want ot Apply for this Role?</h1>
