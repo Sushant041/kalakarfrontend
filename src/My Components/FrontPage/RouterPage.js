@@ -37,13 +37,12 @@ import SellProduct from "../PartnersPages/SellProduct/SellProduct";
 import MyProductsandCourses from "../PartnersPages/MyProducts/MyProductsandCourses";
 import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment"
 import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories"
-import PatronPortfolioDisplay from "../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
 
 export default function RouterPage() {
   const { accessToken, refreshToken } = useSelector((state) => state.auth);
   return (
     <div>
-      <Routes>
+      <Routes >
         <Route path="/" exact element={<HomePage />} />
         <Route path="/EkPhotos" exact element={<EkPhotos />} />
         <Route path="/EkVideos" exact element={<EkVideos />} />
@@ -69,6 +68,7 @@ export default function RouterPage() {
         <Route path="/chatApp" element={<ChatDisplay />} />
         <Route path="/viewChat/:id" element={<ChatViewSection showViewChat={true} />} />
         <Route path="/UploadOpportunity" exact element={<UploadOpportunities />} />
+        <Route path="/UploadedOpportunities" exact element={<UploadedOpportunities />} />
         <Route path="/Patron_Profile" element={<PatronProfile />} />
         <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
         <Route path="/patron-view-artist" element={<ViewArtist />} />

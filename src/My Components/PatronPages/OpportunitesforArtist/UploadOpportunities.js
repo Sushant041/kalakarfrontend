@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import './UploadOpportunities.css';
 import Patron_Navbar from '../Patron_Navbar';
-import { toast } from 'react-hot-toast';
-import { makeAuthenticatedPOSTRequest } from '../../../services/serverHelper';
-import { useSelector } from 'react-redux';
-import { patronProfilePoints } from '../../../services/apis';
 
 export function UploadOpportunities() {
 
@@ -66,7 +62,7 @@ export function UploadOpportunities() {
   return (
     <>
       <Patron_Navbar/>
-      <div style={{fontFamily:"Poppins"}} className='ArtistOpportunities_Page'>
+      <div className='ArtistOpportunities_Page'>
         <div className='ArtistOpportunities_Image'>
           <div className='ArtistOpportunities_Image_Content'>
             <p>Upload Opportunities for Artist</p>
@@ -148,14 +144,19 @@ export function UploadOpportunities() {
               </div>
               <div className='ArtistOpportunities_Page_Infoform_inputfield'>
                 <label>Any Other Requirements</label>
-                <input onChange={changeHandler} value={formData.otherRequirements} name='otherRequirements' style={{height:"200px"}} type='text'></input>
+                <input style={{height:"200px"}} type='text'></input>
               </div>
               <div className='ArtistOpportunities_Page_Infoform_inputfield'>
                 <label>Do you Offer any Additional Facilities</label>
-                <input onChange={changeHandler} value={formData.incentives} name='incentives' style={{height:"200px"}} type='text'></input>
+                <input style={{height:"200px"}} type='text'></input>
               </div>
             </div>
-            <button type='Submit'>Upload Opportunity</button>
+            <div className='ArtistOpportunities_Page_Infoform_btns'>
+              <button type='Submit'>Upload Opportunity</button>
+              <Link style={{textDecoration:"none"}} to={"/UploadedOpportunities"}>
+                <button type='button'>Uploaded Opportunities</button>
+              </Link>
+            </div>
           </form>
         </div>
       </div>
