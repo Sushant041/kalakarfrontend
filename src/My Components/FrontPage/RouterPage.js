@@ -25,7 +25,6 @@ import ContactUs from "../ArtisitPages/ContactUs/ContactUs";
 import ChatViewSection from "../ArtisitPages/ChatDisplay/ChatViewSection";
 import ChatDisplay from "../ArtisitPages/ChatDisplay/ChatDisplay";
 import PatronProfile from "../PatronPages/PatronProfile/PatronProfile";
-import { UploadOpportunities } from "../PatronPages/OpportunitesforArtist/UploadOpportunities";
 import ArtistProfiles from "../PatronPages/ArtistProfiles/ArtistProfiles";
 import ViewArtist from "../PatronPages/PatronViewAritist/ViewArtist";
 import EventApplication from "../PatronPages/PatronViewAritist/EventApplication";
@@ -37,6 +36,9 @@ import SellProduct from "../PartnersPages/SellProduct/SellProduct";
 import MyProductsandCourses from "../PartnersPages/MyProducts/MyProductsandCourses";
 import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment"
 import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories"
+import PatronPortfolioDisplay from "../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
+import { UploadOpportunities } from "../PatronPages/OpportunitesforArtist/UploadOpportunities";
+import UploadedOpportunities from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
 
 export default function RouterPage() {
   const { accessToken, refreshToken } = useSelector((state) => state.auth);

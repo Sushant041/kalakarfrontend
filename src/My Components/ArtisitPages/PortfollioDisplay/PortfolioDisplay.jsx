@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
+import Artist_navbar from "../Artist_navbar";
 
 
 const socalMedia = [
@@ -60,11 +61,12 @@ const fetchUserData = async()=>{
   try{
     
     const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API , accessToken);
+    console.log('ress' , response);
 
     if(response.success === 'success'){
-      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName } = response.data;
+      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName , aboutJourney } = response.data;
     setPortfolioData({
-      phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName
+      phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName , aboutJourney
     }) 
     }else{
       toast.error('something went wrong , please refresh the page');
@@ -80,8 +82,11 @@ const fetchUserData = async()=>{
   },[])
 
   return (
+    <>
+  
+      <Artist_navbar />
     <div className="portfolioDisplay_wrapper">
-      <nav className="portfolio_actual_navbar"></nav>
+      {/* <nav className="portfolio_actual_navbar"></nav> */}
 
       <h1 className="portfolio_display_heading">YOUR PORTFOLIO</h1>
 
@@ -91,7 +96,7 @@ const fetchUserData = async()=>{
       {/* two buttons */}
       <section className="card_button_wrapper">
         <ApplicationButton text={"Share Card"} />
-        <ApplicationButton text={"Edit Card"} />
+       
       </section>
 
       {/* user details section */}
@@ -192,6 +197,7 @@ const fetchUserData = async()=>{
 
       <ApplicationButton onclick={() => navigate("/editPortfolio")} text={"Edit Portfolio"} />
     </div>
+    </>
   );
 }
 

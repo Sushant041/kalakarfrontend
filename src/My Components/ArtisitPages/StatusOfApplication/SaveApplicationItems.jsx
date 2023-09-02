@@ -16,9 +16,16 @@ import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useEffect, useState } from "react";
 import artnature from "./assets/natureOfArt.svg"
 import category from "./assets/category.svg"
+import cross from "./assets/cross.svg"
+import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
+import { artistOpportunityPoints } from "../../../services/apis";
 
 function SaveApplicationItems({ loading, setLoading, currentEvent }) {
   const { accessToken } = useSelector((state) => state.auth);
+
+  const [whyText , setWhyText] = useState("");
+
+  const [popupData , setPopupData] = useState(null);
 
   const [jobData, setJobData] = useState([]);
 
@@ -29,7 +36,6 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
         statusOfAppliPoints.FETCH_SAVED_APPLI_API,
         accessToken
       );
-      console.log("avedresponse", response);
       if (response.success === "success") {
         setJobData(response.data);
       } else {
@@ -65,6 +71,33 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
       console.log(error);
       toast.error("something went wrong , please try again");
     }
+    setLoading(false);
+  };
+
+  const applySubmitHandler = async (event) => {
+    const toastId = toast.loading("Loading...");
+    try {
+      event.preventDefault();
+      const response = await makeAuthenticatedPOSTRequest(
+        artistOpportunityPoints.APPLY_OPPOR_API +
+          `/${popupData?._id}/apply`,
+        { whyText },
+        accessToken
+      );
+
+      if (response.success === "success") {
+        toast.success("successfully applied");
+        setPopupData(null);
+        setWhyText("");
+      } else {
+        toast.error(response.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("server error , please try again");
+    }
+
+    toast.dismiss(toastId);
   };
 
   return (
@@ -178,7 +211,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                         />
                       </Link>
 
-                      <ApplicationButton text={"Apply Now"} />
+                      <ApplicationButton onclick={()=>setPopupData(event)}  text={"Apply Now"} />
                     </div>
                   </div>
                   <div
@@ -197,6 +230,95 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
           )}
         </div>
       )}
+
+
+{
+  popupData && 
+  <>
+  {/* apply now popup */}
+  <div className="save_appli_Popup_wrapper">
+  <form onSubmit={applySubmitHandler} style={{display:"flex" ,flexDirection:"column" , justifyContent:"space-evenly"}} className="popup_container">
+
+    {/* heading */}
+    <div className="save_popup_heading_wrapper">
+      <p className="save_popup_position">{popupData.position}</p>
+      <div onClick={()=>setPopupData(null)} style={{  padding:"10px" , cursor:"pointer"}}>
+
+      <img onClick={()=>setPopupData(null)} style={{cursor:"pointer"}} className="save_popup_cross" src={cross} alt="" />
+      </div>
+    </div>
+
+{/* second row */}
+    <div className="s_pop_posted_row_container">
+       <p className="save_popup_common">posted On: <span className="save_popup_ans"> {new Date(popupData.applicationPeriod.start).toLocaleDateString(
+                        "en-US",
+                        {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        }
+                      )}</span> </p>
+       <p className="save_popup_common">Last date To Apply : <span className="save_popup_ans">{new Date(
+                            popupData?.applicationPeriod?.end
+                          ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })} </span></p>
+    </div>
+
+{/* description */}
+    <p> <span className="save_popup_common"> Description : </span> <span className="save_popup_ans"> {popupData.description}</span> </p>
+
+{/* details div */}
+    <div >
+      <p style={{paddingLeft:"20px"}} className="save_otherDetails_text">Other details</p>
+      <div style={{display:"flex" , gap:"60px" , marginLeft:"20px"}} className="other_Detail_wrapper">
+
+        {/* left side  */}
+        <div style={{display:"flex" , flexDirection:"column" }}>
+      <p className="save_popup_common">Nature Of Art : </p>
+      <p className="save_popup_common">Expertise : </p>
+      <p className="save_popup_common">Location :  </p>
+      <p className="save_popup_common"> Language :  </p>
+      <p className="save_popup_common">Amount :  </p>
+      <p className="save_popup_common">Opening :  </p>
+      </div>
+
+      {/* right answer side */}
+      <div style={{display:"flex" , flexDirection:"column" }} className="">
+        <p className="save_popup_ans">{popupData.artNature}</p>
+        <p className="save_popup_ans">{popupData.expertise}</p>
+        <p className="save_popup_ans">{popupData.location}</p>
+        <p className="save_popup_ans">{popupData.languages?.map((lan, index) => (
+                              <span key={index}>{lan}</span>
+                            ))}</p>
+        <p className="save_popup_ans">{popupData.budget}</p>
+        <p className="save_popup_ans">{popupData.requiredArtists}</p>
+
+      </div>
+      </div>
+     
+    </div>
+
+{/* why do you want to apply div */}
+    <div>
+           <p className="save_popup_ans">Why do you want to apply for this role ?</p>
+           <textarea required value={whyText} onChange={(e)=>setWhyText(e.target.value)} style={{width:"95%" , resize:"none" , border:"2px solid black" , borderRadius:"10px" , height:"100px" , padding:"10px" , }}  />
+    </div>
+
+    {/* buttons  */}
+    <div style={{display:"flex" , width:"95%" ,justifyContent:"flex-end" , alignItems:"center" , gap:"20px"}} className="buttons_wrapper">
+      <button onClick={()=>setPopupData(null)} style={{backgroundColor:"transparent" , border:"none" , fontSize:"20px" , fontWeight:"500" ,fontFamily:"Poppins" }} >Cancel</button>
+      <button type="submit" style={{backgroundColor:"#AD2F3B" ,color:"white" , padding:"10px" , paddingLeft:"20px" , paddingRight:"20px" , borderRadius:"10px", border:"none" , fontSize:"20px" , fontWeight:"500" ,fontFamily:"Poppins" }} >Submit</button>
+    </div>
+
+  </form>
+</div>
+</>
+}
+
+
     </div>
   );
 }

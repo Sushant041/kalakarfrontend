@@ -4,6 +4,8 @@ import "./UploadedOpportunities.css"
 import { Link } from 'react-router-dom';
 import { useEffect} from 'react';
 
+
+
 const UploadedOpportunitiesData=[
     {
         position:"Dancer for Entertain the Regular Audience",

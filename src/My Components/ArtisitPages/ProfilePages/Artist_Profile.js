@@ -317,6 +317,8 @@ export function Artist_Profile() {
     ],
   });
 
+  const [avatar , setAvatar] = useState(null);
+
   const awardChangeHandler = (event) => {
     const { name, value } = event.target;
 
@@ -389,6 +391,8 @@ export function Artist_Profile() {
       const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API, accessToken);
       console.log("fetchdata", response);
 
+      setAvatar(response.data?.avatar);
+
       const {
         firstName,
         lastName,
@@ -460,12 +464,7 @@ export function Artist_Profile() {
         awards: [...awards],
       } = response.data;
 
-      // if (dob) {
-      //   const year = dob.substring(0, 4);
-      //   const month = dob.substring(5, 7);
-      //   const day = dob.substring(8, 10);
-      //   var formattedDate = `${year}-${month}-${day}`;
-      // }
+     
 
       setBasicFormData((prev) => ({
         ...prev,
@@ -611,12 +610,20 @@ export function Artist_Profile() {
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-     const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API ,{"avatar": selectedFile} ,  accessToken);
+      console.log('sele' , selectedFile);
+      const formData = new FormData();      
+formData.append("avatar" , selectedFile);
+
+     const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API , formData ,  accessToken);
      console.log('res' , response);
+     setAvatar(response?.data?.avatar);
     }
   };
 
-  console.log('per' , performanceFormData);
+  const removeAvatar=(event)=>{
+ event.preventDefault();
+ 
+  }
 
   
   return (
@@ -626,7 +633,6 @@ export function Artist_Profile() {
         <Navbar
           style={{ zIndex: "99" }}
           className="navbar nav_frontpage navbar-expand-lg "
-          // bg="light"
           expand="lg"
         >
           {/* <Container> */}
@@ -700,9 +706,9 @@ export function Artist_Profile() {
           </button>
         </div>
         <div className="BasicProfile_avatar">
-          <img src={`api.ekalakaar.com/uploads/avatars`} />
+          <img src={avatar=== undefined ?(profile):(`https://api.ekalakaar.com/uploads/avatars/${avatar}`)} />
           <button onClick={handleButtonClick} className="BasicProfile_editavatar">Edit Profile Picture</button>
-          <button className="BasicProfile_removeavatar">Remove Avatar</button>
+          <button onClick={()=>removeAvatar()} className="BasicProfile_removeavatar">Remove Avatar</button>
         </div>
         <div className="BasicProfile_name">
           <p>

@@ -35,14 +35,22 @@ const filterAmount = [
 ];
 
 export function Artist_Opportunities() {
+
   const { accessToken } = useSelector((state) => state.auth);
+
   const [jobData, setJobData] = useState([]);
+
   const [OpportunityapplynowPopup, setOpportunityapplynowPopup] =
     useState(null);
+    
   const [showOpportunityFiltersPopup, setShowOpportunityFiltersPopup] =
     useState(false);
 
   const [applyAns, setApplyAns] = useState("");
+
+  const [isFilterOn , setIsFilterOn] = useState(false);
+  const [filterData ,setFilterData] = useState([]);
+
 
   const applySubmitHandler = async (event) => {
     const toastId = toast.loading("Loading...");
@@ -77,7 +85,7 @@ export function Artist_Opportunities() {
         artistOpportunityPoints.FETCH_OPPOR_DATA_API,
         accessToken
       );
-      console.log("dta", response);
+      console.log("fetchresponse", response);
       if (response?.success === "success") {
         setJobData(response?.data);
       } else {
@@ -95,7 +103,6 @@ export function Artist_Opportunities() {
 
   // ! this is for filters
 
-  const [filterAppli, setFilterAppli] = useState(null);
 
   const [filterOption, setFilterOption] = useState({
     location: "",
@@ -140,32 +147,56 @@ export function Artist_Opportunities() {
       toast.error('Please enter the valid maximum value');
     }
     else{
-      let location = filterOption.location;
+      let location = filterOption.location.toLowerCase();
       let language = filterOption.language;
       let minAmount = filterOption.minAmount;
       let maxAmount = filterOption.maxAmount;
       let amountRange = filterOption.amountRange;
 
       const filteredData = jobData.filter((job) => {
-        if (location === "" && !job.location.includes(location)) {
-          return false;
+
+        if (amountRange !== "") {
+          if(amountRange === "Below 50,000" && job.budget <= 50000){
+             return true;
+          }
+          else if(amountRange === "Rs 8,000 - Rs 10,000" && job.budget >= 8000 &&  job.budget <= 10000 ){
+            return true;
+          }
+          else if(amountRange === "Rs 10,000 - Rs 20,000" &&  job.budget >= 10000  && job.budget <= 20000 ){
+            return true;
+          }
+          else if(amountRange === "Rs 20,000 - Rs 50,000" && job.budget <=20000 && job.budget <= 50000 ) {
+       return true;
+          }
+          else if(job.budget >= 50000 ){
+               return true;
+          }
+        }
+
+        if (minAmount !== "" && maxAmount !== "" && job.budget > minAmount && job.budget < maxAmount ) {
+          return true;
+        }
+
+        if(minAmount !== "" && maxAmount === "" && job.budget > minAmount){
+          return true;
+        }
+        if(maxAmount !== "" && minAmount === "" && job.budget < maxAmount){
+          return true;
+        }
+
+        
+        if (location !== "" && job.location.toLowerCase().includes(location)) {
+          return true;
         }
       
-        if (language ===""  && !job.languages.includes(language)) {
-          return false;
+        if (language !== ""  && job.languages.includes(language)) {
+          return true;
         }
-      
-        if (minAmount === "" && maxAmount ==="" && job.budget < minAmount && job.budget > maxAmount ) {
-          return false;
-        }
-    
-        if (amountRange &&  (job.amount < filterOption.amountRange.min || job.amount > filterOption.amountRange.max)
-        ) {
-          return false;
-        }
-      
-        return true;
+  
+        return false;
       });
+
+      setFilterData(filteredData);
       
     }
 
@@ -182,11 +213,8 @@ export function Artist_Opportunities() {
     }
   }
 
-  const resetFilterHandler = () => {
-    setFilterAppli(null);
-  };
 
-  const eventToMap = filterAppli === null ? jobData : filterAppli;
+  const eventToMap = isFilterOn? filterData:jobData;
 
   return (
     <div className="OpportunitiesPage">
@@ -196,7 +224,7 @@ export function Artist_Opportunities() {
         <div className="OpportunitiesPage_Heading">
           <h2>OPPORTUNITIES</h2>
         </div>
-        <div className="">
+        <div >
           <form className="OpportunitiesPage_SearchSort">
             <div className="OpportunitiesPage_Search">
               <input placeholder="Search for opportunity" />
@@ -386,7 +414,9 @@ export function Artist_Opportunities() {
                 className="filter_btn"
               >
                 <button
-                  onClick={applyFilterHandler}
+                  onClick={(e)=>{applyFilterHandler(e)
+                  setIsFilterOn(true)
+                  }}
                   style={{
                     width: "100px",
                     height: "50px",
@@ -401,7 +431,15 @@ export function Artist_Opportunities() {
                   Apply
                 </button>
                 <button
-                  onClick={resetFilterHandler}
+                  onClick={()=>{
+                    setFilterOption({
+                      location: "",
+                       minAmount: "",
+                       maxAmount: "",
+                        language: "",
+                      amountRange: "",
+                    })
+                  setIsFilterOn(false)}}
                   style={{
                     color: "black",
                     fontWeight: "500",

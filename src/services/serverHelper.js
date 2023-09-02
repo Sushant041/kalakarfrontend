@@ -78,25 +78,25 @@ export const makeAuthenticatedUPDATERequest = async (route , body , token) => {
 };
 
 // ! patch with multipart/form-data 
-export const makeAuthenticated_Multi_Patch_REQ = async(route , body , token)=>{
-  console.log(body);
+export const makeAuthenticated_Multi_Patch_REQ = async (route, file, token) => {
   try {
+
     const response = await fetch(route, {
       method: "PATCH",
       headers: {
-        'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(body),
-
+      body: file, // Use the FormData object as the body
     });
-   
+    
     const formattedResponse = await response.json();
     return formattedResponse;
   } catch (error) {
-    console.log(`error in fetch api `, error);
+    console.error(`Error in fetch API: `, error);
+    throw error; // Re-throw the error so it can be handled elsewhere if needed
   }
-}
+};
+
 
 // ! update request of application/json
 export const makeAuthenticatedPATCHRequest = async (route , body , token) => {

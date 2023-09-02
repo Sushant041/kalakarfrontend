@@ -3,11 +3,19 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../FrontPage/Images/eK_Logo_Trasnparent_1.png";
 import "./Artist_navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setAccessToken  , setRefreshToken , } from "../../reducer/slices/authSlice";
+
 
 export default function Artist_navbar() {
   const [AccountpopupVisible, setAccountPopupVisible] = useState(false);
   const accountPopupRef = useRef(null);
+
+  const dispatch  = useDispatch();
+  const navigate = useNavigate();
+  
 
   const toggleAccountPopup = () => {
     setAccountPopupVisible(!AccountpopupVisible);
@@ -24,6 +32,8 @@ export default function Artist_navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+
 
   return (
     <Navbar
@@ -104,8 +114,8 @@ export default function Artist_navbar() {
               >
                 Profile
               </Link>
-              <Link style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>
-                Dashboard
+              <Link to={"/portfolioDisplay"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>
+                Portfolio
               </Link>
               <Link
                 to={"/Artist_Opportunities"}
@@ -131,22 +141,21 @@ export default function Artist_navbar() {
               >
                 Latest News
               </Link>
-              <Link style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>
+              <Link to={"/login"} onClick={()=>{
+                   console.log('Logging out...'); // Corrected function name
+                   dispatch(setAccessToken(null));
+                   dispatch(setRefreshToken(null));
+                   localStorage.removeItem("accessToken");
+                   localStorage.removeItem("refreshToken");
+                   toast.success('Successfully logged out'); // Assuming 'toast' is correctly imported
+                   // Assuming 'navigate' is corr
+              }} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>
                 Logout
               </Link>
             </div>
           )}
         </div>
-        {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
-               <Navbar.Collapse id="basic-navbar-nav" style={mystyle}>
-                    <div className="navbar-nav" style={back}>
-                        <Nav className="">
-                        </Nav>
-                    </div>
-
-
-                </Navbar.Collapse>
-                 </Container> */}
+ 
       </div>
     </Navbar>
   );
