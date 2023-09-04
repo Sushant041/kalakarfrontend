@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import { toast } from "react-hot-toast";
-import AuthTemplate from "../Common/AuthTemplate";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
+  import AuthTemplate from "../Common/AuthTemplate";
 import { useNavigate } from "react-router-dom";
 import google from "./Images/Google.svg";
 import facebook from "./Images/Facebook.svg";
@@ -35,8 +36,6 @@ export function LoginPage() {
       };
     });
   }
-
-
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -72,8 +71,10 @@ export function LoginPage() {
 
     toast.dismiss(toastId);
   };
+
+
   return (
-    <AuthTemplate justifyFlag={true}>
+    <AuthTemplate justifyFlag={false}>
       <div className="loginWrapper">
         <h1 className="loginHeading">Welcome Back!</h1>
         <p className="loginPara">Login to your Account</p>

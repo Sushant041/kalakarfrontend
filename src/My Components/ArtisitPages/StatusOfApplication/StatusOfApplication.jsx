@@ -9,8 +9,9 @@ import Artist_navbar from "../Artist_navbar";
 import { statusOfAppliPoints } from "../../../services/apis";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
-
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
+  
 const navItems = [
   {
     title: "Saved",
@@ -80,7 +81,9 @@ function StatusOfApplication() {
         
   }
   else {
-    toast.error('Cannot fetch Applied Appliction , please refresh page');
+    toast.error('Cannot fetch Applied Appliction , please refresh page',{
+      position:"top-center"
+    });
   }
     }catch(error){
       console.log(error);

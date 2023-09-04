@@ -5,8 +5,10 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
 import { endpoints } from "../../../services/apis";
-import { toast } from "react-hot-toast";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 
+  
 function ResetPassword() {
   const navigate = useNavigate();
 
@@ -39,21 +41,27 @@ function ResetPassword() {
     event.preventDefault();
 
     if (formData.password !== formData.passwordConfirm) {
-      return toast.error("Password do not match");
+      return toast.error("Password do not match" , {
+        position:"top-center"
+      });
     }
 
     try {
       const response = await makeAuthenticatedPOSTRequest(endpoints.RESETPASSWORD_API, formData, accessToken);
 
       if (response.success === "success") {
-        toast.success("successfuly reset password");
+        toast.success("successfuly reset password" , {
+          position:"top-center"
+        });
         Cookies.remove("accessToken");
         Cookies.remove("refreshToken");
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
         navigate("/login");
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);

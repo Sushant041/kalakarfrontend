@@ -11,7 +11,8 @@ import { Link } from "react-router-dom";
 import { makeAuthenticatedDELETERequest } from "../../../services/serverHelper";
 import { statusOfAppliPoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useEffect, useState } from "react";
 import artnature from "./assets/natureOfArt.svg"
@@ -39,11 +40,15 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
       if (response.success === "success") {
         setJobData(response.data);
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong , please  try again");
+      toast.error("something went wrong , please  try again" , {
+        position:"top-center"
+      });
     }
     setLoading(false);
   };
@@ -62,14 +67,20 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
       );
       console.log("[res", response);
       if (response.success === "success") {
-        toast.success("Successfully Unsaved the Application");
+        toast.success("Successfully Unsaved the Application" , {
+          position:"top-center"
+        });
         fetchSavedApplication();
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        }) ;
       }
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong , please try again");
+      toast.error("something went wrong , please try again" , {
+        position:"top-center"
+      });
     }
     setLoading(false);
   };
@@ -86,15 +97,21 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
       );
 
       if (response.success === "success") {
-        toast.success("successfully applied");
+        toast.success("successfully applied" , {
+          position:"top-center"
+        });
         setPopupData(null);
         setWhyText("");
       } else {
-        toast.error(response.message);
+        toast.error(response.message  ,{
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error("server error , please try again");
+      toast.error("server error , please try again" , {
+        position:"top-center"
+      });
     }
 
     toast.dismiss(toastId);

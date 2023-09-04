@@ -4,16 +4,19 @@ import "./Artist_OpportunitiesMoreInfo.css";
 // import { Navbar_frontpage } from "../../FrontPage/Navbar";
 import { useState } from "react";
 import Artist_navbar from "../Artist_navbar";
-import { toast } from "react-hot-toast";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import { makeAuthenticatedGETRequest, makeAuthenticatedPOSTRequest, makeAuthenticatedPOSTRequestWithoutBody } from "../../../services/serverHelper";
 import { artistOpportunityPoints } from "../../../services/apis";
-import applyFilter from "./assets/applyFilter.svg";
+// import applyFilter from "./assets/applyFilter.svg";
 
 
 export function Artist_OpportunitiesMoreInfo() {
+
   const navigate = useNavigate();
   const location = useLocation();
+
   let job = location.state?.job;
 
   const [currentId , setCurrentId] = useState(null);
@@ -37,14 +40,17 @@ export function Artist_OpportunitiesMoreInfo() {
         
       }
       else{
-        toast.error('something went wrong , please try again');
+        toast.error('something went wrong , please try again' , {
+          position:"top-center"
+        });
       }
   }
 
   useEffect(()=>{
    if(job?.status === 'Applied'){
-    setCurrentId(job.id);
-    fetchAppliedOpp();
+    setCurrentId(job._id);
+    setJobData(job);
+    // fetchAppliedOpp();
    }
    else {
     setCurrentId(job._id);
@@ -55,22 +61,30 @@ export function Artist_OpportunitiesMoreInfo() {
   console.log('currentId' , currentId);
 
   const applySubmitHandler = async (event) => {
-    const toastId = toast.loading("Loading...");
+    const toastId = toast.loading("Loading..."  ,{
+      position:"top-center"
+    });
     try {
       event.preventDefault();
       const response = await makeAuthenticatedPOSTRequest(artistOpportunityPoints.APPLY_OPPOR_API + `/${job._id}/apply`, { applyAns }, accessToken);
       console.log("response", response);
 
       if (response.success === "success") {
-        toast.success("successfully applied");
+        toast.success("successfully applied" , {
+          position:"top-center"
+        });
         setOpportunityapplynowPopup(null);
         setApplyAns("");
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        }) ;
       }
     } catch (error) {
       console.log(error);
-      toast.error("server error , please try again");
+      toast.error("server error , please try again" , {
+        position:"top-center"
+      });
     }
 
     toast.dismiss(toastId);
@@ -83,19 +97,29 @@ const savedHandler = async()=>{
     const response = await makeAuthenticatedPOSTRequestWithoutBody(artistOpportunityPoints.SAVE_OPPR_BY_ID + `/${currentId}`,accessToken);
     console.log('response saved' , response);
     if(response.success === 'success'){
-      toast.success('successfully Saved');
+      toast.success('successfully Saved' , {
+        position:"top-center"
+      });
            navigate("/statusOfApplication");
     }
     else{
-      toast.error(response.message);
+      toast.error(response.message , {
+        position:"top-center"
+      });
     }
 
   }catch(error){
     console.log(error);
-    toast.error('something went wrong , Please try again');
+    toast.error('something went wrong , Please try again' ,{
+      position:"top-center"
+    });
   }
   toast.dismiss(toastId);
 }
+
+useEffect(() => {
+  window.scrollTo(0, 0);
+}, []); 
 
   return (
     <>

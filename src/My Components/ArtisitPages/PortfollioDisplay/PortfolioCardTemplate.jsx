@@ -13,7 +13,9 @@ import facebookimg from "./assets/facebookimg.svg";
 
 
 function PortfolioDisplayTemplate({ portfolioData,  editCard = false}) {
-  // console.log('port' ,portfolioData);
+
+
+  console.log('portcard' ,portfolioData);
   return (
 
       <section className="portfolio_card">
@@ -81,7 +83,7 @@ function PortfolioDisplayTemplate({ portfolioData,  editCard = false}) {
     <div className="user_photo user_profile">Your Photo Here</div>
 
   ):(
-     <img src={Ellipse} alt="" className="user_profile" /> 
+     <img src={`https://api.ekalakaar.com/uploads/avatars/${portfolioData?.avatar}`} alt="" className="user_profile" /> 
 
   )
 }

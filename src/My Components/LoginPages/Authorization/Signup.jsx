@@ -3,9 +3,9 @@ import AuthTemplate from "../../Common/AuthTemplate";
 import "./signup.css";
 import {  useState } from "react";
 import { makeUnauthenticatedPOSTRequest } from "../../../services/serverHelper";
-import { toast } from "react-hot-toast";
-import { endpoints } from "../../../services/apis";
-// import validator from "validator";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
+  import { endpoints } from "../../../services/apis";
 
 const joiningData = [
   {
@@ -49,11 +49,15 @@ function Signup() {
     event.preventDefault();
 
     if (formData.password !== formData.passwordConfirm) {
-      return toast.error("password do not match");
+      return toast.error("password do not match" , {
+        position:"top-center"
+      });
     }
 
       if (formData.phoneNumber.length !== 10) {
-        return toast.error("please provide a valid phone number");
+        return toast.error("please provide a valid phone number" , {
+          position:"top-center"
+        });
       }
 
     const toastId = toast.loading("Loading...");
@@ -65,27 +69,39 @@ function Signup() {
 
       if (response.status === "error") {
         if (response.message?.includes("Please provide a valid email")) {
-          toast.error("Email is not valid ");
+          toast.error("Email is not valid " , {
+            position:"top-center"
+          });
         } else if (
           response.message?.includes("Provided email address is already in use")
         ) {
-          toast.error("Email is already registered");
+          toast.error("Email is already registered" , {
+            position:"top-center"
+          });
         } else if (
           response.message?.includes(
             'Duplicate field value: "undefined", Please use another value!'
           )
         ) {
-          toast.error("Email is already registered");
+          toast.error("Email is already registered" , {
+            position:"top-center"
+          });
         } else if (
           response.message?.includes("Please provide a valid phoneNumber")
         ) {
-          toast.error("Please provide a valid phoneNumber");
+          toast.error("Please provide a valid phoneNumber" , {
+            position:"top-center"
+          });
         }
         else{
-          toast.error(response.message);
+          toast.error(response.message , {
+            position:"top-center"
+          });
         }
       } else if (response.success === "success") {
-        toast.success("Successfully register");
+        toast.success("Successfully register" , {
+          position:"top-center"
+        });
         navigate("/Login");
       }
     } catch (error) {

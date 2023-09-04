@@ -16,7 +16,8 @@ import { artistProfilePoints } from "../../../services/apis";
 import { useEffect, useState } from "react";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 import Artist_navbar from "../Artist_navbar";
 
 
@@ -45,8 +46,7 @@ const userDetails = [
   },
 ];
 
-const aboutMe =
-  "Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.";
+
 
 const userName = "Mano Selva Vijay";
 
@@ -64,18 +64,22 @@ const fetchUserData = async()=>{
     console.log('ress' , response);
 
     if(response.success === 'success'){
-      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName , aboutJourney } = response.data;
+      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName , aboutJourney , avatar } = response.data;
     setPortfolioData({
-      phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName , aboutJourney
+      phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance ,avatar , yearOfExperience ,artName , aboutJourney
     }) 
     }else{
-      toast.error('something went wrong , please refresh the page');
+      toast.error('something went wrong , please refresh the page' , {
+        position:"top-center"
+      });
     }
 
   } catch(error){
     console.log(error);
   }
 }
+
+console.log('port' , portfolioData);
 
   useEffect(()=>{
    fetchUserData();
@@ -104,7 +108,7 @@ const fetchUserData = async()=>{
         {/* name and 5 star  */}
         <div className="userName_review_container">
           <div className="portfolio_verify_userName">
-            <p className="portfolio_userName">{userName}</p>
+            <p className="portfolio_userName">{portfolioData?.firstName} {portfolioData?.lastName}</p>
             <div className="portfolio_verify_img">
               {" "}
               <img src={tick} alt="tick" />{" "}
@@ -132,7 +136,7 @@ const fetchUserData = async()=>{
 
         <div className="userAbout_section">
           <h1 className="about_me_text">About Me</h1>
-          <p className="user_aboutMe_detail">{aboutMe}</p>
+          <p className="user_aboutMe_detail">{portfolioData?.aboutJourney}</p>
         </div>
 
         <div className="user_profession_details">

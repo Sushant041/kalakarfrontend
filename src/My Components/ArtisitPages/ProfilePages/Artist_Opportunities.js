@@ -10,7 +10,8 @@ import {
 } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { artistOpportunityPoints } from "../../../services/apis";
-import { toast } from "react-hot-toast";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 import { AllLanguage } from "../../../CommonData/language";
 import natureOfArt from "./assets/natureOfArt.svg"
 import language from "./assets/language.svg"
@@ -53,7 +54,9 @@ export function Artist_Opportunities() {
 
 
   const applySubmitHandler = async (event) => {
-    const toastId = toast.loading("Loading...");
+    const toastId = toast.loading("Loading..." , {
+      position:"top-center"
+    });
     try {
       event.preventDefault();
       const response = await makeAuthenticatedPOSTRequest(
@@ -64,15 +67,21 @@ export function Artist_Opportunities() {
       );
 
       if (response.success === "success") {
-        toast.success("successfully applied");
+        toast.success("successfully applied" ,{
+          position:"top-center"
+        });
         setOpportunityapplynowPopup(null);
         setApplyAns("");
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error("server error , please try again");
+      toast.error("server error , please try again" , {
+        position:"top-center"
+      });
     }
 
     toast.dismiss(toastId);
@@ -89,11 +98,15 @@ export function Artist_Opportunities() {
       if (response?.success === "success") {
         setJobData(response?.data);
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error("server error , please try again ");
+      toast.error("server error , please try again " , {
+        position:"top-center"
+      });
     }
   };
 
@@ -141,10 +154,14 @@ export function Artist_Opportunities() {
       filterOption.maxAmount === "" &&
       filterOption.minAmount === ""
     ) {
-      toast.error('Please fill the fields');
+      toast.error('Please fill the fields' , {
+        position:"top-center"
+      });
     }
     else if(amountCondition){
-      toast.error('Please enter the valid maximum value');
+      toast.error('Please enter the valid maximum value' , {
+        position:"top-center"
+      });
     }
     else{
       let location = filterOption.location.toLowerCase();

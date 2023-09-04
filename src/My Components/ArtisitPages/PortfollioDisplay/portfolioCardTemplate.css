@@ -193,8 +193,12 @@ justify-content: space-between;
     }
 
     .user_profile{
-      width: 150px;
-      height: 150px;   
+        border: 2px solid black;
+        /* box-shadow:  */
+        background-color: red;
+      /* width: 170px; */
+      border-radius: 50%;
+      /* height: 170px;    */
     } 
 
     .card_userName_details h1{

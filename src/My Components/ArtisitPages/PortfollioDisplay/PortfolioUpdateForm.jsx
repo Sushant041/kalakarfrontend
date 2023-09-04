@@ -9,7 +9,8 @@ import {
 } from "../../../services/serverHelper";
 import { artistProfilePoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 
 
 function PortfolioUpdateForm() {
@@ -25,7 +26,8 @@ function PortfolioUpdateForm() {
     natureOfArt: "",
     contactNumber: "",
     email: "",
-    about: "",
+    aboutJourney:"",
+   
     eventType: "",
     yearOfExperience: "",
     artName:"",
@@ -61,7 +63,7 @@ function PortfolioUpdateForm() {
         address,
         handles,
         natureOfArt,
-        about , 
+        aboutJourney , 
         category , 
         age ,
         performanceType ,
@@ -82,7 +84,7 @@ function PortfolioUpdateForm() {
         handles: { ...handles },
          natureOfArt,
          lastName,
-        about , 
+         aboutJourney,
         category , 
         age ,
         performanceType ,
@@ -96,7 +98,9 @@ function PortfolioUpdateForm() {
 
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong , please try again");
+      toast.error("something went wrong , please try again" , {
+        position:"top-center"
+      });
     }
   };
 
@@ -120,7 +124,9 @@ function PortfolioUpdateForm() {
 
 
   const submitHandler = async (event) => {
-    const toastId = toast.loading("Loading...");
+    const toastId = toast.loading("Loading..." , {
+      position:"top-center"
+    });
     event.preventDefault();
 
     try {
@@ -131,14 +137,20 @@ function PortfolioUpdateForm() {
       );
       // console.log("res", response);
       if (response.success === "success") {
-        toast.success("successfully update");
+        toast.success("successfully update" , {
+          position:"top-center"
+        });
         navigate(-1);
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error("something went wrong , please try again");
+      toast.error("something went wrong , please try again" , {
+        position:"top-center"
+      });
     }
     toast.dismiss(toastId);
   };
@@ -363,8 +375,8 @@ function PortfolioUpdateForm() {
         <p className="sinle_form_title">About</p>
 
         <textarea
-          name="about"
-          
+          name="aboutJourney"
+           value={formData.aboutJourney}
           className="single_form_textarea"
           cols="20"
           rows="6"

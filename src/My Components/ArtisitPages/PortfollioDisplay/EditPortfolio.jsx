@@ -11,7 +11,9 @@ import { useEffect, useState } from "react";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { artistProfilePoints } from "../../../services/apis";
-import { toast } from "react-hot-toast";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
+  
 
 const EdituserDetails = [
   {
@@ -54,7 +56,9 @@ function EditPortfolio() {
         phoneNumber , email,address , handles , firstName , lastName , natureOfArt , category ,  age , chargePerPerformance ,experience , eventType , minimumBudget , noOfPerformance  ,performanceType
       })
       }else{
-        toast.error('something went wrong , please refresh the page');
+        toast.error('something went wrong , please refresh the page' , {
+          position:"top-center"
+        });
       }
   
     } catch(error){

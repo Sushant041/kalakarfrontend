@@ -107,11 +107,15 @@ function PatronPortfolioDisplay() {
 
       }
       else{
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch(error){
       console.log(error);
-      toast.error('something went wrong ,please try again');
+      toast.error('something went wrong ,please try again' , {
+        position:"top-center"
+      });
     }
   }
 

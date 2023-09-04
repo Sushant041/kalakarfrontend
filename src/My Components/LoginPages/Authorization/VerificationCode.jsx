@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import "./verificationCode.css";
 import { makeUnauthenticatedPOSTRequest } from "../../../services/serverHelper";
 import { endpoints } from "../../../services/apis";
-import { Toast, toast } from "react-hot-toast";
-import Cookies from "js-cookie";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
+  import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -30,10 +31,14 @@ function VerificationCode() {
         localStorage.setItem("refreshToken", refreshToken);
         Cookies.set("accessToken", accessToken, { expires: expirationDate });
         Cookies.set("refreshToken", refreshToken, { expires: expirationDate });
-        toast.success("Successfuly Verified otp");
+        toast.success("Successfuly Verified otp" , {
+          position:"top-center"
+        });
         navigate("/resetPassword");
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
@@ -53,9 +58,13 @@ function VerificationCode() {
     try {
       const response = await makeUnauthenticatedPOSTRequest(endpoints.FORGOTPASSWORD_SENDOTP_API, { email: resetEmail });
       if (response.success === "success") {
-        toast.success("OTP Send Successfully");
+        toast.success("OTP Send Successfully" , {
+          position:"top-center"
+        });
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);

@@ -7,7 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from './reducer';
 import { Provider } from 'react-redux'
-import { Toaster } from "react-hot-toast";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -21,7 +22,19 @@ root.render(
 <Provider store={store} >
 <BrowserRouter>
   <App />
-  <Toaster/>
+  <ToastContainer
+position="top-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
+  {/* <Toaster/> */}
 </BrowserRouter>
 </Provider>
 );

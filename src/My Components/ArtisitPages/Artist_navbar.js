@@ -4,7 +4,8 @@ import Navbar from "react-bootstrap/Navbar";
 import logo from "../FrontPage/Images/eK_Logo_Trasnparent_1.png";
 import "./Artist_navbar.css";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { setAccessToken  , setRefreshToken , } from "../../reducer/slices/authSlice";
 
@@ -147,7 +148,9 @@ export default function Artist_navbar() {
                    dispatch(setRefreshToken(null));
                    localStorage.removeItem("accessToken");
                    localStorage.removeItem("refreshToken");
-                   toast.success('Successfully logged out'); // Assuming 'toast' is correctly imported
+                   toast.success('Successfully logged out' , {
+                    position:"top-center"
+                   }); // Assuming 'toast' is correctly imported
                    // Assuming 'navigate' is corr
               }} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>
                 Logout

@@ -3,14 +3,15 @@ import "./Artist_Profile.css";
 import { useState, useEffect, useRef } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import logo from "../../FrontPage/Images/eK_Logo_Trasnparent_1.png";
+// import logo from "../../FrontPage/Images/eK_Logo_Trasnparent_1.png";
 import "../../FrontPage/Navbar.css";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest, makeAuthenticated_Multi_Patch_REQ } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
-import profile from "./assets/profile.svg"
-import { artistOpportunityPoints, artistProfilePoints } from "../../../services/apis";
+import { toast,  } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
+// import profile from "./assets/profile.svg"
+import {  artistProfilePoints } from "../../../services/apis";
 import Artist_navbar from "../Artist_navbar";
 import art from "./assets/art.svg"
 import expected from "./assets/expected.svg"
@@ -18,8 +19,8 @@ import star from "./assets/star.svg"
 import performance from "./assets/performance.svg"
 
 export function Artist_Profile() {
-  const { accessToken, refreshToken } = useSelector((state) => state.auth);
-  const initialActiveSection = localStorage.getItem("activeSection") || "basic";
+  const { accessToken } = useSelector((state) => state.auth);
+  const initialActiveSection = "basic";
   const [activeSection, setActiveSection] = useState(initialActiveSection);
 
   const handleClick = (section) => {
@@ -92,16 +93,29 @@ export function Artist_Profile() {
   const basicSubmitHandler = async (event) => {
     event.preventDefault();
 
-    const toastId = toast.loading("Loading...");
+    const toastId = toast.loading('Loading...');
     try {
       const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, basicFormData, accessToken);
       if (response.success === "success") {
-        toast.success("successfully updated");
+        toast.success('🦄 Wow so easy!', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
         setActiveSection("art");
         localStorage.setItem("activeSection", activeSection);
       } else {
-        toast.error(response.message);
-        toast.error("server error please try again");
+        toast.error(response.message , {
+          position:"top-center"
+        });
+        toast.error("server error please try again" , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
@@ -172,15 +186,21 @@ export function Artist_Profile() {
     try {
       const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, artFormData, accessToken);
       if (response.success === "success") {
-        toast.success("successfuly update");
+        toast.success("successfuly update" , {
+          position:"top-center"
+        });
         setActiveSection("performance");
         localStorage.setItem("activeSection", activeSection);
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error("Not Updated Successfully , Please try again");
+      toast.error("Not Updated Successfully , Please try again" , {
+        position:"top-center"
+      });
     }
 
     toast.dismiss(toastId);
@@ -244,15 +264,21 @@ export function Artist_Profile() {
       const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, performanceFormData, accessToken);
       console.log('response ' , response);
       if (response.success === "success") {
-        toast.success("successfully updated ");
+        toast.success("successfully updated " , {
+          position:"top-center"
+        });
         setActiveSection("award");
         localStorage.setItem("activeSection", activeSection);
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
-      toast.error("cannot updated successfully , please try again");
+      toast.error("cannot updated successfully , please try again" , {
+        position:"top-center"
+      });
     }
 
     toast.dismiss(toastId);
@@ -293,13 +319,17 @@ export function Artist_Profile() {
       const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, expectedFormData, accessToken);
       console.log("response", response);
       if (response.success === "success") {
-        toast.success("successfully update");
+        toast.success("successfully update" , {
+          position:"top-center"
+        });
       } else {
         toast.error(response.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error("cannot update successfuly , please try again");
+      toast.error("cannot update successfuly , please try again" ,{
+        position:"top-center"
+      });
     }
 
     toast.dismiss(toastId);
@@ -317,7 +347,7 @@ export function Artist_Profile() {
     ],
   });
 
-  const [avatar , setAvatar] = useState(null);
+
 
   const awardChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -328,6 +358,7 @@ export function Artist_Profile() {
     }));
   };
 
+  // ! in this for awardd 
   const handleInputChange = (index, field, value) => {
     const newAwards = [...awardFormData.awards];
     newAwards[index][field] = value;
@@ -338,7 +369,7 @@ export function Artist_Profile() {
     });
   };
 
-
+// ! award section update
   const awardSubmitHandler = async (event) => {
     event.preventDefault();
     const taostId = toast.loading("Loding...");
@@ -346,11 +377,15 @@ export function Artist_Profile() {
       const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, awardFormData, accessToken);
       console.log("response", response);
       if (response.success === "success") {
-        toast.success("successfully update");
+        toast.success("successfully update" , {
+          position:"top-center"
+        });
         setActiveSection("expected");
         localStorage.setItem("activeSection", activeSection);
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);
@@ -359,6 +394,7 @@ export function Artist_Profile() {
     toast.dismiss(taostId);
   };
 
+  // ! this is to add the new award in award section 
   const addNewAward = () => {
     const newAward = {
       name: "",
@@ -375,6 +411,7 @@ export function Artist_Profile() {
     });
   };
 
+  // ! remove the award detail in award section
   const removeLastAward = () => {
     const newAwards = [...awardFormData.awards];
     newAwards.pop(); // Remove the last element
@@ -599,6 +636,11 @@ export function Artist_Profile() {
   };
   // const [AccountpopupVisible, setAccountPopupVisible] = useState(false);
 
+
+  // ! this is for avatar
+  const [avatar , setAvatar] = useState(null);
+
+  // ! this is to add avatar file 
   const handleButtonClick = () => {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
@@ -607,6 +649,8 @@ export function Artist_Profile() {
     fileInput.click();
   };
 
+
+  // ! this is to add the avatar 
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -614,18 +658,22 @@ export function Artist_Profile() {
       const formData = new FormData();      
 formData.append("avatar" , selectedFile);
 
-     const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API , formData ,  accessToken);
+     const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API ,formData,accessToken);
      console.log('res' , response);
      setAvatar(response?.data?.avatar);
     }
   };
 
-  const removeAvatar=(event)=>{
- event.preventDefault();
+  //! this is for remove avatart  
+  const handleRemoveAvatar= async(event)=>{
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("avatar" , "");
+ const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API ,formData , accessToken );
+setAvatar(null);
  
   }
 
-  
   return (
     <div className="Profile_Page">
       <div className="ProfilePage_Navbar">
@@ -706,15 +754,15 @@ formData.append("avatar" , selectedFile);
           </button>
         </div>
         <div className="BasicProfile_avatar">
-          <img src={avatar=== undefined ?(profile):(`https://api.ekalakaar.com/uploads/avatars/${avatar}`)} />
+          <img loading="lazy" src={avatar === null ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${avatar}`)} />
           <button onClick={handleButtonClick} className="BasicProfile_editavatar">Edit Profile Picture</button>
-          <button onClick={()=>removeAvatar()} className="BasicProfile_removeavatar">Remove Avatar</button>
+          <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button>
         </div>
         <div className="BasicProfile_name">
-          <p>
+          <p style={{fontWeight:"500" , fontSize:"30px"}} >
             {" "}
-            Hello, <br></br>
-            <b>Mano Selva Vijay</b>
+            Hello,<br />{basicFormData.firstName.toUpperCase()} {basicFormData.lastName.toUpperCase()}
+            <b></b>
           </p>
         </div>
       </div>

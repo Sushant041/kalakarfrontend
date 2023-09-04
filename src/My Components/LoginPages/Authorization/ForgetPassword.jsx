@@ -3,8 +3,8 @@ import AuthTemplate from "../../Common/AuthTemplate";
 import "./forgetPassword.css";
 import { makeUnauthenticatedPOSTRequest } from "../../../services/serverHelper";
 import { endpoints } from "../../../services/apis";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setResetEmail } from "../../../reducer/slices/authSlice";
 
@@ -35,11 +35,15 @@ function ForgetPassword() {
         formData
       );
       if (response.success === "success") {
-        toast.success("OTP Send Successfully");
+        toast.success("OTP Send Successfully" , {
+          position:"top-center"
+        });
         navigate("/verifyCode");
         dispatch(setResetEmail(formData.email));
       } else {
-        toast.error(response.message);
+        toast.error(response.message , {
+          position:"top-center"
+        });
       }
     } catch (error) {
       console.log(error);

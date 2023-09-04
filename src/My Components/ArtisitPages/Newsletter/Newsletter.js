@@ -48,7 +48,7 @@ export function Newsletter() {
         <div className="NewsletterPage">
           <div className="NewsletterPage_BDA">
             <div className="NewsletterPage_left">
-              <p className="NewsletterPage_BDA_text">{imageNews[0]?.title?.split(" ").slice(0, 2).join(" ")}...</p>
+              {/* <p className="NewsletterPage_BDA_text">{imageNews[0]?.title?.split(" ").slice(0, 2).join(" ")}...</p> */}
 
               <div className="NewsletterPage_BDA_image_text">
                 <img className="newLetter_img" onClick={() => (window.location.href = imageNews[0].url)} src={imageNews[0]?.urlToImage} />

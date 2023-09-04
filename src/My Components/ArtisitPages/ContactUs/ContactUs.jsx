@@ -9,7 +9,8 @@ import { useState } from "react";
 import { contactUsPoints } from "../../../services/apis";
 import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
-import { toast } from "react-hot-toast";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 
 
 const formDetail = [
@@ -87,7 +88,9 @@ function ContactUs() {
             const response = await makeAuthenticatedPOSTRequest(contactUsPoints.POST_QUERY_API , formData ,accessToken );
             console.log('res' , response);
             if(response.success === 'success'){
-                toast.success('Successfully send');
+                toast.success('Successfully send' , {
+                    position:"top-center"
+                });
                 setFormData({
                     name:"",
                     subject:"",
@@ -97,12 +100,16 @@ function ContactUs() {
                 })
             }
             else{
-                toast.error(response.message);
+                toast.error(response.message , {
+                    position:"top-center"
+                });
             }
 
         }catch(error){
             console.log(error);
-            toast.error('something went wrong ,please try again');
+            toast.error('something went wrong ,please try again' , {
+                position:"top-center"
+            });
         }
 
         toast.dismiss(toastId);
