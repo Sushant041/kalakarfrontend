@@ -19,10 +19,15 @@ export function UploadOpportunities() {
     performanceType:"",
     languages:"",
     mediaType :"",
-    mediaType :"",
-    openings:"",
+    position:"",
+    category:"",
+    description:"",
+    requiredArtists:"",
+    artistLevel:"",
+    // mediaType :"",
+    // openings:"",
     performanceDuration:"",
-    location:"",
+    // location:"",
     budget:"",
     applicationPeriod:{
       start:"",
@@ -50,7 +55,7 @@ export function UploadOpportunities() {
     const toastId = toast.loading('Loading...');
     event.preventDefault();
     try{
-      const response = await makeAuthenticatedPOSTRequest(patronProfilePoints.UPLOAD_OPPOR_API , formData , accessToken);
+      const response = await makeAuthenticatedPOSTRequest('https://api.ekalakaar.com/api/v1/patrons/opportunities' , formData , accessToken);
       console.log('uplares' , response);
       if(response.success ==='success'){
         toast.success('successfully uploaded');
@@ -116,7 +121,7 @@ export function UploadOpportunities() {
               </div>
               <div className='ArtistOpportunities_Page_Infoform_inputfield'>
                 <label>No of Artist</label>
-                <input value={formData.openings} name='openings' onChange={changeHandler} type='text' placeholder='Enter number of artist'></input>
+                <input value={formData.requiredArtists} name='requiredArtists' onChange={changeHandler} type='text' placeholder='Enter number of artist'></input>
               </div>
               <div className='ArtistOpportunities_Page_Infoform_inputfield'>
                 <label>Time of Performance</label>

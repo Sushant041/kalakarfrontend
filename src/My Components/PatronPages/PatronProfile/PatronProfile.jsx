@@ -88,7 +88,7 @@ function PatronProfile() {
 
   const fetchPatronProfileData = async()=>{
     try{
-      const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API ,accessToken );
+      const response = await makeAuthenticatedGETRequest('https://api.ekalakaar.com/api/v1/patrons/profile',accessToken );
       console.log('res' , response);
       if(response.success === 'success'){
           const {firstName , lastName ,operationArea ,businessNature,address ,about,expectationFromEk,website,phoneNumber,authorizedPersonName , email , designation} = response.data;
@@ -126,7 +126,7 @@ function PatronProfile() {
     event.preventDefault();
      const toastId = toast.loading('Loading...');
     try{
-       const response = await makeAuthenticatedPATCHRequest(patronProfilePoints.FETCH_PATRON_APPLI_API , formData , accessToken);
+       const response = await makeAuthenticatedPATCHRequest('https://api.ekalakaar.com/api/v1/patrons/profile', formData , accessToken);
        console.log('respnse' , response);
        if(response.success ==='success'){
        toast.success('successfully updated');
@@ -151,7 +151,7 @@ function PatronProfile() {
   }))
   }
 
-  console.log('forda' ,formData);
+  // console.log('forda' ,formData);
 
   return (
     <div className="patronProfile_wrapper">
