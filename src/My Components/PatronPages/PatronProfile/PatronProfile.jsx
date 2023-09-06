@@ -4,7 +4,7 @@ import rectangleImg from "./assets/rectangleImg.svg";
 import tick from "./assets/tick.svg";
 
 import { useEffect, useState } from "react";
-import plus from "./assets/plus.svg";
+// import plus from "./assets/plus.svg";
 import Patron_Navbar from "../Patron_Navbar";
 // import { toast } from "react-hot-toast";
 import { toast, ToastContainer } from 'react-toastify';

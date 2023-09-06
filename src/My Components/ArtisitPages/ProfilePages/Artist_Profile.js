@@ -3,14 +3,11 @@ import "./Artist_Profile.css";
 import { useState, useEffect, useRef } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-// import logo from "../../FrontPage/Images/eK_Logo_Trasnparent_1.png";
 import "../../FrontPage/Navbar.css";
-// import { Link } from "react-router-dom";
 import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest, makeAuthenticated_Multi_Patch_REQ } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast,  } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
-// import profile from "./assets/profile.svg"
 import {  artistProfilePoints } from "../../../services/apis";
 import Artist_navbar from "../Artist_navbar";
 import art from "./assets/art.svg"
@@ -22,6 +19,8 @@ export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
   const initialActiveSection = "basic";
   const [activeSection, setActiveSection] = useState(initialActiveSection);
+    // ! this is for avatar
+    const [profileAvatar , setProfileAvatar] = useState(null);
 
   const handleClick = (section) => {
     setActiveSection(section);
@@ -97,7 +96,7 @@ export function Artist_Profile() {
     try {
       const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, basicFormData, accessToken);
       if (response.success === "success") {
-        toast.success('🦄 Wow so easy!', {
+        toast.success('🦄 successFully updated', {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -347,8 +346,6 @@ export function Artist_Profile() {
     ],
   });
 
-
-
   const awardChangeHandler = (event) => {
     const { name, value } = event.target;
 
@@ -428,7 +425,6 @@ export function Artist_Profile() {
       const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API, accessToken);
       console.log("fetchdata", response);
 
-      setAvatar(response.data?.avatar);
 
       const {
         firstName,
@@ -437,11 +433,14 @@ export function Artist_Profile() {
         aboutJourney,
         phoneNumber,
         age,
+        avatar ,
         gender,
         language,
         monthlyIncome,
         address,
         handles,
+        artEduDuration,
+        academicQualificationDuration,
         aadharNumber,
         panNumber,
         upiId,
@@ -454,14 +453,12 @@ export function Artist_Profile() {
         artEducation,
         artName,
         nameOfGuru,
-        artEduDuration,
         yearOfCompletation,
         certificateOfArt,
         academicQualification,
         course,
         specialization,
         institute,
-        academicQualificationDuration,
         certificateOfAcademicQualification,
         yearOfExperience,
         affiliatedToAnyGroup,
@@ -477,7 +474,6 @@ export function Artist_Profile() {
         performanceDuration,
         chargesPerPerformance,
         averagePerformanceIncome,
-       
         natureOfExpectedOpp,
         nameOfTheArtPerformed,
         typeOfExpectedOpp,
@@ -501,8 +497,11 @@ export function Artist_Profile() {
         awards: [...awards],
       } = response.data;
 
+     if(avatar){
+      console.log('inside avatar');
+      setProfileAvatar(avatar);
+     }
      
-
       setBasicFormData((prev) => ({
         ...prev,
         firstName,
@@ -510,7 +509,6 @@ export function Artist_Profile() {
         email,
         age,
         phoneNumber,
-        // dob: formattedDate,
         gender,
         aboutJourney,
         language,
@@ -624,31 +622,16 @@ export function Artist_Profile() {
     fetchProileData();
   }, []);
 
-  //   ! dont change this
-  const mystyle = {
-    fontSize: "large",
-    fontWeight: "500",
-  };
-  const back = {
-    backgroundColor: "transparent",
-    marginLeft: "0vh",
-    marginTop: "-2vh",
-  };
-  // const [AccountpopupVisible, setAccountPopupVisible] = useState(false);
 
-
-  // ! this is for avatar
-  const [avatar , setAvatar] = useState(null);
 
   // ! this is to add avatar file 
   const handleButtonClick = () => {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = '.jpg, .jpeg, .png'; // Specify the allowed file types
+    fileInput.accept = '.jpg, .jpeg, .png'; 
     fileInput.onchange = handleFileChange;
     fileInput.click();
   };
-
 
   // ! this is to add the avatar 
   const handleFileChange = async (event) => {
@@ -660,7 +643,7 @@ formData.append("avatar" , selectedFile);
 
      const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API ,formData,accessToken);
      console.log('res' , response);
-     setAvatar(response?.data?.avatar);
+     setProfileAvatar(response?.data?.avatar);
     }
   };
 
@@ -670,9 +653,22 @@ formData.append("avatar" , selectedFile);
     const formData = new FormData();
     formData.append("avatar" , "");
  const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API ,formData , accessToken );
-setAvatar(null);
+setProfileAvatar(null);
  
   }
+
+    //   ! dont change this
+    const mystyle = {
+      fontSize: "large",
+      fontWeight: "500",
+    };
+    const back = {
+      backgroundColor: "transparent",
+      marginLeft: "0vh",
+      marginTop: "-2vh",
+    };
+  
+    console.log('pofileAvatar' , profileAvatar);
 
   return (
     <div className="Profile_Page">
@@ -754,7 +750,7 @@ setAvatar(null);
           </button>
         </div>
         <div className="BasicProfile_avatar">
-          <img loading="lazy" src={avatar === null ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${avatar}`)} />
+          <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} />
           <button onClick={handleButtonClick} className="BasicProfile_editavatar">Edit Profile Picture</button>
           <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button>
         </div>
@@ -766,6 +762,7 @@ setAvatar(null);
           </p>
         </div>
       </div>
+      {/* this is for basic  */}
       {activeSection === "basic" && (
         <div style={{fontFamily:"Poppins"}} className="BasicProfile_Infoform">
           <form onSubmit={basicSubmitHandler}>
@@ -907,11 +904,11 @@ setAvatar(null);
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Passport Number</label>
-                <input onChange={changeHandler} placeholder="Enter Passport Number" value={basicFormData.passportNumber} name="passportNumber" type="number"></input>
+                <input onChange={changeHandler} placeholder="Enter Passport Number" value={basicFormData.passportNumber} name="passportNumber" type="number"/>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>UPI Id</label>
-                <input onChange={changeHandler} value={basicFormData.upiId} placeholder="Enter UPI Id" name="upiId" type="number"></input>
+                <input onChange={changeHandler} value={basicFormData.upiId} placeholder="Enter UPI Id" name="upiId" type="text" />
               </div>
             
             </div>
@@ -946,6 +943,7 @@ setAvatar(null);
         </div>
       )}
 
+{/* this is for art profile */}
       {activeSection === "art" && (
         <div style={{fontFamily:"Poppins"}} className="ArtProfile_Infoform">
           <form onSubmit={artSubmitHandler}>
@@ -1150,6 +1148,7 @@ setAvatar(null);
         </div>
       )}
 
+{/* this is for performance */}
       {activeSection === "performance" && (
         <div style={{fontFamily:"Poppins"}} className="PerformanceProfile_Infoform">
           <form onSubmit={perforSubmitHandler}>
@@ -1326,6 +1325,7 @@ setAvatar(null);
         </div>
       )}
 
+{/* this is for award  */}
       {activeSection === "award" && (
         <div style={{fontFamily:"Poppins"}} className="AwardProfile_Infoform">
           <form onSubmit={awardSubmitHandler}>
@@ -1471,6 +1471,7 @@ setAvatar(null);
         </div>
       )}
 
+{/* this is for expected */}
       {activeSection === "expected" && (
         <div style={{fontFamily:"Poppins"}} className="ExpectedoppoProfile_Infoform">
           <form onSubmit={expectedSubmitHandler}>

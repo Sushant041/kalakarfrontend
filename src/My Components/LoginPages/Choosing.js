@@ -1,16 +1,19 @@
 import React from 'react';
 import "./Choosing.css";
 import { Navbar_frontpage } from '../FrontPage/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 export default function Choosing() {
+    const navigate = useNavigate();
+
     return (
         <div className='Choosing_Page'>
             <Navbar_frontpage />
             <h1 className="Choosing_heading1">I Like To Be a</h1>
             <div className="Choosing_Media">
                 <button>
-                    <div className="Choosing_Media_Items">
-                        <img
+                    <div onClick={()=>navigate("/register")} className="Choosing_Media_Items">
+                        <img 
                             src="assets/Benefits/Benefits_img_1.png"
                             className="Choosing_Media_Item"
                             alt="Patrons"
@@ -24,8 +27,8 @@ export default function Choosing() {
                     </div>
                 </button>
                 <button>
-                <div className="Choosing_Media_Items">
-                    <img
+                <div onClick={()=>navigate("/register")} className="Choosing_Media_Items">
+                    <img 
                         src="assets/Benefits/Benefits_img_2.png"
                         className="Choosing_Media_Item"
                         alt="Artists"
@@ -39,8 +42,8 @@ export default function Choosing() {
                 </div>
                 </button>
                 <button>
-                <div className="Choosing_Media_Items">
-                    <img
+                <div onClick={()=>navigate("/register")} className="Choosing_Media_Items">
+                    <img 
                         src="assets/Benefits/Benefits_img_3.png"
                         alt="Partners"
                         className="Choosing_Media_Item"
@@ -54,8 +57,8 @@ export default function Choosing() {
                 </div>
                 </button>
                 <button>
-                <div className="Choosing_Media_Items">
-                    <img
+                <div onClick={()=>navigate("/register")} className="Choosing_Media_Items">
+                    <img 
                         src="assets/Benefits/Benefits_img_4.png"
                         alt="Art Lovers"
                         className="Choosing_Media_Item"

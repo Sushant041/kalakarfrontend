@@ -64,7 +64,7 @@ const fetchUserData = async()=>{
     console.log('ress' , response);
 
     if(response.success === 'success'){
-      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName , aboutJourney , avatar } = response.data;
+      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName  , aboutJourney , avatar } = response.data;
     setPortfolioData({
       phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance ,avatar , yearOfExperience ,artName , aboutJourney
     }) 
@@ -141,10 +141,10 @@ console.log('port' , portfolioData);
 
         <div className="user_profession_details">
 
-        <div  className="single_userProfession_detail">
+        {/* <div  className="single_userProfession_detail">
               <p className="profession_title">Category :</p>
-              <p className="profession_info">{portfolioData?.category ?(portfolioData?.category):('your_category')}</p>
-            </div>
+              <p className="profession_info">{portfolioData?.natureOfArt ?(portfolioData?.natureOfArt):('your_category')}</p>
+            </div> */}
          
         <div  className="single_userProfession_detail">
               <p className="profession_title">Art Name :</p>

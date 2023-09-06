@@ -185,7 +185,7 @@ function PortfolioUpdateForm() {
           className="single_form_input"
         />
       </label>
-      <label className="single_form_label">
+      {/* <label className="single_form_label">
         <p className="sinle_form_title">Category</p>
 
         <input
@@ -196,7 +196,7 @@ function PortfolioUpdateForm() {
           name="category"
           className="single_form_input"
         />
-      </label>
+      </label> */}
       <label className="single_form_label">
         <p className="sinle_form_title">Contact Number</p>
 
@@ -255,7 +255,7 @@ function PortfolioUpdateForm() {
           placeholder="Enter no of performance"
           value={formData.totalNoOfPerformance}
           name="number"
-          required
+          
           onChange={changeHandler}
           className="single_form_input"
         />
