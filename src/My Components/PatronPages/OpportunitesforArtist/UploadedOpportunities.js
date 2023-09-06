@@ -3,8 +3,11 @@ import Patron_Navbar from '../Patron_Navbar';
 import "./UploadedOpportunities.css"
 import { Link } from 'react-router-dom';
 import { useEffect,useState} from 'react';
-import { toast } from 'react-hot-toast';
+// import { toast } from 'react-hot-toast';
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 import { makeAuthenticatedGETRequest } from '../../../services/serverHelper';
+import {patronProfilePoints} from "../../../services/apis"
 import { useSelector } from 'react-redux';
 
 
@@ -23,7 +26,7 @@ export default function UploadedOpportunities() {
     const fetchMoreData = async () => {
         try{
 
-            const response = await makeAuthenticatedGETRequest('https://api.ekalakaar.com/api/v1/patrons/opportunities' ,accessToken);
+            const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API ,accessToken);
             console.log('res'  ,response);
             if(response.success === 'success'){
                 let parseData = await response.data;
