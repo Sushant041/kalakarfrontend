@@ -135,7 +135,7 @@ export function LoginPage() {
 
         <p className=" navigateRegisterPara">
           Don’t have an account?
-          <span onClick={() => navigate("/register")}> Register</span>
+          <span onClick={() => navigate("/Choose")}> Register</span>
         </p>
       </form>
     </AuthTemplate>
