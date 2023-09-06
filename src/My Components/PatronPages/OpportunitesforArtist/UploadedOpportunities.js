@@ -2,7 +2,10 @@ import React from 'react';
 import Patron_Navbar from '../Patron_Navbar';
 import "./UploadedOpportunities.css"
 import { Link } from 'react-router-dom';
-import { useEffect} from 'react';
+import { useEffect,useState} from 'react';
+import { toast } from 'react-hot-toast';
+import { makeAuthenticatedGETRequest } from '../../../services/serverHelper';
+import { useSelector } from 'react-redux';
 
 
 
@@ -13,13 +16,37 @@ const UploadedOpportunitiesData=[
     },
 ];
 
+
 export default function UploadedOpportunities() {
+    const [Opportunities, setOpportunities] = useState([]);
+    const {accessToken} = useSelector((state)=>state.auth);
+    const fetchMoreData = async () => {
+        try{
+
+            const response = await makeAuthenticatedGETRequest('https://api.ekalakaar.com/api/v1/patrons/opportunities' ,accessToken);
+            console.log('res'  ,response);
+            if(response.success === 'success'){
+                let parseData = await response.data;
+                console.log(parseData)
+                setOpportunities(parseData);
+            }
+            else{
+              toast.error(response.message);
+            }
+      
+      
+          } catch(error){
+            console.log(error);
+            toast.error("something went wrong , please try again");
+          }
+
+    };
     useEffect(() => {
         const body = document.querySelector('#root');
-
         body.scrollIntoView({
             behavior: 'smooth'
         }, 500)
+        fetchMoreData();
 
     }, []);
     return (
@@ -32,9 +59,11 @@ export default function UploadedOpportunities() {
                     </div>
                 </div>
                 <div>
+                    {Opportunities.map((opportunity)=>{
+                    return(
                     <div className="OpportunitiesPage_displayonejob" //key={index}
                     >
-                        <h4>{/*job.position*/}Dancer for Entertain the Regular Audience</h4>
+                        <h4>{opportunity.position}</h4>
                         <div className="OpportunitiesPage_displayonejob_content">
                             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
                                 <div className="OpportunitiesPage_displayonejob_contentdetailsone_text">
@@ -90,12 +119,12 @@ export default function UploadedOpportunities() {
                                     </div>
 
                                     <div className="OpportunitiesPage_displayonejob_contentdetailstwo">
-                                        <p>{/*job.location*/}Mumbai Hotel</p>
+                                        <p>{opportunity.location}</p>
                                         {/*<p>{new Date(job.performanceDate).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</p>*/}
-                                        <p>23/08/23</p>
-                                        <p>{/*job.budget*/} 5,000 INR</p>
-                                        <p>Hindi</p>
-                                        <p>08/08/23</p>
+                                        <p>{opportunity.performanceDate.slice(0,10)}</p>
+                                        <p>{opportunity.budget} INR</p>
+                                        <p>{opportunity.languages.join(', ')}</p>
+                                        <p>{opportunity.applicationPeriod.end.slice(0,10)}</p>
                                         {/*<p>
                                             {job.languages?.map((lag, index) => (
                                                 <span key={index}>{lag} </span>
@@ -123,6 +152,7 @@ export default function UploadedOpportunities() {
                             </div>
                         </div>
                     </div>
+)})}
                 </div>
             </div>
         </>
