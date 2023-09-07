@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import './UploadOpportunities.css';
 import Patron_Navbar from '../Patron_Navbar';
-import { toast, ToastContainer } from 'react-toastify';
-  import "react-toastify/dist/ReactToastify.css";
-  import {  useSelector } from 'react-redux';
+import { toast } from 'react-hot-toast';
+import {  useSelector } from 'react-redux';
 import { makeAuthenticatedPOSTRequest } from '../../../services/serverHelper';
 import {patronProfilePoints} from "../../../services/apis"
 import { Link } from 'react-router-dom';
@@ -67,7 +66,7 @@ export function UploadOpportunities() {
     const toastId = toast.loading('Loading...');
     event.preventDefault();
     try{
-      const response = await makeAuthenticatedPOSTRequest('https://api.ekalakaar.com/api/v1/patrons/opportunities' , formData , accessToken);
+      const response = await makeAuthenticatedPOSTRequest(patronProfilePoints.UPLOAD_OPPOR_API, formData , accessToken);
       console.log('uplares' , response);
       if(response.success ==='success'){
         toast.success('successfully uploaded');
@@ -133,7 +132,7 @@ export function UploadOpportunities() {
               </div>
               <div className='ArtistOpportunities_Page_Infoform_inputfield'>
                 <label>Description*</label>
-                <input  name='description' onChange={changeHandler} type='text' placeholder='Enter art Description'></input>
+                <input  name='description' value={formData.description} onChange={changeHandler} type='text' placeholder='Enter art Description'></input>
               </div>
               <div className='ArtistOpportunities_Page_Infoform_inputfield'>
                 <label>Date of Performance*</label>
