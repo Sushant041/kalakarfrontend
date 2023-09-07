@@ -18,8 +18,9 @@ import { useParams } from "react-router-dom";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { patronProfilePoints } from "../../../services/apis";
-import { toast } from "react-hot-toast";
-import PatronPortfolioDisplay from "../../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
+  import PatronPortfolioDisplay from "../../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
 
 
 
@@ -129,57 +130,74 @@ function EventApplication() {
   };
 
 
-
-  const fetchOpporById = async()=>{
+  const fetchArtistApplication = async()=>{
     try{
-      const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API + `/${id}` , accessToken);
-      console.log('res',response);
-      if(response.success === 'success'){
-            
 
+      const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_ALL_APPLI_API +`/${id}` , accessToken);
+      console.log('fetchappli' , response);
 
-          const {applicationPeriod , requiredArtists , artNature ,_id} = response.data;
-          console.log('idd' ,_id);
-          
-          setAppliId(_id);
-
-            updateTitle2(0 , artNature);
-            updateTitle2(1 , new Date(applicationPeriod.start).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
-            updateTitle2(2 , new Date(applicationPeriod.end).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
-            updateTitle2(3 , requiredArtists);
-
-        setEventDetail(response.data);
-        
-      }
-      else{
-        toast.error(response.message);
-      }
     } catch(error){
       console.log(error);
-      toast.error('something went wrong , please try again');
+      toast.error('Something went wrong , please try again');
     }
   }
 
-  console.log('evend' ,eventDetail);
-useEffect(()=>{
- fetchOpporById();
-},[])
+  useEffect(()=>{
+ fetchArtistApplication();
+  },[])
 
-const fetchOpporApplication = async()=>{
-  try{
 
-    const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_SINGLE__APPLI_API + `/${appliId}` , accessToken);
-    console.log('alpppli' ,response);
 
-  } catch(error){
-    console.log(error);
-    toast.error('something went wrong , please try again');
-  }
-}
+  // const fetchOpporById = async()=>{
+  //   try{
+  //     const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API + `/${id}` , accessToken);
+  //     console.log('res',response);
+  //     if(response.success === 'success'){
+            
 
-useEffect(()=>{
- fetchOpporApplication();
-},[appliId])
+
+  //         const {applicationPeriod , requiredArtists , artNature ,_id} = response.data;
+  //         console.log('idd' ,_id);
+          
+  //         setAppliId(_id);
+
+  //           updateTitle2(0 , artNature);
+  //           updateTitle2(1 , new Date(applicationPeriod.start).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
+  //           updateTitle2(2 , new Date(applicationPeriod.end).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
+  //           updateTitle2(3 , requiredArtists);
+
+  //       setEventDetail(response.data);
+        
+  //     }
+  //     else{
+  //       toast.error(response.message);
+  //     }
+  //   } catch(error){
+  //     console.log(error);
+  //     toast.error('something went wrong , please try again');
+  //   }
+  // }
+
+//   console.log('evend' ,eventDetail);
+// useEffect(()=>{
+//  fetchOpporById();
+// },[])
+
+// const fetchOpporApplication = async()=>{
+//   try{
+
+//     const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_SINGLE__APPLI_API + `/${appliId}` , accessToken);
+//     console.log('alpppli' ,response);
+
+//   } catch(error){
+//     console.log(error);
+//     toast.error('something went wrong , please try again');
+//   }
+// }
+
+// useEffect(()=>{
+//  fetchOpporApplication();
+// },[appliId])
 
   return (
     <div className="patron_event_appli_wrapper">

@@ -77,7 +77,7 @@ function ArtistApplication() {
   const fetchArtistAppli = async () => {
     try {
       const response = await makeAuthenticatedGETRequest(
-        patronProfilePoints.FETCH_PATRON_APPLI_API,
+        patronProfilePoints.GET_PATRON_APPLI_API,
         accessToken
       );
       console.log("res", response);

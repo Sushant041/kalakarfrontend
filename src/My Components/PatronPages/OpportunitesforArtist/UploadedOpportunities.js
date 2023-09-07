@@ -3,8 +3,9 @@ import Patron_Navbar from '../Patron_Navbar';
 import "./UploadedOpportunities.css"
 import { Link } from 'react-router-dom';
 import { useEffect,useState} from 'react';
-import { toast } from 'react-hot-toast';
-import { makeAuthenticatedGETRequest } from '../../../services/serverHelper';
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
+  import { makeAuthenticatedGETRequest } from '../../../services/serverHelper';
 import { useSelector } from 'react-redux';
 
 

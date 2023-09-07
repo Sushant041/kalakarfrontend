@@ -63,6 +63,8 @@ export default function RouterPage() {
         <Route path="/statusOfApplication" element={<StatusOfApplication />} />
         <Route path="/Artist_OpportunityDetails" exact element={<Artist_OpportunitiesMoreInfo />} />
         <Route path="/PortfolioDisplay" element={<PortfolioDisplay />} />
+
+        
         <Route path="/patron_view_artist/:id" element={<PatronPortfolioDisplay />} />
         <Route path="/EditPortfolio" element={<EditPortfolio />} />
         <Route path="/Newsletter" exact element={<Newsletter />} />
@@ -76,6 +78,8 @@ export default function RouterPage() {
         <Route path="/patron-view-artist" element={<ViewArtist />} />
         <Route path="/patron-event-appli/:id" element={<EventApplication />} />
         <Route path="/patron-artist-appli" element={<ArtistApplication />} />
+
+
         <Route path="/partner-profile" element={<Partner_Profile />} />
         <Route path="/skilldevelopment" element={<SkillDevelopment />} />
         <Route path="/CourseCategories" exact element={<CourseCategories />} />

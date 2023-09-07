@@ -2,14 +2,14 @@ import "./patronProfile.css";
 import profileImg from "./assets/profileImg.svg";
 import rectangleImg from "./assets/rectangleImg.svg";
 import tick from "./assets/tick.svg";
-
 import { useEffect, useState } from "react";
-// import plus from "./assets/plus.svg";
 import Patron_Navbar from "../Patron_Navbar";
-import { toast } from "react-hot-toast";
-import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest } from "../../../services/serverHelper";
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
+  import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest } from "../../../services/serverHelper";
 import { patronProfilePoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
+
 
 const name = "Patron Name";
 const profession = "Patron Profession";

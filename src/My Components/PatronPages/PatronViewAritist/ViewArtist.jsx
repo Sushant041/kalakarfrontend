@@ -9,8 +9,7 @@ import phone from "./assets/phone.svg";
 import location from "./assets/location.svg";
 import instagram from "./assets/instagram.svg";
 import facebookimg from "./assets/facebookimg.svg";
-// import PortfolioPhotoSection from "./PortfolioPhotoSection";
-// import PortfolioVideoSection from "./PortfolioVideoSection";
+
 
 const userProfessionDetail = [
     {

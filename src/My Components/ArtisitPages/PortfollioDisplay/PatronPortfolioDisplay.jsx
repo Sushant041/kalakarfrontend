@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
-import { patronProfilePoints } from "../../../services/apis";
+import { artistOpportunityPoints } from "../../../services/apis";
 
 const userProfessionDetail = [
   {
@@ -100,7 +100,7 @@ function PatronPortfolioDisplay() {
   const fetchArtistData = async()=>{
     try{
 
-      const response = await makeAuthenticatedGETRequest( patronProfilePoints.FETCH_SINGLE_ARTIST_API +`/${id}`, accessToken);
+      const response = await makeAuthenticatedGETRequest( artistOpportunityPoints.FETCH_SINGLE_ARTIST_API +`/${id}`, accessToken);
       console.log(`res` ,response);
       if(response.success === 'success'){
         setArtistData(response.data);

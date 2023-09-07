@@ -30,9 +30,9 @@ export const statusOfAppliPoints = {
 export const patronProfilePoints = {
   FETCH_PATRON_APPLI_API : BASE_URL + `/patrons/profile`,
   UPLOAD_OPPOR_API : BASE_URL + `/patrons/opportunities`,
-  FETCH_PATRON_APPLI_API : BASE_URL + `/patrons/opportunities`,
+  GET_PATRON_APPLI_API : BASE_URL + `/patrons/opportunities`,
   FETCH_PATRON_ALL_APPLI_API : BASE_URL + `/patrons/opportunities/applications`,
-  FETCH_SINGLE__APPLI_API : BASE_URL + `/patrons/opportunities/applications`
+  FETCH_SINGLE__APPLI_API : BASE_URL + `/patrons/opportunities/applications`,
   
 }
 export const contactUsPoints = {
