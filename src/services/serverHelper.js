@@ -1,4 +1,3 @@
-
 export const makeUnauthenticatedPOSTRequest = async (route, body) => {
   try {
     const response = await fetch(route, {
@@ -18,11 +17,11 @@ export const makeUnauthenticatedPOSTRequest = async (route, body) => {
 };
 
 // ! post request
-export const makeAuthenticatedPOSTRequest = async (route, body , token) => {
+export const makeAuthenticatedPOSTRequest = async (route, body, token) => {
   try {
-    const response = await fetch( route, {
+    const response = await fetch(route, {
       method: "POST",
-      
+
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -39,7 +38,7 @@ export const makeAuthenticatedPOSTRequest = async (route, body , token) => {
 };
 
 // ! get request
-export const makeAuthenticatedGETRequest = async (route , token) => {
+export const makeAuthenticatedGETRequest = async (route, token) => {
   try {
     const response = await fetch(route, {
       method: "GET",
@@ -57,19 +56,18 @@ export const makeAuthenticatedGETRequest = async (route , token) => {
 };
 
 // ! update request of formdata type
-export const makeAuthenticatedUPDATERequest = async (route , body , token) => {
+export const makeAuthenticatedUPDATERequest = async (route, body, token) => {
   console.log(body);
   try {
     const response = await fetch(route, {
       method: "PUT",
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
-
     });
-   
+
     const formattedResponse = await response.json();
     return formattedResponse;
   } catch (error) {
@@ -77,10 +75,9 @@ export const makeAuthenticatedUPDATERequest = async (route , body , token) => {
   }
 };
 
-// ! patch with multipart/form-data 
+// ! patch with multipart/form-data
 export const makeAuthenticated_Multi_Patch_REQ = async (route, file, token) => {
   try {
-
     const response = await fetch(route, {
       method: "PATCH",
       headers: {
@@ -88,7 +85,7 @@ export const makeAuthenticated_Multi_Patch_REQ = async (route, file, token) => {
       },
       body: file, // Use the FormData object as the body
     });
-    
+
     const formattedResponse = await response.json();
     return formattedResponse;
   } catch (error) {
@@ -97,10 +94,8 @@ export const makeAuthenticated_Multi_Patch_REQ = async (route, file, token) => {
   }
 };
 
-
 // ! update request of application/json
-export const makeAuthenticatedPATCHRequest = async (route , body , token) => {
-  console.log(`body` , body);
+export const makeAuthenticatedPATCHRequest = async (route, body, token) => {
   try {
     const response = await fetch(route, {
       method: "PATCH",
@@ -109,9 +104,8 @@ export const makeAuthenticatedPATCHRequest = async (route , body , token) => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
-
     });
-   
+
     const formattedResponse = await response.json();
     return formattedResponse;
   } catch (error) {
@@ -119,12 +113,11 @@ export const makeAuthenticatedPATCHRequest = async (route , body , token) => {
   }
 };
 
-
 // ! delete request
-export const makeAuthenticatedDELETERequest = async(route , token)=>{
-  try{
-    const response = await fetch(route , {
-      method:"DELETE",
+export const makeAuthenticatedDELETERequest = async (route, token) => {
+  try {
+    const response = await fetch(route, {
+      method: "DELETE",
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -132,40 +125,38 @@ export const makeAuthenticatedDELETERequest = async(route , token)=>{
     });
     const formattedResponse = await response.json();
     return formattedResponse;
-  }catch (error) {
+  } catch (error) {
     console.log(`error in fetch api `, error);
   }
-}
+};
 // ! delete request
-export const makeAuthenticatedDATADELETERequest = async(route ,body , token)=>{
-  try{
-    const response = await fetch(route , {
-      method:"DELETE",
+export const makeAuthenticatedDATADELETERequest = async (route, body, token) => {
+  try {
+    const response = await fetch(route, {
+      method: "DELETE",
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
-
     });
     const formattedResponse = await response.json();
     return formattedResponse;
-  }catch (error) {
+  } catch (error) {
     console.log(`error in fetch api `, error);
   }
-}
+};
 
-export const makeAuthenticatedPOSTRequestWithoutBody = async(route , token)=>{
+export const makeAuthenticatedPOSTRequestWithoutBody = async (route, token) => {
   try {
-    const response = await fetch( route, {
+    const response = await fetch(route, {
       method: "POST",
-      
+
       headers: {
         "content-type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       // the body will send like this to backend
-     
     });
 
     const formattedResponse = await response.json();
@@ -173,4 +164,4 @@ export const makeAuthenticatedPOSTRequestWithoutBody = async(route , token)=>{
   } catch (error) {
     console.log(`error in fetch api `, error);
   }
-}
+};

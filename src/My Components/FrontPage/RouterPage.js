@@ -34,17 +34,18 @@ import AboutPartner from "../PartnersPages/AboutUs/AboutPartner";
 import EditAboutPartner from "../PartnersPages/AboutUs/EditAboutPartner";
 import SellProduct from "../PartnersPages/SellProduct/SellProduct";
 import MyProductsandCourses from "../PartnersPages/MyProducts/MyProductsandCourses";
-import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment"
-import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories"
+import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment";
+import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories";
 import PatronPortfolioDisplay from "../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
 import { UploadOpportunities } from "../PatronPages/OpportunitesforArtist/UploadOpportunities";
 import UploadedOpportunities from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
+import EditOpportunity from "../PatronPages/OpportunitesforArtist/EditOpportunity";
 
 export default function RouterPage() {
   const { accessToken, refreshToken } = useSelector((state) => state.auth);
   return (
     <div>
-      <Routes >
+      <Routes>
         <Route path="/" exact element={<HomePage />} />
         <Route path="/EkPhotos" exact element={<EkPhotos />} />
         <Route path="/EkVideos" exact element={<EkVideos />} />
@@ -73,6 +74,7 @@ export default function RouterPage() {
         <Route path="/viewChat/:id" element={<ChatViewSection showViewChat={true} />} />
         <Route path="/UploadOpportunity" exact element={<UploadOpportunities />} />
         <Route path="/UploadedOpportunities" exact element={<UploadedOpportunities />} />
+        <Route path="/EditOpportunity" exact element={<EditOpportunity />} />
         <Route path="/Patron_Profile" element={<PatronProfile />} />
         <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
         <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
@@ -88,7 +90,7 @@ export default function RouterPage() {
         <Route path="/Edit_About_Partner" exact element={<EditAboutPartner />} />
         <Route path="/SellProduct" exact element={<SellProduct />} />
         <Route path="/Partner_ProductsandCourses" exact element={<MyProductsandCourses />} />
-   </Routes>
+      </Routes>
     </div>
   );
 }
