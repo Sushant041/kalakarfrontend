@@ -36,9 +36,13 @@ import SellProduct from "../PartnersPages/SellProduct/SellProduct";
 import MyProductsandCourses from "../PartnersPages/MyProducts/MyProductsandCourses";
 import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment"
 import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories"
+import ProductStoreMain from "../PartnersPages/ProductStore/ProductStoreMain";
 import PatronPortfolioDisplay from "../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
+import UploadedOpportunities  from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
 import { UploadOpportunities } from "../PatronPages/OpportunitesforArtist/UploadOpportunities";
-import UploadedOpportunities from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
+import ProductDetails from "../PartnersPages/ProductStore/ProductDetails";
+import Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Patron_Portfolio";
+import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_Patron_Portfolio";
 
 export default function RouterPage() {
   const { accessToken, refreshToken } = useSelector((state) => state.auth);
@@ -83,12 +87,19 @@ export default function RouterPage() {
         <Route path="/partner-profile" element={<Partner_Profile />} />
         <Route path="/skilldevelopment" element={<SkillDevelopment />} />
         <Route path="/CourseCategories" exact element={<CourseCategories />} />
+        <Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/>
+        <Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/>
+        
 
         <Route path="/About_Partner" exact element={<AboutPartner />} />
         <Route path="/Edit_About_Partner" exact element={<EditAboutPartner />} />
         <Route path="/SellProduct" exact element={<SellProduct />} />
         <Route path="/Partner_ProductsandCourses" exact element={<MyProductsandCourses />} />
-   </Routes>
+
+        <Route path="/Product_Store" exact element={<ProductStoreMain/>}/>
+        <Route path="/Product_Details" exact element={<ProductDetails/>}/>
+
+      </Routes>
     </div>
   );
 }
