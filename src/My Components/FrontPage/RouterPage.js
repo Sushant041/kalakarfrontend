@@ -75,7 +75,7 @@ export default function RouterPage() {
         <Route path="/UploadedOpportunities" exact element={<UploadedOpportunities />} />
         <Route path="/Patron_Profile" element={<PatronProfile />} />
         <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
-        <Route path="/patron-view-artist" element={<ViewArtist />} />
+        <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
         <Route path="/patron-event-appli/:id" element={<EventApplication />} />
         <Route path="/patron-artist-appli" element={<ArtistApplication />} />
 

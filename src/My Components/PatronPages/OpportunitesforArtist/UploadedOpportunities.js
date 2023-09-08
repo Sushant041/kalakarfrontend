@@ -6,6 +6,7 @@ import { useEffect,useState} from 'react';
 import { toast } from 'react-hot-toast';
 import { makeAuthenticatedGETRequest } from '../../../services/serverHelper';
 import { useSelector } from 'react-redux';
+import { patronProfilePoints } from '../../../services/apis';
 
 
 
@@ -59,11 +60,11 @@ export default function UploadedOpportunities() {
                     </div>
                 </div>
                 <div>
-                    {Opportunities.map((opportunity)=>{
+                    {Opportunities?.map((opportunity)=>{
                     return(
                     <div className="OpportunitiesPage_displayonejob" //key={index}
                     >
-                        <h4>{opportunity.position}</h4>
+                        <h4>{opportunity?.position}</h4>
                         <div className="OpportunitiesPage_displayonejob_content">
                             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
                                 <div className="OpportunitiesPage_displayonejob_contentdetailsone_text">

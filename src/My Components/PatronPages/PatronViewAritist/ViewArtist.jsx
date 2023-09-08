@@ -92,11 +92,7 @@ function ViewArtist() {
       {/* portfolio card */}
        <PortfolioCardTemplate socalMedia={socalMedia} userDetails={userDetails} profession={profession} userName={userName} />
 
-      {/* two buttons */}
-      <section className="card_button_wrapper">
-        <ApplicationButton text={"Share Card"} />
-        <ApplicationButton text={"Edit Card"} />
-      </section>
+      
 
       {/* user details section */}
       <section className="portfolio_usersDetails">
