@@ -137,7 +137,16 @@ export default function UploadedOpportunities() {
                         Edit Opportunity
                       </Link>
                     </button>
-                    <button className="btntwo">View Applications</button>
+                    <button className="btntwo">
+                    {" "}
+                    <Link
+  to={`/patron-event-appli/${opportunity.id}`}
+  state={{ dataObj: opportunity }}
+  style={{ textDecoration: "none", color: "#ffffff" }}
+>
+  View Applications
+</Link>
+                    </button>
                   </div>
                 </div>
               </div>

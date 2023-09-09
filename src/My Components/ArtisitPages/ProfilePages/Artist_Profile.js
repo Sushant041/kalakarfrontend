@@ -670,6 +670,33 @@ setProfileAvatar(null);
   
     console.log('pofileAvatar' , profileAvatar);
 
+
+    const languages=["Hindi", "Bengali", "Telugu", "Marathi", "Tamil", "Urdu", "Gujarati", "Kannada", "Punjabi", "Malayalam", "Odia", "Assamese", "Bhojpuri", "Haryanvi", "Rajasthani", "Sindhi", "Konkani", "Manipuri", "Maithili", "Santali", "Kashmiri", "Nepali", "Dogri", "Kokborok", "Khasi", "Mizo (Lushai)", "Tulu", "Garhwali", "Kumaoni", "Bhili","English", "Spanish", "French", "German", "Italian", "Portuguese", "Chinese" , "Japanese", "Korean", "Russian"]
+
+  const artform =  ["Solo Act", "Band/Group", "Dance Crew", "Theatre/Play", "Comedy", "Magic/Illusion",
+    "Circus/Street Performance", "Visual Arts", "Fire/Danger Acts", "Variety Show",
+    "Interactive/Immersive", "Folk/Cultural", "Digital/Technology", "Poetry/Spoken Word", "Performance Art"
+  ];
+
+  const specialization =["Classical Dance Forms", "Traditional Music", "Comedy / stand up comedy", "Traditional Crafts and Handicrafts", "Storytelling", "Folk arts and Culinary Arts", "singing", "dancing", "acting"]
+
+  const performancetype=["Solo Act", "Band/Group", "Dance Crew", "Theatre/Play", "Comedy", "Magic/Illusion", "Circus/Street Performance", "Visual Arts", "Fire/Danger Acts", "Variety Show", "Interactive/Immersive", "Folk/Cultural", "Digital/Technology", "Poetry/Spoken Word", "Performance Art"]
+
+  const natureofArt=["Visual Arts", "Performing Arts", "Literary Arts", "Digital Arts", "Applied Arts", "Craftsmanship", "Culinary Arts", "Performance Arts", "Body Arts", "Environmental Art", "Conceptual Art", "Sound Art", "Textile Arts", "Community Arts", "Graffiti Art"]
+
+  const nameofart=["Bharatanatyam", "Kathak", "Odissi", "Kathakali", "Manipuri", "Mohiniyattam", "Bhangra", "Garba", "Dandiya Raas", "Lavani", "Kuchipudi", "Sattriya", "Chhau", "Giddha", "Yakshagana", "Bihu", "Rauf", "Kalbelia", "Gotipua"
+]
+
+  const courses=["Madhubani", "Tanjore", "Warli", "Miniature Painting", "Clay Modeling", "Stone Carving", "Wood Carving", "Bharatanatyam", "Kathak", "Odissi", "Classical Music", "Pottery", "Embroidery", "Weaving", "Block Printing", "Sitar", "Tabla", "Flute", "Veena"
+]
+  const highestLevelOfPerformance=["International", "National", "State", "District", "Taluka", "Local", "Others"]
+
+  const performanceduration=["½ hour", "1 hour", "1½ hours", "2 hours", "2½ hours", "3 hours", "3½ hours", "4 hours", "4½ hours", "5 hours"]
+
+  const ChargesPerPerformance=["5000", "10000", "15000", "20000", "25000", "30000", "35000", "40000", "45000", "50000"]
+
+    
+
   return (
     <div className="Profile_Page">
       <div className="ProfilePage_Navbar">
@@ -811,6 +838,11 @@ setProfileAvatar(null);
                 <label htmlFor="age">Language Known*</label>
                 <select onChange={changeHandler} style={{fontFamily:"Poppins" ,background:"transparent" , color:"black" , width:"450px" , height:"60px", border:"1px solid black"}} name="" id="">
                   <option value="" selected defaultChecked >You can select multiple languages</option>
+                  {languages.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
 
@@ -951,7 +983,17 @@ setProfileAvatar(null);
             <div className="ArtProfile_ArtInfo">
               <div className="ArtProfile_inputfield">
                 <label>Nature of Art*</label>
-                <input placeholder="Select art nature " onChange={artChangeHandler} name="natureOfArt" value={artFormData.natureOfArt} type="text"></input>
+                {/* <input placeholder="Select art nature " onChange={artChangeHandler} name="natureOfArt" value={artFormData.natureOfArt} type="text"></input> */}
+                <select onChange={artChangeHandler} value={artFormData.natureOfArt} name="natureOfArt" placeholder="Select nature of art" >
+                  <option selected hidden>
+                  Select nature of art
+                  </option>
+                  {natureofArt.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
+                </select>
               </div>
               <div className="ArtProfile_inputfield">
                 <label>Art form*</label>
@@ -959,6 +1001,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                   Select art form
                   </option>
+                  {artform.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
               <div className="ArtProfile_inputfield">
@@ -967,6 +1014,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                   Select name of the art
                   </option>
+                  {nameofart.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
               <div className="ArtProfile_inputfield">
@@ -975,6 +1027,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                   Select performance type
                   </option>
+                  {performancetype.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
               {/* <div className="ArtProfile_inputfield">
@@ -1063,6 +1120,11 @@ setProfileAvatar(null);
                     <option selected hidden>
                       Select Course
                     </option>
+                    {courses.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                   </select>
                 </div>
                 <div className="ArtProfile_inputfield">
@@ -1071,6 +1133,11 @@ setProfileAvatar(null);
                     <option selected hidden>
                       Select Specialization
                     </option>
+                    {specialization.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                   </select>
                 </div>
                 <div className="ArtProfile_inputfield">
@@ -1117,6 +1184,11 @@ setProfileAvatar(null);
                     <option selected hidden>
                       Select Course
                     </option>
+                    {courses.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                   </select>
                 </div>
                 <div className="ArtProfile_inputfield">
@@ -1160,6 +1232,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                     Select Type
                   </option>
+                  {performancetype.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
               <div className="PerformanceProfile_inputfield">
@@ -1235,6 +1312,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                     Select level
                   </option>
+                  {highestLevelOfPerformance.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
               <div className="PerformanceProfile_inputfield">
@@ -1277,6 +1359,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                     Select Duration
                   </option>
+                  {performanceduration.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
               <div className="PerformanceProfile_inputfield">
@@ -1285,6 +1372,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                     Select any
                   </option>
+                  {ChargesPerPerformance.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
               <div className="PerformanceProfile_inputfield">
@@ -1293,6 +1385,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                     Select average income
                   </option>
+                  {ChargesPerPerformance.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
 
@@ -1374,6 +1471,11 @@ setProfileAvatar(null);
                           <option selected hidden>
                             Select level
                           </option>
+                          {highestLevelOfPerformance.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                         </select>
                       </div>
                       <div className="AwardProfile_inputfield">
@@ -1382,6 +1484,11 @@ setProfileAvatar(null);
                           <option selected hidden>
                             Select Category
                           </option>
+                          {nameofart.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                         </select>
                       </div>
                       <div className="AwardProfile_inputfield">
@@ -1491,6 +1598,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                     Select type
                   </option>
+                  {performancetype.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
               <div className="ExpectedoppoProfile_inputfield">
@@ -1515,6 +1627,11 @@ setProfileAvatar(null);
                   <option selected hidden>
                     Select duration time
                   </option>
+                  {performanceduration.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
                 </select>
               </div>
               <div className="ExpectedoppoProfile_inputfield">

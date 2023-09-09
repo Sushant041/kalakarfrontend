@@ -37,7 +37,8 @@ import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories
 import PatronPortfolioDisplay from "../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
 import UploadedOpportunities  from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
 import { UploadOpportunities } from "../PatronPages/OpportunitesforArtist/UploadOpportunities";
-import UploadedOpportunities from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
+import EditOpportunity from "../PatronPages/OpportunitesforArtist/EditOpportunity"
+// import UploadedOpportunities from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
 
 export default function RouterPage() {
 
@@ -73,7 +74,7 @@ export default function RouterPage() {
         <Route path="/UploadOpportunity" exact element={<UploadOpportunities />} />
         <Route path="/UploadedOpportunities" exact element={<UploadedOpportunities />} />
         <Route path="/EditOpportunity" exact element={<EditOpportunity />} />
-        <Route path="/Patron_Profile" element={<PatronProfile />} />
+        <Route path="/Patron_Profile" element={<patronProfile />} />
         <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
         <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
         <Route path="/patron-event-appli/:id" element={<EventApplication />} />
@@ -83,8 +84,8 @@ export default function RouterPage() {
         <Route path="/partner-profile" element={<Partner_Profile />} />
         <Route path="/skilldevelopment" element={<SkillDevelopment />} />
         <Route path="/CourseCategories" exact element={<CourseCategories />} />
-        <Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/>
-        <Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/>
+        {/* <Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/> */}
+        {/* <Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/> */}
         
 
         <Route path="/About_Partner" exact element={<AboutPartner />} />
