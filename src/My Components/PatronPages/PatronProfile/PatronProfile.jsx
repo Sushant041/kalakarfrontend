@@ -87,7 +87,7 @@ function PatronProfile() {
 
   const fetchPatronProfileData = async()=>{
     try{
-      const response = await makeAuthenticatedGETRequest('https://api.ekalakaar.com/api/v1/patrons/profile',accessToken );
+      const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API ,accessToken );
       console.log('res' , response);
       if(response.success === 'success'){
           const {firstName , lastName ,operationArea ,businessNature,address ,about,expectationFromEk,website,phoneNumber,authorizedPersonName , email , designation} = response.data;
