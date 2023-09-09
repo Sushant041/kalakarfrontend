@@ -348,7 +348,7 @@ function EventApplication() {
     </div>
     
     {/* bottom button */}
-    <button onClick={()=>navigate(`/patron-view-artist/$`)} className="view_Profile_btn">View Profile</button>
+    <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})} className="view_Profile_btn">View Profile</button>
     
             </div>
           </section>
@@ -450,7 +450,7 @@ function EventApplication() {
           </div>
           
           {/* bottom button */}
-          <button className="view_Profile_btn">View Profile</button>
+          <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})}  className="view_Profile_btn">View Profile</button>
           <button className="chat_artist_btn">Chat With Artist</button>
           
                   </div>
@@ -551,7 +551,7 @@ function EventApplication() {
         </div>
         
         {/* bottom button */}
-        <button className="view_Profile_btn">View Profile</button>
+        <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})} className="view_Profile_btn">View Profile</button>
         <button className="chat_artist_btn">Chat With Artist</button>
         
                 </div>

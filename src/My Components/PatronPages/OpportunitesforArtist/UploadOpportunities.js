@@ -8,6 +8,7 @@ import {  useSelector } from 'react-redux';
 import { makeAuthenticatedPOSTRequest } from '../../../services/serverHelper';
 import {patronProfilePoints} from "../../../services/apis"
 import { Link } from 'react-router-dom';
+// import Patron_Navbar from '../Patron_Navbar';
 
 
 export function UploadOpportunities() {
@@ -68,7 +69,7 @@ export function UploadOpportunities() {
 
   return (
     <>
-      <PatronNavbar />
+      <Patron_Navbar />
       <div className="ArtistOpportunities_Page">
         <div className="ArtistOpportunities_Image">
           <div className="ArtistOpportunities_Image_Content">

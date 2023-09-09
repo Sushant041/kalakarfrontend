@@ -2,10 +2,8 @@ import { HomePage } from "./HomePage";
 import { EkPhotos } from "./EkPhotos";
 import { EkVideos } from "./EkVideos";
 import { EkPrint } from "./EkPrint";
-import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Ekevents } from "./Ekevents";
 import { LoginPage } from "../LoginPages/LoginPage";
 import Choosing from "../LoginPages/Choosing";
@@ -42,7 +40,7 @@ import UploadedOpportunities from "../PatronPages/OpportunitesforArtist/Uploaded
 import EditOpportunity from "../PatronPages/OpportunitesforArtist/EditOpportunity";
 
 export default function RouterPage() {
-  const { accessToken, refreshToken } = useSelector((state) => state.auth);
+
   return (
     <div>
       <Routes>

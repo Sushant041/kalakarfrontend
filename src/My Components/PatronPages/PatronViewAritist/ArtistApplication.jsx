@@ -32,7 +32,9 @@ function ArtistApplication() {
 
   const [artistForm, setArtistForm] = useState([]);
 
+   console.log('fdsfds');
   const fetchArtistAppli = async () => {
+  const toastId =   toast.loading('Loading...');
     try {
       const response = await makeAuthenticatedGETRequest(
         patronProfilePoints.GET_PATRON_APPLI_API,
@@ -48,6 +50,8 @@ function ArtistApplication() {
       console.log(error);
       toast.error("something went wrong , please try again");
     }
+
+toast.dismiss(toastId);
   };
 
   useEffect(() => {
@@ -97,7 +101,7 @@ function ArtistApplication() {
               <p className="body_date artist_body ">{new Date(data.applicationPeriod.start)
   .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
               <p className="body_event artist_body">{data.position?.split("").slice(0,30).join("")}..</p>
-           =
+           
              <p onClick={()=>navigate(`/patron-event-appli/${data._id}` , {state : {dataObj :data}}) } className="body_appli artist_body">
                 {data.application}{" "}
                 <span className="view_appli_text artist_body">

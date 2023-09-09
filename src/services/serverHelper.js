@@ -113,6 +113,27 @@ export const makeAuthenticatedPATCHRequest = async (route, body, token) => {
   }
 };
 
+
+
+// ! patch  request to without send data of application/json
+export const makeAuthenticatedPATCHRequestWithoutBody = async (route, token) => {
+  try {
+    const response = await fetch(route, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+     
+    });
+
+    const formattedResponse = await response.json();
+    return formattedResponse;
+  } catch (error) {
+    console.log(`error in fetch api `, error);
+  }
+};
+
 // ! delete request
 export const makeAuthenticatedDELETERequest = async (route, token) => {
   try {

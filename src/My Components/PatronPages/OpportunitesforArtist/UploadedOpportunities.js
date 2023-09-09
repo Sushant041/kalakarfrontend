@@ -3,18 +3,13 @@ import Patron_Navbar from '../Patron_Navbar';
 import "./UploadedOpportunities.css"
 import { Link } from 'react-router-dom';
 import { useEffect,useState} from 'react';
-// import { toast } from 'react-hot-toast';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
 import { makeAuthenticatedGETRequest } from '../../../services/serverHelper';
 import {patronProfilePoints} from "../../../services/apis"
 import { useSelector } from 'react-redux';
 
-const UploadedOpportunitiesData = [
-  {
-    position: "Dancer for Entertain the Regular Audience",
-  },
-];
+
 
 export default function UploadedOpportunities() {
     const [Opportunities, setOpportunities] = useState([]);

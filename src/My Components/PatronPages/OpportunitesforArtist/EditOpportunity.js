@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -15,6 +15,8 @@ const EditOpportunity = () => {
   const [formData, setFormData] = useState({});
 
   const [updatedFormData, setUpdatedFormData] = useState({});
+
+  const navigate = useNavigate();
 
   const { state } = useLocation();
 
@@ -48,16 +50,20 @@ const EditOpportunity = () => {
     });
   };
 
+  console.log('aupd' , updatedFormData);
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
     const toastId = toast.loading("Loading...");
-
     try {
       const response = await makeAuthenticatedPATCHRequest(`${patronProfilePoints.UPDATE_OPPOR_API}/${opportunity._id}`, updatedFormData, accessToken);
+      console.log('res' , response);
 
       if (response.statusCode === 200) {
         toast.success("successfully saved");
+        navigate(-1);
+        
       } else {
         toast.error(response.message);
       }

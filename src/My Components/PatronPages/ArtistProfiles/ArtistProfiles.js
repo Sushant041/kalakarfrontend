@@ -3,7 +3,7 @@ import './ArtistProfiles.css';
 import Patron_Navbar from '../Patron_Navbar';
 import {faFacebookF,faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
   import { makeAuthenticatedGETRequest } from '../../../services/serverHelper';
 import { patronProfilePoints } from '../../../services/apis';
@@ -20,6 +20,7 @@ export default function ArtistProfiles() {
   const navigate = useNavigate();
 
   const fetchAllApplication = async()=>{
+    const toastId = toast.loading('Loading...');
     try{
 
       const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_ALL_APPLI_API ,accessToken);
@@ -36,6 +37,8 @@ export default function ArtistProfiles() {
       console.log(error);
       toast.error("something went wrong , please try again");
     }
+
+    toast.dismiss(toastId);
   }
 
   useEffect(()=>{
@@ -252,7 +255,7 @@ export default function ArtistProfiles() {
                   </div>
                   <div className='Profilecard_btns'>
                     <button className='btnone'>Send Invitation</button>
-                  <Link to={`/patron_view_artist/${profile.applicationId}`}>
+                  <Link to={`/patron_view_artist/${profile?.userId}`}>
                    <button  className='btntwo'>View Artist</button>
                   </Link> 
                   </div>
