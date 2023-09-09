@@ -2,10 +2,8 @@ import { HomePage } from "./HomePage";
 import { EkPhotos } from "./EkPhotos";
 import { EkVideos } from "./EkVideos";
 import { EkPrint } from "./EkPrint";
-import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Ekevents } from "./Ekevents";
 import { LoginPage } from "../LoginPages/LoginPage";
 import Choosing from "../LoginPages/Choosing";
@@ -36,19 +34,16 @@ import SellProduct from "../PartnersPages/SellProduct/SellProduct";
 import MyProductsandCourses from "../PartnersPages/MyProducts/MyProductsandCourses";
 import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment"
 import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories"
-import ProductStoreMain from "../PartnersPages/ProductStore/ProductStoreMain";
 import PatronPortfolioDisplay from "../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
 import UploadedOpportunities  from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
 import { UploadOpportunities } from "../PatronPages/OpportunitesforArtist/UploadOpportunities";
-import ProductDetails from "../PartnersPages/ProductStore/ProductDetails";
-import Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Patron_Portfolio";
-import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_Patron_Portfolio";
+import UploadedOpportunities from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
 
 export default function RouterPage() {
-  const { accessToken, refreshToken } = useSelector((state) => state.auth);
+
   return (
     <div>
-      <Routes >
+      <Routes>
         <Route path="/" exact element={<HomePage />} />
         <Route path="/EkPhotos" exact element={<EkPhotos />} />
         <Route path="/EkVideos" exact element={<EkVideos />} />
@@ -77,9 +72,10 @@ export default function RouterPage() {
         <Route path="/viewChat/:id" element={<ChatViewSection showViewChat={true} />} />
         <Route path="/UploadOpportunity" exact element={<UploadOpportunities />} />
         <Route path="/UploadedOpportunities" exact element={<UploadedOpportunities />} />
+        <Route path="/EditOpportunity" exact element={<EditOpportunity />} />
         <Route path="/Patron_Profile" element={<PatronProfile />} />
         <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
-        <Route path="/patron-view-artist" element={<ViewArtist />} />
+        <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
         <Route path="/patron-event-appli/:id" element={<EventApplication />} />
         <Route path="/patron-artist-appli" element={<ArtistApplication />} />
 
@@ -95,11 +91,7 @@ export default function RouterPage() {
         <Route path="/Edit_About_Partner" exact element={<EditAboutPartner />} />
         <Route path="/SellProduct" exact element={<SellProduct />} />
         <Route path="/Partner_ProductsandCourses" exact element={<MyProductsandCourses />} />
-
-        <Route path="/Product_Store" exact element={<ProductStoreMain/>}/>
-        <Route path="/Product_Details" exact element={<ProductDetails/>}/>
-
-      </Routes>
+   </Routes>
     </div>
   );
 }

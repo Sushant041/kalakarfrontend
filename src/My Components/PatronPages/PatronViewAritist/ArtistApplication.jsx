@@ -6,7 +6,7 @@ import { patronProfilePoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { Link ,NavLink } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 
 
 const filterData = [
@@ -24,57 +24,17 @@ const filterData = [
   },
 ];
 
-const artistForm = [
-  {
-    date: "12/03/23",
-    event: "Kathak Dancer For Festival",
-    application: "3 ",
-    status: "Open",
-    deadline: "30/03/23",
-  },
-  {
-    date: "12/03/23",
-    event: "Kathak Dancer For Festival",
-    application: "2 ",
-    status: "Closed",
-    deadline: "30/03/23",
-  },
-  {
-    date: "12/03/23",
-    event: "Kathak Dancer For Festival",
-    application: "1 ",
-    status: "Open",
-    deadline: "30/03/23",
-  },
-  {
-    date: "12/03/23",
-    event: "Kathak Dancer For Festival",
-    application: "4 ",
-    status: "Closed",
-    deadline: "30/03/23",
-  },
-  {
-    date: "12/03/23",
-    event: "Mime Actor",
-    application: "4 ",
-    status: "Closed",
-    deadline: "30/03/23",
-  },
-  {
-    date: "12/03/23",
-    event: "Kathak Dancer For Festival",
-    application: "4 ",
-    status: "Open",
-    deadline: "30/03/23",
-  },
-];
+
 
 function ArtistApplication() {
   const { accessToken } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [artistForm, setArtistForm] = useState([]);
 
+   console.log('fdsfds');
   const fetchArtistAppli = async () => {
+  const toastId =   toast.loading('Loading...');
     try {
       const response = await makeAuthenticatedGETRequest(
         patronProfilePoints.GET_PATRON_APPLI_API,
@@ -90,6 +50,8 @@ function ArtistApplication() {
       console.log(error);
       toast.error("something went wrong , please try again");
     }
+
+toast.dismiss(toastId);
   };
 
   useEffect(() => {
@@ -134,18 +96,19 @@ function ArtistApplication() {
 
         <div className="artist_form_body">
           {artistForm.length > 0 &&  artistForm.map((data, index) => (
+            
             <div key={index} className="single_artist_body_row">
               <p className="body_date artist_body ">{new Date(data.applicationPeriod.start)
   .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
               <p className="body_event artist_body">{data.position?.split("").slice(0,30).join("")}..</p>
-             <Link to={`/patron-event-appli/${data._id}`} >
-             <p  className="body_appli artist_body">
+           
+             <p onClick={()=>navigate(`/patron-event-appli/${data._id}` , {state : {dataObj :data}}) } className="body_appli artist_body">
                 {data.application}{" "}
                 <span className="view_appli_text artist_body">
                   {data.totalApplicants}(View Applications)
                 </span>{" "}
               </p>
-             </Link> 
+           
               <p
                 className={`body_status artist_body ${
                   !data.active ? "statusClose" : "statusOpen"
@@ -174,7 +137,7 @@ function ArtistApplication() {
             </div>
             <div className="single_element">
               <p className="single_ele_title">Applications</p>
-             <Link to={`/patron-event-appli/${data._id}`} >
+             <Link to={`/patron-event-appli/${data._id}`}  >
              <p style={{cursor:"pointer"}}>
                 {data.application}{" "}
                 <span className="view_appli_text">(View Applications)</span>

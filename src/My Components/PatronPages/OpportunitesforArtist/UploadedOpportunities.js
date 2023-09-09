@@ -3,18 +3,12 @@ import Patron_Navbar from '../Patron_Navbar';
 import "./UploadedOpportunities.css"
 import { Link } from 'react-router-dom';
 import { useEffect,useState} from 'react';
-import { toast } from 'react-hot-toast';
+import { toast } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 import { makeAuthenticatedGETRequest } from '../../../services/serverHelper';
+import {patronProfilePoints} from "../../../services/apis"
 import { useSelector } from 'react-redux';
 
-
-
-const UploadedOpportunitiesData=[
-    {
-        position:"Dancer for Entertain the Regular Audience",
-
-    },
-];
 
 
 export default function UploadedOpportunities() {
@@ -118,43 +112,39 @@ export default function UploadedOpportunities() {
                                         </p>
                                     </div>
 
-                                    <div className="OpportunitiesPage_displayonejob_contentdetailstwo">
-                                        <p>{opportunity.location}</p>
-                                        {/*<p>{new Date(job.performanceDate).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</p>*/}
-                                        <p>{opportunity.performanceDate.slice(0,10)}</p>
-                                        <p>{opportunity.budget} INR</p>
-                                        <p>{opportunity.languages.join(', ')}</p>
-                                        <p>{opportunity.applicationPeriod.end.slice(0,10)}</p>
-                                        {/*<p>
+                      <div className="OpportunitiesPage_displayonejob_contentdetailstwo">
+                        <p>{opportunity.location}</p>
+                        {/*<p>{new Date(job.performanceDate).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</p>*/}
+                        <p>{opportunity.performanceDate.slice(0, 10)}</p>
+                        <p>{opportunity.budget} INR</p>
+                        <p>{opportunity.languages.join(", ")}</p>
+                        <p>{opportunity.applicationPeriod.end.slice(0, 10)}</p>
+                        {/*<p>
                                             {job.languages?.map((lag, index) => (
                                                 <span key={index}>{lag} </span>
                                             ))}
                                             </p>
 
                                         <p>{new Date(job.applicationPeriod.end).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</p>*/}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="OpportunitiesPage_displayonejob_contentdetailsbuttons">
-                                <button className="btnone">
-                                    {" "}
-                                    <Link
-                                        to={`/UploadOpportunity`}
-                                        style={{ textDecoration: "none", color: "#ad2f3b" }}
-                                    >
-                                        Edit Opportunity
-                                    </Link>
-                                </button>
-                                <button className="btntwo">
-                                    View Applications
-                                </button>
-                            </div>
-                        </div>
+                      </div>
                     </div>
-)})}
+                  </div>
+
+                  <div className="OpportunitiesPage_displayonejob_contentdetailsbuttons">
+                    <button className="btnone">
+                      {" "}
+                      <Link to={`/EditOpportunity`} state={{ opportunity }} style={{ textDecoration: "none", color: "#ad2f3b" }}>
+                        Edit Opportunity
+                      </Link>
+                    </button>
+                    <button className="btntwo">View Applications</button>
+                  </div>
                 </div>
-            </div>
-        </>
-    )
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
 }

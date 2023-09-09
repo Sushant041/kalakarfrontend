@@ -7,20 +7,20 @@ import opening from "./assets/opening.svg";
 import posted from "./assets/posted.svg";
 import RectangleImg from "./assets/RectangleImg.svg";
 import ekalakaa from "./assets/ekalakaa.svg";
-import location from "./assets/location.svg";
+import locationArt from "./assets/location.svg";
 import phone from "./assets/phone.svg";
 import instagram from "./assets/instagram.svg";
 import facebookimg from "./assets/facebookimg.svg";
 import DP from "./assets/DP.svg";
 import anvelop from "./assets/anvelop.svg";
 import eventBg from "./assets/eventBg.jpg";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { patronProfilePoints } from "../../../services/apis";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
-  import PatronPortfolioDisplay from "../../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
+  import { useLocation } from "react-router-dom";
 
 
 
@@ -55,86 +55,48 @@ const btnData = [
   },
 ];
 
-
-const socialDetail = [
-  {
-    image: instagram,
-    title: "randomusername_1234",
-  },
-  {
-    image: facebookimg,
-    title: "Random_Username",
-  },
-];
-
-const userName = "Mano Selva Vijay";
-const userProfession = "Dancer";
-
 function EventApplication() {
+
+  const navigate = useNavigate();
   
   const [currentEvent, setCurrentEvent] = useState("Application");
   const {accessToken} = useSelector((state)=>state.auth);
-  const [eventDetail , setEventDetail] = useState([]);
+  // const [eventDetail , setEventDetail] = useState([])
 
-  const [cardDetail , setCardDetail] = useState( [
-    {
-      image: phone,
-      title: "1234568901",
-    },
-    {
-      image: anvelop,
-      title: "randomemail@gmail.com",
-    },
-    {
-      image: location,
-      title:
-        "123 random street, random city - 123456 random district random state",
-    },
-  ]
-  );
-  
-  const [appliId , setAppliId] = useState(null);
+
+
+  const location = useLocation();
+
+  // this is to store the application of an opportunity 
+  const [artistApplication , setArtistApplication] = useState([]);
+
+  // THIS IS FOR SHORTLIST application
+  const [shotlistApplication , setShortlistApplication] = useState([]);
+
+  // this is to set the hired application
+  const [hiredApplication , setHiredApplication] = useState([]);
+
+
+
+  // this is to get the id of fetching the application of an opportunity from path
   const {id} = useParams();
+  
+  // this is for getting the opportunity data in object form 
+  const opportunityData = location.state?.dataObj;
 
 
-  const [jobOverview , setJobOverview] = useState([
-    {
-      image: category,
-      title1: "category",
-      title2: "",
-    },
-    {
-      image: posted,
-      title1: "Application Posted",
-      title2: "",
-    },
-    {
-      image: date,
-      title1: "application due date",
-      title2: "",
-    },
-    {
-      image: opening,
-      title1: "openings",
-      title2: "",
-    },
-  ])
 
-  const updateTitle2 = (index, newTitle2) => {
-    setJobOverview(prevJobOverview => {
-      const updatedJobOverview = prevJobOverview.map((item, i) =>
-        i === index ? { ...item, title2: newTitle2 } : item
-      );
-      return updatedJobOverview;
-    });
-  };
-
-
+  // ! this function is to fetch the application 
   const fetchArtistApplication = async()=>{
     try{
-
-      const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_ALL_APPLI_API +`/${id}` , accessToken);
+            const response = await makeAuthenticatedGETRequest(patronProfilePoints.GET_SINGLE_OPPOR_ALL_APPLIED_ARTIST_APPLI_API +`${id}` , accessToken);
       console.log('fetchappli' , response);
+      if(response.success === 'success'){
+        setArtistApplication(response.data);
+      }
+      else{
+        toast.error(response.message);
+      }
 
     } catch(error){
       console.log(error);
@@ -142,62 +104,61 @@ function EventApplication() {
     }
   }
 
+  // ! THIS Is to fetch the all inprogress or shortlist application 
+  const fetchInProgressApplication = async()=>{
+    try{
+            const response = await makeAuthenticatedGETRequest(patronProfilePoints.GET_SINGLE_OPPOR_ALL_IN_PROGRESS_ARTIST_APPLI_API +`${id}` , accessToken);
+      console.log('inprof' , response);
+      if(response.success === 'success'){
+        setShortlistApplication(response.data);
+      }
+      else{
+        toast.error(response.message);
+      }
+
+    } catch(error){
+      console.log(error);
+      toast.error('Something went wrong , please try again');
+    }
+  }
+
+
+  // this is to fetch the hired application 
+  const fetchHiredApplication = async()=>{
+    try{
+            const response = await makeAuthenticatedGETRequest(patronProfilePoints.GET_SINGLE_OPPOR_ALL_HIRED_ARTIST_APPLI_API +`${id}` , accessToken);
+      console.log('hired' , response);
+      if(response.success === 'success'){
+        setHiredApplication(response.data);
+      }
+      else{
+        toast.error(response.message);
+      }
+
+    } catch(error){
+      console.log(error);
+      toast.error('Something went wrong , please try again');
+    }
+  }
+
+  // this useEffect is to call the api on basic of current event
   useEffect(()=>{
- fetchArtistApplication();
-  },[])
 
+    if(currentEvent === 'Application'){
+      fetchArtistApplication();
+    }
 
+   else if(currentEvent === 'Shortlisted'){
+      fetchInProgressApplication();
+    }
+ 
+    else {
+      fetchHiredApplication();
+    }
+    
 
-  // const fetchOpporById = async()=>{
-  //   try{
-  //     const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API + `/${id}` , accessToken);
-  //     console.log('res',response);
-  //     if(response.success === 'success'){
-            
+  },[currentEvent])
 
-
-  //         const {applicationPeriod , requiredArtists , artNature ,_id} = response.data;
-  //         console.log('idd' ,_id);
-          
-  //         setAppliId(_id);
-
-  //           updateTitle2(0 , artNature);
-  //           updateTitle2(1 , new Date(applicationPeriod.start).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
-  //           updateTitle2(2 , new Date(applicationPeriod.end).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
-  //           updateTitle2(3 , requiredArtists);
-
-  //       setEventDetail(response.data);
-        
-  //     }
-  //     else{
-  //       toast.error(response.message);
-  //     }
-  //   } catch(error){
-  //     console.log(error);
-  //     toast.error('something went wrong , please try again');
-  //   }
-  // }
-
-//   console.log('evend' ,eventDetail);
-// useEffect(()=>{
-//  fetchOpporById();
-// },[])
-
-// const fetchOpporApplication = async()=>{
-//   try{
-
-//     const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_SINGLE__APPLI_API + `/${appliId}` , accessToken);
-//     console.log('alpppli' ,response);
-
-//   } catch(error){
-//     console.log(error);
-//     toast.error('something went wrong , please try again');
-//   }
-// }
-
-// useEffect(()=>{
-//  fetchOpporApplication();
-// },[appliId])
 
   return (
     <div className="patron_event_appli_wrapper">
@@ -215,7 +176,7 @@ function EventApplication() {
         {/* left side */}
         <div className="job_description_container">
           <p className="job_description_text">Job Description</p>
-          <p className="job_description_para">{eventDetail.description}</p>
+          <p className="job_description_para">{opportunityData.description}</p>
           <ul className="job_des_allList">
             {jobDesList.map((desc, index) => (
               <li className="job_des_list" key={index}>
@@ -244,13 +205,42 @@ function EventApplication() {
           <p className="job_overview_text">Job Overview</p>
 
           <div className="all_job_overview">
-            {jobOverview.map((data, index) => (
-              <div key={index} className="single_job_overview">
-                <img src={data.image} alt="" className="single_overview_img" />
-                <p className="single_job_category">{data.title1}</p>
-                <p className="single_job_title">{data.title2}</p>
+          
+              <div  className="single_job_overview">
+                <img src={category} alt="" className="single_overview_img" />
+                <p className="single_job_category">Category</p>
+                <p className="single_job_title">{opportunityData?.category}</p>
               </div>
-            ))}
+
+              <div  className="single_job_overview">
+                <img src={posted} alt="" className="single_overview_img" />
+                <p className="single_job_category">Application Posted</p>
+                <p className="single_job_title">{new Date(   opportunityData?.applicationPeriod?.start
+                          ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}</p>
+              </div>
+
+              <div  className="single_job_overview">
+                <img src={date} alt="" className="single_overview_img" />
+                <p className="single_job_category">Application Due Date</p>
+                <p className="single_job_title">{new Date(
+                            opportunityData?.applicationPeriod?.end
+                          ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}</p>
+              </div>
+
+              <div  className="single_job_overview">
+                <img src={opening} alt="" className="single_overview_img" />
+                <p className="single_job_category">Opening</p>
+                <p className="single_job_title">{opportunityData?.requiredArtists}</p>
+              </div>
+            
           </div>
         </div>
       </section>
@@ -262,192 +252,279 @@ function EventApplication() {
 
       {/* ⚠️ for application section  */}
       {
-        currentEvent === 'Application' && 
+        currentEvent === 'Application' &&  
+        (
+          artistApplication.length > 0 && 
+          artistApplication.map((data , index)=>(
+            <section key={index} className="patron_event_detail_Section">
+            {/*box ka left part ==> card  */}
+            <div className="event_card_wrapper">
+              {/* card ka left part */}
+              <div className="card_left_container">
+                <img src={ekalakaa} className="card_left_ekalakaar" alt="" />
+                <div className="card_user_personal_details">
+                
+                    <div key={index} className="single_personalDetail">
+                      <div className="personal_Detail_img">
+                        {" "}
+                        <img src={phone} alt="" />{" "}
+                      </div>
+                      <p className="personal_detail_title">{data?.phoneNumber}</p>
+                    </div>
+
+                    <div key={index} className="single_personalDetail">
+                      <div className="personal_Detail_img">
+                        {" "}
+                        <img src={anvelop} alt="" />{" "}
+                      </div>
+                      <p className="personal_detail_title">{data?.email}</p>
+                    </div>
+
+                    <div key={index} className="single_personalDetail">
+                      <div className="personal_Detail_img">
+                        {" "}
+                        <img src={locationArt} alt="" />{" "}
+                      </div>
+                      <p className="personal_detail_title">{data?.address}</p>
+                    </div>
+                 
+                </div>
+
+             {/* gap */}
+    
+                {/* social media */}
+                <div className="user_socical_details_container">
+                 
+                    <div  className="single_socail_detail">
+                      <img src={instagram} alt="" className="socail_img" />
+                      <p className="social_title">{data?.instagram}</p>
+                    </div>
+                    <div key={index} className="single_socail_detail">
+                      <img src={facebookimg} alt="" className="socail_img" />
+                      <p className="social_title">{data?.facebook}</p>
+                    </div>
+                  
+                </div>
+              </div>
+    
+              {/* strip */}
+              <img src={RectangleImg} alt="" className="card_strip" />
+
+
+              {/* ṛight part */}
+              <div className="card_right_part">
+                <img src={DP} alt="" className="userDP" />
+                <p className="card_right_userName">{data?.firstName} {data?.lastName} </p>
+                <p className="card_right_user_profession">{data?.natureOfArt}</p>
+              </div>
+            </div>
+    
+            {/* right part */}
+            <div className="event_detail_wrapper">
+    
+    {/* top  */}
+    <div className="event_appli_details" >
+       <div className="single_event_appli_detail" > 
+            <p className="single_detail_title">Applied On</p>
+            <p className="single_detail_ans">{new Date(
+                            data?.appliedOn).toLocaleDateString("en-US", {day: "numeric",month: "short",year: "numeric",
+                          })}</p>
+        </div>    
+       <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Location</p>
+            <p className="single_detail_ans">{data?.currentLocation}</p>
+        </div>    
+       <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Ratings</p>
+            <p ></p>
+        </div>    
       
-      <section className="patron_event_detail_Section">
-        {/*box ka left part ==> card  */}
-        <div className="event_card_wrapper">
-          {/* card ka left part */}
-          <div className="card_left_container">
-            <img src={ekalakaa} className="card_left_ekalakaar" alt="" />
-            <div className="card_user_personal_details">
-              {cardDetail.map((data, index) => (
-                <div key={index} className="single_personalDetail">
-                  <div className="personal_Detail_img">
-                    {" "}
-                    <img src={data.image} alt="" />{" "}
-                  </div>
-                  <p className="personal_detail_title">{data.title}</p>
-                </div>
-              ))}
+    </div>
+    
+    {/* ṃiddle part */}
+    <div style={{width:"90%" , }}>
+      <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Why do you want ot Apply for this Role?</p>
+      <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Qorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+    </div>
+    
+    {/* bottom button */}
+    <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})} className="view_Profile_btn">View Profile</button>
+    
             </div>
-
-            {/* social media */}
-            <div className="user_socical_details_container">
-              {socialDetail.map((data, index) => (
-                <div key={index} className="single_socail_detail">
-                  <img src={data.image} alt="" className="socail_img" />
-                  <p className="social_title">{data.title}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* strip */}
-          <img src={RectangleImg} alt="" className="card_strip" />
-          {/* ṛight part */}
-          <div className="card_right_part">
-            <img src={DP} alt="" className="userDP" />
-            <p className="card_right_userName">{userName}</p>
-            <p className="card_right_user_profession">{userProfession}</p>
-          </div>
-        </div>
-
-        {/* right part */}
-        <div className="event_detail_wrapper">
-
-{/* top  */}
-<div className="event_appli_details" >
-   <div className="single_event_appli_detail" > 
-        <p className="single_detail_title">Applied On</p>
-        <p className="single_detail_ans">07/08/2023</p>
-    </div>    
-   <div className="single_event_appli_detail" > 
-        <p  className="single_detail_title">Location</p>
-        <p className="single_detail_ans">Chennai</p>
-    </div>    
-   <div className="single_event_appli_detail" > 
-        <p  className="single_detail_title">Ratings</p>
-        <p ></p>
-    </div>    
-  
-</div>
-
-{/* ṃiddle part */}
-<div style={{width:"90%" , }}>
-  <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Why do you want ot Apply for this Role?</p>
-  <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Qorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-</div>
-
-{/* bottom button */}
-<button className="view_Profile_btn">View Profile</button>
-
-        </div>
-      </section>
-
-              }
+          </section>
+    
+          ))
+        )
+     }
 
 
 {/* ⚠️ for shortlisted section  */}
               {
                 currentEvent === 'Shortlisted' && 
-                <section className="patron_event_detail_Section">
-                {/*box ka left part */}
-                <div className="event_card_wrapper">
-                  {/* card ka left part */}
-                  <div className="card_left_container">
-                    <img src={ekalakaa} className="card_left_ekalakaar" alt="" />
-                    <div className="card_user_personal_details">
-                      {cardDetail.map((data, index) => (
-                        <div key={index} className="single_personalDetail">
-                          <div className="personal_Detail_img">
-                            {" "}
-                            <img src={data.image} alt="" />{" "}
+                (
+                  shotlistApplication.length > 0  && 
+
+                  shotlistApplication.map((data  ,index)=>(
+
+                  <section key={index} className="patron_event_detail_Section">
+                  {/*box ka left part */}
+                  <div className="event_card_wrapper">
+                    {/* card ka left part */}
+                    <div className="card_left_container">
+                      <img src={ekalakaa} className="card_left_ekalakaar" alt="" />
+                      <div className="card_user_personal_details">
+                       
+                          <div  className="single_personalDetail">
+                            <div className="personal_Detail_img">
+                              {" "}
+                              <img src={phone} alt="" />{" "}
+                            </div>
+                            <p className="personal_detail_title">{data?.phoneNumber}</p>
                           </div>
-                          <p className="personal_detail_title">{data.title}</p>
-                        </div>
-                      ))}
-                    </div>
-        
-                    {/* social media */}
-                    <div className="user_socical_details_container">
-                      {socialDetail.map((data, index) => (
-                        <div key={index} className="single_socail_detail">
-                          <img src={data.image} alt="" className="socail_img" />
-                          <p className="social_title">{data.title}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-        
-                  {/* strip */}
-                  <img src={RectangleImg} alt="" className="card_strip" />
-                  {/* ṛight part */}
-                  <div className="card_right_part">
-                    <img src={DP} alt="" className="userDP" />
-                    <p className="card_right_userName">{userName}</p>
-                    <p className="card_right_user_profession">{userProfession}</p>
-                  </div>
-                </div>
-        
-                {/* right part */}
-                <div className="event_detail_wrapper">
-        
-        {/* top  */}
-        <div className="event_appli_details" >
-           <div className="single_event_appli_detail" > 
-                <p className="single_detail_title">Applied On</p>
-                <p className="single_detail_ans">07/08/2023</p>
-            </div>    
-           <div className="single_event_appli_detail" > 
-                <p  className="single_detail_title">Location</p>
-                <p className="single_detail_ans">Chennai</p>
-            </div>    
-           <div className="single_event_appli_detail" > 
-                <p  className="single_detail_title">Ratings</p>
-                <p ></p>
-            </div>    
+
+                          <div  className="single_personalDetail">
+                            <div className="personal_Detail_img">
+                              {" "}
+                              <img src={anvelop} alt="" />{" "}
+                            </div>
+                            <p className="personal_detail_title">{data?.email}</p>
+                          </div>
+
+                          <div  className="single_personalDetail">
+                            <div className="personal_Detail_img">
+                              {" "}
+                              <img src={location} alt="" />{" "}
+                            </div>
+                            <p className="personal_detail_title">{data?.address}</p>
+                          </div>
+                       
+                      </div>
           
-        </div>
-        
-        {/* bottom button */}
-        <button className="view_Profile_btn">View Profile</button>
-        <button className="chat_artist_btn">Chat With Artist</button>
-        
-                </div>
-              </section>
+                      {/* social media */}
+                      <div className="user_socical_details_container">
+                       
+                          <div key={index} className="single_socail_detail">
+                            <img src={instagram} alt="" className="socail_img" />
+                            <p className="social_title">{data?.instagram}</p>
+                          </div>
+                       
+                       
+                          <div key={index} className="single_socail_detail">
+                            <img src={facebookimg} alt="" className="socail_img" />
+                            <p className="social_title">{data?.facebook}</p>
+                          </div>
+                       
+                      </div>
+                    </div>
+          
+                    {/* strip */}
+                    <img src={RectangleImg} alt="" className="card_strip" />
+                    {/* ṛight part */}
+                    <div className="card_right_part">
+                      <img src={DP} alt="" className="userDP" />
+                      <p className="card_right_userName">{data?.firstName} {data?.lastName}</p>
+                      <p className="card_right_user_profession">{data?.natureOfArt}</p>
+                    </div>
+                  </div>
+          
+                  {/* right part */}
+                  <div className="event_detail_wrapper">
+          
+          {/* top  */}
+          <div className="event_appli_details" >
+             <div className="single_event_appli_detail" > 
+                  <p className="single_detail_title">Applied On</p>
+                  <p className="single_detail_ans">{new Date(
+                            data?.appliedOn).toLocaleDateString("en-US", {day: "numeric",month: "short",year: "numeric",
+                          })}</p>
+              </div>    
+             <div className="single_event_appli_detail" > 
+                  <p  className="single_detail_title">Location</p>
+                  <p className="single_detail_ans">{data?.currentLocation}</p>
+              </div>    
+             <div className="single_event_appli_detail" > 
+                  <p  className="single_detail_title">Ratings</p>
+                  <p ></p>
+              </div>    
+            
+          </div>
+          
+          {/* bottom button */}
+          <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})}  className="view_Profile_btn">View Profile</button>
+          <button className="chat_artist_btn">Chat With Artist</button>
+          
+                  </div>
+                </section>
+                 ))
+                )
+              
               }
               
 
               {/*! for Hired section  */}
               {
                 currentEvent === 'Hired' && 
-                <section className="patron_event_detail_Section">
+                hiredApplication.length > 0 && (
+                  hiredApplication.map((data , index)=>(
+
+                <section key={index} className="patron_event_detail_Section">
                 {/*box ka left part */}
                 <div className="event_card_wrapper">
                   {/* card ka left part */}
                   <div className="card_left_container">
                     <img src={ekalakaa} className="card_left_ekalakaar" alt="" />
                     <div className="card_user_personal_details">
-                      {cardDetail.map((data, index) => (
-                        <div key={index} className="single_personalDetail">
+                      
+                        <div  className="single_personalDetail">
                           <div className="personal_Detail_img">
                             {" "}
-                            <img src={data.image} alt="" />{" "}
+                            <img src={phone} alt="" />{" "}
                           </div>
-                          <p className="personal_detail_title">{data.title}</p>
+
+                          <p className="personal_detail_title">{data?.phoneNumber}</p>
                         </div>
-                      ))}
+                        <div  className="single_personalDetail">
+                          <div className="personal_Detail_img">
+                            {" "}
+                            <img src={anvelop} alt="" />{" "}
+                          </div>
+
+                          <p className="personal_detail_title">{data?.email}</p>
+                        </div>
+                        <div  className="single_personalDetail">
+                          <div className="personal_Detail_img">
+                            {" "}
+                            <img src={location} alt="" />{" "}
+                          </div>
+                          <p className="personal_detail_title">{data?.address}</p>
+                        </div>
+                     
                     </div>
         
                     {/* social media */}
                     <div className="user_socical_details_container">
-                      {socialDetail.map((data, index) => (
-                        <div key={index} className="single_socail_detail">
-                          <img src={data.image} alt="" className="socail_img" />
-                          <p className="social_title">{data.title}</p>
+                    
+                        <div  className="single_socail_detail">
+                          <img src={instagram} alt="" className="socail_img" />
+                          <p className="social_title">{data?.instagram}</p>
                         </div>
-                      ))}
+
+                        <div  className="single_socail_detail">
+                          <img src={facebookimg} alt="" className="socail_img" />
+                          <p className="social_title">{data?.facebook}</p>
+                        </div>
+                    
                     </div>
                   </div>
         
                   {/* strip */}
                   <img src={RectangleImg} alt="" className="card_strip" />
+
                   {/* ṛight part */}
                   <div className="card_right_part">
                     <img src={DP} alt="" className="userDP" />
-                    <p className="card_right_userName">{userName}</p>
-                    <p className="card_right_user_profession">{userProfession}</p>
+                    <p className="card_right_userName">{data?.firstName} {data?.lastName} </p>
+                    <p className="card_right_user_profession">{data?.natureOfArt}</p>
                   </div>
                 </div>
         
@@ -458,11 +535,13 @@ function EventApplication() {
         <div className="event_appli_details" >
            <div className="single_event_appli_detail" > 
                 <p className="single_detail_title">Applied On</p>
-                <p className="single_detail_ans">07/08/2023</p>
+                <p className="single_detail_ans">{new Date(
+                            data?.appliedOn).toLocaleDateString("en-US", {day: "numeric",month: "short",year: "numeric",
+                          })}</p>
             </div>    
            <div className="single_event_appli_detail" > 
                 <p  className="single_detail_title">Location</p>
-                <p className="single_detail_ans">Chennai</p>
+                <p className="single_detail_ans">{data?.currentLocation}</p>
             </div>    
            <div className="single_event_appli_detail" > 
                 <p  className="single_detail_title">Ratings</p>
@@ -472,11 +551,13 @@ function EventApplication() {
         </div>
         
         {/* bottom button */}
-        <button className="view_Profile_btn">View Profile</button>
+        <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})} className="view_Profile_btn">View Profile</button>
         <button className="chat_artist_btn">Chat With Artist</button>
         
                 </div>
               </section>
+                ))
+                )
               }
     </div>
   );
