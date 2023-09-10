@@ -1,9 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./Patron_Portfolio.css";
 import Patron_Navbar from "../../Patron_Navbar";
 import { Link } from 'react-router-dom';
+import { async } from 'q';
+import { toast } from 'react-toastify';
+import { makeAuthenticatedGETRequest } from '../../../../services/serverHelper';
+import { patronProfilePoints } from '../../../../services/apis';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 export default function Patron_Portfolio() {
+
+    const {accessToken} = useSelector((state)=>state.auth);
+
+    const [userData , setUserData] = useState([]);
+
+    const fetchPatronData = async()=>{
+        const toastId = toast.loading('Loading...');
+        try{
+             
+            const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API ,accessToken );
+            console.log('res' , response);
+            if(response.success === 'success'){
+                setUserData(response.data);
+
+            }
+            else{
+                toast.error(response.message);
+            }
+
+        }
+        catch(error){
+            console.log(error);
+            toast.error('internal server error , please try again')
+        }
+        toast.dismiss(toastId);
+    }
+
+    useEffect(()=>{
+fetchPatronData();
+    },[])
+
     return (
         <>
             <Patron_Navbar />
@@ -11,8 +48,8 @@ export default function Patron_Portfolio() {
                 <div className='PatronPortfolio_ProfileCard'>
                     <div className='PatronPortfolio_ProfileCard_left'>
                         <img src='assets/Newsletter/Profile.png'></img>
-                        <h3>Mano Selva Vijay</h3>
-                        <h5>Profession</h5>
+                        <h3>{userData?.firstName} {userData?.lastName} </h3>
+                        <h5>{userData?.natureOfArt}</h5>
                     </div>
                     <div className='PatronPortfolio_ProfileCard_strip'></div>
                     <div className='PatronPortfolio_ProfileCard_right'>
@@ -32,7 +69,7 @@ export default function Patron_Portfolio() {
                                             fill="#AD2F3B"
                                         />
                                     </svg>
-                                    &nbsp; +91 1234567891 &nbsp;
+                                    &nbsp; {userData?.phoneNumber} &nbsp;
                                 </p>
                                 <p>
                                     <svg
@@ -52,7 +89,7 @@ export default function Patron_Portfolio() {
                                             stroke-width="2"
                                         />
                                     </svg>
-                                    &nbsp; randomemail@gmail.com &nbsp;
+                                    &nbsp; {userData?.email} &nbsp;
                                 </p>
                                 <p>
                                     <svg
@@ -77,24 +114,24 @@ export default function Patron_Portfolio() {
                                             stroke-linejoin="round"
                                         />
                                     </svg>
-                                    &nbsp; 123 random street, random city - 123456<br></br>
+                                    &nbsp;{userData?.address}<br></br>
                                     &nbsp; &nbsp; &nbsp; &nbsp;random district<br></br>
-                                    &nbsp; &nbsp;&nbsp; &nbsp; random state
+                                    &nbsp; &nbsp;&nbsp; &nbsp; {userData?.address}
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <p className='PatronPortfolio_PatronName'>Patron Name
-                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-                        <circle cx="25" cy="25" r="25" fill="#61C6FF" />
+                <p className='PatronPortfolio_PatronName'> {userData?.firstName} {userData?.lastName}
+                    <svg  xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                        <circle  cx="25" cy="25" r="25" fill="#61C6FF" />
                         <path d="M1 10.7143L6.49347 16.2791C6.88502 16.6757 7.52524 16.6757 7.91678 16.2791L23 1" stroke="white" stroke-width="2" stroke-linecap="round" />
                     </svg>
                 </p>
                 <div className='PatronPortfolio_AboutCompany'>
                     <h2>About Company</h2>
                     <p>
-                        Morem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.
+                       {userData?.about}
                     </p>
                     <Link to={"/Edit_Patron_Portfolio"} style={{ textDecoration: "none" }}>
                         <button>

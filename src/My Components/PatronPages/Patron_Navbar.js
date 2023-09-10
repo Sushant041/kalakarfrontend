@@ -4,8 +4,13 @@ import Navbar from "react-bootstrap/Navbar";
 import logo from "../FrontPage/Images/eK_Logo_Trasnparent_1.png";
 import '../ArtisitPages/Artist_navbar.css';
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { setAccessToken , setRefreshToken } from '../../reducer/slices/authSlice';
+import {toast} from 'react-toastify';
 
 export default function Patron_Navbar() {
+
+    const dispatch = useDispatch();
 
     const [AccountpopupVisible, setAccountPopupVisible] = useState(false);
     const accountPopupRef = useRef(null);
@@ -100,21 +105,21 @@ export default function Patron_Navbar() {
                             <Link  to={"/Patron_Portfolio"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Portfolio</Link>
                             <Link to={"/UploadOpportunity"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Upload Opportunities</Link>
                             <Link to={"/ViewArtistProfiles"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>View Artists</Link>
-                            <Link style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>View Artist Application</Link>
-                            <Link style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Application Updates</Link>
-                            <Link style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Logout</Link>
+                            <Link to={'/ViewArtistProfiles'} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>View Artist Application</Link>
+                            <Link to={"/patron-artist-appli"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Application Updates</Link>
+                            <Link to={"/login"} onClick={()=>{
+                   console.log('Logging out...'); 
+                                      dispatch(setAccessToken(null));
+                   dispatch(setRefreshToken(null));
+                   localStorage.removeItem("accessToken");
+                   localStorage.removeItem("refreshToken");
+                   toast.success('Successfully logged out' , {
+                    position:"top-center"
+                   });                  
+              }} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Logout</Link>
                         </div>}
                 </div>
-                {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
-               <Navbar.Collapse id="basic-navbar-nav" style={mystyle}>
-                    <div className="navbar-nav" style={back}>
-                        <Nav className="">
-                        </Nav>
-                    </div>
 
-
-                </Navbar.Collapse>
-                 </Container> */}
             </div>
         </Navbar>
     )

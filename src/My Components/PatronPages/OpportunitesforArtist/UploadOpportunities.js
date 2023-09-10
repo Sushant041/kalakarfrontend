@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import './UploadOpportunities.css';
 import Patron_Navbar from '../Patron_Navbar';
-// import { toast } from 'react-hot-toast';
 import { toast, ToastContainer } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
 import {  useSelector } from 'react-redux';
 import { makeAuthenticatedPOSTRequest } from '../../../services/serverHelper';
 import {patronProfilePoints} from "../../../services/apis"
 import { Link } from 'react-router-dom';
-// import Patron_Navbar from '../Patron_Navbar';
 
 
-export function UploadOpportunities() {
+ function UploadOpportunities() {
   const { accessToken } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({});
@@ -186,3 +184,5 @@ export function UploadOpportunities() {
     </>
   );
 }
+
+export default UploadOpportunities

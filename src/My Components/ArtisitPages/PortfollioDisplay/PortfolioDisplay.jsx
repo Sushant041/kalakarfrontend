@@ -141,10 +141,6 @@ console.log('port' , portfolioData);
 
         <div className="user_profession_details">
 
-        {/* <div  className="single_userProfession_detail">
-              <p className="profession_title">Category :</p>
-              <p className="profession_info">{portfolioData?.natureOfArt ?(portfolioData?.natureOfArt):('your_category')}</p>
-            </div> */}
          
         <div  className="single_userProfession_detail">
               <p className="profession_title">Art Name :</p>

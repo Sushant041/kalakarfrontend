@@ -19,30 +19,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 
 
-const socalMedia = [
-  {
-    image: instagram,
-    data: "randomusername_1234",
-  },
-  {
-    image: facebookimg,
-    data: "Random_Username",
-  },
-];
-const userDetails = [
-  {
-    image: phone,
-    data: "1234568901",
-  },
-  {
-    image: mail,
-    data: "randomemail@gmail.com",
-  },
-  {
-    image: location,
-    data: "123 random street, random city - 123456 random district random state",
-  },
-];
+
 
 
 function PatronPortfolioDisplay() {

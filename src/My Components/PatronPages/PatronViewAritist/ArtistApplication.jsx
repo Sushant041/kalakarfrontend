@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Link, useNavigate  } from "react-router-dom";
+import Patron_Navbar from "../Patron_Navbar";
 
 
 const filterData = [
@@ -28,11 +29,11 @@ const filterData = [
 
 function ArtistApplication() {
   const { accessToken } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
 
   const [artistForm, setArtistForm] = useState([]);
 
-   console.log('fdsfds');
   const fetchArtistAppli = async () => {
   const toastId =   toast.loading('Loading...');
     try {
@@ -59,6 +60,10 @@ toast.dismiss(toastId);
   }, []);
 
   return (
+    <>
+     <Patron_Navbar />
+    
+ 
     <div className="patron_artist_appli_wrapper">
       <section className="artist_image_section">
         <img src={background} alt="background" className="artist_bgImg" />
@@ -123,26 +128,28 @@ toast.dismiss(toastId);
         </div>
       </section>
 
+
       {/* table section for small width */}
       <section className="artist_event_appli_container">
         {artistForm.map((data, index) => (
           <div key={index} className="single_artist_event">
             <div className="single_element">
               <p className="single_ele_title">Date</p>
-              <p>{data.date}</p>
+              <p>{new Date(data.applicationPeriod.start)
+  .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
             </div>
             <div className="single_element">
               <p className="single_ele_title">Event</p>
-              <p>{data.event}</p>
+              <p>{data.position?.split("").slice(0,30).join("")}..</p>
             </div>
             <div className="single_element">
               <p className="single_ele_title">Applications</p>
-             <Link to={`/patron-event-appli/${data._id}`}  >
-             <p style={{cursor:"pointer"}}>
+            
+             <p onClick={()=>navigate(`/patron-event-appli/${data._id}` , {state : {dataObj :data}}) } style={{cursor:"pointer"}}>
                 {data.application}{" "}
                 <span className="view_appli_text">(View Applications)</span>
               </p>
-             </Link> 
+            
             </div>
             <div className="single_element">
               <p className="single_ele_title">Application Status</p>
@@ -151,17 +158,19 @@ toast.dismiss(toastId);
                   data.status === "Closed" ? "statusClose" : "statusOpen"
                 }`}
               >
-                {data.status}
+                {data.active ?('Open'):('Close')}
               </p>
             </div>
             <div className="single_element">
               <p className="single_ele_title">Deadline</p>
-              <p>{data.deadline}</p>
+              <p>{new Date(data.applicationPeriod.end)
+  .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
             </div>
           </div>
         ))}
       </section>
     </div>
+    </>
   );
 }
 

@@ -1,8 +1,102 @@
 import React from 'react';
 import Patron_Navbar from '../../Patron_Navbar';
 import "./Edit_Patron_Portfolio.css";
+import { toast } from 'react-toastify';
+import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest } from '../../../../services/serverHelper';
+import { patronProfilePoints } from '../../../../services/apis';
+import { useSelector } from 'react-redux';
+import { useState  , useEffect} from 'react';
+import { async } from 'q';
+import { useNavigate } from 'react-router';
+
 
 export default function Edit_Patron_Portfolio() {
+
+    const navigate = useNavigate();
+
+    const {accessToken} = useSelector((state)=>state.auth);
+
+    const [formData , setFormData] = useState({
+        firstName:"" , 
+        fullName :"", 
+        address:"" , 
+        email:"" , 
+        about:"" , 
+        phoneNumber:"",
+        natureOfArt:""
+
+    });
+
+    const changeHandler = (event)=>{
+        const {name ,value} = event.target;
+
+        setFormData((prev)=>({
+            ...prev , 
+            [name]:value
+        }))
+    }
+
+    const [userData , setUserData] = useState([]);
+
+    const fetchPatronData = async()=>{
+        const toastId = toast.loading('Loading...');
+        try{
+             
+            const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API ,accessToken );
+            console.log('res' , response);
+            if(response.success === 'success'){
+                setUserData(response.data);
+                const {natureOfArt , firstName , lastName , email ,phoneNumber , address ,about } = response.data;
+                const fullName = firstName + lastName;
+                setFormData({
+                    fullName , 
+                    firstName , 
+                    natureOfArt , 
+                    email , 
+                    phoneNumber , 
+                    address , about
+                })
+
+            }
+            else{
+                toast.error(response.message);
+            }
+
+        }
+        catch(error){
+            console.log(error);
+            toast.error('internal server error , please try again')
+        }
+        toast.dismiss(toastId);
+    }
+
+    useEffect(()=>{
+fetchPatronData();
+    },[])
+
+    const updatePtronData = async(event)=>{
+        event.preventDefault();
+
+    const toastId = toast.loading('Loading...');
+    try{
+
+        const response = await makeAuthenticatedPATCHRequest(patronProfilePoints.FETCH_PATRON_APPLI_API , formData , accessToken);
+        console.log('resss' , response);
+        if(response.success === 'success'){
+            toast.success('successfuly updated');
+              navigate(-1);
+        }
+        else{
+            toast.error(response.message)
+        }
+
+    } catch(error){
+        console.log(error);
+        toast.error('Internal server error , please try again');
+    }
+    toast.dismiss(toastId);
+    }
+
     return (
         <>
             <Patron_Navbar />
@@ -15,8 +109,8 @@ export default function Edit_Patron_Portfolio() {
                             Photo
                             Here
                         </div>
-                        <h3>Mano Selva Vijay</h3>
-                        <h5>Profession</h5>
+                        <h3>{userData?.firstName} {userData?.lastName} </h3>
+                        <h5>{userData?.natureOfArt}</h5>
                     </div>
                     <div className='EditPatronPortfolio_ProfileCard_strip'></div>
                     <div className='EditPatronPortfolio_ProfileCard_right'>
@@ -36,7 +130,7 @@ export default function Edit_Patron_Portfolio() {
                                             fill="#000"
                                         />
                                     </svg>
-                                    &nbsp; +91 1234567891 &nbsp;
+                                    &nbsp; {userData?.phoneNumber} &nbsp;
                                 </p>
                                 <p>
                                     <svg
@@ -56,7 +150,7 @@ export default function Edit_Patron_Portfolio() {
                                             stroke-width="2"
                                         />
                                     </svg>
-                                    &nbsp; randomemail@gmail.com &nbsp;
+                                    &nbsp; {userData?.email} &nbsp;
                                 </p>
                                 <p>
                                     <svg
@@ -81,7 +175,7 @@ export default function Edit_Patron_Portfolio() {
                                             stroke-linejoin="round"
                                         />
                                     </svg>
-                                    &nbsp; 123 random street, random city - 123456<br></br>
+                                    &nbsp; {userData?.address}<br></br>
                                     &nbsp; &nbsp; &nbsp; &nbsp;random district<br></br>
                                     &nbsp; &nbsp;&nbsp; &nbsp; random state
                                 </p>
@@ -96,35 +190,35 @@ export default function Edit_Patron_Portfolio() {
                     <form>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Card Display Name</label>
-                            <input placeholder='Enter the name for card'></input>
+                            <input placeholder='Enter the name for card' value={formData.firstName} name='firstName' onChange={changeHandler} ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Profession</label>
-                            <input placeholder='Enter your performance category'></input>
+                            <input placeholder='Enter your performance category' value={formData.natureOfArt} onChange={changeHandler} name='natureOfArt' ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Contact Number</label>
-                            <input placeholder='Enter your mobile number'></input>
+                            <input placeholder='Enter your mobile number' value={formData.phoneNumber} name='phoneNumber' onChange={changeHandler} ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Email Id</label>
-                            <input placeholder='Enter your email address'></input>
+                            <input placeholder='Enter your email address' value={formData.email} onChange={changeHandler} name='email' ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Location</label>
-                            <input placeholder='Enter your location'></input>
+                            <input placeholder='Enter your location' value={formData.address} name='address' onChange={changeHandler} ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Full Name</label>
-                            <input placeholder='Enter your location'></input>
+                            <input placeholder='Enter your location' value={formData.fullName} name='fullName' onChange={changeHandler} ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>About the Company</label>
-                            <textarea placeholder='Enter about your comapny'></textarea>
+                            <textarea placeholder='Enter about your comapny' value={formData.about} name='about' onChange={changeHandler} ></textarea>
                         </div>
                         <div className='EditPatronPortfolio_form_btns'>
-                            <button className='btn1'>Update</button>
-                            <button className='btn2'>Cancel</button>
+                            <button onClick={updatePtronData} className='btn1'>Update</button>
+                            <button onClick={()=>navigate(-1)} className='btn2'>Cancel</button>
                         </div>
                     </form>
                 </div>

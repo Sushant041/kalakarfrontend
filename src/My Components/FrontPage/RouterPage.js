@@ -36,8 +36,10 @@ import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment
 import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories"
 import PatronPortfolioDisplay from "../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
 import UploadedOpportunities  from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
-import { UploadOpportunities } from "../PatronPages/OpportunitesforArtist/UploadOpportunities";
-import UploadedOpportunities from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
+import EditOpportunity from "../PatronPages/OpportunitesforArtist/EditOpportunity"
+import Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Patron_Portfolio"
+import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_Patron_Portfolio"
+import UploadOpportunities from "../PatronPages/OpportunitesforArtist/UploadOpportunities"
 
 export default function RouterPage() {
 
@@ -78,13 +80,13 @@ export default function RouterPage() {
         <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
         <Route path="/patron-event-appli/:id" element={<EventApplication />} />
         <Route path="/patron-artist-appli" element={<ArtistApplication />} />
+        <Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/>
+        <Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/>
 
 
         <Route path="/partner-profile" element={<Partner_Profile />} />
         <Route path="/skilldevelopment" element={<SkillDevelopment />} />
         <Route path="/CourseCategories" exact element={<CourseCategories />} />
-        <Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/>
-        <Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/>
         
 
         <Route path="/About_Partner" exact element={<AboutPartner />} />
