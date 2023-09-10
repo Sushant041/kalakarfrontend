@@ -149,7 +149,7 @@ console.log('port' , portfolioData);
           
             <div  className="single_userProfession_detail">
               <p className="profession_title">Location :</p>
-              <p className="profession_info">{portfolioData?.address.state ?(portfolioData.address.state):('your_location')}</p>
+              <p className="profession_info">{portfolioData?.address?.state ?(portfolioData.address?.state):('your_location')}</p>
             </div>
             <div  className="single_userProfession_detail">
               <p className="profession_title">Age :</p>
@@ -165,27 +165,27 @@ console.log('port' , portfolioData);
             </div>
             <div  className="single_userProfession_detail">
               <p className="profession_title">Experience :</p>
-              <p className="profession_info">{portfolioData?.yearOfExperience ?(portfolioData.yearOfExperience):('your_experience')}</p>
+              <p className="profession_info">{portfolioData?.yearOfExperience ?(portfolioData?.yearOfExperience):('your_experience')}</p>
             </div>
             <div  className="single_userProfession_detail">
               <p className="profession_title">Events Type :</p>
-              <p className="profession_info">{portfolioData?.eventType ?(portfolioData.eventType):('your_eventType')}</p>
+              <p className="profession_info">{portfolioData?.eventType ?(portfolioData?.eventType):('your_eventType')}</p>
             </div>
             <div  className="single_userProfession_detail">
               <p className="profession_title">Minimum Budget :</p>
-              <p className="profession_info">{portfolioData?.minimumBudget ?(portfolioData.minimumBudget):('your_minBudget')}</p>
+              <p className="profession_info">{portfolioData?.minimumBudget ?(portfolioData?.minimumBudget):('your_minBudget')}</p>
             </div>
             <div  className="single_userProfession_detail">
               <p className="profession_title">Instagram :</p>
-              <p className="profession_info">{portfolioData?.handles.instagram ?(portfolioData?.handles.instagram):('Random__Channel')}</p>
+              <p className="profession_info">{portfolioData?.handles?.instagram ?(portfolioData?.handles?.instagram):('Random__Channel')}</p>
             </div>
             <div  className="single_userProfession_detail">
               <p className="profession_title">Facebook :</p>
-              <p className="profession_info">{portfolioData?.handles.facebook ?(portfolioData?.handles.facebook):('Random__Channel')}</p>
+              <p className="profession_info">{portfolioData?.handles?.facebook ?(portfolioData?.handles?.facebook):('Random__Channel')}</p>
             </div>
             <div  className="single_userProfession_detail">
               <p className="profession_title">Youtube :</p>
-              <p className="profession_info">{portfolioData?.handles.youtube ?(portfolioData?.handles.youtube):('Random__Channel')}</p>
+              <p className="profession_info">{portfolioData?.handles?.youtube ?(portfolioData?.handles?.youtube):('Random__Channel')}</p>
             </div>
          
         </div>

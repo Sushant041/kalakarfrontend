@@ -951,23 +951,23 @@ setProfileAvatar(null);
             <div className="BasicProfile_Social">
               <div className="BasicProfile_inputfield">
                 <label>Instagram</label>
-                <input onChange={changeHandler} value={basicFormData.handles.instagram} name="handles.instagram" type="text"></input>
+                <input onChange={changeHandler} value={basicFormData?.handles?.instagram} name="handles.instagram" type="text"></input>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Facebook</label>
-                <input onChange={changeHandler} value={basicFormData.handles.facebook} name="handles.facebook" type="text"></input>
+                <input onChange={changeHandler} value={basicFormData?.handles?.facebook} name="handles.facebook" type="text"></input>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Youtube</label>
-                <input onChange={changeHandler} value={basicFormData.handles.youtube} name="handles.youtube" type="text"></input>
+                <input onChange={changeHandler} value={basicFormData?.handles?.youtube} name="handles.youtube" type="text"></input>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>LinkedIn</label>
-                <input onChange={changeHandler} value={basicFormData.handles.linkedin} name="handles.linkedin" type="text"></input>
+                <input onChange={changeHandler} value={basicFormData?.handles?.linkedIn} name="handles.linkedin" type="text"></input>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Website</label>
-                <input onChange={changeHandler} value={basicFormData.handles.website} name="handles.website" type="text"></input>
+                <input onChange={changeHandler} value={basicFormData?.handles?.website} name="handles.website" type="text"></input>
               </div>
             </div>
 
@@ -1231,7 +1231,7 @@ setProfileAvatar(null);
             <div className="PerformanceProfile_PerformInfo">
               <div className="PerformanceProfile_inputfield">
                 <label>Performance Type</label>
-                <select name="performaceType" value={performanceFormData.performanceType} >
+                <select name="performaceType" value={performanceFormData?.performanceType} >
                   <option  disabled value={""} >
                     Select Type
                   </option>
@@ -1244,7 +1244,7 @@ setProfileAvatar(null);
               </div>
               <div className="PerformanceProfile_inputfield">
                 <label>Years of Experience</label>
-                <input value={performanceFormData.yearOfExperience} onChange={perforChangeHandler} name="yearOfExperience" type="text"></input>
+                <input value={performanceFormData?.yearOfExperience} onChange={perforChangeHandler} name="yearOfExperience" type="text"></input>
               </div>
               <div className="PerformanceProfile_inputfield affiliatedgrp">
                 <label>Affiliated to any Group</label>
@@ -1255,7 +1255,7 @@ setProfileAvatar(null);
                       onChange={perforChangeHandler}
                       name="affiliatedToAnyGroup"
                       type="radio"
-                      checked={performanceFormData.affiliatedToAnyGroup == "true" || performanceFormData.affiliatedToAnyGroup === true}
+                      checked={performanceFormData?.affiliatedToAnyGroup == "true" || performanceFormData?.affiliatedToAnyGroup === true}
                     />
                     Yes
                   </label>
@@ -1265,7 +1265,7 @@ setProfileAvatar(null);
                       value="false"
                       onChange={perforChangeHandler}
                       name="affiliatedToAnyGroup"
-                      checked={performanceFormData.affiliatedToAnyGroup === "false" || performanceFormData.affiliatedToAnyGroup === false}
+                      checked={performanceFormData?.affiliatedToAnyGroup === "false" || performanceFormData?.affiliatedToAnyGroup === false}
                     />
                     No
                   </label>

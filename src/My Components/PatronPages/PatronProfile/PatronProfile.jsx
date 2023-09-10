@@ -4,7 +4,7 @@ import rectangleImg from "./assets/rectangleImg.svg";
 import tick from "./assets/tick.svg";
 import { useEffect, useState } from "react";
 import Patron_Navbar from "../Patron_Navbar";
-import { toast } from "react-hot-toast";
+import { toast } from "react-toastify";
 import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest } from "../../../services/serverHelper";
 import { patronProfilePoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
@@ -13,56 +13,6 @@ import { useSelector } from "react-redux";
 const name = "Patron Name";
 const profession = "Patron Profession";
 
-const personalForm = [
-  {
-    title: "First Name",
-    type: "text",
-  },
-  {
-    title: "Last Name",
-    type: "text",
-  },
-  {
-    title: "Area of Operation",
-    type: "text",
-  },
-  {
-    title: "Nature of Business / Function",
-    type: "text",
-  },
-  {
-    title: "Name of the Authorized Person ",
-    type: "text",
-  },
-  {
-    title: "Designation",
-    type: "text",
-  },
-  {
-    title: "Address",
-    type: "text",
-  },
-  {
-    title: "Company Email",
-    type: "email",
-  },
-  {
-    title: "Contact Details",
-    type: "number",
-  },
-  {
-    title: "Website",
-    type: "text",
-  },
-  {
-    title: "Expectations from eKalakaar",
-    type: "text",
-  },
-  {
-    title: "About us",
-    type: "text",
-  },
-];
 
 function PatronProfile() {
 
@@ -162,7 +112,7 @@ function PatronProfile() {
         <div className="patron_img_name_container">
           <img src={profileImg} alt="" className="patron_img" />
           <div className="verify_name_wrapper">
-            <p className="patron_name">{name} </p>
+            <p className="patron_name">{formData?.firstName} {formData?.lastName} </p>
             <div className="verify_container">
               <img src={tick} alt="tick" className="verifyImg" />
             </div>

@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import {
   setAccessToken,
+  setRole,
   setRefreshToken,
 } from "../../reducer/slices/authSlice";
 
@@ -55,14 +56,22 @@ export function LoginPage() {
 
       if (response.success === "success") {
         toast.success("successfully Login");
-        const { accessToken, refreshToken } = response.data;
+        const { accessToken, refreshToken ,role} = response.data;
         dispatch(setAccessToken(accessToken));
         dispatch(setRefreshToken(refreshToken));
+        dispatch(setRole(role));
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("role" , role)
 
-        navigate("/artist_profile");
-        // navigate('/Patron_Profile');
+        if(role === 'Artist'){
+          navigate("/artist_profile");
+
+        }
+        else{
+          navigate('/Patron_Profile');
+
+        }
       } else {
         toast.error(response.message);
       }

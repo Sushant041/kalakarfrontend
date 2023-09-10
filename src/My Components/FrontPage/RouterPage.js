@@ -46,36 +46,55 @@ import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_P
 
 export default function RouterPage() {
 
+  const {role , accessToken , refreshToken } = useSelector((state)=>state.auth);
+
   return (
     <div>
       <Routes>
-        <Route path="/" exact element={<HomePage />} />
-        <Route path="/EkPhotos" exact element={<EkPhotos />} />
-        <Route path="/EkVideos" exact element={<EkVideos />} />
-        <Route path="/EkPrint" exact element={<EkPrint />} />
-        <Route path="/Ekevents" exact element={<Ekevents />} />
 
-        <Route path="/Login" exact element={<LoginPage />} />
+        {
+          !accessToken && 
+          <>
+          <Route path="/Login" exact element={<LoginPage />} />
         <Route path="/Choose" exact element={<Choosing />} />
         <Route path="/register" exact element={<Signup />} />
         <Route path="/resetPassword" exact element={<ResetPassword />} />
         <Route path="/forgetPassword" exact element={<ForgetPassword />} />
         <Route path="/verifyCode" exact element={<VerificationCode />} />
 
-        <Route path="/Artist_Profile" exact element={<Artist_Profile />} />
+          </>
+        }
+        <Route path="/" exact element={<HomePage />} />
+        <Route path="/EkPhotos" exact element={<EkPhotos />} />
+        <Route path="/EkVideos" exact element={<EkVideos />} />
+        <Route path="/EkPrint" exact element={<EkPrint />} />
+        <Route path="/Ekevents" exact element={<Ekevents />} />
+
+        
+        {
+          role === 'Artist' && (
+            <>
+            <Route path="/Artist_Profile" exact element={<Artist_Profile />} />
         <Route path="/Artist_Opportunities" exact element={<Artist_Opportunities />} />
         <Route path="/statusOfApplication" element={<StatusOfApplication />} />
         <Route path="/Artist_OpportunityDetails" exact element={<Artist_OpportunitiesMoreInfo />} />
         <Route path="/PortfolioDisplay" element={<PortfolioDisplay />} />
-
-        
         <Route path="/patron_view_artist/:id" element={<PatronPortfolioDisplay />} />
         <Route path="/EditPortfolio" element={<EditPortfolio />} />
-        <Route path="/Newsletter" exact element={<Newsletter />} />
+        <Route path="/latestNews" exact element={<Newsletter />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/chatApp" element={<ChatDisplay />} />
         <Route path="/viewChat/:id" element={<ChatViewSection showViewChat={true} />} />
-        <Route path="/UploadOpportunity" exact element={<UploadOpportunities />} />
+            </>
+          )
+
+        }
+
+        {
+          role === 'Patron' && 
+          (
+            <>
+             <Route path="/UploadOpportunity" exact element={<UploadOpportunities />} />
         <Route path="/UploadedOpportunities" exact element={<UploadedOpportunities />} />
         <Route path="/EditOpportunity" exact element={<EditOpportunity />} />
         <Route path="/Patron_Profile" element={<PatronProfile />} />
@@ -85,13 +104,21 @@ export default function RouterPage() {
         <Route path="/patron-artist-appli" element={<ArtistApplication />} />
         <Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/>
         <Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/>
+<Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/>
+<Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/>
+            </>
+
+          )
+        }
+        
+    
+
+       
 
 
         <Route path="/partner-profile" element={<Partner_Profile />} />
         <Route path="/skilldevelopment" element={<SkillDevelopment />} />
         <Route path="/CourseCategories" exact element={<CourseCategories />} />
-        <Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/>
-        <Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/>
         
 
         <Route path="/About_Partner" exact element={<AboutPartner />} />
