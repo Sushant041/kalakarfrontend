@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import {  useLocation, useNavigate } from "react-router-dom";
 import "./Artist_OpportunitiesMoreInfo.css";
-// import { Navbar_frontpage } from "../../FrontPage/Navbar";
 import { useState } from "react";
 import Artist_navbar from "../Artist_navbar";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import { makeAuthenticatedGETRequest, makeAuthenticatedPOSTRequest, makeAuthenticatedPOSTRequestWithoutBody } from "../../../services/serverHelper";
 import { artistOpportunityPoints } from "../../../services/apis";
-// import applyFilter from "./assets/applyFilter.svg";
 
 
 export function Artist_OpportunitiesMoreInfo() {

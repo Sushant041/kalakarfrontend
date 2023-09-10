@@ -7,6 +7,7 @@ import phone from "./assets/phone.svg";
 import mail from "./assets/Mail.svg"
 import location from "./assets/location.svg";
 import instagram from "./assets/instagram.svg";
+import profileImg from "./assets/profile.svg"
 import facebookimg from "./assets/facebookimg.svg";
 
 
@@ -82,7 +83,8 @@ function PortfolioDisplayTemplate({ portfolioData,  editCard = false}) {
     <div className="user_photo user_profile">Your Photo Here</div>
 
   ):(
-     <img src={`https://api.ekalakaar.com/uploads/avatars/${portfolioData?.avatar}`} alt="" className="user_profile" /> 
+    //  <img src={`https://api.ekalakaar.com/uploads/avatars/${portfolioData?.avatar}`} alt="" className="user_profile" /> 
+    <img src={profileImg} alt="" />
 
   )
 }

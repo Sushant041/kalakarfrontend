@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ArtistProfiles.css';
+import profileImg from "../Images/profile.svg"
 import Patron_Navbar from '../Patron_Navbar';
 import {faFacebookF,faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -247,7 +248,7 @@ export default function ArtistProfiles() {
                     </div>
                     <div className='ArtistProfiles_ProfileCard_right'>
                       <div>
-                        <img src={profile?.image} /><br></br> <br></br>
+                        <img src={profileImg} /><br></br> <br></br>
                         <p>{profile?.firstName} {profile?.lastName}</p>
                         <p>{profile?.category}</p>
                       </div>

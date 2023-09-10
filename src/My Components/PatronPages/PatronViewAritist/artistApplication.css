@@ -149,10 +149,8 @@ border-radius: 10px;
 }
 .body_appli{
     
-    width:100% ;
  text-align: center;
- text-decoration: none !important;
- /* background-color: #25D366; */
+ text-decoration: none ;
  color: black;
  cursor: pointer;
 }

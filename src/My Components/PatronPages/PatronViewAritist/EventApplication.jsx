@@ -61,7 +61,6 @@ function EventApplication() {
   
   const [currentEvent, setCurrentEvent] = useState("Application");
   const {accessToken} = useSelector((state)=>state.auth);
-  // const [eventDetail , setEventDetail] = useState([])
 
 
 
@@ -176,11 +175,11 @@ function EventApplication() {
         {/* left side */}
         <div className="job_description_container">
           <p className="job_description_text">Job Description</p>
-          <p className="job_description_para">{opportunityData.description}</p>
+          <p className="job_description_para">{opportunityData?.description}</p>
           <ul className="job_des_allList">
             {jobDesList.map((desc, index) => (
               <li className="job_des_list" key={index}>
-                {desc.title}
+                {desc?.title}
               </li>
             ))}
           </ul>
@@ -194,7 +193,7 @@ function EventApplication() {
                 }`}
                 key={index}
               >
-                {btn.title}
+                {btn?.title}
               </button>
             ))}
           </div>

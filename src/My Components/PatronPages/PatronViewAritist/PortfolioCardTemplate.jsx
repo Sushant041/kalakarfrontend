@@ -2,6 +2,7 @@ import "./portfolioCardTemplate.css";
 import rectangle from "./assets/reactangle.svg";
 import ekalakaar from "./assets/ekalakaar.svg";
 import Ellipse from "./assets/Ellipse 71.svg";
+import profileImg from "../Images/profile.svg"
 
 
 
@@ -45,7 +46,7 @@ function PortfolioDisplayTemplate({socalMedia , profession , userDetails , userN
         {/* third part */}
         <div className="card_userName_details">
 
-     <img src={Ellipse} alt="" className="user_profile" /> 
+     <img src={profileImg} alt="" className="user_profile" /> 
 
   
 

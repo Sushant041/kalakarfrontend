@@ -5,6 +5,7 @@ import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import PortfolioCardTemplate from "./PortfolioCardTemplate"
 import phone from "./assets/phone.svg";
+import profileImg from "../Images/profile.svg"
 import instagram from "./assets/instagram.svg";
 import facebookimg from "./assets/facebookimg.svg";
 import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequestWithoutBody } from "../../../services/serverHelper";

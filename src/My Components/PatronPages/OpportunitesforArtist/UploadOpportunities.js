@@ -6,13 +6,14 @@ import { toast, ToastContainer } from 'react-toastify';
 import {  useSelector } from 'react-redux';
 import { makeAuthenticatedPOSTRequest } from '../../../services/serverHelper';
 import {patronProfilePoints} from "../../../services/apis"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
  function UploadOpportunities() {
   const { accessToken } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({});
+  const navigate = useNavigate();
 
   const inputChangeHandler = (e) => {
     setFormData((prevState) => {
@@ -41,20 +42,30 @@ import { Link } from 'react-router-dom';
     try {
       const response = await makeAuthenticatedPOSTRequest(patronProfilePoints.UPLOAD_OPPOR_API, formData, accessToken);
 
-      if (response.statusCode === 201) {
-        toast.success("successfully uploaded");
+      
+    if (response.statusCode === 201) {
+      toast.success("Successfully uploaded");
 
-        for (let key in formData) {
-          formData[key] = "";
-        }
+      // Clear date inputs
+      setFormData((prevState) => ({
+        ...prevState,
+        applicationPeriod: {
+          start: "",
+          end: "",
+        },
+      }));
 
-        formData.applicationPeriod.end = "";
-        formData.applicationPeriod.start = "";
+      // Clear other inputs (you may want to clear other fields as well)
+      setFormData((prevState) => ({
+        ...prevState,
+        artNature: "",
+        location: "",
+        description: "",
+        // Clear other fields here
+      }));
 
-        setFormData((prevState) => {
-          return { ...prevState, ...formData };
-        });
-      } else {
+      navigate("/UploadedOpportunities");
+    } else {
         console.log(response.message);
         toast.error("Please provide all the required fields");
       }

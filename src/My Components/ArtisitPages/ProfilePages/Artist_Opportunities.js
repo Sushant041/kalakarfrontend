@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Navbar_frontpage } from "../../FrontPage/Navbar";
 import "./Artist_Opportunities.css";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Artist_navbar from "../Artist_navbar";
 import {
   makeAuthenticatedGETRequest,
@@ -46,6 +46,7 @@ export function Artist_Opportunities() {
     
   const [showOpportunityFiltersPopup, setShowOpportunityFiltersPopup] =
     useState(false);
+    const navigate = useNavigate();
 
   const [applyAns, setApplyAns] = useState("");
 
@@ -72,6 +73,7 @@ export function Artist_Opportunities() {
         });
         setOpportunityapplynowPopup(null);
         setApplyAns("");
+        navigate("/statusOfApplication")
       } else {
         toast.error(response.message , {
           position:"top-center"
