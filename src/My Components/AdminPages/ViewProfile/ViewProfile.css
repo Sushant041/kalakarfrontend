@@ -1,0 +1,71 @@
+.admin-page-root-container-vp{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+.section-division-admin-viewProfile{
+    max-width: 1330px;
+    flex-grow: 1;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items : center;
+    gap: 40px;
+    padding: 20px;
+}
+.admin-about-me-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.admin-about-me-container h2{
+    font-size: 40;
+    font-weight: 600;
+    color:#AD2F3B;
+    
+}
+.admin-about-me-container p{
+    font-size: 20px;
+    font-weight: 400;
+}
+.display-data-table{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 40px;
+    border: 2px solid #00000066;
+    border-radius: 10px;
+    padding: 20px;
+}
+.display-data-table h2,p{
+    font-size: 20px;
+    font-weight: 600;
+}
+.display-data-table p{
+    color: #000000B2;
+}
+.admin-vp-button-bottom{
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+.admin-vp-btn{
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
+    background: #AD2F3B;
+    color: #ffff;
+}
+
+
+.caraussel-head{
+    margin-left: 5%;
+    font-size: 40px;
+    font-weight: 600;
+    color: #AD2F3B;
+    margin-top: 80px;
+}

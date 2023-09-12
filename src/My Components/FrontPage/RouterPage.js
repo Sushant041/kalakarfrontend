@@ -32,100 +32,145 @@ import AboutPartner from "../PartnersPages/AboutUs/AboutPartner";
 import EditAboutPartner from "../PartnersPages/AboutUs/EditAboutPartner";
 import SellProduct from "../PartnersPages/SellProduct/SellProduct";
 import MyProductsandCourses from "../PartnersPages/MyProducts/MyProductsandCourses";
-import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment"
-import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories"
+import SkillDevelopment from "../ArtisitPages/Skill Development/SkillDevelopment";
+import CourseCategories from "../ArtisitPages/Course Categories/CourseCategories";
 import PatronPortfolioDisplay from "../ArtisitPages/PortfollioDisplay/PatronPortfolioDisplay";
-import UploadedOpportunities  from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
+import UploadedOpportunities from "../PatronPages/OpportunitesforArtist/UploadedOpportunities";
 import UploadOpportunities from "../PatronPages/OpportunitesforArtist/UploadOpportunities";
 import EditOpportunity from "../PatronPages/OpportunitesforArtist/EditOpportunity";
-import Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Patron_Portfolio"
-import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_Patron_Portfolio"
-
-
-
+import Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Patron_Portfolio";
+import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_Patron_Portfolio";
+import UserVerfication from "../AdminPages/UserVerification/UserVerfication";
+import ViewProfile from "../AdminPages/ViewProfile/ViewProfile";
 
 export default function RouterPage() {
-
-  const {role , accessToken , refreshToken } = useSelector((state)=>state.auth);
+  const { role, accessToken, refreshToken } = useSelector(
+    (state) => state.auth
+  );
 
   return (
     <div>
       <Routes>
+        <Route path="/admin" element={<UserVerfication />} />
+        <Route path="/vprofile" element={<ViewProfile />} />
 
-        {
-          !accessToken && 
+        {!accessToken && (
           <>
-          <Route path="/Login" exact element={<LoginPage />} />
-        <Route path="/Choose" exact element={<Choosing />} />
-        <Route path="/register" exact element={<Signup />} />
-        <Route path="/resetPassword" exact element={<ResetPassword />} />
-        <Route path="/forgetPassword" exact element={<ForgetPassword />} />
-        <Route path="/verifyCode" exact element={<VerificationCode />} />
-
+            <Route path="/Login" exact element={<LoginPage />} />
+            <Route path="/Choose" exact element={<Choosing />} />
+            <Route path="/register" exact element={<Signup />} />
+            <Route path="/resetPassword" exact element={<ResetPassword />} />
+            <Route path="/forgetPassword" exact element={<ForgetPassword />} />
+            <Route path="/verifyCode" exact element={<VerificationCode />} />
           </>
-        }
+        )}
         <Route path="/" exact element={<HomePage />} />
         <Route path="/EkPhotos" exact element={<EkPhotos />} />
         <Route path="/EkVideos" exact element={<EkVideos />} />
         <Route path="/EkPrint" exact element={<EkPrint />} />
         <Route path="/Ekevents" exact element={<Ekevents />} />
 
-        
-        {
-          role === 'Artist' && (
-            <>
+        {role === "Artist" && (
+          <>
             <Route path="/Artist_Profile" exact element={<Artist_Profile />} />
-        <Route path="/Artist_Opportunities" exact element={<Artist_Opportunities />} />
-        <Route path="/statusOfApplication" element={<StatusOfApplication />} />
-        <Route path="/Artist_OpportunityDetails" exact element={<Artist_OpportunitiesMoreInfo />} />
-        <Route path="/PortfolioDisplay" element={<PortfolioDisplay />} />
-        <Route path="/patron_view_artist/:id" element={<PatronPortfolioDisplay />} />
-        <Route path="/EditPortfolio" element={<EditPortfolio />} />
-        <Route path="/latestNews" exact element={<Newsletter />} />
-        <Route path="/contactUs" element={<ContactUs />} />
-        <Route path="/chatApp" element={<ChatDisplay />} />
-        <Route path="/viewChat/:id" element={<ChatViewSection showViewChat={true} />} />
-            </>
-          )
+            <Route
+              path="/Artist_Opportunities"
+              exact
+              element={<Artist_Opportunities />}
+            />
+            <Route
+              path="/statusOfApplication"
+              element={<StatusOfApplication />}
+            />
+            <Route
+              path="/Artist_OpportunityDetails"
+              exact
+              element={<Artist_OpportunitiesMoreInfo />}
+            />
+            <Route path="/PortfolioDisplay" element={<PortfolioDisplay />} />
+            <Route
+              path="/patron_view_artist/:id"
+              element={<PatronPortfolioDisplay />}
+            />
+            <Route path="/EditPortfolio" element={<EditPortfolio />} />
+            <Route path="/latestNews" exact element={<Newsletter />} />
+            <Route path="/contactUs" element={<ContactUs />} />
+            <Route path="/chatApp" element={<ChatDisplay />} />
+            <Route
+              path="/viewChat/:id"
+              element={<ChatViewSection showViewChat={true} />}
+            />
+          </>
+        )}
 
-        }
-
-        {
-          role === 'Patron' && 
-          (
-            <>
-             <Route path="/UploadOpportunity" exact element={<UploadOpportunities />} />
-        <Route path="/UploadedOpportunities" exact element={<UploadedOpportunities />} />
-        <Route path="/EditOpportunity" exact element={<EditOpportunity />} />
-        <Route path="/Patron_Profile" element={<PatronProfile />} />
-        <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
-        <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
-        <Route path="/patron-event-appli/:id" element={<EventApplication />} />
-        <Route path="/patron-artist-appli" element={<ArtistApplication />} />
-        <Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/>
-        <Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/>
-<Route path="/Patron_Portfolio" exact element={<Patron_Portfolio/>}/>
-<Route path="/Edit_Patron_Portfolio" exact element={<Edit_Patron_Portfolio/>}/>
-            </>
-
-          )
-        }
-        
-    
-
-       
-
+        {role === "Patron" && (
+          <>
+            <Route
+              path="/UploadOpportunity"
+              exact
+              element={<UploadOpportunities />}
+            />
+            <Route
+              path="/UploadedOpportunities"
+              exact
+              element={<UploadedOpportunities />}
+            />
+            <Route
+              path="/EditOpportunity"
+              exact
+              element={<EditOpportunity />}
+            />
+            <Route path="/Patron_Profile" element={<PatronProfile />} />
+            <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
+            <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
+            <Route
+              path="/patron-event-appli/:id"
+              element={<EventApplication />}
+            />
+            <Route
+              path="/patron-artist-appli"
+              element={<ArtistApplication />}
+            />
+            <Route
+              path="/Patron_Portfolio"
+              exact
+              element={<Patron_Portfolio />}
+            />
+            <Route
+              path="/Edit_Patron_Portfolio"
+              exact
+              element={<Edit_Patron_Portfolio />}
+            />
+            <Route
+              path="/Patron_Portfolio"
+              exact
+              element={<Patron_Portfolio />}
+            />
+            <Route
+              path="/Edit_Patron_Portfolio"
+              exact
+              element={<Edit_Patron_Portfolio />}
+            />
+          </>
+        )}
 
         <Route path="/partner-profile" element={<Partner_Profile />} />
         <Route path="/skilldevelopment" element={<SkillDevelopment />} />
         <Route path="/CourseCategories" exact element={<CourseCategories />} />
-        
 
         <Route path="/About_Partner" exact element={<AboutPartner />} />
-        <Route path="/Edit_About_Partner" exact element={<EditAboutPartner />} />
+        <Route
+          path="/Edit_About_Partner"
+          exact
+          element={<EditAboutPartner />}
+        />
         <Route path="/SellProduct" exact element={<SellProduct />} />
-        <Route path="/Partner_ProductsandCourses" exact element={<MyProductsandCourses />} />
-   </Routes>
+        <Route
+          path="/Partner_ProductsandCourses"
+          exact
+          element={<MyProductsandCourses />}
+        />
+      </Routes>
     </div>
   );
 }
