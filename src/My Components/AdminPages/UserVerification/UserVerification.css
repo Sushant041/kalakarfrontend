@@ -17,7 +17,7 @@
     flex-grow: 1;
 }
 .admin-status-btn-container{
-    
+    height: fit-content;
     display: flex;
     flex-direction: column;
     box-shadow: 0px 25px 45px 0px #1616161A;

@@ -42,6 +42,7 @@ import Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Patron_Port
 import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_Patron_Portfolio";
 import UserVerfication from "../AdminPages/UserVerification/UserVerfication";
 import ViewProfile from "../AdminPages/ViewProfile/ViewProfile";
+import Chat from "../AdminPages/AdmiChatPage/Chat";
 
 export default function RouterPage() {
   const { role, accessToken, refreshToken } = useSelector(
@@ -51,8 +52,9 @@ export default function RouterPage() {
   return (
     <div>
       <Routes>
-        <Route path="/admin" element={<UserVerfication />} />
-        <Route path="/vprofile" element={<ViewProfile />} />
+        <Route path="admin" element={<UserVerfication />} />
+        <Route path="vprofile" element={<ViewProfile />} />
+        <Route path="adminchat" element={<Chat />} />
 
         {!accessToken && (
           <>
