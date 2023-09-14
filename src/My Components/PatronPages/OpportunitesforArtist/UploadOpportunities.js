@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './UploadOpportunities.css';
 import Patron_Navbar from '../Patron_Navbar';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
 import {  useSelector } from 'react-redux';
 import { makeAuthenticatedPOSTRequest } from '../../../services/serverHelper';

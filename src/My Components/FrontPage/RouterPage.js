@@ -46,7 +46,7 @@ import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_P
 
 export default function RouterPage() {
 
-  const {role , accessToken , refreshToken } = useSelector((state)=>state.auth);
+  const {role , accessToken } = useSelector((state)=>state.auth);
 
   return (
     <div>
@@ -74,6 +74,7 @@ export default function RouterPage() {
         {
           role === 'Artist' && (
             <>
+            
             <Route path="/Artist_Profile" exact element={<Artist_Profile />} />
         <Route path="/Artist_Opportunities" exact element={<Artist_Opportunities />} />
         <Route path="/statusOfApplication" element={<StatusOfApplication />} />

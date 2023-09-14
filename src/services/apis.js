@@ -11,8 +11,10 @@ export const endpoints = {
 
 export const artistProfilePoints = {
   FETCH_PROFILE_DATA_API: BASE_URL + "/artists/profile",
-  UPDATE_PROFILE_DATA_API: BASE_URL + "/artists/profile",
+  UPDATE_ARTIST_AVATAR_API: BASE_URL + "/artists/profile/avatar",
+  LOGIN_WITH_GOOGLE_API : BASE_URL + "/auth/google",
 };
+
 
 export const artistOpportunityPoints = {
   FETCH_OPPOR_DATA_API: BASE_URL + `/artists/opportunities`,

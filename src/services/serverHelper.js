@@ -15,6 +15,23 @@ export const makeUnauthenticatedPOSTRequest = async (route, body) => {
     console.log(`error in fetch api `, error);
   }
 };
+export const makeUnauthenticatedGETRequest = async (route) => {
+  try {
+    const response = await fetch(route, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+      // the body will send like this to backend
+      // body: JSON.stringify(body),
+    });
+
+    const formattedResponse = await response.json();
+    return formattedResponse;
+  } catch (error) {
+    console.log(`error in fetch api `, error);
+  }
+};
 
 // ! post request
 export const makeAuthenticatedPOSTRequest = async (route, body, token) => {
@@ -79,7 +96,7 @@ export const makeAuthenticatedUPDATERequest = async (route, body, token) => {
 export const makeAuthenticated_Multi_Patch_REQ = async (route, file, token) => {
   try {
     const response = await fetch(route, {
-      method: "PATCH",
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
       },

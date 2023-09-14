@@ -6,10 +6,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import google from "./Images/Google.svg";
 import facebook from "./Images/Facebook.svg";
-import { endpoints } from "../../services/apis";
-import { makeUnauthenticatedPOSTRequest } from "../../services/serverHelper";
+import {  artistProfilePoints, endpoints } from "../../services/apis";
+import { makeUnauthenticatedGETRequest, makeUnauthenticatedPOSTRequest } from "../../services/serverHelper";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import {
   setAccessToken,
   setRole,
@@ -83,6 +82,18 @@ export function LoginPage() {
     toast.dismiss(toastId);
   };
 
+  const googleLogin = async()=>{
+    try {
+
+      const response = await makeUnauthenticatedGETRequest(artistProfilePoints.LOGIN_WITH_GOOGLE_API);
+      console.log('googleRes' ,response);
+
+    } catch(error){
+      toast.error('Something went wrong , please try again');
+      console.log(error);
+    }
+  }
+
 
   return (
     <AuthTemplate justifyFlag={false}>
@@ -139,7 +150,7 @@ export function LoginPage() {
 
         {/* google and facebook button */}
         <div className="googleFacebookButton">
-          <img src={google} alt="" className="loginImage" />
+          <img onClick={googleLogin} src={google} alt="" className="loginImage" />
 
           <img src={facebook} alt="" className="loginImage" />
         </div>
