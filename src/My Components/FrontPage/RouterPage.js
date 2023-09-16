@@ -43,6 +43,7 @@ import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_P
 import UserVerfication from "../AdminPages/UserVerification/UserVerfication";
 import ViewProfile from "../AdminPages/ViewProfile/ViewProfile";
 import Chat from "../AdminPages/AdmiChatPage/Chat";
+import EditAdminProtfolio from "../AdminPages/EditAdminPortfolio/EditAdminProtfolio";
 
 export default function RouterPage() {
 
@@ -54,6 +55,7 @@ export default function RouterPage() {
         <Route path="admin" element={<UserVerfication />} />
         <Route path="vprofile" element={<ViewProfile />} />
         <Route path="adminchat" element={<Chat />} />
+        <Route path="admineditPortfolio" element={<EditAdminProtfolio />} />
 
         {!accessToken && (
           <>
