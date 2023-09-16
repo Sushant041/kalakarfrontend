@@ -6,7 +6,7 @@ import Artist_navbar from "../Artist_navbar";
 import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
-import { makeAuthenticatedGETRequest, makeAuthenticatedPOSTRequest, makeAuthenticatedPOSTRequestWithoutBody } from "../../../services/serverHelper";
+import {  makeAuthenticatedPOSTRequest, makeAuthenticatedPOSTRequestWithoutBody } from "../../../services/serverHelper";
 import { artistOpportunityPoints } from "../../../services/apis";
 
 
@@ -25,30 +25,15 @@ export function Artist_OpportunitiesMoreInfo() {
   
   const [applyAns, setApplyAns] = useState("");
 
-  console.log("josb", job);
 
   const [jobData , setJobData] = useState(null);
 
-  // for fetch the data 
-  const fetchAppliedOpp =async() =>{
-    const response = await makeAuthenticatedGETRequest(artistOpportunityPoints.FETCH_OPPOR_BY_ID + `/${job.id}` , accessToken);
-    console.log('fiteres' , response);
-      if(response.success  ===  'success'){
-        setJobData(response.data);
-        
-      }
-      else{
-        toast.error('something went wrong , please try again' , {
-          position:"top-center"
-        });
-      }
-  }
+
 
   useEffect(()=>{
    if(job?.status === 'Applied'){
     setCurrentId(job._id);
     setJobData(job);
-    // fetchAppliedOpp();
    }
    else {
     setCurrentId(job._id);
@@ -56,7 +41,6 @@ export function Artist_OpportunitiesMoreInfo() {
    }
   },[])
 
-  console.log('currentId' , currentId);
 
   const applySubmitHandler = async (event) => {
     const toastId = toast.loading("Loading..."  ,{
@@ -124,7 +108,7 @@ useEffect(() => {
       <Artist_navbar />
       <div className="OpportunitiesMoreInfoPage">
         <div className="OpportunitiesMoreInfoPage_Topbox">
-          <h1>{jobData?.title}</h1>
+          <h1 style={{color:"#AD2F3B"}}>{jobData?.position}</h1>
           <div className="OpportunitiesMoreInfoPage_Topboxcontent">
             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
               <p>
@@ -221,7 +205,7 @@ useEffect(() => {
             ))}
           </div>
           {
-            job?.status === 'Applied' ?(
+            (job?.status === 'Applied' || job?.status === "In-Progress" || job?.status === "Rejected"  || job?.status === 'Hired') ?(
               <div className="OpportunitiesMoreInfoPage_bottombox_btns">
 
               <button className="notAppliedBtn" >

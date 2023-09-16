@@ -76,7 +76,13 @@ function RejectedApplicationItems({currentEvent , jobData ,loading}){
                         </p>
                       </div>
                       <p className="inprogress_text">
-                        {event.performanceDate}
+                      {new Date(
+                            event?.performanceDate
+                          ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
                       </p>
                     </div>
   
@@ -140,8 +146,9 @@ function RejectedApplicationItems({currentEvent , jobData ,loading}){
               
               </>
             ))}
-  
+             <Link to={'/Artist_Opportunities'}>
             <ApplicationButton text={"View More Events"} />
+             </Link>
           </div>
           )}
         </div>

@@ -42,7 +42,8 @@ import appliDueDate from "./assets/applicationDueDate.svg";
  ]
 
 function AppliedApplicationItems({ currentEvent, loading, jobData }) {
-  console.log('jobDta' , jobData);
+
+
   return (
     <div className="applied_Application_wrapper">
 

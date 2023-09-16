@@ -10,16 +10,11 @@ import instagram from "./assets/instagram.svg";
 import profileImg from "./assets/profile.svg";
 import facebookimg from "./assets/facebookimg.svg";
 
-<<<<<<< HEAD
-
 
 
 function PortfolioDisplayTemplate({ portfolioData,  editCard = false}) {
 
-=======
-function PortfolioDisplayTemplate({ portfolioData, editCard = false }) {
-  console.log("prort", portfolioData);
->>>>>>> 6fc2e678da8aaa94d802dcd625b34ab79cacf319
+
   return (
     <section className="portfolio_card">
       {/* left part */}
