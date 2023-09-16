@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "../../FrontPage/Navbar.css";
-import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest, makeAuthenticated_Multi_Patch_REQ } from "../../../services/serverHelper";
+import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest, makeAuthenticatedPOSTRequest, makeAuthenticated_Multi_Patch_REQ } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast,  } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
@@ -499,10 +499,10 @@ export function Artist_Profile() {
         awards: [...awards],
       } = response.data;
 
-     if(avatar){
-      console.log('inside avatar');
-      setProfileAvatar(avatar);
-     }
+    
+      if(avatar){
+        setProfileAvatar(avatar);
+      }
      
       setBasicFormData((prev) => ({
         ...prev,
@@ -645,7 +645,7 @@ export function Artist_Profile() {
       const formData = new FormData();      
 formData.append("avatar" , selectedFile);
 
-     const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API ,formData,accessToken);
+     const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_ARTIST_AVATAR_API ,formData,accessToken);
      console.log('res' , response);
      setProfileAvatar(response?.data?.avatar);
     }
@@ -654,9 +654,8 @@ formData.append("avatar" , selectedFile);
   //! this is for remove avatart  
   const handleRemoveAvatar= async(event)=>{
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("avatar" , "");
- const response = await makeAuthenticated_Multi_Patch_REQ(artistProfilePoints.UPDATE_PROFILE_DATA_API ,formData , accessToken );
+  
+ const response = await makeAuthenticatedPOSTRequest(artistProfilePoints.UPDATE_ARTIST_AVATAR_API ,{avatar:""} , accessToken );
 setProfileAvatar(null);
  
   }
@@ -711,8 +710,10 @@ setProfileAvatar(null);
         >
           {/* <Container> */}
           <div className="container-fluid">
-            
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+{/* <!--Art Lover : i am comment the Navbar.Toggle for remove the menu Button--> */}
+
+
+            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
             <Navbar.Collapse id="basic-navbar-nav" style={mystyle}>
               <div className="navbar-nav" style={back}>
                 <Nav className="Profile_navbarbutton">

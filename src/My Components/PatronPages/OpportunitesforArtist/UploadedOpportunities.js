@@ -37,6 +37,8 @@ import { useSelector } from 'react-redux';
           }
 
     };
+
+
     useEffect(() => {
         const body = document.querySelector('#root');
         body.scrollIntoView({
@@ -46,6 +48,8 @@ import { useSelector } from 'react-redux';
         fetchMoreData();
 
     }, []);
+
+
     return (
         <>
             <Patron_Navbar />
@@ -56,14 +60,13 @@ import { useSelector } from 'react-redux';
                     </div>
                 </div>
                 <div>
-
                     {
                         Opportunities.length > 0 && 
                         (
                             
                     Opportunities.map((opportunity , index)=>{
                     return(
-                    <div key={index} className="OpportunitiesPage_displayonejob" //key={index}
+                    <div key={index} className="OpportunitiesPage_displayonejob" 
                     >
                         <h4>{opportunity.position}</h4>
                         <div className="OpportunitiesPage_displayonejob_content">

@@ -46,9 +46,8 @@ import Chat from "../AdminPages/AdmiChatPage/Chat";
 import EditAdminProtfolio from "../AdminPages/EditAdminPortfolio/EditAdminProtfolio";
 
 export default function RouterPage() {
-  const { role, accessToken, refreshToken } = useSelector(
-    (state) => state.auth
-  );
+
+  const {role , accessToken , refreshToken } = useSelector((state)=>state.auth);
 
   return (
     <div>
@@ -74,8 +73,10 @@ export default function RouterPage() {
         <Route path="/EkPrint" exact element={<EkPrint />} />
         <Route path="/Ekevents" exact element={<Ekevents />} />
 
-        {role === "Artist" && (
-          <>
+        
+        {
+          role === 'Artist' && (
+            <>
             <Route path="/Artist_Profile" exact element={<Artist_Profile />} />
             <Route
               path="/Artist_Opportunities"

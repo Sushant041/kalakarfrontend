@@ -6,7 +6,6 @@ import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest } from '../.
 import { patronProfilePoints } from '../../../../services/apis';
 import { useSelector } from 'react-redux';
 import { useState  , useEffect} from 'react';
-import { async } from 'q';
 import { useNavigate } from 'react-router';
 
 
@@ -102,8 +101,12 @@ fetchPatronData();
             <Patron_Navbar />
             <div className='EditPatronPortfolio_Page'>
                 <h1>Edit Portfolio Card</h1>
+
+                {/* this is card  */}
                 <div className='EditPatronPortfolio_ProfileCard'>
+                        {/* this is left side  */}
                     <div className='EditPatronPortfolio_ProfileCard_left'>
+
                         <div className='EditPatronPortfolio_ProfileCard_left_photo'>
                             Your
                             Photo
@@ -112,9 +115,13 @@ fetchPatronData();
                         <h3>{userData?.firstName} {userData?.lastName} </h3>
                         <h5>{userData?.natureOfArt}</h5>
                     </div>
+
+                    {/* this is strip */}
                     <div className='EditPatronPortfolio_ProfileCard_strip'></div>
+
+                    {/* this is right side */}
                     <div className='EditPatronPortfolio_ProfileCard_right'>
-                        <img src='assets/HomePage/eK_Logo_Trasnparent_1.png'></img>
+                        <img className='ek_logo_patron_portfolio' src='assets/HomePage/eK_Logo_Trasnparent_1.png'></img>
                         <div className='EditPatronPortfolio_ProfileCard_right_Main'>
                             <div className="AboutPartner_ProfileCard_bottomelement_details">
                                 <p>
@@ -176,12 +183,13 @@ fetchPatronData();
                                         />
                                     </svg>
                                     &nbsp; {userData?.address}<br></br>
-                                    &nbsp; &nbsp; &nbsp; &nbsp;random district<br></br>
-                                    &nbsp; &nbsp;&nbsp; &nbsp; random state
+                                    
                                 </p>
                             </div>
                         </div>
                     </div>
+
+                    
                 </div>
                 <button className='EditPatronPortfolio_uploadpic'>
                     Upload Profile Picture

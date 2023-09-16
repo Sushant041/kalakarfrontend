@@ -175,6 +175,14 @@
   background: none;
 }
 
+@media (max-width:990px) {
+  .EditPatronPortfolio_ProfileCard{
+    width: 95%;
+  }
+}
+
+
+
 @media (max-width: 800px) {
   .EditPatronPortfolio_ProfileCard {
     width: 720px;
@@ -193,6 +201,22 @@
   .EditPatronPortfolio_form_input textarea,
   .EditPatronPortfolio_form_btns {
     width: 380px;
+  }
+}
+
+@media (max-width:730px) {
+  .EditPatronPortfolio_ProfileCard{
+    width: 95%;
+   
+    
+  }
+
+  .EditPatronPortfolio_ProfileCard_strip{
+    display: none;
+  }
+
+  .EditPatronPortfolio_ProfileCard_right{
+    width: 100%;
   }
 }
 
@@ -218,9 +242,7 @@
   .EditPatronPortfolio_ProfileCard_left h5 {
     font-size: 14px;
   }
-  .EditPatronPortfolio_ProfileCard_strip {
-    display: none;
-  }
+
   .EditPatronPortfolio_ProfileCard_right {
     width: 60%;
   }
@@ -230,4 +252,25 @@
   .EditPatronPortfolio_form_btns {
     width: 90vw;
   }
+}
+
+@media (max-width:450px) {
+
+  .ek_logo_patron_portfolio{
+    display: none;
+  }
+  .EditPatronPortfolio_ProfileCard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* height: fit-content; */
+  }
+
+  .EditPatronPortfolio_ProfileCard_right{
+    width: 100%;
+   }
+
+   .EditPatronPortfolio_ProfileCard_left{
+    width: 100%;
+   }
 }

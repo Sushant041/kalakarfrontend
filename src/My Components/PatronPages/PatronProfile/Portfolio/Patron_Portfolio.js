@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import "./Patron_Portfolio.css";
 import Patron_Navbar from "../../Patron_Navbar";
 import { Link } from 'react-router-dom';
-import { async } from 'q';
 import { toast } from 'react-toastify';
 import { makeAuthenticatedGETRequest } from '../../../../services/serverHelper';
 import { patronProfilePoints } from '../../../../services/apis';
@@ -45,15 +44,24 @@ fetchPatronData();
         <>
             <Patron_Navbar />
             <div className='PatronPortfolio_Page'>
+
+                {/* this is for card */}
                 <div className='PatronPortfolio_ProfileCard'>
+
+
+                    {/* left side */}
                     <div className='PatronPortfolio_ProfileCard_left'>
                         <img src='assets/Newsletter/Profile.png'></img>
                         <h3>{userData?.firstName} {userData?.lastName} </h3>
                         <h5>{userData?.natureOfArt}</h5>
                     </div>
+
+                    {/* strip  */}
                     <div className='PatronPortfolio_ProfileCard_strip'></div>
+
+                    {/* right side card */}
                     <div className='PatronPortfolio_ProfileCard_right'>
-                        <img src='assets/HomePage/eK_Logo_Trasnparent_1.png'></img>
+                        <img className='ek_logo_patron_portfolio' src='assets/HomePage/eK_Logo_Trasnparent_1.png'></img>
                         <div className='PatronPortfolio_ProfileCard_right_Main'>
                             <div className="AboutPartner_ProfileCard_bottomelement_details">
                                 <p>
@@ -114,14 +122,18 @@ fetchPatronData();
                                             stroke-linejoin="round"
                                         />
                                     </svg>
-                                    &nbsp;{userData?.address}<br></br>
-                                    &nbsp; &nbsp; &nbsp; &nbsp;random district<br></br>
-                                    &nbsp; &nbsp;&nbsp; &nbsp; {userData?.address}
+                                    &nbsp;{userData?.address}
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
                 <p className='PatronPortfolio_PatronName'> {userData?.firstName} {userData?.lastName}
                     <svg  xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
                         <circle  cx="25" cy="25" r="25" fill="#61C6FF" />
