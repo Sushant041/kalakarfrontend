@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
+body{
+  overflow-x: hidden;
+}
+
 .Profile_Page {
   min-height: 100vh;
   margin: 0 !important;
@@ -475,9 +479,48 @@
 }
 
 @media (max-width: 800px) {
+
+  /* Art Lover ( Abhishek Write this Code ) */
+  /* Abhishek Start */
   .BasicProfile_AccSet {
-    display: none;
+    display: block;
+    grid-row: 1/-1;
+    width: 70%;
+    height: 100%;
   }
+  
+  
+  .BasicProfile_ProfileSection{
+    display: grid;
+    padding: 50px 50px;
+    place-items: center;
+    gap: 30px;
+
+  }
+  .BasicProfile_AccSet button{
+    margin-top: 0;
+    font-size: 18px;
+    height: 60px;
+  }
+  .BasicProfile_Addressshort{
+    flex-direction: column;
+    width: 100%;
+  }
+  .BasicProfile_Addressshort select{
+    width: 100%;
+  }
+  .BasicProfile_Addressshort input[type="text"]{
+    width: 100%;
+  }
+  .BasicProfile_Addressshort input[type="number"]{
+    width: 100%;
+  }
+  .BasicProfile_AccSet h1{
+    font-size: 28px;
+    margin: 25px;
+
+  }
+  /* Abhishek End */
 
   .Profile_navbarbutton {
     visibility: visible;
@@ -488,7 +531,7 @@
   .AwardProfile_Infoform,
   .ExpectedoppoProfile_Infoform {
     float: none;
-    width: 750px;
+    width: 100%;
     margin: 20px !important;
     margin-top: 30px !important;
     padding: 0px 20px 20px 20px !important;
@@ -500,7 +543,28 @@
   }
 }
 
+  /* Art Lover ( Abhishek Write this Code ) */
+  /* Abhishek Start */
+  @media(max-width:650px){
+    .BasicProfile_AccSet {
+      display: block;
+      grid-row: 1/-1;
+      width: 100%;
+      height: 100%;
+    }
+    .ExpectedoppoProfile_Infoform{
+      width: 100%;
+    }
+  }
+  /* Abhishek End */
+
 @media (max-width: 430px) {
+
+
+  .BasicProfile_ProfileSection{
+    padding: 50px;
+
+  }
   .BasicProfile_Infoform,
   .ArtProfile_Infoform,
   .PerformanceProfile_Infoform,
@@ -546,6 +610,9 @@
 }
 
 @media (max-width: 380px) {
+  .BasicProfile_ProfileSection{
+    padding: 20px;
+  }
   .BasicProfile_Infoform,
   .ArtProfile_Infoform,
   .PerformanceProfile_Infoform,
@@ -575,3 +642,13 @@
     width: 330px;
   }
 }
+
+ /* Art Lover ( Abhishek Write this Code ) */
+  /* Abhishek Start */
+@media(max-width:332px){
+  .BasicProfile_ProfileSection{
+    padding: 10px;
+
+  }
+}
+    /* Abhishek End */
