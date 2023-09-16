@@ -79,7 +79,6 @@ const fetchUserData = async()=>{
   }
 }
 
-console.log('port' , portfolioData);
 
   useEffect(()=>{
    fetchUserData();

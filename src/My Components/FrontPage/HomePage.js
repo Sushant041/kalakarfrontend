@@ -60,6 +60,7 @@ import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import './JoinUs.css';
 /*EkPhotos*/
 import { EkPhotos } from './EkPhotos';
+import { useSelector } from 'react-redux';
 
 const HomePage_images = [
   {
@@ -248,6 +249,8 @@ const OurPartners_images = [
 ];
 
 function ReadMore({ children }) {
+
+
   
   const [isExpanded, setIsExpanded] = useState(false);
   const [showButton, setShowButton] = useState(false);
@@ -323,6 +326,7 @@ function ResponsiveCarousel({ children }) {
 }
 
 export function HomePage() {
+  const {role , accessToken} = useSelector((state)=>state.auth);
   const isSmallScreen = window.matchMedia('(max-width: 800px)').matches;
   const OurArtistsimagesPerSlide = isSmallScreen ? 1 : 3;
   const OurPartnersimagesPerSlide = isSmallScreen ? 1 : 2;
@@ -409,6 +413,8 @@ export function HomePage() {
     marginLeft: '0vh',
     marginTop: '0vh',
   };
+
+
   return (
     <>
       <Helmet>
@@ -495,13 +501,38 @@ export function HomePage() {
                             >
                                <FontAwesomeIcon icon={faLanguage} />
                             </button>
-                            <Link
-                                to="/Login"
-                                className="nav-item nav-link"
-                                style={{ color: "black", border: "1px solid black" }}
-                            >
-                                Login/Signup
-                            </Link>
+                            {
+                              accessToken === null  && 
+                               <Link
+                              to="/Login"
+                              className="nav-item nav-link"
+                              style={{ color: "black", border: "1px solid black" }}
+                          >
+                              Login/Signup
+                          </Link>
+                            
+                            }
+                           {
+                             (accessToken !== null && role === 'Artist') && 
+                             <Link
+                              to="/artist_profile"
+                              className="nav-item nav-link"
+                              style={{ color: "black", border: "1px solid black" }}
+                          >
+                            Go To Profile
+                          </Link>
+                           }
+                           {
+                             (accessToken !== null && role === 'Patron') && 
+                             <Link
+                              to="/Patron_Profile"
+                              className="nav-item nav-link"
+                              style={{ color: "black", border: "1px solid black" }}
+                          >
+                            Go To Profile
+                          </Link>
+                           }
+
                         </div>
             </Navbar.Collapse>
             {/* </Container> */}

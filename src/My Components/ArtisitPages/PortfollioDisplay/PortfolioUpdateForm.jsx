@@ -160,6 +160,7 @@ function PortfolioUpdateForm() {
   }, []);
 
   return (
+    
     <form onSubmit={submitHandler} className="edit_portfolio_form_wrapper">
       <label className="single_form_label">
         <p className="sinle_form_title">First Name </p>

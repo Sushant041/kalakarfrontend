@@ -7,9 +7,12 @@ import { patronProfilePoints } from '../../../../services/apis';
 import { useSelector } from 'react-redux';
 import { useState  , useEffect} from 'react';
 import { useNavigate } from 'react-router';
+import { makeAuthenticated_Multi_Patch_REQ  } from '../../../../services/serverHelper';
 
 
 export default function Edit_Patron_Portfolio() {
+
+const [ profileAvatar, setProfileAvatar] = useState("");
 
     const navigate = useNavigate();
 
@@ -36,6 +39,8 @@ export default function Edit_Patron_Portfolio() {
     }
 
     const [userData , setUserData] = useState([]);
+
+    // this is for fetch the edit patron profile data 
 
     const fetchPatronData = async()=>{
         const toastId = toast.loading('Loading...');
@@ -69,10 +74,12 @@ export default function Edit_Patron_Portfolio() {
         toast.dismiss(toastId);
     }
 
+    
     useEffect(()=>{
 fetchPatronData();
     },[])
 
+    // this is update the patron data 
     const updatePtronData = async(event)=>{
         event.preventDefault();
 
@@ -95,6 +102,45 @@ fetchPatronData();
     }
     toast.dismiss(toastId);
     }
+
+
+      // ! this is to add avatar file 
+  const handleButtonClick = () => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.jpg, .jpeg, .png'; 
+    fileInput.onchange = handleFileChange;
+    fileInput.click();
+  };
+
+  // ! this is to add the avatar 
+  const handleFileChange = async (event) => {
+   const toastId =  toast.loading('Loading...');
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      console.log('sele' , selectedFile);
+
+      const formData = new FormData();      
+formData.append("avatar" , selectedFile);
+
+     const response = await makeAuthenticated_Multi_Patch_REQ(patronProfilePoints.PATRON_AVATAR_UPDATE ,formData, accessToken);
+     console.log('res' , response);
+     setProfileAvatar(response?.data?.avatar);
+    }
+
+    toast.success('Successfully Updated Profile Picture')
+    toast.dismiss(toastId);
+    navigate(-1);
+  };
+
+  //! this is for remove avatar  
+//   const handleRemoveAvatar= async(event)=>{
+//     event.preventDefault();
+  
+//  const response = await makeAuthenticatedPOSTRequest(artistProfilePoints.UPDATE_ARTIST_AVATAR_API ,{avatar:""} , accessToken );
+// setProfileAvatar(null);
+ 
+//   }
 
     return (
         <>
@@ -191,9 +237,13 @@ fetchPatronData();
 
                     
                 </div>
-                <button className='EditPatronPortfolio_uploadpic'>
+
+
+                <button onClick={handleButtonClick} className='EditPatronPortfolio_uploadpic'>
                     Upload Profile Picture
                 </button>
+
+
                 <div className='EditPatronPortfolio_form'>
                     <form>
                         <div className='EditPatronPortfolio_form_input'>

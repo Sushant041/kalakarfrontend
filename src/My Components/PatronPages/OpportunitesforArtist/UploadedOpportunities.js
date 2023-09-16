@@ -15,9 +15,12 @@ import { useSelector } from 'react-redux';
     const [Opportunities, setOpportunities] = useState([]);
     const {accessToken} = useSelector((state)=>state.auth);
 
+    const [loading , setLoading] = useState(false);
+
     const navigate = useNavigate();
 
     const fetchMoreData = async () => {
+      setLoading(true);
         try{
             const response = await makeAuthenticatedGETRequest(patronProfilePoints.UPLOAD_OPPOR_API ,accessToken);
             console.log('res'  ,response);
@@ -35,7 +38,7 @@ import { useSelector } from 'react-redux';
             console.log(error);
             toast.error("something went wrong , please try again");
           }
-
+setLoading(false);
     };
 
 
@@ -59,6 +62,13 @@ import { useSelector } from 'react-redux';
                         <p>Uploaded Opportunities</p>
                     </div>
                 </div>
+
+                {
+ loading?(
+  <div style={{marginTop:"100px"}} className='custom-loader'></div>
+ ):(
+
+ 
                 <div>
                     {
                         Opportunities.length > 0 && 
@@ -151,6 +161,8 @@ import { useSelector } from 'react-redux';
           )
         }
         </div>
+        )
+      }
       </div>
     </>
   );

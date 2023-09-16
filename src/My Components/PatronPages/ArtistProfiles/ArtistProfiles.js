@@ -20,6 +20,7 @@ export default function ArtistProfiles() {
 
   const navigate = useNavigate();
 
+  // this is to fetch the application details 
   const fetchAllApplication = async()=>{
     const toastId = toast.loading('Loading...');
     try{
@@ -48,6 +49,7 @@ export default function ArtistProfiles() {
   },[])
 
   const [showFiltersPopup, setShowFiltersPopup] = useState(false);
+
   return (
     <>
       <Patron_Navbar />
@@ -60,7 +62,9 @@ export default function ArtistProfiles() {
         <div className='ArtistProfiles_Main'>
           
           {/*  this is for filter part  */}
-          <div className='ArtistProfiles_Allfilters'>
+          <div style={{
+            height:"fit-content"
+          }} className='ArtistProfiles_Allfilters'>
             <h5>
               {" "}
               <svg
@@ -78,7 +82,7 @@ export default function ArtistProfiles() {
                   stroke-linejoin="round"
                 />
               </svg>{" "}
-              All filters
+              All filters (not working now )
             </h5>
             <div className='ArtistProfiles_Allfilters_form'>
               <form>
@@ -129,8 +133,9 @@ export default function ArtistProfiles() {
               <button className='ArtistProfiles_allprofilecards_filterbtn' type="button" onClick={() => setShowFiltersPopup(true)}>Filters</button>
             </div>
 
-            {/* this is for mobile view filter */}
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            {/* this is for mobile view filter remove from comment later  */}
+
+            {/* <div style={{ display: "flex",  justifyContent: "center" }}>
               {showFiltersPopup === true && (
 
                 <div className='ArtistProfiles_Allfilterspopup'>
@@ -197,7 +202,7 @@ export default function ArtistProfiles() {
                   </div>
                 </div>
               )}
-            </div>
+            </div> */}
 
             <div className='ArtistProfiles_allprofilecards_content'>
               {profileData.map(profile => (
@@ -255,7 +260,12 @@ export default function ArtistProfiles() {
                     </div>
                   </div>
                   <div className='Profilecard_btns'>
-                    <button className='btnone'>Send Invitation</button>
+
+{/* this is for send invitation  */}
+
+                    {/* <button className='btnone'>Send Invitation</button> */}
+
+
                   <Link to={`/patron_view_artist/${profile?.userId}`}>
                    <button  className='btntwo'>View Artist</button>
                   </Link> 

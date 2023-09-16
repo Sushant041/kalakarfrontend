@@ -15,7 +15,6 @@ import facebookimg from "./assets/facebookimg.svg";
 
 function PortfolioDisplayTemplate({ portfolioData,  editCard = false}) {
 
- console.log('prort' , portfolioData);
   return (
 
       <section className="portfolio_card">

@@ -7,8 +7,11 @@ import { makeAuthenticatedGETRequest } from '../../../../services/serverHelper';
 import { patronProfilePoints } from '../../../../services/apis';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import {BsCheckLg} from "react-icons/bs"
 
 export default function Patron_Portfolio() {
+
+    const [patronAvatar , setPatronAvatar] = useState("");
 
     const {accessToken} = useSelector((state)=>state.auth);
 
@@ -22,6 +25,11 @@ export default function Patron_Portfolio() {
             console.log('res' , response);
             if(response.success === 'success'){
                 setUserData(response.data);
+
+                const {avatar} = response.data;
+                if(avatar){
+                    setPatronAvatar(avatar);
+                }
 
             }
             else{
@@ -51,7 +59,9 @@ fetchPatronData();
 
                     {/* left side */}
                     <div className='PatronPortfolio_ProfileCard_left'>
-                        <img src='assets/Newsletter/Profile.png'></img>
+
+                        <img src= {`${patronAvatar !== "" ? (`https://api.ekalakaar.com/uploads/avatars/${patronAvatar}`):(`https://ui-avatars.com/api/?name=${userData.firstName}+${userData.lastName}`)}`}></img>
+
                         <h3>{userData?.firstName} {userData?.lastName} </h3>
                         <h5>{userData?.natureOfArt}</h5>
                     </div>
@@ -134,12 +144,16 @@ fetchPatronData();
 
 
 
-                <p className='PatronPortfolio_PatronName'> {userData?.firstName} {userData?.lastName}
-                    <svg  xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-                        <circle  cx="25" cy="25" r="25" fill="#61C6FF" />
-                        <path d="M1 10.7143L6.49347 16.2791C6.88502 16.6757 7.52524 16.6757 7.91678 16.2791L23 1" stroke="white" stroke-width="2" stroke-linecap="round" />
-                    </svg>
+                <p style={{display:"flex" , flexDirectionP:"row" , alignItems:"center" ,gap:"10px"}} className='PatronPortfolio_PatronName'> {userData?.firstName} {userData?.lastName}
+                   <div style={{backgroundColor:"#61C6FF"  , display:"flex" , alignItems:"center" , justifyContent:"center" , width:"50px" , height:"50px" , borderRadius:"50%" }}>
+
+<BsCheckLg style={{
+    fontSize:"30px" , color:"white"
+}} />
+                   </div>
                 </p>
+
+
                 <div className='PatronPortfolio_AboutCompany'>
                     <h2>About Company</h2>
                     <p>

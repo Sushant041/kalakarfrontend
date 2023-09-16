@@ -46,7 +46,7 @@ import Chat from "../AdminPages/AdmiChatPage/Chat";
 
 export default function RouterPage() {
 
-  const {role , accessToken , refreshToken } = useSelector((state)=>state.auth);
+  const {role , accessToken  } = useSelector((state)=>state.auth);
 
   return (
     <div>
@@ -90,14 +90,17 @@ export default function RouterPage() {
               exact
               element={<Artist_OpportunitiesMoreInfo />}
             />
+
             <Route path="/PortfolioDisplay" element={<PortfolioDisplay />} />
-            <Route
-              path="/patron_view_artist/:id"
-              element={<PatronPortfolioDisplay />}
-            />
+
+            <Route  path="/patron_view_artist/:id"  element={<PatronPortfolioDisplay />} />
+            
             <Route path="/EditPortfolio" element={<EditPortfolio />} />
+
             <Route path="/latestNews" exact element={<Newsletter />} />
+
             <Route path="/contactUs" element={<ContactUs />} />
+
             <Route path="/chatApp" element={<ChatDisplay />} />
             <Route
               path="/viewChat/:id"
@@ -124,8 +127,11 @@ export default function RouterPage() {
               element={<EditOpportunity />}
             />
             <Route path="/Patron_Profile" element={<PatronProfile />} />
+
             <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
+
             <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
+            
             <Route
               path="/patron-event-appli/:id"
               element={<EventApplication />}

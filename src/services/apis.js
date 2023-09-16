@@ -11,6 +11,7 @@ export const endpoints = {
 
 export const artistProfilePoints = {
   FETCH_PROFILE_DATA_API: BASE_URL + "/artists/profile",
+  UPDATE_PROFILE_DATA_API: BASE_URL + "/artists/profile",
   UPDATE_ARTIST_AVATAR_API: BASE_URL + "/artists/profile/avatar",
   LOGIN_WITH_GOOGLE_API : BASE_URL + "/auth/google",
 };
@@ -41,9 +42,12 @@ export const patronProfilePoints = {
   GET_SINGLE_OPPOR_ALL_IN_PROGRESS_ARTIST_APPLI_API: BASE_URL + `/patrons/opportunities/applications?status=In-Progress&opportunityId=`,
   GET_SINGLE_OPPOR_ALL_HIRED_ARTIST_APPLI_API: BASE_URL + `/patrons/opportunities/applications?status=Hired&opportunityId=`,
   GET_SINGLE_ARTIST_DATA_API : BASE_URL + `/patrons/artist-profiles?id=`,
-  HIRED_REJECT_SHORTLIST_ARTIST_API : BASE_URL +`/patrons/opportunities/applications`
+  HIRED_REJECT_SHORTLIST_ARTIST_API : BASE_URL +`/patrons/opportunities/applications` , 
+  PATRON_AVATAR_UPDATE : BASE_URL +  "/patrons/profile/avatar",
   
 }
+
+
 export const contactUsPoints = {
   POST_QUERY_API: BASE_URL + `/quries/post-query`,
 };

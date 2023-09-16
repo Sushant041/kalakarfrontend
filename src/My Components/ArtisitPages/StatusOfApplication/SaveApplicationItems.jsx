@@ -30,6 +30,8 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
 
   const [jobData, setJobData] = useState([]);
 
+
+// this is for save fetch data 
   const fetchSavedApplication = async () => {
     setLoading(true);
     try {
@@ -56,6 +58,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
   useEffect(() => {
     fetchSavedApplication();
   }, []);
+
 
   const unsaveHandler = async (id) => {
     console.log("id", id);
@@ -169,7 +172,10 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                           </p>
                         </div>
                         <p className="save_event_data_ans">
-                          {event.performanceDate}
+                         {new Date(event.performanceDate).toLocaleDateString(
+                          "en-US",
+                          { day: "numeric", month: "short", year: "numeric" }
+                        )}
                         </p>
                       </div>
 

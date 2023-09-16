@@ -71,7 +71,10 @@ toast.dismiss(toastId);
         <p className="artist_application_text">Applications</p>
       </section>
 
-      <section className="artist_filter_section">
+
+{/* this is for filter section , remove it later from comment  */}
+
+      {/* <section className="artist_filter_section">
         {  filterData.map((data, index) => (
           <div key={index} className="single_artist_filter">
             <p className="single_artist_title">{data.title}</p>
@@ -87,7 +90,9 @@ toast.dismiss(toastId);
             </select>
           </div>
         ))}
-      </section>
+      </section> */}
+
+      
 
       {/* table section  for large width */}
       <section className="artist_application_form_container">
@@ -133,6 +138,7 @@ toast.dismiss(toastId);
       <section className="artist_event_appli_container">
         {artistForm.map((data, index) => (
           <div key={index} className="single_artist_event">
+              <p style={{color:"#AD2F3B"}}>{data?.position}</p>
             <div className="single_element">
               <p className="single_ele_title">Date</p>
               <p>{new Date(data.applicationPeriod.start)
