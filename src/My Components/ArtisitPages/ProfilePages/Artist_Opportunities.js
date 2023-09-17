@@ -41,16 +41,16 @@ export function Artist_Opportunities() {
 
   const [jobData, setJobData] = useState([]);
 
-  const [OpportunityapplynowPopup, setOpportunityapplynowPopup] =
-    useState(null);
+  const [OpportunityapplynowPopup, setOpportunityapplynowPopup] = useState(null);
     
-  const [showOpportunityFiltersPopup, setShowOpportunityFiltersPopup] =
-    useState(false);
+  const [showOpportunityFiltersPopup, setShowOpportunityFiltersPopup] =useState(false);
+
     const navigate = useNavigate();
 
   const [applyAns, setApplyAns] = useState("");
 
   const [isFilterOn , setIsFilterOn] = useState(false);
+
   const [filterData ,setFilterData] = useState([]);
 
 
@@ -96,9 +96,13 @@ export function Artist_Opportunities() {
         artistOpportunityPoints.FETCH_OPPOR_DATA_API,
         accessToken
       );
-      console.log("fetchresponse", response);
       if (response?.success === "success") {
-        setJobData(response?.data);
+        const opportunityArray = response?.data;
+
+        const reversed = [...opportunityArray].reverse(); 
+
+        setJobData(reversed);
+
       } else {
         toast.error(response.message , {
           position:"top-center"
@@ -244,10 +248,15 @@ export function Artist_Opportunities() {
           <h2>OPPORTUNITIES</h2>
         </div>
         <div >
+
           <form className="OpportunitiesPage_SearchSort">
+
             <div className="OpportunitiesPage_Search">
+
               <input placeholder="Search for opportunity" />
+              
             </div>
+
             <div className="OpportunitiesPage_Sort">
               <label>Sort By:</label>
               <select>
@@ -261,6 +270,8 @@ export function Artist_Opportunities() {
               </button>
             </div>
           </form>
+
+
           <div>
             {showOpportunityFiltersPopup === true && (
               <div className="OppotunitiesPage_allfilters_formpopup_parent">
@@ -326,6 +337,8 @@ export function Artist_Opportunities() {
       </div>
 
       <div className="OpportunitiesPage_Maincontent">
+
+
         {/* this is filter section  */}
         <div className="OpportunitiesPage_allfilters">
           <h5>
@@ -347,6 +360,7 @@ export function Artist_Opportunities() {
             </svg>{" "}
             All filters
           </h5>
+            
           <div className="OppotunitiesPage_allfilters_form">
             <form>
               <div className="OppotunitiesPage_allfilters_form_inputfield">

@@ -10,9 +10,10 @@ import {patronProfilePoints} from "../../../services/apis"
 import { useSelector } from 'react-redux';
 
 
-
   function UploadedOpportunities() {
+
     const [Opportunities, setOpportunities] = useState([]);
+
     const {accessToken} = useSelector((state)=>state.auth);
 
     const [loading , setLoading] = useState(false);
@@ -23,11 +24,14 @@ import { useSelector } from 'react-redux';
       setLoading(true);
         try{
             const response = await makeAuthenticatedGETRequest(patronProfilePoints.UPLOAD_OPPOR_API ,accessToken);
-            console.log('res'  ,response);
+
             if(response.success === 'success'){
+
                 let parseData = await response.data;
-                console.log(parseData)
-                setOpportunities(parseData);
+                
+                const reversed = [...parseData].reverse();
+
+                setOpportunities(reversed);
             }
             else{
               toast.error(response.message);

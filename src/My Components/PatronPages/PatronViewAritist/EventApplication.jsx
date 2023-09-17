@@ -65,8 +65,6 @@ function EventApplication() {
   
   const {accessToken} = useSelector((state)=>state.auth);
 
-
-
   const location = useLocation();
 
   // this is to store the application of an opportunity 
@@ -353,7 +351,7 @@ function EventApplication() {
     
 
     {/* bottom button */}
-    <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})} className="view_Profile_btn">View Profile</button>
+    <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId , appliType:"Application"}})} className="view_Profile_btn">View Profile</button>
     
             </div>
           </section>
@@ -460,7 +458,7 @@ function EventApplication() {
           </div>
           
           {/* bottom button */}
-          <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})}  className="view_Profile_btn">View Profile</button>
+          <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId , appliType:"Shortlisted"}})}  className="view_Profile_btn">View Profile</button>
           <button className="chat_artist_btn">Chat With Artist</button>
           
                   </div>
@@ -480,6 +478,7 @@ function EventApplication() {
                 currentEvent === 'Hired' && 
                 hiredApplication.length > 0 ? (
                   hiredApplication.map((data , index)=>(
+                  
 
                 <section key={index} className="patron_event_detail_Section">
                 {/*box ka left part */}
@@ -565,7 +564,9 @@ function EventApplication() {
         </div>
         
         {/* bottom button */}
-        <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})} className="view_Profile_btn">View Profile</button>
+        <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId : data?.applicationId , appliType: 'Hired'}})} className="view_Profile_btn">View Profile</button>
+
+
         <button className="chat_artist_btn">Chat With Artist</button>
         
                 </div>

@@ -5,7 +5,6 @@ import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import PortfolioCardTemplate from "./PortfolioCardTemplate"
 import phone from "./assets/phone.svg";
-import profileImg from "../Images/profile.svg"
 import instagram from "./assets/instagram.svg";
 import facebookimg from "./assets/facebookimg.svg";
 import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequestWithoutBody } from "../../../services/serverHelper";
@@ -25,9 +24,11 @@ function ViewArtist() {
 
   const applicationId = location.state?.applicationId;
 
+  const appliType = location.state?.appliType;
+  
   const navigate = useNavigate();
-
-  console.log('applicid' ,applicationId);
+  
+  console.log('appliType' ,appliType);
 
   
   const [artistData , setArtistData] = useState([]);
@@ -280,9 +281,39 @@ const shortlistArtistHandler = async()=>{
       
          
     <div className="view_button_Wrapper">
-      <button onClick={hireArtistHandler} className="hire_btn view_btn " >Hire</button>
-      <button onClick={shortlistArtistHandler} className="shortlist_btn view_btn">Shortlist</button>
-      <button onClick={rejectArtistHandler} className="reject_btn view_btn">Reject</button>
+      
+
+ {
+ appliType == 'Shortlisted' && 
+
+<button onClick={hireArtistHandler} className="hire_btn view_btn " >Hire</button>
+}
+
+
+
+ {
+ appliType == 'Shortlisted' && 
+ <button onClick={rejectArtistHandler} className="reject_btn view_btn">Reject</button>
+
+}
+
+{
+ appliType == 'Application' && 
+
+<button onClick={hireArtistHandler} className="hire_btn view_btn " >Hire</button>
+}
+
+ {
+ appliType == 'Application' && 
+ <button onClick={rejectArtistHandler} className="reject_btn view_btn">Reject</button>
+
+}
+ {
+ appliType == 'Application' && 
+ <button onClick={shortlistArtistHandler} className="shortlist_btn view_btn">Shortlist</button>
+
+}
+
     </div>
 
     </div>

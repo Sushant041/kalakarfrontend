@@ -7,6 +7,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BackToTop from './BackToTop';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import bhartnamtiyam from "../../../public/assets/Homepage/"
+
+
 import {
   faFacebookF,
   faWhatsapp,
@@ -67,7 +70,7 @@ const HomePage_images = [
     src: 'assets/Homepage/img1.png',
   },
   {
-    src: 'assets/Homepage/1. Odissi.mp4',
+    src: 'assets/Homepage/1.Odissi.mp4',
   },
   {
     src: 'assets/Homepage/2. Bharatnatyam.mp4',
@@ -1205,7 +1208,7 @@ export function HomePage() {
           <a href="#Mediagallery">
             <div className="Ekworld_Media_Items">
               <img
-                src="assets/Ekworld/Rectangle 142.png"
+                src="assets/Ekworld/Rectangle142.png"
                 className="Ekworld_Media_Item"
                 alt="Dance"
               />
@@ -1216,7 +1219,7 @@ export function HomePage() {
           <a href="#Mediagallery">
             <div className="Ekworld_Media_Items">
               <img
-                src="assets/Ekworld/image 49.png"
+                src="assets/Ekworld/image49.png"
                 className="Ekworld_Media_Item"
                 alt="Song"
               />
@@ -1226,7 +1229,7 @@ export function HomePage() {
           <a href="#Mediagallery">
             <div className="Ekworld_Media_Items">
               <img
-                src="assets/Ekworld/Rectangle 205.png"
+                src="assets/Ekworld/Rectangle205.png"
                 alt="Music"
                 className="Ekworld_Media_Item"
               />
