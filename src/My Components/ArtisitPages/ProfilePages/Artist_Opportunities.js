@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { Navbar_frontpage } from "../../FrontPage/Navbar";
 import "./Artist_Opportunities.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,7 +13,6 @@ import { toast, ToastContainer } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
 import { AllLanguage } from "../../../CommonData/language";
 import natureOfArt from "./assets/natureOfArt.svg"
-import language from "./assets/language.svg"
 import category from "./assets/category.svg"
 
 const filterAmount = [

@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import BackToTop from './BackToTop';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import bhartnamtiyam from "../../../public/assets/Homepage/"
+// import rect205 from "../../../public/assets/Ekworld/Rectangle206.png"
 
 
 import {
@@ -23,8 +23,7 @@ import {
   faCamera,
   faVideo,
   faPrint,
-  faSearch,
-  faLanguage
+ faLanguage
 } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
@@ -56,13 +55,12 @@ import './Our_Advisors.css';
 /*OurTeam*/
 import './Our_Team.css';
 /*Joinek*/
-import Joinekstyles from './Joinek.css';
+// import Joinekstyles from './Joinek.css';
 import Joinek_image from './Images/FrameComponent/pic.png';
 /*JoinUs*/
-import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
+// import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
 import './JoinUs.css';
 /*EkPhotos*/
-import { EkPhotos } from './EkPhotos';
 import { useSelector } from 'react-redux';
 
 const HomePage_images = [
@@ -70,10 +68,10 @@ const HomePage_images = [
     src: 'assets/Homepage/img1.png',
   },
   {
-    src: 'assets/Homepage/1.Odissi.mp4',
+    src: 'assets/Homepage/Odissi.mp4',
   },
   {
-    src: 'assets/Homepage/2. Bharatnatyam.mp4',
+    src: 'assets/Homepage/Bharatnatyam.mp4',
   },
 ];
   {/** 
@@ -124,100 +122,100 @@ const HomePage_images = [
 
 const OurArtists_images = [
   {
-    src: 'assets/OurArtists/Ashok Chhau Odisha.jpg',
+    src: 'assets/OurArtists/AshokChhauOdisha.jpg',
     caption: 'Ashok',
     subcaption: 'CHHAU',
   },
   {
-    src: 'assets/OurArtists/Sayli Kathak Mumbai.jpg',
+    src: 'assets/OurArtists/SayliKathakMumbai.jpg',
     caption: 'Sayli',
     subcaption: 'KATHAK',
   },
   {
-    src: 'assets/OurArtists/Chitrasen GOTIPUA Odisha.jpg',
+    src: 'assets/OurArtists/ChitrasenGOTIPUAOdisha.jpg',
     caption: 'Chitrasen',
     subcaption: 'GOTIPUA',
   },
   {
-    src: 'assets/OurArtists/Miss Subhashri ODISSI Odisha.jpeg',
+    src: 'assets/OurArtists/MissSubhashriODISSIOdisha.jpeg',
     caption: 'Subhashri',
     subcaption: 'ODISSI',
   },
   {
-    src: 'assets/OurArtists/Padmini Dora FOLK Odisha.bmp',
+    src: 'assets/OurArtists/PadminiDoraFOLKOdisha.bmp',
     caption: 'Padmini ',
     subcaption: 'FOLK',
   },
   {
-    src: 'assets/OurArtists/Sadasiva Ji CHHAU Odisha.jpeg',
+    src: 'assets/OurArtists/SadasivaJiCHHAUOdisha.jpeg',
     caption: 'Sadasiva',
     subcaption: 'CHHAU',
   },
   {
-    src: 'assets/OurArtists/Jayanti Mala Kathak Mumbai.jpg',
+    src: 'assets/OurArtists/JayantiMalaKathakMumbai.jpg',
     caption: 'Jayanti',
     subcaption: 'KATHAK',
   },
 
   {
-    src: 'assets/OurArtists/Babita Mayurbhanj Chhau Odisha.jpg',
+    src: 'assets/OurArtists/BabitaMayurbhanjChhauOdisha.jpg',
     caption: 'Babita',
     subcaption: 'CHHAU',
   },
 
   {
-    src: 'assets/OurArtists/Jyotirmayi Odissi Odisha.jpeg',
+    src: 'assets/OurArtists/JyotirmayiOdissiOdisha.jpeg',
     caption: 'Jyotirmayi',
     subcaption: 'ODISSI',
   },
   {
-    src: 'assets/OurArtists/Jyoti Kathak Mumbai.jpg',
+    src: 'assets/OurArtists/JyotiKathakMumbai.jpg',
     caption: 'Jyoti',
     subcaption: 'KATHAK',
   },
   {
-    src: 'assets/OurArtists/Chitta Chhau Odisha.jpg',
+    src: 'assets/OurArtists/JayantiMalaKathakMumbai.jpg',
     caption: 'Chitta',
     subcaption: 'CHHAU',
   },
   {
-    src: 'assets/OurArtists/Manasi Atre Kathak Mumbai.jpg',
+    src: 'assets/OurArtists/ManasiAtreKathakMumbai.jpg',
     caption: 'Manasi',
     subcaption: 'KATHAK',
   },
   {
-    src: 'assets/OurArtists/Somyashree Sambalpuri Odisha.jpeg',
+    src: 'assets/OurArtists/SomyashreeSambalpuriOdisha.jpeg',
     caption: 'Somyashree',
     subcaption: 'SAMBALPURI',
   },
   {
-    src: 'assets/OurArtists/Rishika Kathak Mumbai.bmp',
+    src: 'assets/OurArtists/RishikaKathakMumbai.bmp',
     caption: 'Rishika',
     subcaption: 'KATHAK',
   },
 
   {
-    src: 'assets/OurArtists/Smailshree Sambalpuri Odisha.jpeg',
+    src: 'assets/OurArtists/SmailshreeSambalpuriOdisha.jpeg',
     caption: 'Smailshree',
     subcaption: 'SAMBALPURI',
   },
   {
-    src: 'assets/OurArtists/Tapoi Chhau Odisha.jpg',
+    src: 'assets/OurArtists/TapoiChhauOdisha.jpg',
     caption: 'Tapoi',
     subcaption: 'CHHAU',
   },
   {
-    src: 'assets/OurArtists/Tejashree Kathak Mumbai.jpg',
+    src: 'assets/OurArtists/TejashreeKathakMumbai.jpg',
     caption: 'Tejashree',
     subcaption: 'KATHAK',
   },
   {
-    src: 'assets/OurArtists/Aneri Sheth Mohini Attam.jpg',
+    src: 'assets/OurArtists/AneriShethMohiniAttam.jpg',
     caption: 'Aneri',
     subcaption: 'Mohini Attam',
   },
   {
-    src: 'assets/OurArtists/Shruti Ranade BharatNatyam.jpg',
+    src: 'assets/OurArtists/ShrutiRanadeBharatNatyam.jpg',
     caption: 'Shruti',
     subcaption: 'BharatNatyam',
   },
@@ -545,6 +543,7 @@ export function HomePage() {
 
         {/* <Navbar_frontpage /> */}
         <Carousel interval={3000}>
+
           {/* Display the first image */}
           <Carousel.Item>
             <div className="HomePage_Items" style={{ display: 'flex' }}>
@@ -650,12 +649,17 @@ export function HomePage() {
           {/* Display the rest of the images and videos */}
           {HomePage_images.slice(1).map((image, i) => (
             <Carousel.Item key={i}>
+
               <div className="HomePage_Items" style={{ display: 'flex' }}>
+
                 {image.type === 'image' ? (
                   // Display an image
                   <div className="HomePage_imgitems" style={{ flex: 1 }}>
+
                     <div className="HomePage_image_container">
-                      <img src={image.src} alt={`Slide ${i + 2}`} />
+
+                      <video src={image.src} alt={`Slide ${i + 2}`} />
+
                     </div>
                   </div>
                 ) : (
@@ -739,6 +743,7 @@ export function HomePage() {
           </div>
         </div>
       </div>
+
       {/*Benefits First page*/}
       <div id="Benefits" className="Benefits_Page">
         <h1 className="Benefits_heading1">BENEFITS TO eK STAKEHOLDERS</h1>
@@ -807,6 +812,7 @@ export function HomePage() {
           </ResponsiveCarousel>
         </div>
       </div>
+
       {/*Benefits*/}
       <div className="Benefits_Page">
         <Carousel>
@@ -975,6 +981,7 @@ export function HomePage() {
           </Carousel.Item>
         </Carousel>
       </div>
+
       {/*Services first Page */}
       <div className="Services_Page" id="Services">
         <h1 className="Services_heading1"> eK SERVICES: <span style={{color:"#EDAB41"}}>ABCDE</span> OF PERFORMING ART </h1>
@@ -1182,6 +1189,7 @@ export function HomePage() {
           </Carousel.Item>
         </Carousel>
       </div>
+
       {/*Ekworld*/}
       <div className="Ekworld_Page">
         <h1 className="Ekworld_heading1">eK WORLD OF PERFORMING ARTS</h1>
@@ -1229,7 +1237,7 @@ export function HomePage() {
           <a href="#Mediagallery">
             <div className="Ekworld_Media_Items">
               <img
-                src="assets/Ekworld/Rectangle205.png"
+                src="assets/EkWorld/rec1.png"
                 alt="Music"
                 className="Ekworld_Media_Item"
               />
@@ -1302,6 +1310,8 @@ export function HomePage() {
           </Carousel.Item>
         </Carousel>
       </div>
+
+      
       {/*OurArtists*/}
 
       <div div className="OurArtists_page">
@@ -1325,7 +1335,7 @@ export function HomePage() {
                   >
                     <img
                       src={image.src}
-                      alt={`Slide ${i * OurArtistsimagesPerSlide + j + 1}`}
+                      // alt={`Slide ${i * OurArtistsimagesPerSlide + j + 1}`}
                     />
                     <h3>{image.caption}</h3>
                     <p>{image.subcaption}</p>
@@ -1336,6 +1346,7 @@ export function HomePage() {
           ))}
         </Carousel>
       </div>
+
       {/*OurPartners*/}
       <div div className="OurPartners_page">
         <h1 className="OurPartners_heading1">eK PARTNERS</h1>
@@ -1463,6 +1474,7 @@ export function HomePage() {
           </Carousel>
         </div>
       </div>
+
       {/*OurAdvisors*/}
       <div div className="OurAdvisors_Page">
         <h1 className="OurAdvisors_heading1">eK ADVISORS</h1>
@@ -1533,6 +1545,7 @@ export function HomePage() {
           </div>
         </div>
       </div>
+
       {/*OurTeam*/}
       <div div className="OurTeam_Page">
         <h1 className="OurTeam_heading1">eK TEAM</h1>
@@ -1608,6 +1621,7 @@ export function HomePage() {
           </div>
         </div>
       </div>
+
       {/*Joinek*/}
       <div
         id="Joinek"
@@ -1735,6 +1749,7 @@ export function HomePage() {
           />
         </div>
       </div>
+
       {/*JoinUs*/}
       <div className="footer">
         <div className="row">
