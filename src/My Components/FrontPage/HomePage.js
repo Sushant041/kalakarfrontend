@@ -1291,6 +1291,7 @@ export function HomePage() {
                   >
                     <img
                       src={image.src}
+                      
                       alt={`Slide ${i * OurArtistsimagesPerSlide + j + 1}`}
                     />
                     <h3>{image.caption}</h3>

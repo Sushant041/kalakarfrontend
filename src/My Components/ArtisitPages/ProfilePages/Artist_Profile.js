@@ -710,8 +710,10 @@ setProfileAvatar(null);
         >
           {/* <Container> */}
           <div className="container-fluid">
-            
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+{/* <!--Art Lover : i am comment the Navbar.Toggle for remove the menu Button--> */}
+
+
+            {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
             <Navbar.Collapse id="basic-navbar-nav" style={mystyle}>
               <div className="navbar-nav" style={back}>
                 <Nav className="Profile_navbarbutton">

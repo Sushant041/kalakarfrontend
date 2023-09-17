@@ -70,8 +70,6 @@ export default function RouterPage() {
         <Route path="/EkVideos" exact element={<EkVideos />} />
         <Route path="/EkPrint" exact element={<EkPrint />} />
         <Route path="/Ekevents" exact element={<Ekevents />} />
-
-        
         {
           role === 'Artist' && (
             <>
@@ -160,7 +158,6 @@ export default function RouterPage() {
         <Route path="/partner-profile" element={<Partner_Profile />} />
         <Route path="/skilldevelopment" element={<SkillDevelopment />} />
         <Route path="/CourseCategories" exact element={<CourseCategories />} />
-
         <Route path="/About_Partner" exact element={<AboutPartner />} />
         <Route
           path="/Edit_About_Partner"

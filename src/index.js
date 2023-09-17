@@ -11,13 +11,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ScrollToTop from './ScrollToTop';
 
-
-
-
 const store = configureStore({
   reducer:rootReducer ,
 })
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
