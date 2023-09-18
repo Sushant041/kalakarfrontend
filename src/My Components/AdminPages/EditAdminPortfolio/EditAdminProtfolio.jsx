@@ -9,11 +9,11 @@ function EditAdminProtfolio() {
   return (
     <div className="admin-page-root-container">
       <Artist_navbar />
-      <div className="section-division-admin-viewProfile">
+      <div className="section-division-admin-viewPortfolio">
         <PortfolioDisplayTemplate />
         <button className="admin-vp-btn">Upload Profile Picture</button>
 
-        <div className="d-flex flex-md-column w-100 align-items-center justify-content-center gap-4">
+        <div className="d-flex flex-column w-100 align-items-center justify-content-center gap-4">
           <Input
             label="Card Display Name"
             placeholder="Enter the name for card"
@@ -37,7 +37,7 @@ function EditAdminProtfolio() {
           <Input label="Facebook" placeholder="Facebook profile url" />
           <Input label="Full  Name" placeholder="Enter your full name here" />
 
-          <label className="d-flex flex-md-column gap-2 label-port">
+          <label className="d-flex flex-column gap-2 label-port">
             <p className="m-0" style={{ color: "black" }}>
               About
             </p>

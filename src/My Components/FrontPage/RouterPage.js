@@ -44,15 +44,16 @@ import UserVerfication from "../AdminPages/UserVerification/UserVerfication";
 import ViewProfile from "../AdminPages/ViewProfile/ViewProfile";
 import Chat from "../AdminPages/AdmiChatPage/Chat";
 import EditAdminProtfolio from "../AdminPages/EditAdminPortfolio/EditAdminProtfolio";
+import RootAdmin from "../AdminPages/RootAdmin";
 
 export default function RouterPage() {
-
-  const {role , accessToken  } = useSelector((state)=>state.auth);
+  const { role, accessToken } = useSelector((state) => state.auth);
 
   return (
     <div>
       <Routes>
-        <Route path="admin" element={<UserVerfication />} />
+        <Route path="admin" element={<RootAdmin />} />
+        <Route path="userverification" element={<UserVerfication />} />
         <Route path="vprofile" element={<ViewProfile />} />
         <Route path="adminchat" element={<Chat />} />
         <Route path="admineditPortfolio" element={<EditAdminProtfolio />} />
@@ -73,10 +74,8 @@ export default function RouterPage() {
         <Route path="/EkPrint" exact element={<EkPrint />} />
         <Route path="/Ekevents" exact element={<Ekevents />} />
 
-        
-        {
-          role === 'Artist' && (
-            <>
+        {role === "Artist" && (
+          <>
             <Route path="/Artist_Profile" exact element={<Artist_Profile />} />
             <Route
               path="/Artist_Opportunities"
@@ -95,8 +94,11 @@ export default function RouterPage() {
 
             <Route path="/PortfolioDisplay" element={<PortfolioDisplay />} />
 
-            <Route  path="/patron_view_artist/:id"  element={<PatronPortfolioDisplay />} />
-            
+            <Route
+              path="/patron_view_artist/:id"
+              element={<PatronPortfolioDisplay />}
+            />
+
             <Route path="/EditPortfolio" element={<EditPortfolio />} />
 
             <Route path="/latestNews" exact element={<Newsletter />} />
@@ -133,7 +135,7 @@ export default function RouterPage() {
             <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
 
             <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
-            
+
             <Route
               path="/patron-event-appli/:id"
               element={<EventApplication />}

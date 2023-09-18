@@ -4,15 +4,14 @@
     max-width: 500px;
 }
 .admin-input-cont p{
-    color: black;
-    font-weight: 500;
-
+    color: var(--black-color);
+    font-weight: var(--fw-500);
 }
 .admin-input-cont input{
-    color: #000000B2;
-    border: 1px solid #00000066;
+    color: var(--grey-color);
+    border: var(--input-border);
     padding: 10px;
-    border-radius: 10px;
+    border-radius: var(--br-sm);
     font-size: 18px;
-    font-weight: 400;
+    font-weight: var(--fw-400);
 }
