@@ -543,7 +543,6 @@ export function HomePage() {
 
         {/* <Navbar_frontpage /> */}
         <Carousel interval={3000}>
-
           {/* Display the first image */}
           <Carousel.Item>
             <div className="HomePage_Items" style={{ display: 'flex' }}>
