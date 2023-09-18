@@ -9,7 +9,7 @@ import Artist_navbar from "../Artist_navbar";
 import { statusOfAppliPoints } from "../../../services/apis";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
   
 const navItems = [
@@ -39,6 +39,7 @@ function StatusOfApplication() {
   const [inProgressData , setInProgressData] = useState([]);
   const [hiredData , setHiredData] = useState([]);
   const [rejectData , setRejectData] = useState([]);
+  
 
   const fetchApplication = async()=>{
     setLoading(true);
@@ -143,13 +144,13 @@ function StatusOfApplication() {
             <AppliedApplicationItems jobData = {appliedData} loading={loading} currentEvent={currentEvent} />
           )}
           {currentEvent === navItems[2].title && (
-            <InProgressApplicationItems jobData={inProgressData} currentEvent={currentEvent} />
+            <InProgressApplicationItems jobData={inProgressData} loading={loading} currentEvent={currentEvent} />
           )}
           {currentEvent === navItems[3].title && (
-            <HiredApplicationItems jobData={hiredData} currentEvent={currentEvent} />
+            <HiredApplicationItems jobData={hiredData} loading={loading} currentEvent={currentEvent} />
           )}
           {currentEvent === navItems[4].title && (
-            <RejectedApplicationItems jobData={rejectData} currentEvent={currentEvent} />
+            <RejectedApplicationItems jobData={rejectData} loading={loading} currentEvent={currentEvent} />
           )}
         </div>
 

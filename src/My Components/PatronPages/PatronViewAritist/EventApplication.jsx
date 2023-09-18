@@ -21,6 +21,8 @@ import { patronProfilePoints } from "../../../services/apis";
 import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
   import { useLocation } from "react-router-dom";
+  import noAppli from "./assets/no_uploaded_oppor.svg"
+import NoDataTemplate from "../../ArtisitPages/StatusOfApplication/NoDataTemplate";
 
 
 
@@ -60,9 +62,8 @@ function EventApplication() {
   const navigate = useNavigate();
   
   const [currentEvent, setCurrentEvent] = useState("Application");
+  
   const {accessToken} = useSelector((state)=>state.auth);
-
-
 
   const location = useLocation();
 
@@ -207,13 +208,13 @@ function EventApplication() {
           
               <div  className="single_job_overview">
                 <img src={category} alt="" className="single_overview_img" />
-                <p className="single_job_category">Category</p>
+                <p style={{fontWeight:"500" , fontSize:"18px"}} className="single_job_category">Category</p>
                 <p className="single_job_title">{opportunityData?.category}</p>
               </div>
 
               <div  className="single_job_overview">
                 <img src={posted} alt="" className="single_overview_img" />
-                <p className="single_job_category">Application Posted</p>
+                <p style={{fontWeight:"500" , fontSize:"18px"}} className="single_job_category">Application Posted</p>
                 <p className="single_job_title">{new Date(   opportunityData?.applicationPeriod?.start
                           ).toLocaleDateString("en-US", {
                             day: "numeric",
@@ -224,7 +225,7 @@ function EventApplication() {
 
               <div  className="single_job_overview">
                 <img src={date} alt="" className="single_overview_img" />
-                <p className="single_job_category">Application Due Date</p>
+                <p style={{fontWeight:"500" , fontSize:"18px"}} className="single_job_category">Application Due Date</p>
                 <p className="single_job_title">{new Date(
                             opportunityData?.applicationPeriod?.end
                           ).toLocaleDateString("en-US", {
@@ -236,7 +237,7 @@ function EventApplication() {
 
               <div  className="single_job_overview">
                 <img src={opening} alt="" className="single_overview_img" />
-                <p className="single_job_category">Opening</p>
+                <p style={{fontWeight:"500" , fontSize:"18px"}} className="single_job_category">Opening</p>
                 <p className="single_job_title">{opportunityData?.requiredArtists}</p>
               </div>
             
@@ -253,7 +254,7 @@ function EventApplication() {
       {
         currentEvent === 'Application' &&  
         (
-          artistApplication.length > 0 && 
+          artistApplication.length > 0 ? 
           artistApplication.map((data , index)=>(
             <section key={index} className="patron_event_detail_Section">
             {/*box ka left part ==> card  */}
@@ -340,19 +341,24 @@ function EventApplication() {
       
     </div>
     
-    {/* ṃiddle part */}
-    <div style={{width:"90%" , }}>
+    {/* ṃiddle part -> this is for why you want to hire , add it later */}
+
+    
+    {/* <div style={{width:"90%" , }}>
       <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Why do you want ot Apply for this Role?</p>
       <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Qorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-    </div>
+    </div> */}
     
+
     {/* bottom button */}
-    <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})} className="view_Profile_btn">View Profile</button>
+    <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId , appliType:"Application"}})} className="view_Profile_btn">View Profile</button>
     
             </div>
           </section>
     
-          ))
+          )):(
+            <NoDataTemplate image={noAppli} patronAppli={true} />
+          )
         )
      }
 
@@ -361,7 +367,10 @@ function EventApplication() {
               {
                 currentEvent === 'Shortlisted' && 
                 (
-                  shotlistApplication.length > 0  && 
+                  shotlistApplication.length > 0  ?
+                  (
+
+                  
 
                   shotlistApplication.map((data  ,index)=>(
 
@@ -449,12 +458,16 @@ function EventApplication() {
           </div>
           
           {/* bottom button */}
-          <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})}  className="view_Profile_btn">View Profile</button>
+          <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId , appliType:"Shortlisted"}})}  className="view_Profile_btn">View Profile</button>
           <button className="chat_artist_btn">Chat With Artist</button>
           
                   </div>
                 </section>
                  ))
+                 ):(
+                  <NoDataTemplate image={noAppli} patronAppli={true} />
+                  
+                 )
                 )
               
               }
@@ -463,8 +476,9 @@ function EventApplication() {
               {/*! for Hired section  */}
               {
                 currentEvent === 'Hired' && 
-                hiredApplication.length > 0 && (
+                hiredApplication.length > 0 ? (
                   hiredApplication.map((data , index)=>(
+                  
 
                 <section key={index} className="patron_event_detail_Section">
                 {/*box ka left part */}
@@ -550,12 +564,20 @@ function EventApplication() {
         </div>
         
         {/* bottom button */}
-        <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId}})} className="view_Profile_btn">View Profile</button>
+        <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId : data?.applicationId , appliType: 'Hired'}})} className="view_Profile_btn">View Profile</button>
+
+
         <button className="chat_artist_btn">Chat With Artist</button>
         
                 </div>
               </section>
                 ))
+                ):(
+                //  <NoDataTemplate image={noAppli} patronAppli={true} />
+                <div>
+
+                </div>
+              
                 )
               }
     </div>

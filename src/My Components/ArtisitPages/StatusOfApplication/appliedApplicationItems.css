@@ -51,7 +51,7 @@
 .single_applied_eventWrapper{
     padding: 10px;
     width: 840px;
-    height: 488px;
+    height: fit-content;
     display: flex;
     margin: 0 auto;
     flex-direction: column;
@@ -62,9 +62,7 @@
     padding-left: 30px;
     padding-top: 30px;
     padding-bottom: 30px;
-     
     font-family: Poppins;
-
 }
 
 .Hired_text{
@@ -96,6 +94,7 @@
     font-weight: 500;
     font-size: 24px;
     font-family: Poppins;
+    width: 80%;
 
 }
 
@@ -129,9 +128,7 @@
     justify-content: space-between;
 }
 
-.appli_detail_container{
 
-}
 
 .view_information_btn{
     border:2px solid #AD2F3B;
@@ -145,41 +142,66 @@
 
 }
 
-@media (max-width:1280px) {
-    .applied_Event_details{
-        display: grid;
-        grid-template-columns: 1fr;
+@media (max-width:950px) {
+    .single_applied_eventWrapper{
+         width: 95%;
+    }
+}
+
+@media (max-width:815px) {
+    .appli_detail_btn_wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .appli_detail_container{
+        width: 90%;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width:650px) {
+    .applied_appli_title{
+        font-size: 16px;
     }
 }
 
 @media (max-width:600px) {
-    .single_applied_eventWrapper{
-         width: 95%;
+    .single_applied_top{
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 20px;
     }
-    .single_applied_heading{
-        font-size: 20px;
-    }
+
 }
 
-@media (max-width:500px) {
-    .single_applied_heading{
-        font-size: 16px;
-    }
-
-    .applied_event_text{
-        font-size: 18px;
-    }
+.appli_detail_container{
+    display: flex;
+    gap: 100px;
 }
 
-@media (max-width:410px) {
- .single_applied_heading{
-    font-size: 14px;
- }
+@media (max-width:565px) {
 
- .single_applied_eventWrapper{
-    padding-left: 10px;
+    .appli_detail_container{
+        display: flex;
+        flex-direction: row;
+        gap: 30px;
+        width: 110%;
+    }
+
+ .appli_detail_container_right{
+    width: 40%;
+ }   
+
+ .appli_detail_container_left{
+    width: 60%;
  }
- .single_applied_para{
-    font-size: 14px;
- }
+}
+
+@media (max-width:450px) {
+    .applied_appli_title{
+        font-size: 12px;
+    }
 }

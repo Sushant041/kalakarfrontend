@@ -1,7 +1,6 @@
 import appliedNoData from "./assets/appliedNoData.svg";
 import "./appliedApplicationItems.css";
 import NoDataTemplate from "./NoDataTemplate";
-import ApplicationButton from "./ApplicationButton";
 import { Link } from "react-router-dom";
 import category from "./assets/category.svg";
 import artNature from "./assets/natureOfArt.svg";
@@ -43,15 +42,20 @@ import appliDueDate from "./assets/applicationDueDate.svg";
  ]
 
 function AppliedApplicationItems({ currentEvent, loading, jobData }) {
-  console.log('jobDta' , jobData);
+
+
   return (
     <div className="applied_Application_wrapper">
+
       <p className="applied_event_text">
         {currentEvent} Events : {jobData.length}{" "}
       </p>
+
       <div className="applied_event_Detail_Container">
         {loading ? (
+        
           <div class="custom-loader"></div>
+
         ) : jobData.length === 0 ? (
           <NoDataTemplate
             image={appliedNoData}
@@ -59,10 +63,12 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
           />
         ) : (
           <div className="applied_Event_details">
-            {jobData?.map((event, index) => (
+
+            {   jobData?.map((event, index) => (
+
               <div key={index} className="single_applied_eventWrapper">
                 <div>
-                  <div
+                  <div className="single_applied_top"
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
@@ -82,6 +88,7 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
                       )}
                     </div>
                   </div>
+
                   <p
                     style={{
                       marginTop: "20px",
@@ -94,35 +101,43 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
                   </p>
 
                   <div style={{display:"flex" , alignItems:"center"}} className="appli_detail_btn_wrapper">
-                    <main style={{display:"flex" , flexDirection:"row"  , gap:"100px"}} className="appli_detail_container">
+                    <main  className="appli_detail_container">
+
                        {/* left side */}
-                       <div style={{display:"flex" , flexDirection:"column" , gap:"2px" }} >
+                       <div className="appli_detail_container_left" style={{display:"flex" , flexDirection:"column" , gap:"2px" }} >
                        {
                         appli_Data.map((data , index)=>(
                           <div key={index} style={{display:"flex" , gap:"10px" ,  }}>
                             <img src={data.img} alt="" style={{
                               marginBottom:"10px"
                             }} />
-                            <p style={{color:"rgb(0,0,0,0.7)" , fontWeight:"500" , fontFamily:"Poppins"}} >{data.title}</p>
+                            <p className="applied_appli_title" style={{color:"rgb(0,0,0,0.7)" , fontWeight:"500" , fontFamily:"Poppins"}} >{data.title}</p>
                           </div>
                         ))
                        }
                        </div>
 
                        {/* right side */}
-                       <div style={{display:"flex" , flexDirection:"column" , gap:"2px" }}>
-                         <p  style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.artNature} </p>
-                         <p style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.category}</p>
-                         <p style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.location}</p>
-                         <p style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.performanceDate}</p>
-                         <p style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.budget}</p>
+                       <div className="appli_detail_container_right" style={{display:"flex" , flexDirection:"column" , gap:"2px" }}>
+                         <p className="applied_appli_title"  style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.artNature} </p>
 
-                         <p style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>
+                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.category}</p>
+
+                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.location}</p>
+
+                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{new Date(event.performanceDate).toLocaleDateString(
+                          "en-US",
+                          { day: "numeric", month: "short", year: "numeric" }
+                        )}</p>
+
+                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.budget}</p>
+
+                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>
                           {event.languages?.map((lan, index) => (
                               <span key={index}>{lan} {``}</span>
                             ))}</p>
 
-                           <p style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}> {new Date(
+                           <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}> {new Date(
                             event?.applicationPeriod?.end
                           ).toLocaleDateString("en-US", {
                             day: "numeric",

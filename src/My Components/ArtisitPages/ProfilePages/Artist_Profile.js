@@ -17,8 +17,13 @@ import performance from "./assets/performance.svg"
 
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
+
+
   const initialActiveSection = "basic";
+  
   const [activeSection, setActiveSection] = useState(initialActiveSection);
+
+
     // ! this is for avatar
     const [profileAvatar , setProfileAvatar] = useState(null);
 
@@ -793,6 +798,9 @@ setProfileAvatar(null);
           </p>
         </div>
       </div>
+
+
+
       {/* this is for basic  */}
       {activeSection === "basic" && (
         <div style={{fontFamily:"Poppins"}} className="BasicProfile_Infoform">

@@ -1,0 +1,18 @@
+.admin-input-cont{
+    flex-grow: 1;
+    width: 100%;
+    max-width: 500px;
+}
+.admin-input-cont p{
+    color: black;
+    font-weight: 500;
+
+}
+.admin-input-cont input{
+    color: #000000B2;
+    border: 1px solid #00000066;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 400;
+}

@@ -81,7 +81,7 @@ import { Link, useNavigate } from 'react-router-dom';
       <Patron_Navbar />
       <div className="ArtistOpportunities_Page">
         <div className="ArtistOpportunities_Image">
-          <div className="ArtistOpportunities_Image_Content">
+          <div style={{textAlign:"center"}} className="ArtistOpportunities_Image_Content">
             <p>Upload Opportunities for Artist</p>
           </div>
         </div>

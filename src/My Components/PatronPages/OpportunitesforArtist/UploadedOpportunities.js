@@ -10,21 +10,28 @@ import {patronProfilePoints} from "../../../services/apis"
 import { useSelector } from 'react-redux';
 
 
-
   function UploadedOpportunities() {
+
     const [Opportunities, setOpportunities] = useState([]);
+
     const {accessToken} = useSelector((state)=>state.auth);
+
+    const [loading , setLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const fetchMoreData = async () => {
+      setLoading(true);
         try{
             const response = await makeAuthenticatedGETRequest(patronProfilePoints.UPLOAD_OPPOR_API ,accessToken);
-            console.log('res'  ,response);
+
             if(response.success === 'success'){
+
                 let parseData = await response.data;
-                console.log(parseData)
-                setOpportunities(parseData);
+                
+                const reversed = [...parseData].reverse();
+
+                setOpportunities(reversed);
             }
             else{
               toast.error(response.message);
@@ -35,7 +42,7 @@ import { useSelector } from 'react-redux';
             console.log(error);
             toast.error("something went wrong , please try again");
           }
-
+setLoading(false);
     };
 
 
@@ -59,6 +66,13 @@ import { useSelector } from 'react-redux';
                         <p>Uploaded Opportunities</p>
                     </div>
                 </div>
+
+                {
+ loading?(
+  <div style={{marginTop:"100px"}} className='custom-loader'></div>
+ ):(
+
+ 
                 <div>
                     {
                         Opportunities.length > 0 && 
@@ -151,6 +165,8 @@ import { useSelector } from 'react-redux';
           )
         }
         </div>
+        )
+      }
       </div>
     </>
   );

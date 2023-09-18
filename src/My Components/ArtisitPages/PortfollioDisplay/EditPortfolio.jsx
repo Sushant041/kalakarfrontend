@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { artistProfilePoints } from "../../../services/apis";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
   
 

@@ -1,0 +1,35 @@
+.label-port{
+    width: 100%;
+    max-width: 500px;
+    margin: 0;
+} 
+.label-port textarea{
+    width: 100%;
+    resize: none;
+    flex-grow: 1;
+    min-height: 100px;
+    color: #000000B2;
+    border: 1px solid #00000066;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 400;
+}
+.label-port textarea::placeholder {
+    color: #000000B2;
+}
+
+.label-port-file{
+    width: 100%;
+    max-width: 500px;
+    
+}
+.label-port-file p{
+    flex-grow: 1;
+}
+.label-port-file input{
+    display: flex;
+    max-width: 120px;
+    align-self: flex-end;
+    justify-self: end;
+}

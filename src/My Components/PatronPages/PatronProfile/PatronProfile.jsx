@@ -71,6 +71,8 @@ function PatronProfile() {
       fetchPatronProfileData();
   },[])
 
+
+  // this is to update the   profile 
   const submitHandler = async(event)=>{
     event.preventDefault();
      const toastId = toast.loading('Loading...');
@@ -92,6 +94,7 @@ function PatronProfile() {
     toast.dismiss(toastId);
   }
 
+  // change handler for input data 
   const changeHandler = (event)=>{
   const {name , value} = event.target;
   setFormData((prev)=>({
@@ -100,7 +103,6 @@ function PatronProfile() {
   }))
   }
 
-  // console.log('forda' ,formData);
 
   return (
     <div className="patronProfile_wrapper">

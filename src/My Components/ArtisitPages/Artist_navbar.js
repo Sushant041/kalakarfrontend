@@ -143,6 +143,7 @@ export default function Artist_navbar() {
                    dispatch(setRefreshToken(null));
                    localStorage.removeItem("accessToken");
                    localStorage.removeItem("refreshToken");
+                   localStorage.removeItem('role');
                    toast.success('Successfully logged out' , {
                     position:"top-center"
                    }); // Assuming 'toast' is correctly imported

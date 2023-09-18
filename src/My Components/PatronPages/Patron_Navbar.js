@@ -105,13 +105,14 @@ export default function Patron_Navbar() {
                             <Link  to={"/Patron_Portfolio"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Portfolio</Link>
                             <Link to={"/UploadOpportunity"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Upload Opportunities</Link>
                             <Link to={"/ViewArtistProfiles"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>View Artists Application</Link>
-                            {/* <Link to={'/ViewArtistProfiles'} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>View Artist Application</Link> */}
+                            
                             <Link to={"/patron-artist-appli"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Application Updates</Link>
                             <Link to={"/login"} onClick={()=>{
                    console.log('Logging out...'); 
                                       dispatch(setAccessToken(null));
                    dispatch(setRefreshToken(null));
                    localStorage.removeItem("accessToken");
+                   localStorage.removeItem("role");
                    localStorage.removeItem("refreshToken");
                    toast.success('Successfully logged out' , {
                     position:"top-center"
