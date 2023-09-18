@@ -1,3 +1,659 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
+
+body{
+  overflow-x: hidden;
+}
+
+.Profile_Page {
+  min-height: 100vh;
+  margin: 0 !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.Profile_navbarbutton {
+  visibility: hidden;
+}
+
+
+.Profile_navbarbutton button{
+  border: none;
+  background-color: white;
+  text-align: left;
+  margin: 10px;
+  cursor: pointer;
+  border: 0px solid black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.Profile_navbarbutton button.active{
+  background-color: #ad2f3b;
+  color: white;
+}
+
+.BasicProfile_ProfileSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.BasicProfile_AccSet {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 341px;
+  height: 460px;
+}
+
+.BasicProfile_AccSet h1 {
+  color: #000;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 10px;
+  margin-top: 22px;
+  text-align: center;
+}
+
+.BasicProfile_AccSet button {
+  color: #000;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  border: none;
+  margin-top: 10px;
+  background-color: white;
+  text-align: left;
+  width: 100%;
+  height: 70px;
+  border-radius: 10px;
+  padding: 0px 20px;
+}
+
+.BasicProfile_AccSet button.active {
+  background-color: #ad2f3b;
+  color: white;
+}
+
+.BasicProfile_AccSet button.active svg {
+  fill: white !important;
+}
+
+.BasicProfile_avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.BasicProfile_avatar img {
+  width: 219px;
+  height: 219px;
+  border-radius: 200px;
+  background-position:center; 
+  /* background-repeat: no-repeat; */
+  background-size:contain; 
+  border: 10px solid #d9d9d9;
+  stroke-width: 10px;
+  stroke: rgba(0, 0, 0, 0.01);
+}
+
+.BasicProfile_removeavatar {
+  border: none;
+  background: white;
+  margin-top: 24px;
+  color: #000;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.BasicProfile_editavatar {
+  background: #ad2f3b;
+  display: flex;
+  width: 250px;
+  height: 40px;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 15px;
+  margin-top: 50px;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.BasicProfile_name p {
+  text-align: left;
+  color: #000;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.BasicProfile_name p b {
+  color: #000;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-right: -0px;
+  margin-top: -30px;
+}
+
+.BasicProfile_Infoform,
+.ArtProfile_Infoform,
+.PerformanceProfile_Infoform,
+.AwardProfile_Infoform,
+.ExpectedoppoProfile_Infoform {
+  width: 999px;
+  height: auto;
+  padding: 0px 32px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #fff;
+  box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.12);
+  float: right;
+  margin-top: 92px;
+  margin-right: 50px;
+  text-align: left;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.BasicProfile_PersonalINfo,
+.ArtProfile_ArtInfo,
+.ArtProfile_Traditional,
+.ArtProfile_Professional,
+.ArtProfile_Certificate,
+.PerformanceProfile_PerformInfo,
+.AwardProfile_AwardInfo,
+.AwardProfile_Awarddetials,
+.ExpectedoppoProfile_Expectedoppo,
+.ExpectedoppoProfile_Needsupport {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 0px !important ;
+}
+
+.BasicProfile_PersonalINfo input[type="date"] {
+  width: 169px;
+  height: 60px;
+}
+
+.BasicProfile_Infoform form h4,
+.ArtProfile_Infoform form h4,
+.PerformanceProfile_Infoform form h4,
+.AwardProfile_Infoform form h4,
+.ExpectedoppoProfile_Infoform form h4 {
+  margin-top: 32px;
+  color: #ad2f3b;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.BasicProfile_Infoform form label,
+.ArtProfile_Infoform form label,
+.PerformanceProfile_Infoform form label,
+.AwardProfile_Infoform form label,
+.ExpectedoppoProfile_Infoform form label {
+  color: #000;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.BasicProfile_Infoform form input,
+.ArtProfile_Infoform form input,
+.PerformanceProfile_Infoform form input,
+.AwardProfile_Infoform form input,
+.ExpectedoppoProfile_Infoform form input {
+  padding: 20px;
+  width: 440px;
+  height: 60px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.ArtProfile_Infoform select,
+.PerformanceProfile_Infoform select,
+.AwardProfile_Infoform select,
+.ExpectedoppoProfile_Infoform select {
+  padding: 10px;
+  background-color: white;
+  color: black;
+  width: 440px;
+  height: 60px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.BasicProfile_Infoform form .gender {
+  width: 440px;
+  height: 70px;
+}
+.BasicProfile_Infoform form .Genderinfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.BasicProfile_Infoform form .Genderinfo label input {
+  height: initial !important;
+}
+
+.BasicProfile_Infoform form input[type="radio"] {
+  height: 20px;
+  width: 20px;
+}
+
+.BasicProfile_Address {
+  display: flex;
+  flex-direction: column;
+}
+
+.BasicProfile_Addressshort {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.BasicProfile_Addressshort select {
+  padding: 10px;
+  background-color: white;
+  color: black;
+  width: 151px;
+  height: 60px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.BasicProfile_Addressshort input[type="text"] {
+  width: 235px;
+  height: 60px;
+}
+
+.BasicProfile_Addressshort input[type="number"] {
+  width: 151px;
+  height: 60px;
+}
+
+.BasicProfile_Addresslong input {
+  width: 935px !important;
+  height: 136px !important;
+}
+
+.BasicProfile_OtherDetails,
+.BasicProfile_Social {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.BasicProfile_inputfield,
+.ArtProfile_inputfield,
+.PerformanceProfile_inputfield,
+.AwardProfile_inputfield,
+.ExpectedoppoProfile_inputfield {
+  margin-top: 28px;
+}
+
+.ArtProfile_Infoform form .artedu {
+  width: 600px;
+  height: 70px;
+}
+
+.ArtProfile_Infoform form .Arteduinfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.ArtProfile_Infoform form .Arteduinfo label input {
+  height: initial !important;
+}
+
+.ArtProfile_Infoform form input[type="radio"] {
+  height: 20px;
+  width: 20px;
+}
+
+.Artprofile_duration {
+  display: flex;
+  width: 240px;
+  align-items: center;
+  text-align: left;
+  justify-content: space-between;
+}
+
+.Artprofile_duration input {
+  width: 112px !important;
+  height: 60px !important;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.Artprofile_duration input::placeholder {
+  color: black !important;
+}
+
+.PerformanceProfile_Infoform form .affiliatedgrp {
+  width: 440px;
+  height: 70px;
+}
+
+.PerformanceProfile_Infoform form .affiliatedgrpinfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  width: 150px;
+  height: 100%;
+}
+
+.PerformanceProfile_Infoform form .affiliatedgrpinfo label input {
+  height: initial !important;
+}
+
+.PerformanceProfile_Infoform form input[type="radio"] {
+  height: 20px;
+  width: 20px;
+}
+
+.performancefilebox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  gap: 10px;
+}
+
+.performancefilebox input[type="file"] {
+  width: 172px;
+  display: none;
+}
+
+.performancefileboxtext {
+  color: #000;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.fileinput_uploadfile {
+  border: 1px solid #000;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 12px;
+  cursor: pointer;
+  height: 47px;
+  width: 172px;
+  border-radius: 10px;
+}
+
+.AwardProfile_Addmorebtn {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 28px;
+  justify-content: space-between;
+}
+
+.AwardProfile_Addmorebtn p {
+  color: #000;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.AwardProfile_Addmorebtn button {
+  border: none;
+  background-color: white;
+}
+
+.updateBtn{
+  background-color: #AD2F3B;
+  color: white;
+  font-weight: 500;
+  font-size: 20px;
+  border-radius: 15px;
+  padding: 10px;
+  width: 180px;
+  height: 50px;
+  border: none;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+@media (max-width: 1025px) {
+  .BasicProfile_Infoform,
+  .ArtProfile_Infoform,
+  .PerformanceProfile_Infoform,
+  .AwardProfile_Infoform,
+  .ExpectedoppoProfile_Infoform {
+    float: none;
+    margin: 15px !important;
+    margin-top: 30px !important;
+  }
+}
+
+@media (max-width: 800px) {
+
+  /* Art Lover ( Abhishek Write this Code ) */
+  /* Abhishek Start */
+  .BasicProfile_AccSet {
+    display: block;
+    grid-row: 1/-1;
+    width: 70%;
+    height: 100%;
+  }
+  
+  
+  .BasicProfile_ProfileSection{
+    display: grid;
+    padding: 50px 50px;
+    place-items: center;
+    gap: 30px;
+
+  }
+  .BasicProfile_AccSet button{
+    margin-top: 0;
+    font-size: 18px;
+    height: 60px;
+  }
+  .BasicProfile_Addressshort{
+    flex-direction: column;
+    width: 100%;
+  }
+  .BasicProfile_Addressshort select{
+    width: 100%;
+  }
+  .BasicProfile_Addressshort input[type="text"]{
+    width: 100%;
+  }
+  .BasicProfile_Addressshort input[type="number"]{
+    width: 100%;
+  }
+  .BasicProfile_AccSet h1{
+    font-size: 28px;
+    margin: 25px;
+
+  }
+  /* Abhishek End */
+
+  .Profile_navbarbutton {
+    visibility: visible;
+  }
+  .BasicProfile_Infoform,
+  .ArtProfile_Infoform,
+  .PerformanceProfile_Infoform,
+  .AwardProfile_Infoform,
+  .ExpectedoppoProfile_Infoform {
+    float: none;
+    width: 100%;
+    margin: 20px !important;
+    margin-top: 30px !important;
+    padding: 0px 20px 20px 20px !important;
+  }
+
+  .BasicProfile_Addresslong input {
+    width: 100% !important;
+    height: 136px !important;
+  }
+}
+
+  /* Art Lover ( Abhishek Write this Code ) */
+  /* Abhishek Start */
+  @media(max-width:650px){
+    .BasicProfile_AccSet {
+      display: block;
+      grid-row: 1/-1;
+      width: 100%;
+      height: 100%;
+    }
+    .ExpectedoppoProfile_Infoform{
+      width: 100%;
+    }
+  }
+  /* Abhishek End */
+
+@media (max-width: 430px) {
+
+
+  .BasicProfile_ProfileSection{
+    padding: 50px;
+
+  }
+  .BasicProfile_Infoform,
+  .ArtProfile_Infoform,
+  .PerformanceProfile_Infoform,
+  .AwardProfile_Infoform,
+  .ExpectedoppoProfile_Infoform {
+    float: none;
+    width: 400px;
+    margin: 15px !important;
+    margin-top: 30px !important;
+    padding: 0px 20px 20px 20px !important;
+  }
+
+  .ArtProfile_Infoform select,
+  .PerformanceProfile_Infoform select,
+  .AwardProfile_Infoform select,
+  .ExpectedoppoProfile_Infoform select {
+    width: 350px;
+  }
+
+  .BasicProfile_Addresslong input {
+    width: 100% !important;
+    height: 136px !important;
+  }
+
+  .BasicProfile_Infoform form input,
+  .ArtProfile_Infoform form input,
+  .PerformanceProfile_Infoform form input,
+  .AwardProfile_Infoform form input,
+  .ExpectedoppoProfile_Infoform form input {
+    padding: 20px;
+    width: 350px;
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .BasicProfile_Addressshort {
+    flex-direction: column;
+  }
+  .BasicProfile_name {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 380px) {
+  .BasicProfile_ProfileSection{
+    padding: 20px;
+  }
+  .BasicProfile_Infoform,
+  .ArtProfile_Infoform,
+  .PerformanceProfile_Infoform,
+  .AwardProfile_Infoform,
+  .ExpectedoppoProfile_Infoform {
+    width: 360px;
+    margin: 7px !important;
+    margin-top: 30px !important;
+    padding: 0px 20px 20px 20px !important;
+  }
+
+  .BasicProfile_Infoform form input,
+  .ArtProfile_Infoform form input,
+  .PerformanceProfile_Infoform form input,
+  .AwardProfile_Infoform form input,
+  .ExpectedoppoProfile_Infoform form input {
+    padding: 10px;
+    width: 330px;
+    height: 60px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+  }
+  .ArtProfile_Infoform select,
+  .PerformanceProfile_Infoform select,
+  .AwardProfile_Infoform select,
+  .ExpectedoppoProfile_Infoform select {
+    width: 330px;
+  }
+}
+
+ /* Art Lover ( Abhishek Write this Code ) */
+  /* Abhishek Start */
+@media(max-width:332px){
+  .BasicProfile_ProfileSection{
+    padding: 10px;
+
+  }
+}
+    /* Abhishek End */
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
 body{

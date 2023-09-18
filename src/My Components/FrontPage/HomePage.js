@@ -543,7 +543,6 @@ export function HomePage() {
 
         {/* <Navbar_frontpage /> */}
         <Carousel interval={3000}>
-
           {/* Display the first image */}
           <Carousel.Item>
             <div className="HomePage_Items" style={{ display: 'flex' }}>
@@ -1335,6 +1334,8 @@ export function HomePage() {
                   >
                     <img
                       src={image.src}
+                      
+                      alt={`Slide ${i * OurArtistsimagesPerSlide + j + 1}`}
                       // alt={`Slide ${i * OurArtistsimagesPerSlide + j + 1}`}
                     />
                     <h3>{image.caption}</h3>

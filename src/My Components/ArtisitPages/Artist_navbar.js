@@ -9,7 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { setAccessToken  , setRefreshToken , } from "../../reducer/slices/authSlice";
 
-
 export default function Artist_navbar() {
   const [AccountpopupVisible, setAccountPopupVisible] = useState(false);
   const accountPopupRef = useRef(null);
@@ -17,7 +16,6 @@ export default function Artist_navbar() {
   const dispatch  = useDispatch();
   const navigate = useNavigate();
   
-
   const toggleAccountPopup = () => {
     setAccountPopupVisible(!AccountpopupVisible);
   };
@@ -33,8 +31,6 @@ export default function Artist_navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
-
 
   return (
     <Navbar
@@ -78,7 +74,6 @@ export default function Artist_navbar() {
               </svg>
             </button>
           </Link>
-
           <button onClick={toggleAccountPopup} style={{ border: "none", background: "none" }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
               <g filter="url(#filter0_d_422_1850)">

@@ -47,7 +47,7 @@ export function Navbar_frontpage() {
                     <div className="navbar-nav" style={back}>
                         <Nav className="">
                             <Link
-                                to="/HomePage"
+                                to="/"
                                 className="nav-item nav-link link-padding"
                                 style={{ color: "black" }}
                             >
@@ -82,9 +82,5 @@ export function Navbar_frontpage() {
                 {/* </Container> */}
             </div>
         </Navbar>
-
-
-
-
     );
 }
