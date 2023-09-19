@@ -9,11 +9,13 @@ import ViewUser from "./ViewUser/ViewUser";
 import ViewApplicants from "./ViewApplicants/ViewApplicants";
 import ViewCoursesProduct from "./ViewCoursesProduct/ViewCoursesProduct";
 import Footer from "../Footer/Footer";
+import { NavLink, useLocation } from "react-router-dom";
 
 function RootAdmin() {
   const [activeTab, setActiveTab] = useState(1);
   const [nav, setNav] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (windowWidth >= 650) {
@@ -48,68 +50,39 @@ function RootAdmin() {
               <div className="admin-status-btn-container r_container_admin">
                 <Avatar styling={{ alignSelf: "center", width: "150px" }} />
                 <h5>Admin Name</h5>
-                <button
-                  className={
-                    activeTab === 1
-                      ? `admin-status-btn active-btnn`
-                      : `admin-status-btn`
-                  }
-                  onClick={() => setActiveTab(1)}
-                >
+                <NavLink to="/admin/dashboard" className="admin-status-btn">
                   Dashboard
-                </button>
-                <button
-                  className={
-                    activeTab === 2
-                      ? `admin-status-btn active-btnn`
-                      : `admin-status-btn`
-                  }
-                  onClick={() => setActiveTab(2)}
-                >
+                </NavLink>
+                <NavLink to="/admin/view-user" className="admin-status-btn">
                   View Artist
-                </button>
-                <button
-                  className={
-                    activeTab === 3
-                      ? `admin-status-btn active-btnn`
-                      : `admin-status-btn`
-                  }
-                  onClick={() => setActiveTab(3)}
+                </NavLink>
+                <NavLink
+                  to="/admin/view-applicants"
+                  className="admin-status-btn"
                 >
                   View Applicants
-                </button>
-                <button
-                  className={
-                    activeTab === 4
-                      ? `admin-status-btn active-btnn`
-                      : `admin-status-btn`
-                  }
-                  onClick={() => setActiveTab(4)}
+                </NavLink>
+                <NavLink
+                  to="/admin/courses-products"
+                  className="admin-status-btn"
                 >
                   View Courses and Products
-                </button>
-                <button
-                  className={
-                    activeTab === 5
-                      ? `admin-status-btn active-btnn`
-                      : `admin-status-btn`
-                  }
-                  onClick={() => setActiveTab(5)}
-                >
+                </NavLink>
+                <NavLink to="/admin/contact" className="admin-status-btn">
                   Contact
-                </button>
+                </NavLink>
               </div>
             </div>
           )}
           <div className="root-desc-tab-cont">
-            {activeTab === 1 && <DashBoard />}
-            {activeTab === 2 && <ViewUser />}
+            {pathname == "/admin/dashboard" && <DashBoard />}
+            {pathname == "/admin/view-user" && <ViewUser />}
 
-            {activeTab === 3 && <ViewApplicants />}
+            {pathname == "/admin/view-applicants" && <ViewApplicants />}
 
-            {activeTab === 4 && <ViewCoursesProduct />}
+            {pathname == "/admin/courses-products" && <ViewCoursesProduct />}
 
-            {activeTab === 5 && <Contact />}
+            {pathname == "/admin/contact" && <Contact />}
           </div>
         </div>
         <Footer />

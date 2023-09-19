@@ -45,6 +45,11 @@ import ViewProfile from "../AdminPages/ViewProfile/ViewProfile";
 import Chat from "../AdminPages/AdmiChatPage/Chat";
 import EditAdminProtfolio from "../AdminPages/EditAdminPortfolio/EditAdminProtfolio";
 import RootAdmin from "../AdminPages/RootAdmin";
+import DashBoard from "../AdminPages/Dashboard/DashBoard";
+import ViewApplicants from "../AdminPages/ViewApplicants/ViewApplicants";
+import ViewUser from "../AdminPages/ViewUser/ViewUser";
+import ViewCoursesProduct from "../AdminPages/ViewCoursesProduct/ViewCoursesProduct";
+import Contact from "../AdminPages/Contact/Contact";
 
 export default function RouterPage() {
   const { role, accessToken } = useSelector((state) => state.auth);
@@ -52,10 +57,15 @@ export default function RouterPage() {
   return (
     <div>
       <Routes>
-        <Route path="admin" element={<RootAdmin />} />
-        <Route path="userverification" element={<UserVerfication />} />
+        <Route path="admin" element={<RootAdmin />}>
+          <Route path="user-verification" element={<UserVerfication />} />
+          <Route path="dashboard" element={<DashBoard />} />
+          <Route path="view-user" element={<ViewUser />} />
+          <Route path="view-applicants" element={<ViewApplicants />} />
+          <Route path="courses-products" element={<ViewCoursesProduct />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
         <Route path="vprofile" element={<ViewProfile />} />
-        <Route path="adminchat" element={<Chat />} />
         <Route path="admineditPortfolio" element={<EditAdminProtfolio />} />
 
         {!accessToken && (

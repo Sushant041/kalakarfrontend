@@ -41,12 +41,20 @@
     font-weight: var(--fw-600);
     margin-bottom: 30px;
 }
+.r_container_admin a{
+    text-decoration: none;
+    color: var(--black-color);
+}
+.r_container_admin a.active{
+    color: var(--white-color);
+    background-color: var(--primary-color);
+
+}
 .root-desc-tab-cont{
     flex-grow: 1;
     box-shadow: var(--drop-shadow-tab-black);
     border-radius: var(--br-lg);
     min-width: 450px;
-
 }
 
 @media (max-width:650px) {
