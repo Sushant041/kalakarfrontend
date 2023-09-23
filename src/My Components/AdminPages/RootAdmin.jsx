@@ -10,6 +10,7 @@ import ViewApplicants from "./ViewApplicants/ViewApplicants";
 import ViewCoursesProduct from "./ViewCoursesProduct/ViewCoursesProduct";
 import Footer from "../Footer/Footer";
 import { NavLink, useLocation } from "react-router-dom";
+import ViewArtistApplication from "./ViewApplicants/ViewArtistApplication/ViewArtistApplication";
 
 function RootAdmin() {
   const [activeTab, setActiveTab] = useState(1);
@@ -79,6 +80,9 @@ function RootAdmin() {
             {pathname == "/admin/view-user" && <ViewUser />}
 
             {pathname == "/admin/view-applicants" && <ViewApplicants />}
+            {pathname == "/admin/view-applicants/viewid" && (
+              <ViewArtistApplication />
+            )}
 
             {pathname == "/admin/courses-products" && <ViewCoursesProduct />}
 

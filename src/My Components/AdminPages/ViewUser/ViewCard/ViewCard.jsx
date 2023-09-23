@@ -13,7 +13,9 @@ function ViewCard() {
         <PortfolioDisplayTemplate />
       </div>
       <div className="view-card-admin-btn-cont">
-        <button>View Application</button>
+        <button onClick={() => navigate("/admin/view-applicants/viewid")}>
+          View Application
+        </button>
         <button onClick={() => navigate("/vprofile")}>View Profile</button>
         <button>Remove Artist</button>
         <div>
