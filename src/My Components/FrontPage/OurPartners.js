@@ -9,20 +9,16 @@ const OurPartners_images = [
         src: "assets/OurPartners/OurPartners_Suranjali.jpeg",
         caption:
             "'SURANJALI' is a group of Professional Artists ( Instrumental & Vocal ) bringing together on one platform. The Group has so far performed on various occasions such as ,prestigious Award celebrations & theater shows, Corporate events & parties, Festivals, reputed marriages & Wedding Receptions, well known Star Hotels & Clubs.",
-        //subcaption: "",
-        //url: "google.com"
+       
     },
     {
         src: "assets/OurPartners/OurPartners_Gokul_Gurukul.png",
-        //caption: "Jayanti Mala has given her best performance in every part of the world, in India as well as abroad for which she will be remembered forever about her Art in the Audience. mala is very versatile in Abhinaya & laikari, the clearity of her hand mudras and movements are just excellent.",
-        //subcaption: "",
-        //url:""
+        
     },
     {
         src: "assets/OurPartners/OurPartners_Kalakruti.jpeg",
         caption: "Jayanti Mala has given her best performance in every part of the world, in India as well as abroad for which she will be remembered forever about her Art in the Audience. mala is very versatile in Abhinaya & laikari, the clearity of her hand mudras and movements are just excellent.",
-        //subcaption: "",
-        //url:""
+       
     }
 ];
 
