@@ -19,9 +19,9 @@ function ChatScreen() {
           <p>Online</p>
         </div>
         <div className="call-icons">
-          <img src={call} alt="" width={20} />
-          <img src={video} alt="" width={20} />
-          <img src={menu} alt="" width={20} />
+          <img src={call} alt="" />
+          <img src={video} alt="" />
+          <img src={menu} alt="" />
         </div>
       </div>
       <div className="chat-content-cont">
@@ -36,13 +36,13 @@ function ChatScreen() {
       </div>
       <div className="chat-input-cont">
         <div className="input-cc-left">
-          <img src={file} alt="" width="30" />
+          <img src={file} alt="" />
           <input type="text" placeholder="Type your message here..." />
-          <img src={emoji} alt="" width="30" />
-          <img src={camera} alt="" width="30" />
+          <img src={emoji} alt="" />
+          <img src={camera} alt="" />
         </div>
         <div className="input-cc-right">
-          <img src={mic} alt="" width="25" />
+          <img src={mic} alt="" width="21" />
         </div>
       </div>
     </div>

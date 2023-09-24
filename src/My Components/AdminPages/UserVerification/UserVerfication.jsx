@@ -59,6 +59,19 @@ function UserVerfication() {
               Rejected Request
             </button>
           </div>
+          <div className="admin-status-filter-cont">
+            <div className="input-st-cont ">
+              {/* <img src="" alt="" /> */}
+              <input type="text" placeholder="Search by User" />
+            </div>
+            <div className="input-st-cont2">
+              <p>Sort by </p>
+              <select>
+                <option>New User</option>
+                <option>Old User</option>
+              </select>
+            </div>
+          </div>
         </div>
         <div className="admin-right-part-container">
           {activeTab === 1 &&

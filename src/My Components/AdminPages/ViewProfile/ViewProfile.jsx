@@ -91,16 +91,7 @@ function ViewProfile() {
 
       <div className="section-division-admin-viewProfile">
         <div className="admin-vp-button-bottom">
-          <button
-            style={{
-              backgroundColor: "#ffffff",
-              border: "2px solid #AD2F3B",
-              color: "#AD2F3B",
-            }}
-            className="admin-vp-btn"
-          >
-            Remove Artist
-          </button>
+          <button className="admin-vp-btn">Remove Artist</button>
           <button className="admin-vp-btn">Edit Artist Details</button>
         </div>
       </div>
