@@ -4,7 +4,6 @@ import phone from "./assets/phone.svg";
 import location from "./assets/location.svg";
 import instagram from "./assets/instagram.svg";
 import facebookimg from "./assets/facebookimg.svg";
-// import mail from "./assets/Mail.svg";
 import ApplicationButton from "../StatusOfApplication/ApplicationButton";
 import PortfolioUpdateForm from "./PortfolioUpdateForm";
 import { useEffect, useState } from "react";
@@ -13,6 +12,7 @@ import { useSelector } from "react-redux";
 import { artistProfilePoints } from "../../../services/apis";
 import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
+  import Artist_navbar from "../Artist_navbar";
   
 
 const EdituserDetails = [
@@ -71,6 +71,9 @@ function EditPortfolio() {
     },[])
 
   return (
+    <>
+     <Artist_navbar />
+
     <div className="edit_Portfolio_wrapper">
       <nav className="portfolio_actual_navbar"></nav>
       <h1 className="edit_card_text">Edit Portfolio Card</h1>
@@ -81,6 +84,7 @@ function EditPortfolio() {
 
       <PortfolioUpdateForm />
     </div>
+    </>
   );
 }
 

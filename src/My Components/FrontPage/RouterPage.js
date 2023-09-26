@@ -42,19 +42,35 @@ import Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Patron_Port
 import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_Patron_Portfolio";
 import UserVerfication from "../AdminPages/UserVerification/UserVerfication";
 import ViewProfile from "../AdminPages/ViewProfile/ViewProfile";
-import Chat from "../AdminPages/AdmiChatPage/Chat";
 import EditAdminProtfolio from "../AdminPages/EditAdminPortfolio/EditAdminProtfolio";
+import RootAdmin from "../AdminPages/RootAdmin";
+import DashBoard from "../AdminPages/Dashboard/DashBoard";
+import ViewApplicants from "../AdminPages/ViewApplicants/ViewApplicants";
+import ViewUser from "../AdminPages/ViewUser/ViewUser";
+import ViewCoursesProduct from "../AdminPages/ViewCoursesProduct/ViewCoursesProduct";
+import Contact from "../AdminPages/Contact/Contact";
+import ViewArtistApplication from "../AdminPages/ViewApplicants/ViewArtistApplication/ViewArtistApplication";
+import Chat from "../AdminPages/AdmiChatPage/Chat";
 
 export default function RouterPage() {
-
-  const {role , accessToken  } = useSelector((state)=>state.auth);
+  const { role, accessToken } = useSelector((state) => state.auth);
 
   return (
     <div>
       <Routes>
-        <Route path="admin" element={<UserVerfication />} />
+        <Route path="admin" element={<RootAdmin />}>
+          <Route path="user-verification" element={<UserVerfication />} />
+          <Route path="dashboard" element={<DashBoard />} />
+          <Route path="view-user" element={<ViewUser />} />
+          <Route path="view-applicants" element={<ViewApplicants />}>
+            <Route path="viewid" element={<ViewArtistApplication />} />
+          </Route>
+          <Route path="courses-products" element={<ViewCoursesProduct />} />
+          <Route path="contact" element={<Contact />}>
+            <Route path="chat" element={<Chat />} />
+          </Route>
+        </Route>
         <Route path="vprofile" element={<ViewProfile />} />
-        <Route path="adminchat" element={<Chat />} />
         <Route path="admineditPortfolio" element={<EditAdminProtfolio />} />
 
         {!accessToken && (
@@ -72,9 +88,9 @@ export default function RouterPage() {
         <Route path="/EkVideos" exact element={<EkVideos />} />
         <Route path="/EkPrint" exact element={<EkPrint />} />
         <Route path="/Ekevents" exact element={<Ekevents />} />
-        {
-          role === 'Artist' && (
-            <>
+
+        {role === "Artist" && (
+          <>
             <Route path="/Artist_Profile" exact element={<Artist_Profile />} />
             <Route
               path="/Artist_Opportunities"
@@ -93,8 +109,11 @@ export default function RouterPage() {
 
             <Route path="/PortfolioDisplay" element={<PortfolioDisplay />} />
 
-            <Route  path="/patron_view_artist/:id"  element={<PatronPortfolioDisplay />} />
-            
+            <Route
+              path="/patron_view_artist/:id"
+              element={<PatronPortfolioDisplay />}
+            />
+
             <Route path="/EditPortfolio" element={<EditPortfolio />} />
 
             <Route path="/latestNews" exact element={<Newsletter />} />
@@ -131,7 +150,7 @@ export default function RouterPage() {
             <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
 
             <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
-            
+
             <Route
               path="/patron-event-appli/:id"
               element={<EventApplication />}
