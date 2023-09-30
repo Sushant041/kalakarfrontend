@@ -1480,7 +1480,7 @@ export function HomePage() {
       <div div className="OurAdvisors_Page">
         <h1 className="OurAdvisors_heading1">eK ADVISORS</h1>
         <div className="OurAdvisors_Media">
-          <div className="OurAdvisors_Media_Items">
+          <div style={{overflowY:"hidden"}} className="OurAdvisors_Media_Items">
             <img
               src="assets/OurAdvisors/Amarendra.png"
               className="OurAdvisors_Media_Item"
@@ -1490,8 +1490,8 @@ export function HomePage() {
               Dr. Amarendra Khatua
               <span style={{ display: 'inline-block' }}>IFS (Retd.)</span>
             </h3>
-            <div className="OurAdvisors_hover">
-              <p>
+            <div style={{overflowY:"hidden"}} className="OurAdvisors_hover">
+              <p st>
                 Dr. Amarendra is a senior Indian Foreign Service (IFS), Former
                 Secretary (Special Assignment) at Ministry of External Affairs,
                 Govt of India and Director General, Indian Council for Cultural
@@ -1502,7 +1502,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="OurAdvisors_Media_Items">
+          <div style={{overflowY:"hidden"}} className="OurAdvisors_Media_Items">
             <img
               src="assets/OurAdvisors/Prakash.png"
               className="OurAdvisors_Media_Item"
@@ -1512,7 +1512,7 @@ export function HomePage() {
               Dr. T Krishna Prasad
               <span style={{ display: 'inline-block' }}>IPS (Retd.)</span>
             </h3>
-            <div className="OurAdvisors_hover">
+            <div style={{overflowY:"hidden"}} className="OurAdvisors_hover">
               <p>
                 He is retired Telangana Director General of Police (DGP). He
                 studied Engineering in REC Warangal and masters from IIM
@@ -1524,7 +1524,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="OurAdvisors_Media_Items">
+          <div style={{overflowY:"hidden"}} className="OurAdvisors_Media_Items">
             <img
               src="assets/OurAdvisors/Krishna.png"
               alt="Media Print"
@@ -1551,7 +1551,7 @@ export function HomePage() {
       <div div className="OurTeam_Page">
         <h1 className="OurTeam_heading1">eK TEAM</h1>
         <div className="OurTeam_Media">
-          <div className="OurTeam_Media_Items">
+          <div style={{overflowY:"hidden"}} className="OurTeam_Media_Items">
             <img
               src="assets/OurTeam/Sanjaya.png"
               className="OurTeam_Media_Item"
@@ -1561,7 +1561,7 @@ export function HomePage() {
               Dr. Sanjaya Pradhan
               <span style={{ display: 'inline-block' }}>Founder & CEO</span>
             </h3>
-            <div className="OurTeam_hover">
+            <div style={{overflowY:"hidden"}} className="OurTeam_hover">
               <p>
                 Sanjaya is an accomplished and versatile leader with a strong
                 social compass. He brings over two decades of experience working
@@ -1574,7 +1574,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="OurTeam_Media_Items">
+          <div style={{overflowY:"hidden"}} className="OurTeam_Media_Items">
             <img
               src="assets/OurTeam/Amit.png"
               className="OurTeam_Media_Item"
@@ -1586,7 +1586,7 @@ export function HomePage() {
                 Co-Founder and Chief Strategy Officer
               </span>
             </h3>
-            <div className="OurTeam_hover">
+            <div style={{overflowY:"hidden"}} className="OurTeam_hover">
               <p>
                 Amit is a senior strategy leader, who is passionate about social
                 impact. He brings 20+ years of experience in Government & Social
@@ -1599,7 +1599,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="OurTeam_Media_Items">
+          <div style={{overflowY:"hidden"}} className="OurTeam_Media_Items">
             <img
               src="assets/OurTeam/Yogesh.png"
               alt="Media Print"
@@ -1609,7 +1609,7 @@ export function HomePage() {
               Yogesh Pandey
               <span style={{ display: 'inline-block' }}>Head-Operations</span>
             </h3>
-            <div className="OurTeam_hover">
+            <div style={{overflowY:"hidden"}} className="OurTeam_hover">
               <p>
                 Yogesh is a seasoned professional and multi-talented artist. He
                 has over 15 years of experience in Administration & Operations

@@ -251,11 +251,15 @@ export function Artist_Opportunities() {
 
             <div className="OpportunitiesPage_Search">
 
-              <input placeholder="Search for opportunity" />
+{/* remove from comment it later , ! important */}
+
+              {/* <input placeholder="Search for opportunity" /> */}
               
             </div>
 
-            <div className="OpportunitiesPage_Sort">
+{/* remove from comment it later , ! important */}
+
+            {/* <div className="OpportunitiesPage_Sort">
               <label>Sort By:</label>
               <select>
                 <option selected>Default</option>
@@ -266,7 +270,9 @@ export function Artist_Opportunities() {
               >
                 Filters
               </button>
-            </div>
+            </div> */}
+
+
           </form>
 
 
