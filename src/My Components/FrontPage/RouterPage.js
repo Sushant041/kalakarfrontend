@@ -63,7 +63,7 @@ export default function RouterPage() {
           <Route path="dashboard" element={<DashBoard />} />
           <Route path="view-user" element={<ViewUser />} />
           <Route path="view-applicants" element={<ViewApplicants />}>
-            <Route path="viewid" element={<ViewArtistApplication />} />
+          <Route path="viewid" element={<ViewArtistApplication />} />
           </Route>
           <Route path="courses-products" element={<ViewCoursesProduct />} />
           <Route path="contact" element={<Contact />}>
