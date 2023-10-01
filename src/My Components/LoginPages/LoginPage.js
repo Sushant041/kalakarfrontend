@@ -3,7 +3,8 @@ import "./LoginPage.css";
 import { toast, ToastContainer } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
   import AuthTemplate from "../Common/AuthTemplate";
-import { useNavigate } from "react-router-dom";
+  import { useNavigate } from "react-router-dom";
+
 import google from "./Images/Google.svg";
 import facebook from "./Images/Facebook.svg";
 import {  artistProfilePoints, endpoints } from "../../services/apis";
@@ -45,42 +46,53 @@ export function LoginPage() {
         endpoints.LOGIN_API,
         formData
       );
-      console.log(`response` , response);
-
-      if(response.status === 'error'){
-        if(response.message?.includes('Invalid user credentials')){
-          toast.error('please enter valid password ')
+      console.log("Response:", response);
+  
+      if (response.status === 'error') {
+        if (response.message && response.message.includes('Invalid user credentials')) {
+          toast.error('Please enter valid password');
+        } else {
+          toast.error('An error occurred during login.');
         }
-      }
+      } else if (response.status === 'success') {
+        toast.success('Successfully Login');
+        const { accessToken, refreshToken, role } = response.data;
 
-      if (response.success === "success") {
-        toast.success("successfully Login");
-        const { accessToken, refreshToken ,role} = response.data;
+ 
+        console.log("Role before dispatch:", role); 
+        
+      
+
         dispatch(setAccessToken(accessToken));
         dispatch(setRefreshToken(refreshToken));
         dispatch(setRole(role));
+
+
+        console.log("Role after dispatch:", role); 
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("role" , role)
-
-        if(role === 'Artist'){
-          navigate("/artist_profile");
-
-        }
-        else{
+        localStorage.setItem("role", role);
+  
+        console.log("Role:", role);
+        if (role === 'Artist') {
+          console.log("Navigating to Artist_Profile");
+          navigate("/Artist_Profile");
+        } else {
+          console.log("Navigating to Patron_Profile");
           navigate('/Patron_Profile');
-
         }
       } else {
-        toast.error(response.message);
+        toast.error('An unknown error occurred.');
       }
     } catch (error) {
-      console.log(error);
-      toast.error("internal server error");
+      console.log("API request error:", error);
+      toast.error('Internal server error. Please try again later.');
     }
-
+  
     toast.dismiss(toastId);
   };
+  
+  
 
   const googleLogin = async()=>{
     try {
