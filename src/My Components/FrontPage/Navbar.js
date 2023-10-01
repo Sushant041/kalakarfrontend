@@ -54,7 +54,7 @@ export function Navbar_frontpage() {
                                 Home
                             </Link>
                             <Link
-                                to="/Benefits"
+                                to="/#Benefits"
                                 className="nav-item nav-link link-padding"
                                 style={{ color: "black" }}
                             >
