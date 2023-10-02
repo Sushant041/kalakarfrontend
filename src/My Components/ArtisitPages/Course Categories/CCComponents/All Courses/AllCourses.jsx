@@ -34,5 +34,4 @@ const AllCourses = ({CategoryName}) => {
     </>
   );
 };
-
 export default AllCourses;

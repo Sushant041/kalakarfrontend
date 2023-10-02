@@ -17,8 +17,12 @@
   color: #000000;
   text-align: center;
   font-weight: 500;
-  font-size: 32px;
-  width: 80%;
+  font-family: Poppins;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+    width: 80%;
 }
 
 
@@ -32,8 +36,11 @@
   color: #000000;
   text-align: center;
   font-weight: 500;
-  font-size: 20px;
-}
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;}
 
 .loginForm{
   display: flex;
@@ -107,8 +114,11 @@ input::placeholder {
   width: 100%;
   /* background-color: aqua; */
   color: #AD2F3B;
-  font-size: 14px;
-  cursor: pointer;
+  font-family: Poppins;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;  cursor: pointer;
   font-weight: 500;
   margin-top: 10px;
   text-align: right;
@@ -125,6 +135,11 @@ input::placeholder {
 
 .login_rememberMe_Text{
   margin-top: 14px;
+  font-family: Poppins;
+  font-size:15px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .loginButton{
@@ -136,6 +151,7 @@ input::placeholder {
   padding: 10px;
   margin-left: -16px;
   border-radius: 15px;
+  border: none;
 }
 
 .navigateRegisterPara{

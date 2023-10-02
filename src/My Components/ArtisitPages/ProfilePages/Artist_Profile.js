@@ -759,7 +759,19 @@ setProfileAvatar(null);
         </Navbar>
       </div>
 
-      <div className="BasicProfile_ProfileSection">
+      <div className="chiku-ProfileSection">
+        <div className="profile-left">
+        <div className="BasicProfile_avatar">
+          <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} />
+          <button onClick={handleButtonClick} className="BasicProfile_editavatar">Edit Profile Picture</button>
+          <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button>
+          <p style={{fontWeight:"500" , fontSize:"30px"}} >
+            {" "}
+            Hello,<br />{basicFormData.firstName.toUpperCase()} {basicFormData.lastName.toUpperCase()}
+            <b></b>
+          </p>
+        </div>
+
         <div className="BasicProfile_AccSet">
           <h1>Account Settings</h1>
           <button className={activeSection === "basic" ? "active" : ""} onClick={() => handleClick("basic")}>
@@ -785,23 +797,12 @@ setProfileAvatar(null);
             <img src={expected} /> Expected Opportunities
           </button>
         </div>
-        <div className="BasicProfile_avatar">
-          <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} />
-          <button onClick={handleButtonClick} className="BasicProfile_editavatar">Edit Profile Picture</button>
-          <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button>
+
+          
         </div>
-        <div className="BasicProfile_name">
-          <p style={{fontWeight:"500" , fontSize:"30px"}} >
-            {" "}
-            Hello,<br />{basicFormData.firstName.toUpperCase()} {basicFormData.lastName.toUpperCase()}
-            <b></b>
-          </p>
-        </div>
-      </div>
+        <div className="profile-right">
 
-
-
-      {/* this is for basic  */}
+                {/* this is for basic  */}
       {activeSection === "basic" && (
         <div style={{fontFamily:"Poppins"}} className="BasicProfile_Infoform">
           <form onSubmit={basicSubmitHandler}>
@@ -848,7 +849,7 @@ setProfileAvatar(null);
               </div>
               <div className="BasicProfile_inputfield">
                 <label htmlFor="age">Language Known*</label>
-                <select onChange={changeHandler} style={{fontFamily:"Poppins" ,background:"transparent" , color:"black" , width:"450px" , height:"60px", border:"1px solid black"}} name="" id="">
+                <select onChange={changeHandler} style={{fontFamily:"Poppins" ,background:"transparent" , color:"black" , height:"60px", border:"1px solid black"}} name="" id="">
                   <option value="" selected defaultChecked >You can select multiple languages</option>
                   {languages.map((option) => (
           <option  value={option}>
@@ -1682,6 +1683,11 @@ setProfileAvatar(null);
           </form>
         </div>
       )}
+        </div>
+
+      </div>
+
+
     </div>
   );
 }

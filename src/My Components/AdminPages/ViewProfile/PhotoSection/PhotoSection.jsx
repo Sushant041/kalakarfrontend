@@ -5,7 +5,8 @@ import { Button, Card } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-function PhotoSection() {
+function PhotoSection({ imageData }) {
+  console.log(imageData);
   const responsive = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -42,36 +43,6 @@ function PhotoSection() {
       removeArrowOnDeviceType={["tablet", "mobile"]}
       itemClass="carousel-item-padding-40-px"
     >
-      <div className="admin-vp-caraussel">
-        <img
-          src="https://img1.exportersindia.com/product_images/bc-full/2020/9/7877003/s-a-cricket-leather-ball-1599995680-5582817.jpeg"
-          alt="Image 2"
-        />
-      </div>
-      <div className="admin-vp-caraussel">
-        <img
-          src="https://img1.exportersindia.com/product_images/bc-full/2020/9/7877003/s-a-cricket-leather-ball-1599995680-5582817.jpeg"
-          alt="Image 2"
-        />
-      </div>
-      <div className="admin-vp-caraussel">
-        <img
-          src="https://img1.exportersindia.com/product_images/bc-full/2020/9/7877003/s-a-cricket-leather-ball-1599995680-5582817.jpeg"
-          alt="Image 2"
-        />
-      </div>
-      <div className="admin-vp-caraussel">
-        <img
-          src="https://img1.exportersindia.com/product_images/bc-full/2020/9/7877003/s-a-cricket-leather-ball-1599995680-5582817.jpeg"
-          alt="Image 2"
-        />
-      </div>
-      <div className="admin-vp-caraussel">
-        <img
-          src="https://img1.exportersindia.com/product_images/bc-full/2020/9/7877003/s-a-cricket-leather-ball-1599995680-5582817.jpeg"
-          alt="Image 2"
-        />
-      </div>
       <div className="admin-vp-caraussel">
         <img
           src="https://img1.exportersindia.com/product_images/bc-full/2020/9/7877003/s-a-cricket-leather-ball-1599995680-5582817.jpeg"

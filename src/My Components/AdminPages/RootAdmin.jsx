@@ -9,14 +9,19 @@ import ViewUser from "./ViewUser/ViewUser";
 import ViewApplicants from "./ViewApplicants/ViewApplicants";
 import ViewCoursesProduct from "./ViewCoursesProduct/ViewCoursesProduct";
 import Footer from "../Footer/Footer";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import ViewArtistApplication from "./ViewApplicants/ViewArtistApplication/ViewArtistApplication";
+import AdminNavbar from "./AdminNavbar";
+import UserVerfication from "./UserVerification/UserVerfication";
+import MoreinfoArtistOppurtunity from "./ViewApplicants/ViewArtistApplication/ArtistOppurtunity/MoreInfo/MoreinfoArtistOppurtunity";
+import ViewProfile from "./ViewProfile/ViewProfile";
+import EditAdminProtfolio from "./ViewUser/EditUserPortfolio/EditUserProtfolio";
 
 function RootAdmin() {
-  const [activeTab, setActiveTab] = useState(1);
   const [nav, setNav] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { pathname } = useLocation();
+  let { id } = useParams();
 
   useEffect(() => {
     if (windowWidth >= 650) {
@@ -37,25 +42,46 @@ function RootAdmin() {
       return !pre;
     });
   };
+  const [checkNav, setCheckNav] = useState([
+    "userverification",
+    "admineditPortfolio",
+    "viewmoreappliaction",
+  ]);
+  if (id !== undefined) {
+    checkNav.push(`view-user/${id}`, `/view-applicants/${id}`);
+  }
+
+  let leftNavVisibilty = true;
+  checkNav.map((i) => {
+    if (pathname.includes(i)) {
+      leftNavVisibilty = false;
+    }
+  });
 
   return (
     <div className="root-admin-wrapper">
       <div className="root-admin-container">
-        <Artist_navbar />
+        <AdminNavbar />
         <div className="root-admin-content-wrapper">
-          <div className="menu-icon-admin-cont" onClick={navhandler}>
-            <img src={menu} />
-          </div>
-          {nav && (
+          {leftNavVisibilty && (
+            <div className="menu-icon-admin-cont" onClick={navhandler}>
+              <img src={menu} />
+            </div>
+          )}
+          {nav && leftNavVisibilty && (
             <div className="admin-menu-wrapper">
               <div className="admin-status-btn-container r_container_admin">
                 <Avatar styling={{ alignSelf: "center", width: "150px" }} />
                 <h5>Admin Name</h5>
-                <NavLink to="/admin/dashboard" className="admin-status-btn">
+                <NavLink
+                  to="/admin/dashboard"
+                  className="admin-status-btn"
+                  defaultChecked={true}
+                >
                   Dashboard
                 </NavLink>
                 <NavLink to="/admin/view-user" className="admin-status-btn">
-                  View Artist
+                  View User
                 </NavLink>
                 <NavLink
                   to="/admin/view-applicants"
@@ -75,18 +101,31 @@ function RootAdmin() {
               </div>
             </div>
           )}
+
           <div className="root-desc-tab-cont">
+            {/* {pathname === `/admin/view-user/${id}` && <ViewProfile />}
+            {pathname === `/admin/view-user/${id}/edit` && (
+              <EditAdminProtfolio />
+            )}
+            {pathname == `/admin/view-applicants/${id}` && (
+              <ViewArtistApplication />
+            )}
+            {pathname == `/admin/view-applicants/${id}/view-more` && (
+              <MoreinfoArtistOppurtunity />
+            )} */}
+            <Outlet />
+
+            {/* {pathname == "/admin/userverification" && <UserVerfication />}
+
             {pathname == "/admin/dashboard" && <DashBoard />}
             {pathname == "/admin/view-user" && <ViewUser />}
 
             {pathname == "/admin/view-applicants" && <ViewApplicants />}
-            {pathname == "/admin/view-applicants/viewid" && (
-              <ViewArtistApplication />
-            )}
 
             {pathname == "/admin/courses-products" && <ViewCoursesProduct />}
 
             {pathname == "/admin/contact" && <Contact />}
+             */}
           </div>
         </div>
         <Footer />

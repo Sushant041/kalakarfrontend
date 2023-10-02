@@ -1,3 +1,6 @@
+/* .admin-menu-wrapper{
+    display: none;
+} */
 .admin-view-User-cont{
     flex-grow: 1;
     display: flex;

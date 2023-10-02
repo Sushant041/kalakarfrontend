@@ -1,14 +1,13 @@
 import React from "react";
-import "./EditAdminProtfolio.css";
-import PortfolioDisplayTemplate from "../../ArtisitPages/PortfollioDisplay/PortfolioCardTemplate";
-import Artist_navbar from "../../ArtisitPages/Artist_navbar";
-import Input from "../AdminComponent/InputComponent/Input";
-import Footer from "../../Footer/Footer";
+import "./EditUserProtfolio.css";
+import PortfolioDisplayTemplate from "../../../ArtisitPages/PortfollioDisplay/PortfolioCardTemplate";
+import Input from "../../AdminComponent/InputComponent/Input";
+import Footer from "../../../Footer/Footer";
 
-function EditAdminProtfolio() {
+function EditUserPortfolio() {
   return (
     <div className="admin-page-root-container">
-      <Artist_navbar />
+      {/* <Artist_navbar /> */}
       <div className="section-division-admin-viewPortfolio">
         <PortfolioDisplayTemplate />
         <button className="admin-vp-btn">Upload Profile Picture</button>
@@ -105,9 +104,9 @@ function EditAdminProtfolio() {
           Cancel
         </button>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
 
-export default EditAdminProtfolio;
+export default EditUserPortfolio;
