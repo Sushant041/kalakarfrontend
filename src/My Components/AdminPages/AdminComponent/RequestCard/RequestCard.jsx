@@ -1,6 +1,6 @@
 import React from "react";
 import "./RequestCard.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Avatar from "../Avatar/Avatar";
 
 function RequestCard({
@@ -10,13 +10,18 @@ function RequestCard({
   ApprovedRequests,
   RejectedRequests,
   VerificationRequest,
+  id,
+  role,
 }) {
+  console.log(role);
   return (
     <div className="requestcard-container">
       <Avatar />
       <h2>{name}</h2>
       <div className="req-btn-divider">
-        <Link to="/vprofile">View Profile</Link>
+        <Link to={`/admin/view-user/${id}`} state={{ id: id, role: role }}>
+          View Profile
+        </Link>
         <Link to="#">Edit Profile</Link>
       </div>
 

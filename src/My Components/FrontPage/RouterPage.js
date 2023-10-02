@@ -3,7 +3,12 @@ import { EkPhotos } from "./EkPhotos";
 import { EkVideos } from "./EkVideos";
 import { EkPrint } from "./EkPrint";
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { Ekevents } from "./Ekevents";
 import { LoginPage } from "../LoginPages/LoginPage";
 import Choosing from "../LoginPages/Choosing";
@@ -42,7 +47,7 @@ import Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Patron_Port
 import Edit_Patron_Portfolio from "../PatronPages/PatronProfile/Portfolio/Edit_Patron_Portfolio";
 import UserVerfication from "../AdminPages/UserVerification/UserVerfication";
 import ViewProfile from "../AdminPages/ViewProfile/ViewProfile";
-import EditAdminProtfolio from "../AdminPages/EditAdminPortfolio/EditAdminProtfolio";
+import EditAdminProtfolio from "../AdminPages/ViewUser/EditUserPortfolio/EditUserProtfolio";
 import RootAdmin from "../AdminPages/RootAdmin";
 import DashBoard from "../AdminPages/Dashboard/DashBoard";
 import ViewApplicants from "../AdminPages/ViewApplicants/ViewApplicants";
@@ -51,6 +56,7 @@ import ViewCoursesProduct from "../AdminPages/ViewCoursesProduct/ViewCoursesProd
 import Contact from "../AdminPages/Contact/Contact";
 import ViewArtistApplication from "../AdminPages/ViewApplicants/ViewArtistApplication/ViewArtistApplication";
 import Chat from "../AdminPages/AdmiChatPage/Chat";
+import MoreinfoArtistOppurtunity from "../AdminPages/ViewApplicants/ViewArtistApplication/ArtistOppurtunity/MoreInfo/MoreinfoArtistOppurtunity";
 
 export default function RouterPage() {
   const { role, accessToken } = useSelector((state) => state.auth);
@@ -59,19 +65,28 @@ export default function RouterPage() {
     <div>
       <Routes>
         <Route path="admin" element={<RootAdmin />}>
-          <Route path="user-verification" element={<UserVerfication />} />
+          <Route
+            path="admin"
+            element={<Navigate to="userverification" replace />}
+          />
+          <Route path="userverification" element={<UserVerfication />}></Route>
           <Route path="dashboard" element={<DashBoard />} />
-          <Route path="view-user" element={<ViewUser />} />
+          <Route path="view-user" element={<ViewUser />}>
+            <Route path=":id" element={<ViewProfile />}>
+              <Route path="edit" element={<EditAdminProtfolio />} />
+            </Route>
+          </Route>
+
           <Route path="view-applicants" element={<ViewApplicants />}>
-            <Route path="viewid" element={<ViewArtistApplication />} />
+            <Route path=":id" element={<ViewArtistApplication />}>
+              <Route path="view-more" element={<MoreinfoArtistOppurtunity />} />
+            </Route>
           </Route>
           <Route path="courses-products" element={<ViewCoursesProduct />} />
           <Route path="contact" element={<Contact />}>
             <Route path="chat" element={<Chat />} />
           </Route>
         </Route>
-        <Route path="vprofile" element={<ViewProfile />} />
-        <Route path="admineditPortfolio" element={<EditAdminProtfolio />} />
 
         {!accessToken && (
           <>

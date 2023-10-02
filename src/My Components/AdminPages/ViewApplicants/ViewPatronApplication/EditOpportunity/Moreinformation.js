@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Patron_Navbar from "../../PatronPages/Patron_Navbar";
-import Footer from "../../Footer/Footer";
-import {  useLocation, useNavigate } from "react-router-dom";
+import Patron_Navbar from "../../../../PatronPages/Patron_Navbar";
+import Footer from "../../../../Footer/Footer";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function MoreInformation() {
-    const [jobData , setJobData] = useState(null);
-    const location = useLocation();
-    let job = location.state?.job;
-    const navigate = useNavigate();
+  const [jobData, setJobData] = useState(null);
+  const location = useLocation();
+  let job = location.state?.job;
+  const navigate = useNavigate();
   return (
     <>
       <Patron_Navbar />
@@ -47,9 +47,7 @@ export default function MoreInformation() {
             </div>
             <div className="OpportunitiesMoreInfoPage_Topboxbtns">
               <button className="btnone">Share</button>
-              <button  className="btntwo">
-                Save
-              </button>
+              <button className="btntwo">Save</button>
             </div>
           </div>
         </div>
@@ -135,11 +133,7 @@ export default function MoreInformation() {
             </div>
           ) : (
             <div className="OpportunitiesMoreInfoPage_bottombox_btns">
-              <button
-                className="btntwo"
-              >
-                Edit Opportunity
-              </button>
+              <button className="btntwo">Edit Opportunity</button>
             </div>
           )}
         </div>

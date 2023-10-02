@@ -40,12 +40,19 @@
     border-radius: var(--br-sm);
     padding: 20px;
 }
-.display-data-table h2,p{
+.display-data-table h6{
     font-size: var(--fs-21);
     font-weight: var(--fw-600);
+    color:var(--primary-color);
+    margin: 0px;
 }
 .display-data-table p{
+    font-size: var(--fs-21);
+    font-weight: var(--fw-600);
     color: var(--grey-color);
+}
+.display-data-table h6{
+    margin: 0;
 }
 .admin-vp-button-bottom{
     margin-top: 40px;
