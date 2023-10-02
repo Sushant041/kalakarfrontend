@@ -1,5 +1,7 @@
 import React from "react";
 import "./OppurtunityCard.css";
+import { useNavigate, useParams } from "react-router-dom";
+import MoreinfoArtistOppurtunity from "./MoreInfo/MoreinfoArtistOppurtunity";
 
 function OppurtunityCard({
   title,
@@ -12,6 +14,8 @@ function OppurtunityCard({
   Language,
   DueDate,
 }) {
+  const navigate = useNavigate();
+  let { id } = useParams();
   return (
     <div className="root-oppurtunity-card">
       <h2>{title}</h2>
@@ -34,7 +38,13 @@ function OppurtunityCard({
           <p>{DueDate}</p>
         </div>
         <div className="oppurtunity-btn-container">
-          <button>More Information</button>
+          <button
+            onClick={() => {
+              navigate(`/admin/view-applicants/${id}/view-more`);
+            }}
+          >
+            More Information
+          </button>
           <button>Edit</button>
         </div>
       </div>

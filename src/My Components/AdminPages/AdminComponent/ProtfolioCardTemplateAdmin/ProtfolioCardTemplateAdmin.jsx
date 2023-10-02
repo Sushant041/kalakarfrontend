@@ -1,4 +1,3 @@
-import "./portfolioCardTemplate.css";
 import rectangle from "./assets/reactangle.svg";
 import ekalakaar from "./assets/ekalakaar.svg";
 import Ellipse from "./assets/Ellipse 71.svg";
@@ -10,11 +9,7 @@ import instagram from "./assets/instagram.svg";
 import profileImg from "./assets/profile.svg";
 import facebookimg from "./assets/facebookimg.svg";
 
-function PortfolioDisplayTemplate({
-  portfolioData,
-  editCard = false,
-  viewAsAdmin = false,
-}) {
+function PortfolioCardTemplateAdmin({ portfolioData, editCard = false }) {
   return (
     <section className="portfolio_card">
       {/* left part */}
@@ -30,7 +25,9 @@ function PortfolioDisplayTemplate({
               {" "}
               <img src={phone} alt="" />{" "}
             </div>
-            <p className="card_detail_text">{portfolioData?.phoneNumber}</p>
+            <p className="card_detail_text">
+              {portfolioData?.personalInfo?.contactNumber}
+            </p>
           </div>
 
           <div className="card_single_detail">
@@ -42,7 +39,9 @@ function PortfolioDisplayTemplate({
               {" "}
               <img src={mail} alt="" />{" "}
             </div>
-            <p className="card_detail_text">{portfolioData?.email}</p>
+            <p className="card_detail_text">
+              {portfolioData?.personalInfo?.email}
+            </p>
           </div>
 
           <div className="card_single_detail">
@@ -69,9 +68,7 @@ function PortfolioDisplayTemplate({
               className="card_socialMedia_image"
             />
             <p className="card_socialMedia_id">
-              {viewAsAdmin == false
-                ? portfolioData?.socialLinks?.instagram
-                : portfolioData?.socialLinks?.instagram}
+              {portfolioData?.socialLinks?.instagram}
             </p>
           </div>
           <div className="card_single_socialDetail">
@@ -81,9 +78,7 @@ function PortfolioDisplayTemplate({
               className="card_socialMedia_image"
             />
             <p className="card_socialMedia_id">
-              {viewAsAdmin == false
-                ? portfolioData?.socialLinks?.facebook
-                : portfolioData?.socialLinks?.facebook}
+              {portfolioData?.socialLinks?.facebook}
             </p>
           </div>
         </div>
@@ -105,7 +100,8 @@ function PortfolioDisplayTemplate({
           <img src={profileImg} alt="" />
         )}
         <h1 className="card_userName">
-          {portfolioData?.firstName} {portfolioData?.lastName}
+          {portfolioData?.personalInfo?.firstName}{" "}
+          {portfolioData?.personalInfo?.lastName}
         </h1>
         <h1 className="card_userProfession">{portfolioData?.natureOfArt}</h1>
       </div>
@@ -113,4 +109,4 @@ function PortfolioDisplayTemplate({
   );
 }
 
-export default PortfolioDisplayTemplate;
+export default PortfolioCardTemplateAdmin;

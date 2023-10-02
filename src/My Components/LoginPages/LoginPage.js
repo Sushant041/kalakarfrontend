@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import { toast, ToastContainer } from 'react-toastify';
-  import "react-toastify/dist/ReactToastify.css";
-  import AuthTemplate from "../Common/AuthTemplate";
-  import { useNavigate } from "react-router-dom";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AuthTemplate from "../Common/AuthTemplate";
+import { useNavigate } from "react-router-dom";
 import google from "./Images/Google.svg";
 import facebook from "./Images/Facebook.svg";
-import {  artistProfilePoints, endpoints } from "../../services/apis";
-import { makeUnauthenticatedGETRequest, makeUnauthenticatedPOSTRequest } from "../../services/serverHelper";
+import { artistProfilePoints, endpoints } from "../../services/apis";
+import {
+  makeUnauthenticatedGETRequest,
+  makeUnauthenticatedPOSTRequest,
+} from "../../services/serverHelper";
 import { useDispatch } from "react-redux";
 import {
   setAccessToken,
   setRole,
   setRefreshToken,
 } from "../../reducer/slices/authSlice";
-
 
 export function LoginPage() {
   const dispatch = useDispatch();
@@ -46,66 +47,51 @@ export function LoginPage() {
         endpoints.LOGIN_API,
         formData
       );
-      console.log("Response:", response);
-  
-      if (response.status === 'error') {
-        if (response.message && response.message.includes('Invalid user credentials')) {
-          toast.error('Please enter valid password');
-        } else {
-          toast.error('An error occurred during login.');
+      console.log(`response`, response);
+
+      if (response.status === "error") {
+        if (response.message?.includes("Invalid user credentials")) {
+          toast.error("please enter valid password ");
         }
-      } else if (response.status === 'success') {
-        toast.success('Successfully Login');
+      }
+
+      if (response.success === "success") {
+        toast.success("successfully Login");
         const { accessToken, refreshToken, role } = response.data;
-
- 
-        console.log("Role before dispatch:", role); 
-        
-      
-
         dispatch(setAccessToken(accessToken));
         dispatch(setRefreshToken(refreshToken));
         dispatch(setRole(role));
-
-
-        console.log("Role after dispatch:", role); 
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("role", role);
-  
-        console.log("Role:", role);
-        if (role === 'Artist') {
-          console.log("Navigating to Artist_Profile");
-          navigate("/Artist_Profile");
+
+        if (role === "Artist") {
+          navigate("/artist_profile");
         } else {
-          console.log("Navigating to Patron_Profile");
-          navigate('/Patron_Profile');
+          navigate("/Patron_Profile");
         }
       } else {
-        toast.error('An unknown error occurred.');
+        toast.error(response.message);
       }
     } catch (error) {
-      console.log("API request error:", error);
-      toast.error('Internal server error. Please try again later.');
+      console.log(error);
+      toast.error("internal server error");
     }
-  
+
     toast.dismiss(toastId);
   };
-  
-  
 
-  const googleLogin = async()=>{
+  const googleLogin = async () => {
     try {
-
-      const response = await makeUnauthenticatedGETRequest(artistProfilePoints.LOGIN_WITH_GOOGLE_API);
-      console.log('googleRes' ,response);
-
-    } catch(error){
-      toast.error('Something went wrong , please try again');
+      const response = await makeUnauthenticatedGETRequest(
+        artistProfilePoints.LOGIN_WITH_GOOGLE_API
+      );
+      console.log("googleRes", response);
+    } catch (error) {
+      toast.error("Something went wrong , please try again");
       console.log(error);
     }
-  }
-
+  };
 
   return (
     <AuthTemplate justifyFlag={false}>
@@ -162,7 +148,12 @@ export function LoginPage() {
 
         {/* google and facebook button */}
         <div className="googleFacebookButton">
-          <img onClick={googleLogin} src={google} alt="" className="loginImage" />
+          <img
+            onClick={googleLogin}
+            src={google}
+            alt=""
+            className="loginImage"
+          />
 
           <img src={facebook} alt="" className="loginImage" />
         </div>

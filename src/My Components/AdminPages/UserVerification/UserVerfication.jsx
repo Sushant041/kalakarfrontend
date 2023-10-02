@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Navbar } from "react-bootstrap";
 import Artist_navbar from "../../ArtisitPages/Artist_navbar";
@@ -7,14 +7,33 @@ import "./UserVerification.css";
 import RequestCard from "../AdminComponent/RequestCard/RequestCard";
 import Footer from "../../Footer/Footer";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
+import { Admin } from "../../../services/apis";
+import { useSelector } from "react-redux";
 
 function UserVerfication() {
   const [activeTab, setActiveTab] = useState(1);
   const arr = [1, 2, 23, 3, 3, 33, 3, 33, 3, 3, 3, 3];
+  const [users, setUsers] = useState([]);
+
+  const { accessToken } = useSelector((state) => state.auth);
+  console.log(accessToken);
+  const fetchAllUsers = async () => {
+    const response = await makeAuthenticatedGETRequest(
+      Admin.GET_ALL_USERS,
+      accessToken
+    );
+    setUsers(response.data);
+    console.log(response.data);
+  };
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
 
   return (
     <div className="admin-page-root-container">
-      <Artist_navbar />
+      {/* <Artist_navbar /> */}
       <div className="section-division-admin">
         <div className="admin-left-part-conatiner">
           <div className="admin-status-btn-container">
@@ -75,17 +94,19 @@ function UserVerfication() {
         </div>
         <div className="admin-right-part-container">
           {activeTab === 1 &&
-            arr.map((item, index) => {
+            users?.map((item, index) => {
               return (
                 <RequestCard
                   key={index}
-                  name="Akash Shukla"
+                  name={`${item.firstName} ${item.lastName}`}
                   VerficationTag={true}
                   Verified={true}
+                  id={item._id}
+                  role={item.role}
                 />
               );
             })}
-          {activeTab === 2 &&
+          {/* {activeTab === 2 &&
             arr.map((item, index) => {
               return (
                 <RequestCard
@@ -114,7 +135,7 @@ function UserVerfication() {
                   RejectedRequests={true}
                 />
               );
-            })}
+            })} */}
         </div>
       </div>
       <div className="pagination-admin">
@@ -122,7 +143,7 @@ function UserVerfication() {
         <p>1</p>
         <AiOutlineRight size={25} className="icon-left-admin" />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
