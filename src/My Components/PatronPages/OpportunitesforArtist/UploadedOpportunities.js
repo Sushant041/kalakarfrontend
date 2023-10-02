@@ -24,8 +24,9 @@ import { useSelector } from 'react-redux';
       setLoading(true);
         try{
             const response = await makeAuthenticatedGETRequest(patronProfilePoints.UPLOAD_OPPOR_API ,accessToken);
+            console.log(response)
 
-            if(response.success === 'success'){
+            if(response.status === 'success'){
 
                 let parseData = await response.data;
                 

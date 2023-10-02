@@ -19,24 +19,51 @@ const [ profileAvatar, setProfileAvatar] = useState("");
     const {accessToken} = useSelector((state)=>state.auth);
 
     const [formData , setFormData] = useState({
-        firstName:"" , 
-        fullName :"", 
-        address:"" , 
-        email:"" , 
-        about:"" , 
-        phoneNumber:"",
-        natureOfArt:""
+        personalInfo: {
+          profession: "",
+          companyName: "",
+          authorizedPerson: "",
+          designation: "",
+          companyDescription: "",
+          firstName: "",
+          lastName: "",
+        },
+        address: {
+          state: "",
+          city: "",
+          pincode: "",
+          details: "",
+        },
+        contactDetails: {
+          email: "",
+          contactNumber: "",
+          website: "",
+          expectations: "",
+        },
+      });
 
-    });
+    // const changeHandler = (event)=>{
+    //     const {name ,value} = event.target;
 
-    const changeHandler = (event)=>{
-        const {name ,value} = event.target;
+    //     setFormData((prev)=>({
+    //         ...prev , 
+    //         [name]:value
+    //     }))
+    // }
 
-        setFormData((prev)=>({
-            ...prev , 
-            [name]:value
-        }))
-    }
+    const changeHandler = (event) => {
+        const { name, value } = event.target;
+        const [section, property] = name.split("."); // Split the name into section and property
+      
+        setFormData((prev) => ({
+          ...prev,
+          [section]: {
+            ...prev[section], // Keep the previous state of the section
+            [property]: value, // Update the property within the section
+          },
+        }));
+        console.log(formData)
+      };
 
     const [userData , setUserData] = useState([]);
 
@@ -48,18 +75,19 @@ const [ profileAvatar, setProfileAvatar] = useState("");
              
             const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API ,accessToken );
             console.log('res' , response);
-            if(response.success === 'success'){
+            if(response.status === 'success'){
                 setUserData(response.data);
-                const {natureOfArt , firstName , lastName , email ,phoneNumber , address ,about } = response.data;
-                const fullName = firstName + lastName;
-                setFormData({
-                    fullName , 
-                    firstName , 
-                    natureOfArt , 
-                    email , 
-                    phoneNumber , 
-                    address , about
-                })
+                setFormData(response.data);
+                // const {natureOfArt , firstName , lastName , email ,phoneNumber , address ,about } = response.data;
+                // const fullName = firstName + lastName;
+                // setFormData({
+                //     fullName , 
+                //     firstName , 
+                //     natureOfArt , 
+                //     email , 
+                //     phoneNumber , 
+                //     address , about
+                // })
 
             }
             else{
@@ -88,9 +116,10 @@ fetchPatronData();
 
         const response = await makeAuthenticatedPATCHRequest(patronProfilePoints.FETCH_PATRON_APPLI_API , formData , accessToken);
         console.log('resss' , response);
-        if(response.success === 'success'){
+        if(response.status === 'success'){
             toast.success('successfuly updated');
               navigate(-1);
+            // fetchPatronData()
         }
         else{
             toast.error(response.message)
@@ -158,8 +187,8 @@ formData.append("avatar" , selectedFile);
                             Photo
                             Here
                         </div>
-                        <h3>{userData?.firstName} {userData?.lastName} </h3>
-                        <h5>{userData?.natureOfArt}</h5>
+                        <h3>{userData?.personalInfo?.firstName} {userData?.personalInfo?.lastName} </h3>
+                        <h5>{userData?.personalInfo?.profession}</h5>
                     </div>
 
                     {/* this is strip */}
@@ -183,7 +212,7 @@ formData.append("avatar" , selectedFile);
                                             fill="#000"
                                         />
                                     </svg>
-                                    &nbsp; {userData?.phoneNumber} &nbsp;
+                                    &nbsp; {userData?.contactDetails?.contactNumber} &nbsp;
                                 </p>
                                 <p>
                                     <svg
@@ -203,7 +232,7 @@ formData.append("avatar" , selectedFile);
                                             stroke-width="2"
                                         />
                                     </svg>
-                                    &nbsp; {userData?.email} &nbsp;
+                                    &nbsp; {userData?.contactDetails?.email} &nbsp;
                                 </p>
                                 <p>
                                     <svg
@@ -228,7 +257,7 @@ formData.append("avatar" , selectedFile);
                                             stroke-linejoin="round"
                                         />
                                     </svg>
-                                    &nbsp; {userData?.address}<br></br>
+                                    &nbsp; {userData?.address?.details}<br></br>
                                     
                                 </p>
                             </div>
@@ -248,31 +277,31 @@ formData.append("avatar" , selectedFile);
                     <form>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Card Display Name</label>
-                            <input placeholder='Enter the name for card' value={formData.firstName} name='firstName' onChange={changeHandler} ></input>
+                            <input placeholder='Enter the name for card' value={formData.personalInfo.authorizedPerson} name='personalInfo.authorizedPerson' onChange={changeHandler} ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Profession</label>
-                            <input placeholder='Enter your performance category' value={formData.natureOfArt} onChange={changeHandler} name='natureOfArt' ></input>
+                            <input placeholder='Enter your performance category' value={formData.personalInfo.profession} onChange={changeHandler} name='personalInfo.profession' ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Contact Number</label>
-                            <input placeholder='Enter your mobile number' value={formData.phoneNumber} name='phoneNumber' onChange={changeHandler} ></input>
+                            <input placeholder='Enter your mobile number' value={formData.contactDetails.contactNumber} name='contactDetails.contactNumber' onChange={changeHandler} ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Email Id</label>
-                            <input placeholder='Enter your email address' value={formData.email} onChange={changeHandler} name='email' ></input>
+                            <input placeholder='Enter your email address' value={formData.contactDetails.email} onChange={changeHandler} name='contactDetails.email' ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>Location</label>
-                            <input placeholder='Enter your location' value={formData.address} name='address' onChange={changeHandler} ></input>
+                            <input placeholder='Enter your location' value={formData.address.details} name='address.details' onChange={changeHandler} ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
-                            <label>Full Name</label>
-                            <input placeholder='Enter your location' value={formData.fullName} name='fullName' onChange={changeHandler} ></input>
+                            <label>Authorized Name</label>
+                            <input placeholder='Enter your location' value={formData.personalInfo.authorizedPerson} name='personalInfo.authorizedPerson' onChange={changeHandler} ></input>
                         </div>
                         <div className='EditPatronPortfolio_form_input'>
                             <label>About the Company</label>
-                            <textarea placeholder='Enter about your comapny' value={formData.about} name='about' onChange={changeHandler} ></textarea>
+                            <textarea placeholder='Enter about your comapny' value={formData.personalInfo.companyDescription} name='personalInfo.companyDescription' onChange={changeHandler} ></textarea>
                         </div>
                         <div className='EditPatronPortfolio_form_btns'>
                             <button onClick={updatePtronData} className='btn1'>Update</button>

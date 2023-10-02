@@ -27,7 +27,7 @@ export default function ArtistProfiles() {
 
       const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_ALL_APPLI_API ,accessToken);
       console.log('res'  ,response);
-      if(response.success === 'success'){
+      if(response.status === 'success'){
         setProfileData(response.data);
       }
       else{
@@ -217,7 +217,7 @@ export default function ArtistProfiles() {
                           </svg>
                         </div>
 
-                        <p> &nbsp; {profile?.phoneNumber}</p>
+                        <p> &nbsp; {profile?.appliedBy?.phoneNumber}</p>
                       </div>
                       <div className='ArtistProfiles_ProfileCard_left_components'>
                         <div className='ArtistProfiles_ProfileCard_left_components1'>
@@ -227,7 +227,7 @@ export default function ArtistProfiles() {
                             <path d="M1.30859 1.29004L5.0009 4.77391L8.69321 1.29004" stroke="white" stroke-width="0.681243" stroke-linecap="round" stroke-linejoin="round" />
                           </svg>
                         </div>
-                        <p> &nbsp; {profile?.email}</p>
+                        <p> &nbsp; {profile?.appliedBy?.email}</p>
                       </div>
                       <div className='ArtistProfiles_ProfileCard_left_components'>
                         <div className='ArtistProfiles_ProfileCard_left_components1'>
@@ -235,18 +235,18 @@ export default function ArtistProfiles() {
                             <path d="M2.5 1.8C2.7368 1.8 2.9639 1.90536 3.13135 2.09289C3.29879 2.28043 3.39286 2.53478 3.39286 2.8C3.39286 2.93132 3.36976 3.06136 3.32489 3.18268C3.28002 3.30401 3.21425 3.41425 3.13135 3.50711C3.04844 3.59997 2.95001 3.67362 2.84168 3.72388C2.73336 3.77413 2.61725 3.8 2.5 3.8C2.2632 3.8 2.0361 3.69464 1.86865 3.50711C1.70121 3.31957 1.60714 3.06522 1.60714 2.8C1.60714 2.53478 1.70121 2.28043 1.86865 2.09289C2.0361 1.90536 2.2632 1.8 2.5 1.8ZM2.5 0C3.16304 0 3.79893 0.294999 4.26777 0.820101C4.73661 1.3452 5 2.05739 5 2.8C5 4.9 2.5 8 2.5 8C2.5 8 0 4.9 0 2.8C0 2.05739 0.263392 1.3452 0.732233 0.820101C1.20107 0.294999 1.83696 0 2.5 0ZM2.5 0.8C2.0264 0.8 1.5722 1.01071 1.23731 1.38579C0.902423 1.76086 0.714286 2.26957 0.714286 2.8C0.714286 3.2 0.714286 4 2.5 6.684C4.28571 4 4.28571 3.2 4.28571 2.8C4.28571 2.26957 4.09758 1.76086 3.76269 1.38579C3.4278 1.01071 2.9736 0.8 2.5 0.8Z" fill="white" />
                           </svg>
                         </div>
-                        <p> &nbsp; {profile?.currentLocation ?(profile?.currentLocation):('NA')} </p>
+                        <p> &nbsp; {profile?.appliedBy?.address?.details ?(profile?.appliedBy?.address?.details):('NA')} </p>
                       </div>
                       <div style={{gap:"20px"}} className='ArtistProfiles_ProfileCard_left_components_social'>
                         <div className='insta'>
                           <p>
                             <FontAwesomeIcon icon={faInstagram} /> &nbsp;
-                            {profile?.handles?.facebook.split("").slice(0,10).join("")}.. &nbsp;</p>
+                            {profile?.appliedBy?.socialLinks?.facebook} &nbsp;</p>
                         </div>
                         <div className='fb'>
                           <p>
                             <FontAwesomeIcon icon={faFacebookF} /> &nbsp;
-                            {profile?.handles?.instagram.split("").slice(0,10).join("")}...
+                            {profile?.appliedBy?.socialLinks?.instagram}
                             &nbsp;</p>
                         </div>
                       </div>
@@ -254,8 +254,8 @@ export default function ArtistProfiles() {
                     <div className='ArtistProfiles_ProfileCard_right'>
                       <div>
                         <img src={profileImg} /><br></br> <br></br>
-                        <p>{profile?.firstName} {profile?.lastName}</p>
-                        <p>{profile?.category}</p>
+                        <p>{profile?.appliedBy?.firstName} {profile?.appliedBy?.lastName}</p>
+                        <p>{profile?.artNature}</p>
                       </div>
                     </div>
                   </div>
@@ -266,7 +266,7 @@ export default function ArtistProfiles() {
                     {/* <button className='btnone'>Send Invitation</button> */}
 
 
-                  <Link to={`/patron_view_artist/${profile?.userId}`}>
+                  <Link style={{textDecoration: "none"}} to={`/patron-view-artist/${profile?.appliedBy?._id}`}>
                    <button  className='btntwo'>View Artist</button>
                   </Link> 
                   </div>

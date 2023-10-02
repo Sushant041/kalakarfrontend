@@ -60,12 +60,12 @@ export function Artist_Opportunities() {
       event.preventDefault();
       const response = await makeAuthenticatedPOSTRequest(
         artistOpportunityPoints.APPLY_OPPOR_API +
-          `/${OpportunityapplynowPopup?.id}/apply`,
+          `/${OpportunityapplynowPopup?.id}`,
         { applyAns },
         accessToken
       );
 
-      if (response.success === "success") {
+      if (response.status === "success") {
         toast.success("successfully applied" ,{
           position:"top-center"
         });
@@ -94,7 +94,7 @@ export function Artist_Opportunities() {
         artistOpportunityPoints.FETCH_OPPOR_DATA_API,
         accessToken
       );
-      if (response?.success === "success") {
+      if (response?.status === "success") {
         const opportunityArray = response?.data;
 
         const reversed = [...opportunityArray].reverse(); 

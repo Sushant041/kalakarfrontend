@@ -15,7 +15,29 @@ export default function Patron_Portfolio() {
 
     const {accessToken} = useSelector((state)=>state.auth);
 
-    const [userData , setUserData] = useState([]);
+    const [userData , setUserData] = useState({
+        personalInfo: {
+          profession: "",
+          companyName: "",
+          authorizedPerson: "",
+          designation: "",
+          companyDescription: "",
+          firstName: "",
+          lastName: "",
+        },
+        address: {
+          state: "",
+          city: "",
+          pincode: "",
+          details: "",
+        },
+        contactDetails: {
+          email: "",
+          contactNumber: "",
+          website: "",
+          expectations: "",
+        },
+      });
 
     const fetchPatronData = async()=>{
         const toastId = toast.loading('Loading...');
@@ -23,7 +45,7 @@ export default function Patron_Portfolio() {
              
             const response = await makeAuthenticatedGETRequest(patronProfilePoints.FETCH_PATRON_APPLI_API ,accessToken );
             console.log('res' , response);
-            if(response.success === 'success'){
+            if(response.status === 'success'){
                 setUserData(response.data);
 
                 const {avatar} = response.data;
@@ -60,10 +82,10 @@ fetchPatronData();
                     {/* left side */}
                     <div className='PatronPortfolio_ProfileCard_left'>
 
-                        <img src= {`${patronAvatar !== "" ? (`https://api.ekalakaar.com/uploads/avatars/${patronAvatar}`):(`https://ui-avatars.com/api/?name=${userData.firstName}+${userData.lastName}`)}`}></img>
+                        <img src= {`${patronAvatar !== "" ? (`https://api.ekalakaar.com/uploads/avatars/${patronAvatar}`):(`https://ui-avatars.com/api/?name=${userData.personalInfo.firstName}+${userData.personalInfo.lastName}`)}`}></img>
 
-                        <h3>{userData?.firstName} {userData?.lastName} </h3>
-                        <h5>{userData?.natureOfArt}</h5>
+                        <h3>{userData?.personalInfo?.firstName} {userData?.personalInfo?.lastName} </h3>
+                        <h5>{userData?.personalInfo?.profession}</h5>
                     </div>
 
                     {/* strip  */}
@@ -87,7 +109,7 @@ fetchPatronData();
                                             fill="#AD2F3B"
                                         />
                                     </svg>
-                                    &nbsp; {userData?.phoneNumber} &nbsp;
+                                    &nbsp; {userData?.contactDetails?.contactNumber} &nbsp;
                                 </p>
                                 <p>
                                     <svg
@@ -107,7 +129,7 @@ fetchPatronData();
                                             stroke-width="2"
                                         />
                                     </svg>
-                                    &nbsp; {userData?.email} &nbsp;
+                                    &nbsp; {userData?.contactDetails?.email} &nbsp;
                                 </p>
                                 <p>
                                     <svg
@@ -132,7 +154,7 @@ fetchPatronData();
                                             stroke-linejoin="round"
                                         />
                                     </svg>
-                                    &nbsp;{userData?.address}
+                                    &nbsp;{userData?.address?.details}
                                 </p>
                             </div>
                         </div>
@@ -144,7 +166,7 @@ fetchPatronData();
 
 
 
-                <p style={{display:"flex" , flexDirectionP:"row" , alignItems:"center" ,gap:"10px"}} className='PatronPortfolio_PatronName'> {userData?.firstName} {userData?.lastName}
+                <p style={{display:"flex" , flexDirectionP:"row" , alignItems:"center" ,gap:"10px"}} className='PatronPortfolio_PatronName'> {userData?.personalInfo?.firstName} {userData?.personalInfo?.lastName}
                    <div style={{backgroundColor:"#61C6FF"  , display:"flex" , alignItems:"center" , justifyContent:"center" , width:"50px" , height:"50px" , borderRadius:"50%" }}>
 
 <BsCheckLg style={{
@@ -157,7 +179,7 @@ fetchPatronData();
                 <div className='PatronPortfolio_AboutCompany'>
                     <h2>About Company</h2>
                     <p>
-                       {userData?.about}
+                       {userData?.personalInfo?.companyDescription}
                     </p>
                     <Link to={"/Edit_Patron_Portfolio"} style={{ textDecoration: "none" }}>
                         <button>

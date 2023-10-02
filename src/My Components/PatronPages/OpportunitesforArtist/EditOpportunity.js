@@ -174,7 +174,7 @@ const EditOpportunity = () => {
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Start Date of Application*</label>
-                <input onChange={inputChangeHandler} name="start" efaultValue={formData?.applicationPeriod?.start} type="date" placeholder="Enter application Start date" />
+                <input onChange={inputChangeHandler} name="start" defaultValue={formData?.applicationPeriod?.start} type="date" placeholder="Enter application Start date" />
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Last Date of Application*</label>

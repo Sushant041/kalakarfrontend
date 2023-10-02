@@ -42,7 +42,7 @@ function ArtistApplication() {
         accessToken
       );
       console.log("res", response);
-      if (response.success === "success") {
+      if (response.status === "success") {
         setArtistForm(response.data);
       } else {
         toast.error(response.message);

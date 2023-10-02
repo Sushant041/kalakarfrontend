@@ -91,7 +91,7 @@ function EventApplication() {
     try{
             const response = await makeAuthenticatedGETRequest(patronProfilePoints.GET_SINGLE_OPPOR_ALL_APPLIED_ARTIST_APPLI_API +`${id}` , accessToken);
       console.log('fetchappli' , response);
-      if(response.success === 'success'){
+      if(response.status === 'success'){
         setArtistApplication(response.data);
       }
       else{
@@ -109,7 +109,7 @@ function EventApplication() {
     try{
             const response = await makeAuthenticatedGETRequest(patronProfilePoints.GET_SINGLE_OPPOR_ALL_IN_PROGRESS_ARTIST_APPLI_API +`${id}` , accessToken);
       console.log('inprof' , response);
-      if(response.success === 'success'){
+      if(response.status === 'success'){
         setShortlistApplication(response.data);
       }
       else{
@@ -128,7 +128,7 @@ function EventApplication() {
     try{
             const response = await makeAuthenticatedGETRequest(patronProfilePoints.GET_SINGLE_OPPOR_ALL_HIRED_ARTIST_APPLI_API +`${id}` , accessToken);
       console.log('hired' , response);
-      if(response.success === 'success'){
+      if(response.status === 'success'){
         setHiredApplication(response.data);
       }
       else{
@@ -269,7 +269,7 @@ function EventApplication() {
                         {" "}
                         <img src={phone} alt="" />{" "}
                       </div>
-                      <p className="personal_detail_title">{data?.phoneNumber}</p>
+                      <p className="personal_detail_title">{data?.appliedBy?.phoneNumber}</p>
                     </div>
 
                     <div key={index} className="single_personalDetail">
@@ -277,7 +277,7 @@ function EventApplication() {
                         {" "}
                         <img src={anvelop} alt="" />{" "}
                       </div>
-                      <p className="personal_detail_title">{data?.email}</p>
+                      <p className="personal_detail_title">{data?.appliedBy?.email}</p>
                     </div>
 
                     <div key={index} className="single_personalDetail">
@@ -285,7 +285,7 @@ function EventApplication() {
                         {" "}
                         <img src={locationArt} alt="" />{" "}
                       </div>
-                      <p className="personal_detail_title">{data?.address}</p>
+                      <p className="personal_detail_title">{data?.appliedBy?.address?.details}</p>
                     </div>
                  
                 </div>
@@ -297,11 +297,11 @@ function EventApplication() {
                  
                     <div  className="single_socail_detail">
                       <img src={instagram} alt="" className="socail_img" />
-                      <p className="social_title">{data?.instagram}</p>
+                      <p className="social_title">{data?.appliedBy?.socialLinks?.instagram}</p>
                     </div>
                     <div key={index} className="single_socail_detail">
                       <img src={facebookimg} alt="" className="socail_img" />
-                      <p className="social_title">{data?.facebook}</p>
+                      <p className="social_title">{data?.appliedBy?.socialLinks?.facebook}</p>
                     </div>
                   
                 </div>
@@ -314,8 +314,8 @@ function EventApplication() {
               {/* ṛight part */}
               <div className="card_right_part">
                 <img src={DP} alt="" className="userDP" />
-                <p className="card_right_userName">{data?.firstName} {data?.lastName} </p>
-                <p className="card_right_user_profession">{data?.natureOfArt}</p>
+                <p className="card_right_userName">{data?.appliedBy?.firstName} {data?.appliedBy?.lastName} </p>
+                <p className="card_right_user_profession">{data?.artNature}</p>
               </div>
             </div>
     
@@ -332,7 +332,7 @@ function EventApplication() {
         </div>    
        <div className="single_event_appli_detail" > 
             <p  className="single_detail_title">Location</p>
-            <p className="single_detail_ans">{data?.currentLocation}</p>
+            <p className="single_detail_ans">{data?.appliedBy?.address?.city}</p>
         </div>    
        <div className="single_event_appli_detail" > 
             <p  className="single_detail_title">Ratings</p>
@@ -351,7 +351,7 @@ function EventApplication() {
     
 
     {/* bottom button */}
-    <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId , appliType:"Application"}})} className="view_Profile_btn">View Profile</button>
+    <button onClick={()=>navigate(`/patron-view-artist/${data?.appliedBy?._id}` , {state : {applicationId :data?.applicationId , appliType:"Application"}})} className="view_Profile_btn">View Profile</button>
     
             </div>
           </section>

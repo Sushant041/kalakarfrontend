@@ -53,7 +53,7 @@ export function LoginPage() {
         }
       }
 
-      if (response.success === "success") {
+      if (response.status === "success") {
         toast.success("successfully Login");
         const { accessToken, refreshToken ,role} = response.data;
         dispatch(setAccessToken(accessToken));

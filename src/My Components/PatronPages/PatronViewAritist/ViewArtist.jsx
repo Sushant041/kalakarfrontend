@@ -55,7 +55,8 @@ function ViewArtist() {
     try{
       const response = await makeAuthenticatedGETRequest(patronProfilePoints.GET_SINGLE_ARTIST_DATA_API + `${id}` , accessToken);
       console.log('ress' , response);
-      if(response.success === 'success'){
+      if(response.status === 'success'){
+        toast.success("success");
         setArtistData(response.data);
       }
       else {
@@ -110,7 +111,7 @@ const hireArtistHandler = async ()=>{
 
     const response = await makeAuthenticatedPATCHRequestWithoutBody(patronProfilePoints.HIRED_REJECT_SHORTLIST_ARTIST_API +`/${applicationId}?status=Hired` , accessToken);
     console.log('rress' , response);
-    if(response.success === 'success'){
+    if(response.status === 'success'){
       toast.success('successfuly hired');
       navigate(-1);
     }
@@ -131,7 +132,7 @@ const rejectArtistHandler =  async()=>{
 
     const response = await makeAuthenticatedPATCHRequestWithoutBody(patronProfilePoints.HIRED_REJECT_SHORTLIST_ARTIST_API +`/${applicationId}?status=Rejected` , accessToken);
     console.log('rress' , response);
-    if(response.success === 'success'){
+    if(response.status === 'success'){
       toast.success('successfuly Rejected');
       navigate(-1);
     }
@@ -154,7 +155,7 @@ const shortlistArtistHandler = async()=>{
 
     const response = await makeAuthenticatedPATCHRequestWithoutBody(patronProfilePoints.HIRED_REJECT_SHORTLIST_ARTIST_API +`/${applicationId}?status=In-Progress` , accessToken);
     console.log('rress' , response);
-    if(response.success === 'success'){
+    if(response.status === 'success'){
       toast.success('successfuly Shorlisted');
       navigate(-1);
     }

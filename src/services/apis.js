@@ -19,7 +19,7 @@ export const artistProfilePoints = {
 
 export const artistOpportunityPoints = {
   FETCH_OPPOR_DATA_API: BASE_URL + `/artists/opportunities`,
-  APPLY_OPPOR_API: BASE_URL + `/artists/opportunities`,
+  APPLY_OPPOR_API: BASE_URL + `/artists/applications`,
   RETRIVE_APPLIED_APPLI: BASE_URL + `/artists/opportunities`,
   FETCH_OPPOR_BY_ID: BASE_URL + `/artists/opportunities`,
   SAVE_OPPR_BY_ID: BASE_URL + `/artists/opportunities/saved`,
@@ -41,7 +41,7 @@ export const patronProfilePoints = {
   GET_SINGLE_OPPOR_ALL_APPLIED_ARTIST_APPLI_API: BASE_URL + `/patrons/opportunities/applications?status=Applied&opportunityId=`,
   GET_SINGLE_OPPOR_ALL_IN_PROGRESS_ARTIST_APPLI_API: BASE_URL + `/patrons/opportunities/applications?status=In-Progress&opportunityId=`,
   GET_SINGLE_OPPOR_ALL_HIRED_ARTIST_APPLI_API: BASE_URL + `/patrons/opportunities/applications?status=Hired&opportunityId=`,
-  GET_SINGLE_ARTIST_DATA_API : BASE_URL + `/patrons/artist-profiles?id=`,
+  GET_SINGLE_ARTIST_DATA_API : BASE_URL + `/patrons/artists?id=`,
   HIRED_REJECT_SHORTLIST_ARTIST_API : BASE_URL +`/patrons/opportunities/applications` , 
   PATRON_AVATAR_UPDATE : BASE_URL +  "/patrons/profile/avatar",
   
