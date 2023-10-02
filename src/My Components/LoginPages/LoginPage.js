@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import { toast, ToastContainer } from 'react-toastify';
-  import "react-toastify/dist/ReactToastify.css";
-  import AuthTemplate from "../Common/AuthTemplate";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import AuthTemplate from "../Common/AuthTemplate";
 import { useNavigate } from "react-router-dom";
 import google from "./Images/Google.svg";
 import facebook from "./Images/Facebook.svg";
-import {  artistProfilePoints, endpoints } from "../../services/apis";
-import { makeUnauthenticatedGETRequest, makeUnauthenticatedPOSTRequest } from "../../services/serverHelper";
+import { artistProfilePoints, endpoints } from "../../services/apis";
+import {
+  makeUnauthenticatedGETRequest,
+  makeUnauthenticatedPOSTRequest,
+} from "../../services/serverHelper";
 import { useDispatch } from "react-redux";
 import {
   setAccessToken,
   setRole,
   setRefreshToken,
 } from "../../reducer/slices/authSlice";
-
 
 export function LoginPage() {
   const dispatch = useDispatch();
@@ -45,31 +47,28 @@ export function LoginPage() {
         endpoints.LOGIN_API,
         formData
       );
-      console.log(`response` , response);
+      console.log(`response`, response);
 
-      if(response.status === 'error'){
-        if(response.message?.includes('Invalid user credentials')){
-          toast.error('please enter valid password ')
+      if (response.status === "error") {
+        if (response.message?.includes("Invalid user credentials")) {
+          toast.error("please enter valid password ");
         }
       }
 
       if (response.success === "success") {
         toast.success("successfully Login");
-        const { accessToken, refreshToken ,role} = response.data;
+        const { accessToken, refreshToken, role } = response.data;
         dispatch(setAccessToken(accessToken));
         dispatch(setRefreshToken(refreshToken));
         dispatch(setRole(role));
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("role" , role)
+        localStorage.setItem("role", role);
 
-        if(role === 'Artist'){
+        if (role === "Artist") {
           navigate("/artist_profile");
-
-        }
-        else{
-          navigate('/Patron_Profile');
-
+        } else {
+          navigate("/Patron_Profile");
         }
       } else {
         toast.error(response.message);
@@ -82,18 +81,17 @@ export function LoginPage() {
     toast.dismiss(toastId);
   };
 
-  const googleLogin = async()=>{
+  const googleLogin = async () => {
     try {
-
-      const response = await makeUnauthenticatedGETRequest(artistProfilePoints.LOGIN_WITH_GOOGLE_API);
-      console.log('googleRes' ,response);
-
-    } catch(error){
-      toast.error('Something went wrong , please try again');
+      const response = await makeUnauthenticatedGETRequest(
+        artistProfilePoints.LOGIN_WITH_GOOGLE_API
+      );
+      console.log("googleRes", response);
+    } catch (error) {
+      toast.error("Something went wrong , please try again");
       console.log(error);
     }
-  }
-
+  };
 
   return (
     <AuthTemplate justifyFlag={false}>
@@ -150,7 +148,12 @@ export function LoginPage() {
 
         {/* google and facebook button */}
         <div className="googleFacebookButton">
-          <img onClick={googleLogin} src={google} alt="" className="loginImage" />
+          <img
+            onClick={googleLogin}
+            src={google}
+            alt=""
+            className="loginImage"
+          />
 
           <img src={facebook} alt="" className="loginImage" />
         </div>
