@@ -44,18 +44,21 @@ export const patronProfilePoints = {
   HIRED_REJECT_SHORTLIST_ARTIST_API : BASE_URL +`/patrons/opportunities/applications` , 
   PATRON_AVATAR_UPDATE : BASE_URL +  "/patrons/profile/avatar",
   
-}
 
-
-  GET_SINGLE_OPPOR_ALL_APPLIED_ARTIST_APPLI_API: BASE_URL + `/patrons/opportunities/applications?status=Applied&opportunityId=`,
-  GET_SINGLE_OPPOR_ALL_IN_PROGRESS_ARTIST_APPLI_API: BASE_URL + `/patrons/opportunities/applications?status=In-Progress&opportunityId=`,
-  GET_SINGLE_OPPOR_ALL_HIRED_ARTIST_APPLI_API: BASE_URL + `/patrons/opportunities/applications?status=Hired&opportunityId=`,
+  GET_SINGLE_OPPOR_ALL_APPLIED_ARTIST_APPLI_API:
+    BASE_URL +
+    `/patrons/opportunities/applications?status=Applied&opportunityId=`,
+  GET_SINGLE_OPPOR_ALL_IN_PROGRESS_ARTIST_APPLI_API:
+    BASE_URL +
+    `/patrons/opportunities/applications?status=In-Progress&opportunityId=`,
+  GET_SINGLE_OPPOR_ALL_HIRED_ARTIST_APPLI_API:
+    BASE_URL +
+    `/patrons/opportunities/applications?status=Hired&opportunityId=`,
   GET_SINGLE_ARTIST_DATA_API: BASE_URL + `/patrons/artist-profiles?id=`,
-  HIRED_REJECT_SHORTLIST_ARTIST_API:BASE_URL + `/patrons/opportunities/applications`,
+  HIRED_REJECT_SHORTLIST_ARTIST_API:
+    BASE_URL + `/patrons/opportunities/applications`,
   PATRON_AVATAR_UPDATE: BASE_URL + "/patrons/profile/avatar",
-;
-
-
+};
 export const Admin = {
   GET_ALL_USERS: BASE_URL + `/admin/users`,
   GET_USER_BY_ID: BASE_URL + `/admin/users/`,
@@ -65,3 +68,5 @@ export const Admin = {
 export const contactUsPoints = {
   POST_QUERY_API: BASE_URL + `/quries/post-query`,
 };
+
+//try
