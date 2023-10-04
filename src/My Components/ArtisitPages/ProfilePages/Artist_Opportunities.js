@@ -101,7 +101,7 @@ export function Artist_Opportunities() {
         artistOpportunityPoints.FETCH_OPPOR_DATA_API,
         accessToken
       );
-      if (response?.success === "success") {
+      if (response?.status === "success") {
         const opportunityArray = response?.data;
 
         const reversed = [...opportunityArray].reverse(); 
