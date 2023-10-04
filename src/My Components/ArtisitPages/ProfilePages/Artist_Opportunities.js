@@ -9,7 +9,7 @@ import {
 } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { artistOpportunityPoints } from "../../../services/apis";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
 import { AllLanguage } from "../../../CommonData/language";
 import natureOfArt from "./assets/natureOfArt.svg"
@@ -51,11 +51,14 @@ export function Artist_Opportunities() {
 
   const [filterData ,setFilterData] = useState([]);
 
+  console.log('jobda' , jobData);
 
   const applySubmitHandler = async (event) => {
+
     const toastId = toast.loading("Loading..." , {
       position:"top-center"
     });
+
     try {
       event.preventDefault();
       const response = await makeAuthenticatedPOSTRequest(
@@ -69,13 +72,18 @@ export function Artist_Opportunities() {
         toast.success("successfully applied" ,{
           position:"top-center"
         });
+
         setOpportunityapplynowPopup(null);
         setApplyAns("");
-        navigate("/statusOfApplication")
+        navigate("/statusOfApplication");
+
       } else {
+
         toast.error(response.message , {
           position:"top-center"
         });
+        setApplyAns("");
+
       }
     } catch (error) {
       console.log(error);
@@ -87,7 +95,7 @@ export function Artist_Opportunities() {
     toast.dismiss(toastId);
   };
 
-  //   this si for fetch the oportunity at first
+  //   this is for fetch the oportunity at first
   const fetchOpportunity = async () => {
     try {
       const response = await makeAuthenticatedGETRequest(
