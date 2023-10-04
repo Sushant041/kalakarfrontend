@@ -20,12 +20,12 @@ export const artistOpportunityPoints = {
   APPLY_OPPOR_API: BASE_URL + `/artists/applications`,
   RETRIVE_APPLIED_APPLI: BASE_URL + `/artists/opportunities`,
   FETCH_OPPOR_BY_ID: BASE_URL + `/artists/opportunities`,
-  SAVE_OPPR_BY_ID: BASE_URL + `/artists/opportunities/saved`,
+  SAVE_OPPR_BY_ID: BASE_URL + `/artists/saved-opportunities`,
 };
 
 export const statusOfAppliPoints = {
-  FETCH_APPLIED_APPLI_API: BASE_URL + `/artists/opportunities/applications`,
-  FETCH_SAVED_APPLI_API: BASE_URL + `/artists/opportunities/saved`,
+  FETCH_APPLIED_APPLI_API: BASE_URL + `/artists/applications`,
+  FETCH_SAVED_APPLI_API: BASE_URL + `/artists/saved-opportunities`,
 };
 
 export const patronProfilePoints = {

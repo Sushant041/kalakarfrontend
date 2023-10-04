@@ -48,7 +48,7 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
     <div className="applied_Application_wrapper">
 
       <p className="applied_event_text">
-        {currentEvent} Events : {jobData?.length}{" "}
+        {currentEvent} Events : {jobData.length}{" "}
       </p>
 
       <div className="applied_event_Detail_Container">
@@ -56,7 +56,7 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
         
           <div class="custom-loader"></div>
 
-        ) : jobData?.length === 0 ? (
+        ) : jobData.length === 0 ? (
           <NoDataTemplate
             image={appliedNoData}
             para={"You haven't applied for any events application"}
