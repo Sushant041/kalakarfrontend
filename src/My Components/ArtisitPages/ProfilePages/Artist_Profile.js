@@ -766,18 +766,7 @@ setProfileAvatar(null);
           </button>
         
         </div>
-        <div className="BasicProfile_avatar">
-          <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} />
-          <button onClick={handleButtonClick} className="BasicProfile_editavatar">Edit Profile Picture</button>
-          <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button>
-        </div>
-        <div className="BasicProfile_name">
-          <p style={{fontWeight:"500" , fontSize:"30px"}} >
-            {" "}
-            Hello,<br />{basicFormData.firstName.toUpperCase()} {basicFormData.lastName.toUpperCase()}
-            <b></b>
-          </p>
-        </div>
+        
       </div>
 
 

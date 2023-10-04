@@ -35,19 +35,11 @@ export function Artist_OpportunitiesMoreInfo() {
 
   useEffect(()=>{
    if(job?.status === 'Applied'){
-<<<<<<< HEAD
-    setCurrentId(job?._id);
-    setJobData(job);
-   }
-   else {
-    setCurrentId(job?._id);
-=======
     setCurrentId(job?.opportunity._id);
     setJobData(job);
    }
    else {
     setCurrentId(job?.opportunity._id);
->>>>>>> d4d91cb88cad56185a5e556106b17a3368d4911c
     setJobData(job);
    }
   },[])
@@ -169,17 +161,6 @@ useEffect(() => {
             </div>
             <div>
               <p>
-<<<<<<< HEAD
-                <span>{jobData?.expertise} a</span>
-              </p>
-              <p>
-                <span>{jobData?.location} a</span>
-              </p>
-              <p>
-                <span>
-                  {jobData?.languages?.map((lag, index) => (
-                    <span key={index}>{lag}  </span>
-=======
                 <span>{jobData?.opportunity?.expertise} a</span>
               </p>
               <p>
@@ -189,12 +170,10 @@ useEffect(() => {
                 <span>
                   {jobData?.opportunity?.languages?.map((lag, index) => (
                     <span key={index}>{lag} a </span>
->>>>>>> d4d91cb88cad56185a5e556106b17a3368d4911c
                   ))}
                 </span>
               </p>
               <p>
-<<<<<<< HEAD
                 <span>{jobData?.budget} </span>
               </p>
               <p>
@@ -223,7 +202,7 @@ useEffect(() => {
               </p>
               <p>
                 <span>{jobData?.postedBy} </span>
-=======
+
                 <span>{jobData?.opportunity?.budget} a</span>
               </p>
               <p>
@@ -252,7 +231,6 @@ useEffect(() => {
               </p>
               <p>
                 <span>{jobData?.opportunity?.postedBy} a </span>
->>>>>>> d4d91cb88cad56185a5e556106b17a3368d4911c
               </p>
             </div>
           </div>
