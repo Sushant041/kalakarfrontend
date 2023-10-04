@@ -75,10 +75,10 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
                       alignItems: "center",
                     }}
                   >
-                    <h1 className="single_applied_heading">{event.position}</h1>
+                    <h1 className="single_applied_heading">{event?.opportunity?.position}</h1>
                     <div className="appliedOn_container">
                       Applied On <br />{" "}
-                      {new Date(event.applicationPeriod.end).toLocaleDateString(
+                      {new Date(event.applicationPeriod?.end).toLocaleDateString(
                         "en-US",
                         {
                           day: "numeric",
@@ -119,26 +119,26 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
 
                        {/* right side */}
                        <div className="appli_detail_container_right" style={{display:"flex" , flexDirection:"column" , gap:"2px" }}>
-                         <p className="applied_appli_title"  style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.artNature} </p>
+                         <p className="applied_appli_title"  style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.opportunity?.artNature} </p>
 
-                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.category}</p>
+                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.opportunity?.category}</p>
 
-                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.location}</p>
+                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.opportunity?.location}</p>
 
-                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{new Date(event.performanceDate).toLocaleDateString(
+                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{new Date(event?.opportunity?.performanceDate).toLocaleDateString(
                           "en-US",
                           { day: "numeric", month: "short", year: "numeric" }
                         )}</p>
 
-                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.budget}</p>
+                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.opportunity?.budget}</p>
 
                          <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>
-                          {event.languages?.map((lan, index) => (
+                          {event?.opportunity?.languages?.map((lan, index) => (
                               <span key={index}>{lan} {``}</span>
                             ))}</p>
 
                            <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}> {new Date(
-                            event?.applicationPeriod?.end
+                            event?.opportunity?.applicationPeriod?.end
                           ).toLocaleDateString("en-US", {
                             day: "numeric",
                             month: "short",

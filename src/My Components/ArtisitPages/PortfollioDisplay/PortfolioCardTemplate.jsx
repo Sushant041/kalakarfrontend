@@ -55,7 +55,7 @@ function PortfolioDisplayTemplate({
               <img src={location} alt="" />{" "}
             </div>
             <p className="card_detail_text">
-              {portfolioData?.address?.district} {portfolioData?.address?.state}{" "}
+              {portfolioData?.address?.state}{" "}
               {portfolioData?.address?.pincode}
             </p>
           </div>

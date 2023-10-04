@@ -63,10 +63,21 @@ const fetchUserData = async()=>{
     const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API , accessToken);
     console.log('ress' , response);
 
-    if(response.success === 'success'){
-      const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance , yearOfExperience ,artName  , aboutJourney , avatar } = response.data;
+    if(response.status === 'success'){
+
+      const {contactNumber , email , firstName , lastName ,age , about , avatar , monthlyIncome
+      } = response.data.personalInfo;
+
+      const {artNature , artName ,  } = response.data.artInfo;
+
+
+      const  { perfType  , perfEvent ,  perfCharge ,  experience ,     } = response.data.performanceInfo;
+
+     
+
     setPortfolioData({
-      phoneNumber , email,address , handles , firstName , lastName , natureOfArt , age ,eventType , performanceType , minimumBudget , chargePerPerformance ,avatar , yearOfExperience ,artName , aboutJourney
+      phoneNumber:contactNumber , email,address:response.data?.address , handles:response.data?.socialLinks  , firstName , lastName , natureOfArt:artNature , age ,eventType:perfEvent , performanceType : perfType , minimumBudget:monthlyIncome
+      , chargePerPerformance:perfCharge ,avatar , yearOfExperience:experience ,artName , aboutJourney:about
     }) 
     }else{
       toast.error('something went wrong , please refresh the page' , {

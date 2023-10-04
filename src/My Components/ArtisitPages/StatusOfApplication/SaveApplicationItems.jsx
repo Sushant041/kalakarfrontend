@@ -39,7 +39,10 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
         statusOfAppliPoints.FETCH_SAVED_APPLI_API,
         accessToken
       );
-      if (response.success === "success") {
+
+      console.log('ress' , response);
+
+      if (response.status === "success") {
         setJobData(response.data);
       } else {
         toast.error(response.message , {
@@ -69,7 +72,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
         accessToken
       );
       console.log("[res", response);
-      if (response.success === "success") {
+      if (response.status === "success") {
         toast.success("Successfully Unsaved the Application" , {
           position:"top-center"
         });

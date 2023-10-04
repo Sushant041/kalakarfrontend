@@ -35,11 +35,19 @@ export function Artist_OpportunitiesMoreInfo() {
 
   useEffect(()=>{
    if(job?.status === 'Applied'){
+<<<<<<< HEAD
     setCurrentId(job?._id);
     setJobData(job);
    }
    else {
     setCurrentId(job?._id);
+=======
+    setCurrentId(job?.opportunity._id);
+    setJobData(job);
+   }
+   else {
+    setCurrentId(job?.opportunity._id);
+>>>>>>> d4d91cb88cad56185a5e556106b17a3368d4911c
     setJobData(job);
    }
   },[])
@@ -115,21 +123,21 @@ useEffect(() => {
       <Artist_navbar />
       <div className="OpportunitiesMoreInfoPage">
         <div className="OpportunitiesMoreInfoPage_Topbox">
-          <h1 style={{color:"#AD2F3B"}}>{jobData?.position}</h1>
+          <h1 style={{color:"#AD2F3B"}}>{jobData?.opportunity?.position}</h1>
           <div className="OpportunitiesMoreInfoPage_Topboxcontent">
             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
               <p>
-                Category :&emsp;<span>{jobData?.category}</span>
+                Category :&emsp;<span>{jobData?.opportunity?.category}</span>
               </p>
               <p>
-                Posted on :&emsp;<span>{new Date(jobData?.applicationPeriod?.start).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
+                Posted on :&emsp;<span>{new Date(jobData?.opportunity?.applicationPeriod?.start).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
               </p>
               <p>
-                Due Date :&emsp; <span>{new Date(jobData?.applicationPeriod?.end).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
+                Due Date :&emsp; <span>{new Date(jobData?.opportunity?.applicationPeriod?.end).toLocaleDateString("en-US", { day: "numeric", month: "short", year: "numeric" })}</span>
               </p>
               <p>
                 {" "}
-                Opening :&emsp; <span>{jobData?.requiredArtists}</span>
+                Opening :&emsp; <span>{jobData?.opportunity?.requiredArtists}</span>
               </p>
             </div>
             <div className="OpportunitiesMoreInfoPage_Topboxbtns">
@@ -141,7 +149,7 @@ useEffect(() => {
 
         <div className="OpportunitiesMoreInfoPage_bottombox">
           <h1>Description</h1>
-          <p>{jobData?.description}</p>
+          <p>{jobData?.opportunity?.description}</p>
           <h1>Other Details</h1>
           <div className="OpportunitiesMoreInfoPage_bottombox_RSO">
             <div>
@@ -161,6 +169,7 @@ useEffect(() => {
             </div>
             <div>
               <p>
+<<<<<<< HEAD
                 <span>{jobData?.expertise} a</span>
               </p>
               <p>
@@ -170,10 +179,22 @@ useEffect(() => {
                 <span>
                   {jobData?.languages?.map((lag, index) => (
                     <span key={index}>{lag}  </span>
+=======
+                <span>{jobData?.opportunity?.expertise} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.location} a</span>
+              </p>
+              <p>
+                <span>
+                  {jobData?.opportunity?.languages?.map((lag, index) => (
+                    <span key={index}>{lag} a </span>
+>>>>>>> d4d91cb88cad56185a5e556106b17a3368d4911c
                   ))}
                 </span>
               </p>
               <p>
+<<<<<<< HEAD
                 <span>{jobData?.budget} </span>
               </p>
               <p>
@@ -202,6 +223,36 @@ useEffect(() => {
               </p>
               <p>
                 <span>{jobData?.postedBy} </span>
+=======
+                <span>{jobData?.opportunity?.budget} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.theme} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.timeSlot} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.performanceDuration} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.artNature} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.performanceType} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.mediaType} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.artLevel} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.location} a</span>
+              </p>
+              <p>
+                <span>{jobData?.opportunity?.postedBy} a </span>
+>>>>>>> d4d91cb88cad56185a5e556106b17a3368d4911c
               </p>
             </div>
           </div>

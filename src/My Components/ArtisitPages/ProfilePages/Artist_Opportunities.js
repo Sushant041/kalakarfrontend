@@ -68,7 +68,7 @@ export function Artist_Opportunities() {
         accessToken
       );
 
-      if (response.status === "success") {
+      if (response.success === "success") {
         toast.success("successfully applied" ,{
           position:"top-center"
         });

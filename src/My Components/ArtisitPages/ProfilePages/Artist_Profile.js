@@ -11,9 +11,9 @@ import { toast,  } from 'react-toastify';
 import {  artistProfilePoints } from "../../../services/apis";
 import Artist_navbar from "../Artist_navbar";
 import art from "./assets/art.svg"
-import expected from "./assets/expected.svg"
 import star from "./assets/star.svg"
 import performance from "./assets/performance.svg"
+import { specialization , languages , artform , performanceduration , performancetype , natureofArt , nameofart , courses , highestLevelOfPerformance , ChargesPerPerformance } from "../../../Data/artistProfile";
 
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
@@ -47,7 +47,7 @@ export function Artist_Profile() {
       state: "",
       district: "",
       pincode: "",
-      detailedAddress: "",
+      details: "",
     },
     numOfperformanceLastYear:"",
     handles: {
@@ -62,6 +62,7 @@ export function Artist_Profile() {
     upiId: "",
     passportNumber: "",
   });
+
 
   // ! change  handler for basic profile
   const changeHandler = (event) => {
@@ -98,10 +99,26 @@ export function Artist_Profile() {
     event.preventDefault();
 
     const toastId = toast.loading('Loading...');
+
+    let address = basicFormData.address;
+
+   let {firstName , lastName , about , age , phoneNumber , email , gender , monthlyIncome,aadharNumber , panNumber , upiId , passportNumber , numOfperformanceLastYear , handles} = basicFormData;
+
+   let personalInfo = {
+    firstName , lastName , about , age , phoneNumber , email , gender , monthlyIncome
+   }
+
+   let otherInfo = {
+  aadharNumber , panNumber , upiId , passportNumber , numOfperformanceLastYear
+   }
+
+   let socialLinks = handles;  
+
     try {
-      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, basicFormData, accessToken);
-      if (response.success === "success") {
-        toast.success('🦄 successFully updated', {
+      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, {address , personalInfo , otherInfo , socialLinks}, accessToken);
+
+      if (response.status === "success") {
+        toast.success(' successFully updated', {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -137,6 +154,7 @@ export function Artist_Profile() {
     artEducation: "",
     artName: "",
     nameOfGuru: "",
+    traditionArtName:"",
     artEduDuration: {
       start: "",
       end: "",
@@ -152,6 +170,12 @@ export function Artist_Profile() {
       end: "",
     },
     certificateOfAcademicQualification: "",
+    certificateInstitute:"" , 
+    certificateCourse:"",
+    certificateDuration: {
+      start: "",
+      end: "",
+    },
   });
 
   const artChangeHandler = (event) => {
@@ -187,9 +211,35 @@ export function Artist_Profile() {
     event.preventDefault();
     const toastId = toast.loading("Loading...");
 
+    const {artEduDuration , artForm , artName , performanceType ,natureOfArt  , nameOfGuru , yearOfCompletation , traditionArtName , academicQualification , course , specialization , institute , academicQualificationDuration ,certificateCourse , certificateInstitute , certificateDuration } = artFormData;
+
+
+
+    let artInfo = {
+        artForm , artName , perfType:performanceType , artNature : natureOfArt
+    }
+
+    let traditionalInfo = {
+      guruName: nameOfGuru , completionYear:yearOfCompletation , artName : traditionArtName , duration:artEduDuration
+    }
+
+    let professionalInfo = {
+      course: course , duration:academicQualificationDuration , institute , specialization , qualification:academicQualification
+    }
+
+    let certificateInfo = {
+      course: certificateCourse , 
+      duration :certificateDuration , 
+      institute :certificateInstitute 
+    }
+
+
     try {
-      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, artFormData, accessToken);
-      if (response.success === "success") {
+      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, {artInfo , traditionalInfo , professionalInfo , certificateInfo} , accessToken);
+
+      console.log('artrespone' , response);
+
+      if (response.status === "success") {
         toast.success("successfuly update" , {
           position:"top-center"
         });
@@ -224,6 +274,7 @@ export function Artist_Profile() {
     thematic: "",
     NoOfPerformanceLastYear: "",
     performanceDuration: "",
+    performanceType:"",
     chargesPerPerformance: "",
     averagePerformanceIncome: "",
     aboutJourney: "",
@@ -264,10 +315,58 @@ export function Artist_Profile() {
 
     const toastId = toast.loading("Loading...");
     try {
-      console.log('performmda' ,performanceFormData);
-      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, performanceFormData, accessToken);
+
+      const {
+        yearOfExperience ,
+      affiliatedToAnyGroup,
+      nameOfTheAffiliatedGroup,
+      affiliatedToAnyOrg,
+      nameOfTheAffiliatedOrg,
+      totalNoOfPerformance,
+      highestLevelOfPerformance,
+      topFivePerformance,
+      performanceEvents,
+      thematic,
+      NoOfPerformanceLastYear,
+      performanceDuration,
+      chargesPerPerformance,
+      averagePerformanceIncome,
+      performanceType,
+      } = performanceFormData;
+
+      let performanceInfo = {
+        perfType : performanceType , 
+        experience:yearOfExperience , 
+        affiliation : {
+          group: {
+            groupName : nameOfTheAffiliatedGroup , 
+            isAffiliated:affiliatedToAnyGroup
+          } , 
+          organization :{
+            orgName :nameOfTheAffiliatedOrg,
+            isAffiliated:  affiliatedToAnyOrg
+
+          }
+        }
+        ,
+        totalPerfs: totalNoOfPerformance , 
+       
+        peakPerf : highestLevelOfPerformance , 
+        perfNames : [...topFivePerformance] , 
+        perfEvent: performanceEvents ,
+        thematic: thematic , 
+        lastYearPerfs: NoOfPerformanceLastYear,
+        perfDuration  : performanceDuration , 
+        perfCharge  : chargesPerPerformance , 
+        perfIncome: averagePerformanceIncome , 
+
+
+      }
+
+
+      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, {performanceInfo}, accessToken);
       console.log('response ' , response);
-      if (response.success === "success") {
+      if (response.status === "success") {
         toast.success("successfully updated " , {
           position:"top-center"
         });
@@ -288,56 +387,7 @@ export function Artist_Profile() {
     toast.dismiss(toastId);
   };
 
-  // ! for expected opprotunity
-  const [expectedFormData, setExpectedFormData] = useState({
-    natureOfExpectedOpp: "",
-    nameOfTheArtPerformed: "",
-    typeOfExpectedOpp: "",
-    currentLocation: "",
-    ExpectedOppLocation: "",
-    NoOfLanguagesKnown: "",
-    nameOfLanguagesKnown: "",
-    minPerformanceTime: "",
-    minimumBudget: "",
-    levelOfStagesWantToPerform: "",
-    upskilling: "",
-    collaboration: "",
-    promotion: "",
-    performanceSupport: "",
-  });
 
-  const expecChangeHandler = (event) => {
-    const { name, value } = event.target;
-
-    setExpectedFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const expectedSubmitHandler = async (event) => {
-    event.preventDefault();
-    console.log("exformda", expectedFormData);
-    const toastId = toast.loading("Loading...");
-    try {
-      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, expectedFormData, accessToken);
-      console.log("response", response);
-      if (response.success === "success") {
-        toast.success("successfully update" , {
-          position:"top-center"
-        });
-      } else {
-        toast.error(response.message);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("cannot update successfuly , please try again" ,{
-        position:"top-center"
-      });
-    }
-
-    toast.dismiss(toastId);
-  };
 
   // ! for award profile
   const [awardFormData, setAwardFormData] = useState({
@@ -376,13 +426,28 @@ export function Artist_Profile() {
     event.preventDefault();
     const taostId = toast.loading("Loding...");
     try {
-      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, awardFormData, accessToken);
+
+      const {totalAwards , totalNoOfLocalAwards , totalNoOfDistrictAwards , totalNoOfStateAwards , totalNoOfNationalAwards , totalNoOfInternationalAwards , awards} = awardFormData;
+
+      let awardsInfo      = {
+        districtAwards : totalNoOfDistrictAwards , 
+        internationalAwards : totalNoOfInternationalAwards , 
+        localAwards : totalNoOfLocalAwards , 
+        nationalAwards: totalNoOfNationalAwards  , 
+        stateAwards : totalNoOfStateAwards ,
+        totalAwards : totalAwards  , 
+        awardsDetails :[
+...awards
+        ]
+      }
+
+      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, {awardsInfo }, accessToken);
       console.log("response", response);
-      if (response.success === "success") {
+      if (response.status === "success") {
         toast.success("successfully update" , {
           position:"top-center"
         });
-        setActiveSection("expected");
+       
         localStorage.setItem("activeSection", activeSection);
       } else {
         toast.error(response.message , {
@@ -431,196 +496,128 @@ export function Artist_Profile() {
       console.log("fetchdata", response);
 
 
-      const {
-        firstName,
-        lastName,
-        email,
-        aboutJourney,
-        phoneNumber,
-        age,
-        avatar ,
-        gender,
-        language,
-        monthlyIncome,
-        address,
-        handles,
-        artEduDuration,
-        academicQualificationDuration,
-        aadharNumber,
-        panNumber,
-        upiId,
-        
-        passportNumber,
-        numOfperformanceLastYear,
-        natureOfArt,
-        areaOfInterest,
-        genre,
-        performanceType,
-        artEducation,
-        artName,
-        artForm,
-        nameOfGuru,
-        yearOfCompletation,
-        certificateOfArt,
-        academicQualification,
-        course,
-        specialization,
-        institute,
-        certificateOfAcademicQualification,
-        yearOfExperience,
-        affiliatedToAnyGroup,
-        nameOfTheAffiliatedGroup,
-        affiliatedToAnyOrg,
-        nameOfTheAffiliatedOrg,
-        totalNoOfPerformance,
-        highestLevelOfPerformance,
-        topFivePerformance,
-        performanceEvents,
-        thematic,
-        NoOfPerformanceLastYear,
-        performanceDuration,
-        chargesPerPerformance,
-        averagePerformanceIncome,
-        natureOfExpectedOpp,
-        nameOfTheArtPerformed,
-        typeOfExpectedOpp,
-        currentLocation,
-        ExpectedOppLocation,
-        NoOfLanguagesKnown,
-        nameOfLanguagesKnown,
-        minPerformanceTime,
-        minimumBudget,
-        levelOfStagesWantToPerform,
-        upskilling,
-        collaboration,
-        promotion,
-        performanceSupport,
-        totalAwards,
-        totalNoOfLocalAwards,
-        totalNoOfDistrictAwards,
-        totalNoOfStateAwards,
-        totalNoOfNationalAwards,
-        totalNoOfInternationalAwards,
-        awards: [...awards],
-      } = response.data;
-
-    
-      if(avatar){
-        setProfileAvatar(avatar);
+    const {address , appliedOpportunities , artInfo , awardsInfo , certificateInfo , otherInfo , performanceInfo , personalInfo , professionalInfo , savedOpportunities , socialLinks , traditionalInfo} = response.data;
+      
+      if(personalInfo.avatar.url){
+        setProfileAvatar(personalInfo.avatar.url);
       }
+
      
       setBasicFormData((prev) => ({
         ...prev,
-        firstName,
-        lastName,
-        email,
-        age,
-        phoneNumber,
-        gender,
-        aboutJourney,
-        language,
-        monthlyIncome,
-        aadharNumber,
-        panNumber,
-        upiId,
-        numOfperformanceLastYear,
-        passportNumber,
+        firstName : personalInfo?.firstName ,
+        lastName : personalInfo?.lastName,
+        email : personalInfo?.email,
+        age : personalInfo?.age,
+        phoneNumber : personalInfo?.contactNumber,
+        gender : personalInfo?.gender,
+        aboutJourney : personalInfo?.about,
+        language : personalInfo?.languages,
+        monthlyIncome : personalInfo?.monthlyIncome,
+        aadharNumber : otherInfo?.aadharNumber,
+        panNumber : otherInfo?.panNumber,
+        upiId : otherInfo?.upiId,
+        numOfperformanceLastYear : otherInfo?.lastYearPerfsCount,
+        passportNumber : otherInfo?.passportNumber,
         address: {
           ...prev.address,
           ...response.data.address,
         },
         handles: {
           ...prev.handles,
-          ...response.data.handles,
+          ...response.data.socialLinks,
         },
       }));
 
       setArtFormData((prev) => ({
         ...prev,
-        natureOfArt,
-        areaOfInterest,
-        genre,
-        artForm ,
-        performanceType,
-        artEducation,
-        artName,
-        nameOfGuru,
-        yearOfCompletation,
-        certificateOfArt,
-        academicQualification,
-        course,
-        specialization,
-        institute,
-        certificateOfAcademicQualification,
+        natureOfArt :artInfo?.artNature ,
+        // check
+        areaOfInterest : artInfo?.areaOfInterest ,
+
+        // genre,
+
+        traditionArtName: traditionalInfo?.artName,
+
+        artForm : artInfo?.artForm ,
+        performanceType : artInfo?.perfType,
+        // check 
+        artEducation : artInfo?.learningSrc ,
+        artName : artInfo?.artName,
+        
+        nameOfGuru : traditionalInfo?.guruName,
+        yearOfCompletation :traditionalInfo?.completionYear  ,
+        certificateOfArt :traditionalInfo?.certificate,
+        academicQualification : professionalInfo?.qualification ,
+        course : professionalInfo?.course,
+        specialization : professionalInfo?.specialization,
+        institute : professionalInfo?.institute,
+
+        // certificateOfAcademicQualification,
+        certificateInstitute :certificateInfo?.institute , 
+
+        certificateCourse : certificateInfo?.course , 
+        
+
         artEduDuration: {
           ...prev.artEduDuration,
-          ...response.data.artEduDuration,
+          ...response.data?.traditionalInfo?.duration,
         },
+
         academicQualificationDuration: {
           ...prev.academicQualificationDuration,
-          ...response.data.academicQualificationDuration,
+          // check
+        ...professionalInfo?.duration
+        },
+
+        certificateDuration: {
+          ...prev.certificateDuration,
+          // check
+        ...certificateInfo?.duration
         },
       }));
 
       setPerformanceFormData((prev) => ({
         ...prev,
-        yearOfExperience,
-        performanceType,
-        affiliatedToAnyGroup,
-        nameOfTheAffiliatedGroup,
-        affiliatedToAnyOrg,
-        nameOfTheAffiliatedOrg,
-        totalNoOfPerformance,
-        highestLevelOfPerformance,
-        topFivePerformance,
-        performanceEvents,
-        thematic,
-        NoOfPerformanceLastYear,
-        performanceDuration,
-        chargesPerPerformance,
-        averagePerformanceIncome,
-        aboutJourney,
+        yearOfExperience  : performanceInfo?.experience,
+        performanceType : performanceInfo?.perfType  ,
+        affiliatedToAnyGroup : performanceInfo?.affiliation?.group?.isAffiliated,
+        nameOfTheAffiliatedGroup :performanceInfo?.affiliation?.group?.groupName,
+        affiliatedToAnyOrg :performanceInfo?.affiliation?.organization?.isAffiliated,
+        nameOfTheAffiliatedOrg :performanceInfo?.affiliation?.organization?.orgName,
+        totalNoOfPerformance :performanceInfo?.totalPerfs,
+        highestLevelOfPerformance :performanceInfo?.peakPerf,
+        topFivePerformance :performanceInfo?.perfNames,
+        performanceEvents :performanceInfo?.perfEvent,
+        thematic :performanceInfo?.thematic,
+        NoOfPerformanceLastYear :performanceInfo?.lastYearPerfs,
+        performanceDuration :performanceInfo?.perfDuration,
+        chargesPerPerformance :performanceInfo?.perfCharge,
+        averagePerformanceIncome :performanceInfo?.perfIncome,
       }));
 
 
-      setExpectedFormData((prev) => ({
-        ...prev,
-        natureOfExpectedOpp,
-        nameOfTheArtPerformed,
-        typeOfExpectedOpp,
-        currentLocation,
-        ExpectedOppLocation,
-        NoOfLanguagesKnown,
-        nameOfLanguagesKnown,
-        minPerformanceTime,
-        minimumBudget,
-        levelOfStagesWantToPerform,
-        upskilling,
-        collaboration,
-        promotion,
-        performanceSupport,
-      }));
-
+     
       setAwardFormData((prev) => ({
         ...prev,
-        totalAwards,
-        totalNoOfLocalAwards,
-        totalNoOfDistrictAwards,
-        totalNoOfStateAwards,
-        totalNoOfNationalAwards,
-        totalNoOfInternationalAwards,
-        awards: awards.length === 0
+        totalAwards :awardsInfo?.totalAwards,
+        totalNoOfLocalAwards : awardsInfo?.localAwards,
+        totalNoOfDistrictAwards :awardsInfo?.districtAwards,
+        totalNoOfStateAwards :awardsInfo?.stateAwards,
+        totalNoOfNationalAwards: awardsInfo?.nationalAwards,
+        totalNoOfInternationalAwards: awardsInfo?.internationalAwards,
+        awards: awardsInfo?.awardsDetails.length === 0
     ? [
       {
-        name: "",
+        title: "",
         level: "",
         category: "",
-        nameOfTheStage: "",
+        stage: "",
         year: "",
         givenBy: ""
       }
     ]
-    : awards 
+    : awardsInfo?.awardsDetails 
       }));
     } catch (error) {
       console.log(error);
@@ -678,30 +675,6 @@ setProfileAvatar(null);
   
 
 
-    const languages=["Hindi", "Bengali", "Telugu", "Marathi", "Tamil", "Urdu", "Gujarati", "Kannada", "Punjabi", "Malayalam", "Odia", "Assamese", "Bhojpuri", "Haryanvi", "Rajasthani", "Sindhi", "Konkani", "Manipuri", "Maithili", "Santali", "Kashmiri", "Nepali", "Dogri", "Kokborok", "Khasi", "Mizo (Lushai)", "Tulu", "Garhwali", "Kumaoni", "Bhili","English", "Spanish", "French", "German", "Italian", "Portuguese", "Chinese" , "Japanese", "Korean", "Russian"]
-
-  const artform =  ["Solo Act", "Band/Group", "Dance Crew", "Theatre/Play", "Comedy", "Magic/Illusion",
-    "Circus/Street Performance", "Visual Arts", "Fire/Danger Acts", "Variety Show",
-    "Interactive/Immersive", "Folk/Cultural", "Digital/Technology", "Poetry/Spoken Word", "Performance Art"
-  ];
-
-  const specialization =["Classical Dance Forms", "Traditional Music", "Comedy / stand up comedy", "Traditional Crafts and Handicrafts", "Storytelling", "Folk arts and Culinary Arts", "singing", "dancing", "acting"]
-
-  const performancetype=["Solo Act", "Band/Group", "Dance Crew", "Theatre/Play", "Comedy", "Magic/Illusion", "Circus/Street Performance", "Visual Arts", "Fire/Danger Acts", "Variety Show", "Interactive/Immersive", "Folk/Cultural", "Digital/Technology", "Poetry/Spoken Word", "Performance Art"]
-
-  const natureofArt=["Visual Arts", "Performing Arts", "Literary Arts", "Digital Arts", "Applied Arts", "Craftsmanship", "Culinary Arts", "Performance Arts", "Body Arts", "Environmental Art", "Conceptual Art", "Sound Art", "Textile Arts", "Community Arts", "Graffiti Art"]
-
-  const nameofart=["Bharatanatyam", "Kathak", "Odissi", "Kathakali", "Manipuri", "Mohiniyattam", "Bhangra", "Garba", "Dandiya Raas", "Lavani", "Kuchipudi", "Sattriya", "Chhau", "Giddha", "Yakshagana", "Bihu", "Rauf", "Kalbelia", "Gotipua"
-]
-
-  const courses=["Madhubani", "Tanjore", "Warli", "Miniature Painting", "Clay Modeling", "Stone Carving", "Wood Carving", "Bharatanatyam", "Kathak", "Odissi", "Classical Music", "Pottery", "Embroidery", "Weaving", "Block Printing", "Sitar", "Tabla", "Flute", "Veena"
-]
-  const highestLevelOfPerformance=["International", "National", "State", "District", "Taluka", "Local", "Others"]
-
-  const performanceduration=["½ hour", "1 hour", "1½ hours", "2 hours", "2½ hours", "3 hours", "3½ hours", "4 hours", "4½ hours", "5 hours"]
-
-  const ChargesPerPerformance=["5000", "10000", "15000", "20000", "25000", "30000", "35000", "40000", "45000", "50000"]
-
     
 
   return (
@@ -749,9 +722,7 @@ setProfileAvatar(null);
                   <button className={activeSection === "award" ? "active" : ""} onClick={() => handleClick("award")}>
                     <img src="assets/Basic Profile/AwardProfile.svg" /> Award Profile
                   </button>
-                  <button className={activeSection === "expected" ? "active" : ""} onClick={() => handleClick("expected")}>
-                    <img src="assets/Basic Profile/Expected.svg" /> Expected Opportunities
-                  </button>
+                  
                 </Nav>
               </div>
             </Navbar.Collapse>
@@ -793,14 +764,23 @@ setProfileAvatar(null);
           <button className={activeSection === "award" ? "active" : ""} onClick={() => handleClick("award")}>
             <img src={star} /> Award Profile
           </button>
-          <button className={activeSection === "expected" ? "active" : ""} onClick={() => handleClick("expected")}>
-            <img src={expected} /> Expected Opportunities
-          </button>
+        
         </div>
+        <div className="BasicProfile_avatar">
+          <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} />
+          <button onClick={handleButtonClick} className="BasicProfile_editavatar">Edit Profile Picture</button>
+          <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button>
+        </div>
+        <div className="BasicProfile_name">
+          <p style={{fontWeight:"500" , fontSize:"30px"}} >
+            {" "}
+            Hello,<br />{basicFormData.firstName.toUpperCase()} {basicFormData.lastName.toUpperCase()}
+            <b></b>
+          </p>
+        </div>
+      </div>
 
-          
-        </div>
-        <div className="profile-right">
+
 
                 {/* this is for basic  */}
       {activeSection === "basic" && (
@@ -928,7 +908,7 @@ setProfileAvatar(null);
               </div>
               <div className="BasicProfile_inputfield BasicProfile_Addresslong">
                 <label>Detailed Address</label>
-                <textarea style={{width:"100%" , height:"150px" , resize:"none" , borderRadius:"10px" , padding:"10px"}} onChange={changeHandler} name="address.detailedAddress" value={basicFormData.address.detailedAddress} type="text" />
+                <textarea style={{width:"100%" , height:"150px" , resize:"none" , borderRadius:"10px" , padding:"10px"}} onChange={changeHandler} name="address.details" value={basicFormData.address.details} type="text" />
               </div>
             </div>
             <h4>
@@ -973,7 +953,7 @@ setProfileAvatar(null);
               </div>
               <div className="BasicProfile_inputfield">
                 <label>LinkedIn</label>
-                <input onChange={changeHandler} value={basicFormData?.handles?.linkedIn} name="handles.linkedin" type="text"></input>
+                <input onChange={changeHandler} value={basicFormData?.handles?.linkedIn} name="handles.linkedIn" type="text"></input>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Website</label>
@@ -996,7 +976,7 @@ setProfileAvatar(null);
             <div className="ArtProfile_ArtInfo">
               <div className="ArtProfile_inputfield">
                 <label>Nature of Art*</label>
-                {/* <input placeholder="Select art nature " onChange={artChangeHandler} name="natureOfArt" value={artFormData.natureOfArt} type="text"></input> */}
+             
                 <select onChange={artChangeHandler} value={artFormData.natureOfArt} name="natureOfArt" placeholder="Select nature of art" >
                   <option selected hidden>
                   Select nature of art
@@ -1081,7 +1061,7 @@ setProfileAvatar(null);
             <div className="ArtProfile_Traditional">
               <div className="ArtProfile_inputfield">
                 <label>Name of Art</label>
-                <input type="text" value={artFormData.artName} name="artName" onChange={artChangeHandler}></input>
+                <input type="text" value={artFormData.traditionArtName} name="traditionArtName" onChange={artChangeHandler}></input>
               </div>
               <div className="ArtProfile_inputfield">
                 <label>Name of Guru</label>
@@ -1189,11 +1169,14 @@ setProfileAvatar(null);
                   <input onChange={artChangeHandler} value={artFormData.certificateOfAcademicQualification} name="certificateOfAcademicQualification" type="file"></input>
                 </div> */}
               </div>
+
               <h4>CERTIFICATE COURSES</h4>
+
               <div className="ArtProfile_Certificate">
                 <div className="ArtProfile_inputfield">
-                  <label>Course</label>
-                  <select>
+                  <label  >Course</label>
+
+                  <select value={artFormData.certificateCourse} name="certificateCourse" onChange={artChangeHandler} >
                     <option selected hidden>
                       Select Course
                     </option>
@@ -1206,7 +1189,7 @@ setProfileAvatar(null);
                 </div>
                 <div className="ArtProfile_inputfield">
                   <label>Institute</label>
-                  <select>
+                  <select name="certificateInstitute" value={artFormData.certificateInstitute} >
                     <option selected hidden>
                       Select Institute
                     </option>
@@ -1214,9 +1197,11 @@ setProfileAvatar(null);
                 </div>
                 <div className="ArtProfile_inputfield">
                   <label>Duration</label>
+
                   <div className="Artprofile_duration">
-                    <input type="text" placeholder="Start Date" onFocus={(e) => (e.target.type = "date")} onBlur={(e) => (e.target.type = "text")} />
-                    <input type="text" placeholder="End Date" onFocus={(e) => (e.target.type = "date")} onBlur={(e) => (e.target.type = "text")} />
+                    <input  name="certificateDuration.start" value={artFormData.certificateDuration.start} onChange={artChangeHandler} type="text" placeholder="Start Date" onFocus={(e) => (e.target.type = "date")} onBlur={(e) => (e.target.type = "text")} />
+
+                    <input onChange={artChangeHandler}  name="certificateDuration.start" value={artFormData.certificateDuration.end} type="text" placeholder="End Date" onFocus={(e) => (e.target.type = "date")} onBlur={(e) => (e.target.type = "text")} />
                   </div>
                 </div>
                 {/* <div className="ArtProfile_inputfield">
@@ -1235,13 +1220,17 @@ setProfileAvatar(null);
 
 {/* this is for performance */}
       {activeSection === "performance" && (
+
         <div style={{fontFamily:"Poppins"}} className="PerformanceProfile_Infoform">
+
           <form onSubmit={perforSubmitHandler}>
+
             <h4>PERFORMANCE INFORMATION</h4>
+
             <div className="PerformanceProfile_PerformInfo">
               <div className="PerformanceProfile_inputfield">
                 <label>Performance Type</label>
-                <select name="performaceType" value={performanceFormData?.performanceType} >
+                <select name="performanceType" onChange={perforChangeHandler} value={performanceFormData?.performanceType} >
                   <option  disabled value={""} >
                     Select Type
                   </option>
@@ -1337,9 +1326,13 @@ setProfileAvatar(null);
                 
                 <div  style={{display:"flex" , flexWrap:"wrap" , gap:"20px"}}>
                   <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.0`} value={performanceFormData.topFivePerformance[0]}  placeholder="Performance 1" />
+
                   <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.1`} value={performanceFormData.topFivePerformance[1]} placeholder="Performance 2" />
+
                   <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.2`} value={performanceFormData.topFivePerformance[2]} placeholder="Performance 3" />
+
                   <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.3`} value={performanceFormData.topFivePerformance[3]} placeholder="Performance 4" />
+
                   <input style={{width:"170px" , height:"60px" ,}} onChange={perforChangeHandler} name={`topFivePerformance.4`} value={performanceFormData.topFivePerformance[4]} placeholder="Performance 5" />
                 </div>
   
@@ -1476,7 +1469,7 @@ setProfileAvatar(null);
                     <div className="AwardProfile_Awarddetials">
                       <div className="AwardProfile_inputfield">
                         <label>Award Name</label>
-                        <input value={award.name} onChange={(e) => handleInputChange(index, "name", e.target.value)} type="text"></input>
+                        <input value={award.title} onChange={(e) => handleInputChange(index, "title", e.target.value)} type="text"></input>
                       </div>
                       <div className="AwardProfile_inputfield">
                         <label>Award Level</label>
@@ -1506,7 +1499,7 @@ setProfileAvatar(null);
                       </div>
                       <div className="AwardProfile_inputfield">
                         <label>Name of the Stage</label>
-                        <input value={award.nameOfTheStage} onChange={(e) => handleInputChange(index, "nameOfTheStage", e.target.value)} type="text"></input>
+                        <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
                       </div>
                       <div className="AwardProfile_inputfield">
                         <label>Award Year</label>
@@ -1537,7 +1530,7 @@ setProfileAvatar(null);
                     <div className="AwardProfile_Awarddetials">
                       <div className="AwardProfile_inputfield">
                         <label>Award Name</label>
-                        <input value={award.name} onChange={(e) => handleInputChange(index, "name", e.target.value)} type="text"></input>
+                        <input value={award.title} onChange={(e) => handleInputChange(index, "title", e.target.value)} type="text"></input>
                       </div>
                       <div className="AwardProfile_inputfield">
                         <label>Award Level</label>
@@ -1557,7 +1550,7 @@ setProfileAvatar(null);
                       </div>
                       <div className="AwardProfile_inputfield">
                         <label>Name of the Stage</label>
-                        <input value={award.nameOfTheStage} onChange={(e) => handleInputChange(index, "nameOfTheStage", e.target.value)} type="text"></input>
+                        <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
                       </div>
                       <div className="AwardProfile_inputfield">
                         <label>Award Year</label>
@@ -1591,102 +1584,8 @@ setProfileAvatar(null);
         </div>
       )}
 
-{/* this is for expected */}
-      {activeSection === "expected" && (
-        <div style={{fontFamily:"Poppins"}} className="ExpectedoppoProfile_Infoform">
-          <form onSubmit={expectedSubmitHandler}>
-            <h4>EXPECTED OPPORTUNITIES</h4>
-            <div className="ExpectedoppoProfile_Expectedoppo">
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Nature of Art</label>
-                <input value={expectedFormData.natureOfExpectedOpp} name="natureOfExpectedOpp" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Name of the Art you Perform</label>
-                <input value={expectedFormData.nameOfTheArtPerformed} name="nameOfTheArtPerformed" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Type of Performance</label>
-                <select value={expectedFormData.typeOfExpectedOpp} name="typeOfExpectedOpp" onChange={expecChangeHandler}>
-                  <option selected hidden>
-                    Select type
-                  </option>
-                  {performancetype.map((option) => (
-          <option  value={option}>
-            {option}
-          </option>
-        ))}
-                </select>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Current Location</label>
-                <input value={expectedFormData.currentLocation} name="currentLocation" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Expected Opportunity Location</label>
-                <input value={expectedFormData.ExpectedOppLocation} name="ExpectedOppLocation" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>No of Languages Known</label>
-                <input value={expectedFormData.NoOfLanguagesKnown} name="NoOfLanguagesKnown" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Name the Languages you Know</label>
-                <input value={expectedFormData.nameOfLanguagesKnown} name="nameOfLanguagesKnown" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Minimum Performance Time</label>
-                <select value={expectedFormData.minPerformanceTime} name="minPerformanceTime" onChange={expecChangeHandler}>
-                  <option selected hidden>
-                    Select duration time
-                  </option>
-                  {performanceduration.map((option) => (
-          <option  value={option}>
-            {option}
-          </option>
-        ))}
-                </select>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Minimum Budget</label>
-                <input value={expectedFormData.minimumBudget} name="minimumBudget" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Level of Stages Want to Perform</label>
-                <select value={expectedFormData.levelOfStagesWantToPerform} name="levelOfStagesWantToPerform" onChange={expecChangeHandler}>
-                  <option selected hidden>
-                    Select multiple
-                  </option>
-                </select>
-              </div>
-            </div>
-            <h4>NEED SUPPORT</h4>
-            <div className="ExpectedoppoProfile_Needsupport">
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Upskilling</label>
-                <input value={expectedFormData.upskilling} name="upskilling" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Collaboration</label>
-                <input value={expectedFormData.collaboration} name="collaboration" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Promotion</label>
-                <input value={expectedFormData.promotion} name="promotion" onChange={expecChangeHandler} type="text"></input>
-              </div>
-              <div className="ExpectedoppoProfile_inputfield">
-                <label>Performance Support</label>
-                <input value={expectedFormData.performanceSupport} name="performanceSupport" onChange={expecChangeHandler} type="text"></input>
-              </div>
-            </div>
-            <button className="updateBtn">Update</button>
-          </form>
-        </div>
-      )}
-        </div>
 
-      </div>
-
+    </div>
 
     </div>
   );
