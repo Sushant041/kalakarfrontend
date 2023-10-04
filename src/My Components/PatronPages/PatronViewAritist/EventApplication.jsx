@@ -351,7 +351,7 @@ function EventApplication() {
     
 
     {/* bottom button */}
-    <button onClick={()=>navigate(`/patron-view-artist/${data?.appliedBy?._id}` , {state : {applicationId :data?.applicationId , appliType:"Application"}})} className="view_Profile_btn">View Profile</button>
+    <button onClick={()=>navigate(`/patron-view-artist/${data?.appliedBy?._id}` , {state : {applicationId :data?._id , appliType:"Application"}})} className="view_Profile_btn">View Profile</button>
     
             </div>
           </section>
@@ -387,7 +387,7 @@ function EventApplication() {
                               {" "}
                               <img src={phone} alt="" />{" "}
                             </div>
-                            <p className="personal_detail_title">{data?.phoneNumber}</p>
+                            <p className="personal_detail_title">{data?.appliedBy?.phoneNumber}</p>
                           </div>
 
                           <div  className="single_personalDetail">
@@ -395,7 +395,7 @@ function EventApplication() {
                               {" "}
                               <img src={anvelop} alt="" />{" "}
                             </div>
-                            <p className="personal_detail_title">{data?.email}</p>
+                            <p className="personal_detail_title">{data?.appliedBy?.email}</p>
                           </div>
 
                           <div  className="single_personalDetail">
@@ -403,7 +403,7 @@ function EventApplication() {
                               {" "}
                               <img src={location} alt="" />{" "}
                             </div>
-                            <p className="personal_detail_title">{data?.address}</p>
+                            <p className="personal_detail_title">{data?.appliedBy?.address?.details}</p>
                           </div>
                        
                       </div>
@@ -413,13 +413,13 @@ function EventApplication() {
                        
                           <div key={index} className="single_socail_detail">
                             <img src={instagram} alt="" className="socail_img" />
-                            <p className="social_title">{data?.instagram}</p>
+                            <p className="social_title">{data?.appliedBy?.socialLinks?.instagram}</p>
                           </div>
                        
                        
                           <div key={index} className="single_socail_detail">
                             <img src={facebookimg} alt="" className="socail_img" />
-                            <p className="social_title">{data?.facebook}</p>
+                            <p className="social_title">{data?.appliedBy?.socialLinks?.facebook}</p>
                           </div>
                        
                       </div>
@@ -430,8 +430,8 @@ function EventApplication() {
                     {/* ṛight part */}
                     <div className="card_right_part">
                       <img src={DP} alt="" className="userDP" />
-                      <p className="card_right_userName">{data?.firstName} {data?.lastName}</p>
-                      <p className="card_right_user_profession">{data?.natureOfArt}</p>
+                      <p className="card_right_userName">{data?.appliedBy?.firstName} {data?.appliedBy?.lastName}</p>
+                      <p className="card_right_user_profession">{data?.artNature}</p>
                     </div>
                   </div>
           
@@ -448,7 +448,7 @@ function EventApplication() {
               </div>    
              <div className="single_event_appli_detail" > 
                   <p  className="single_detail_title">Location</p>
-                  <p className="single_detail_ans">{data?.currentLocation}</p>
+                  <p className="single_detail_ans">{data?.appliedBy?.address?.city}</p>
               </div>    
              <div className="single_event_appli_detail" > 
                   <p  className="single_detail_title">Ratings</p>
@@ -458,7 +458,7 @@ function EventApplication() {
           </div>
           
           {/* bottom button */}
-          <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId :data?.applicationId , appliType:"Shortlisted"}})}  className="view_Profile_btn">View Profile</button>
+          <button onClick={()=>navigate(`/patron-view-artist/${data?.appliedBy?._id}` , {state : {applicationId :data?._id , appliType:"Shortlisted"}})}  className="view_Profile_btn">View Profile</button>
           <button className="chat_artist_btn">Chat With Artist</button>
           
                   </div>
@@ -494,7 +494,7 @@ function EventApplication() {
                             <img src={phone} alt="" />{" "}
                           </div>
 
-                          <p className="personal_detail_title">{data?.phoneNumber}</p>
+                          <p className="personal_detail_title">{data?.appliedBy?.phoneNumber}</p>
                         </div>
                         <div  className="single_personalDetail">
                           <div className="personal_Detail_img">
@@ -502,14 +502,14 @@ function EventApplication() {
                             <img src={anvelop} alt="" />{" "}
                           </div>
 
-                          <p className="personal_detail_title">{data?.email}</p>
+                          <p className="personal_detail_title">{data?.appliedBy?.email}</p>
                         </div>
                         <div  className="single_personalDetail">
                           <div className="personal_Detail_img">
                             {" "}
                             <img src={location} alt="" />{" "}
                           </div>
-                          <p className="personal_detail_title">{data?.address}</p>
+                          <p className="personal_detail_title">{data?.appliedBy?.address?.details}</p>
                         </div>
                      
                     </div>
@@ -519,12 +519,12 @@ function EventApplication() {
                     
                         <div  className="single_socail_detail">
                           <img src={instagram} alt="" className="socail_img" />
-                          <p className="social_title">{data?.instagram}</p>
+                          <p className="social_title">{data?.appliedBy?.socialLinks?.instagram}</p>
                         </div>
 
                         <div  className="single_socail_detail">
                           <img src={facebookimg} alt="" className="socail_img" />
-                          <p className="social_title">{data?.facebook}</p>
+                          <p className="social_title">{data?.appliedBy?.socialLinks?.facebook}</p>
                         </div>
                     
                     </div>
@@ -536,8 +536,8 @@ function EventApplication() {
                   {/* ṛight part */}
                   <div className="card_right_part">
                     <img src={DP} alt="" className="userDP" />
-                    <p className="card_right_userName">{data?.firstName} {data?.lastName} </p>
-                    <p className="card_right_user_profession">{data?.natureOfArt}</p>
+                    <p className="card_right_userName">{data?.appliedBy?.firstName} {data?.appliedBy?.lastName} </p>
+                    <p className="card_right_user_profession">{data?.artNature}</p>
                   </div>
                 </div>
         
@@ -554,7 +554,7 @@ function EventApplication() {
             </div>    
            <div className="single_event_appli_detail" > 
                 <p  className="single_detail_title">Location</p>
-                <p className="single_detail_ans">{data?.currentLocation}</p>
+                <p className="single_detail_ans">{data?.appliedBy?.address?.city}</p>
             </div>    
            <div className="single_event_appli_detail" > 
                 <p  className="single_detail_title">Ratings</p>
@@ -564,7 +564,7 @@ function EventApplication() {
         </div>
         
         {/* bottom button */}
-        <button onClick={()=>navigate(`/patron-view-artist/${data?.userId}` , {state : {applicationId : data?.applicationId , appliType: 'Hired'}})} className="view_Profile_btn">View Profile</button>
+        <button onClick={()=>navigate(`/patron-view-artist/${data?.appliedBy?._id}` , {state : {applicationId :data?._id , appliType: 'Hired'}})} className="view_Profile_btn">View Profile</button>
 
 
         <button className="chat_artist_btn">Chat With Artist</button>

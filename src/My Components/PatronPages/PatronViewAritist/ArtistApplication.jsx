@@ -152,7 +152,7 @@ toast.dismiss(toastId);
               <p className="single_ele_title">Applications</p>
             
              <p onClick={()=>navigate(`/patron-event-appli/${data._id}` , {state : {dataObj :data}}) } style={{cursor:"pointer"}}>
-                {data.application}{" "}
+                {data.totalApplicants}{" "}
                 <span className="view_appli_text">(View Applications)</span>
               </p>
             

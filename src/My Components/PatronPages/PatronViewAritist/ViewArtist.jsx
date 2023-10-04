@@ -7,7 +7,7 @@ import PortfolioCardTemplate from "./PortfolioCardTemplate"
 import phone from "./assets/phone.svg";
 import instagram from "./assets/instagram.svg";
 import facebookimg from "./assets/facebookimg.svg";
-import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequestWithoutBody } from "../../../services/serverHelper";
+import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequestWithoutBody,makeAuthenticatedPATCHRequest } from "../../../services/serverHelper";
 import { patronProfilePoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -18,7 +18,7 @@ import { useLocation } from "react-router-dom";
 
 function ViewArtist() {
 
-  const {accessToken} = useSelector((state)=>state.auth);
+  const { accessToken } = useSelector((state) => state.auth);
 
   const location = useLocation();
 
@@ -56,7 +56,7 @@ function ViewArtist() {
       const response = await makeAuthenticatedGETRequest(patronProfilePoints.GET_SINGLE_ARTIST_DATA_API + `${id}` , accessToken);
       console.log('ress' , response);
       if(response.status === 'success'){
-        toast.success("success");
+        // toast.success("success");
         setArtistData(response.data);
       }
       else {
@@ -87,20 +87,20 @@ function ViewArtist() {
    useEffect(()=>{
     const updatedSocialMedia = [...socalMedia];
     
-    updatedSocialMedia[0].data = `${artistData?.handles?.instagram}`;
+    updatedSocialMedia[0].data = `${artistData?.socialLinks?.instagram}`;
     
-    updatedSocialMedia[1].data = `${artistData?.handles?.facebook}`;
+    updatedSocialMedia[1].data = `${artistData?.socialLinks?.facebook}`;
     
     setSocialMedia(updatedSocialMedia);
 
     // to set the userDetails
     const updatedUserDetai = [...userDetails];
-    updatedUserDetai[0].data = `${artistData?.phoneNumber}`;
-    updatedUserDetai[1].data = `${artistData?.email}`;
-    updatedUserDetai[2].data = `${artistData?.address?.detailedAddress}`;
+    updatedUserDetai[0].data = `${artistData?.personalInfo?.contactNumber}`;
+    updatedUserDetai[1].data = `${artistData?.personalInfo?.email}`;
+    updatedUserDetai[2].data = `${artistData?.address?.details}`;
    },[artistData])
   
-  const userName =`${artistData.firstName}  ${artistData.lastName}`;
+  const userName =`${artistData?.personalInfo?.firstName}  ${artistData?.personalInfo?.lastName}`;
 
 
 
@@ -109,7 +109,9 @@ const hireArtistHandler = async ()=>{
   const toastId = toast.loading('Loading...');
   try{
 
-    const response = await makeAuthenticatedPATCHRequestWithoutBody(patronProfilePoints.HIRED_REJECT_SHORTLIST_ARTIST_API +`/${applicationId}?status=Hired` , accessToken);
+    const response = await makeAuthenticatedPATCHRequest(patronProfilePoints.HIRED_REJECT_SHORTLIST_ARTIST_API +`/${applicationId}`,{
+      status: "Hired"
+  } , accessToken);
     console.log('rress' , response);
     if(response.status === 'success'){
       toast.success('successfuly hired');
@@ -130,7 +132,9 @@ const rejectArtistHandler =  async()=>{
   const toastId = toast.loading('Loading...');
   try{
 
-    const response = await makeAuthenticatedPATCHRequestWithoutBody(patronProfilePoints.HIRED_REJECT_SHORTLIST_ARTIST_API +`/${applicationId}?status=Rejected` , accessToken);
+    const response = await makeAuthenticatedPATCHRequest(patronProfilePoints.HIRED_REJECT_SHORTLIST_ARTIST_API +`/${applicationId}`,{
+      status: "Rejected"
+  } , accessToken);
     console.log('rress' , response);
     if(response.status === 'success'){
       toast.success('successfuly Rejected');
@@ -153,7 +157,9 @@ const shortlistArtistHandler = async()=>{
   const toastId = toast.loading('Loading...');
   try{
 
-    const response = await makeAuthenticatedPATCHRequestWithoutBody(patronProfilePoints.HIRED_REJECT_SHORTLIST_ARTIST_API +`/${applicationId}?status=In-Progress` , accessToken);
+    const response = await makeAuthenticatedPATCHRequest(patronProfilePoints.HIRED_REJECT_SHORTLIST_ARTIST_API +`/${applicationId}`,{
+      status: "In-Progress"
+  } , accessToken);
     console.log('rress' , response);
     if(response.status === 'success'){
       toast.success('successfuly Shorlisted');
@@ -175,10 +181,10 @@ const shortlistArtistHandler = async()=>{
     <div className="portfolioDisplay_wrapper">
    
 
-      <h1 className="portfolio_display_heading">{artistData?.firstName} {artistData?.lastName} Portfolio</h1>
+      <h1 className="portfolio_display_heading">{artistData?.personalInfo?.firstName} {artistData?.personalInfo?.lastName} Portfolio</h1>
 
       {/* portfolio card */}
-       <PortfolioCardTemplate socalMedia={socalMedia} userDetails={userDetails} profession={artistData?.natureOfArt} userName={userName} />
+       <PortfolioCardTemplate socalMedia={socalMedia} userDetails={userDetails} profession={artistData?.artInfo?.artNature} userName={userName} />
 
       
 
@@ -217,54 +223,74 @@ const shortlistArtistHandler = async()=>{
 
         <div className="userAbout_section">
             <h1 className="about_me_text">About Me</h1>
-              <p className="user_aboutMe_detail">{artistData?.aboutJourney}</p>
+              <p className="user_aboutMe_detail">{artistData?.personalInfo?.about}</p>
         </div>
 
       <div className="user_profession_details">
            
                 <div  className="single_userProfession_detail">
-                    <p className="profession_title">Profession</p>
-                    <p className="profession_info">{artistData?.natureOfArt}</p>
+                    <p className="profession_title">Category:</p>
+                    <p className="profession_info">{artistData?.artInfo?.artNature}</p>
                     
                 </div>
                 <div  className="single_userProfession_detail">
-                    <p className="profession_title">Talent</p>
-                    <p className="profession_info">NA</p>
+                    <p className="profession_title">Art Name:</p>
+                    <p className="profession_info">{artistData?.artInfo?.artName}</p>
                     
                 </div>
                 <div  className="single_userProfession_detail">
-                    <p className="profession_title">Location</p>
-                    <p className="profession_info">{artistData?.address?.district} {artistData?.address?.state},{artistData?.address?.pincode}</p>
+                    <p className="profession_title">Location:</p>
+                    <p className="profession_info">{artistData?.address?.city}</p>
                     
                 </div>
                 <div  className="single_userProfession_detail">
-                    <p className="profession_title">Experience</p>
-                    <p className="profession_info">{artistData?.experience}</p>
+                    <p className="profession_title">Age:</p>
+                    <p className="profession_info">{artistData?.personalInfo?.age}</p>
                     
                 </div>
                 <div  className="single_userProfession_detail">
-                    <p className="profession_title">Event Type</p>
-                    <p className="profession_info">{artistData?.performanceEvents}</p>
+                    <p className="profession_title">Performance Type:</p>
+                    <p className="profession_info">{artistData?.performanceInfo?.perfType}</p>
                     
                 </div>
                 <div  className="single_userProfession_detail">
-                    <p className="profession_title">Minimum Budget</p>
-                    <p className="profession_info">{artistData?.minimumBudget}</p>
+                    <p className="profession_title">Number of Performances:</p>
+                    <p className="profession_info">{artistData?.performanceInfo?.totalPerfs}</p>
                     
                 </div>
                 <div  className="single_userProfession_detail">
-                    <p className="profession_title">Instagram</p>
-                    <p className="profession_info">{artistData?.handles?.instagram}</p>
+                    <p className="profession_title">Charges Per Performance:</p>
+                    <p className="profession_info">{artistData?.performanceInfo?.perfCharge}</p>
                     
                 </div>
                 <div  className="single_userProfession_detail">
-                    <p className="profession_title">Facebook</p>
-                    <p className="profession_info">{artistData?.handles?.facebook}</p>
+                    <p className="profession_title">Experience:</p>
+                    <p className="profession_info">{artistData?.performanceInfo?.experience}</p>
                     
                 </div>
                 <div  className="single_userProfession_detail">
-                    <p className="profession_title">Youtube</p>
-                    <p className="profession_info">{artistData?.handles?.youtube}</p>
+                    <p className="profession_title">Events:</p>
+                    <p className="profession_info">{artistData?.performanceInfo?.perfEvent}</p>
+                    
+                </div>
+                <div  className="single_userProfession_detail">
+                    <p className="profession_title">Minimum Budget:</p>
+                    <p className="profession_info">{artistData?.performanceInfo?.totalPerfs} Not found in response</p>
+                    
+                </div>
+                <div  className="single_userProfession_detail">
+                    <p className="profession_title">Instagram:</p>
+                    <p className="profession_info">{artistData?.socialLinks?.instagram}</p>
+                    
+                </div>
+                <div  className="single_userProfession_detail">
+                    <p className="profession_title">Facebook:</p>
+                    <p className="profession_info">{artistData?.socialLinks?.facebook}</p>
+                    
+                </div>
+                <div  className="single_userProfession_detail">
+                    <p className="profession_title">Youtube:</p>
+                    <p className="profession_info">{artistData?.socialLinks?.youtube}</p>
                     
                 </div>
           
