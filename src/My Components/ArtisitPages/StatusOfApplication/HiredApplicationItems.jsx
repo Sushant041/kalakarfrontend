@@ -80,7 +80,7 @@ function HiredApplicationItems({ currentEvent  , jobData , loading}) {
                       alignItems: "center",
                     }}
                   >
-                    <h1 className="single_inprogress_heading">{event.position}</h1>
+                    <h1 className="single_inprogress_heading">{event?.opportunity?.position}</h1>
                     <div style={{color:'#00B027' , backgroundColor:"#DAFFE8" , paddingLeft:"8px" , paddingRight:"8px"  , paddingTop:"5px" ,paddingBottom:"5px", borderRadius:"10px"}} className="">
                     Hired
                     </div>
@@ -93,7 +93,7 @@ function HiredApplicationItems({ currentEvent  , jobData , loading}) {
                     }}
                     className="single_applied_para"
                   >
-                    {event.description}
+                    {event?.opportunity?.description}
                   </p>
   
                   <div style={{display:"flex" , alignItems:"center"}} className="appli_detail_btn_wrapper">
@@ -106,7 +106,7 @@ function HiredApplicationItems({ currentEvent  , jobData , loading}) {
                             <img src={data.img} alt="" style={{
                               marginBottom:"10px"
                             }} />
-                            <p className="inprogress_text" style={{color:"rgb(0,0,0,0.7)" , fontWeight:"500" , fontFamily:"Poppins"}} >{data.title}</p>
+                            <p className="inprogress_text" style={{color:"rgb(0,0,0,0.7)" , fontWeight:"500" , fontFamily:"Poppins"}} >{data?.opportunity?.title}</p>
                           </div>
                         ))
                        }
@@ -114,26 +114,26 @@ function HiredApplicationItems({ currentEvent  , jobData , loading}) {
   
                        {/* right side */}
                        <div style={{display:"flex" , flexDirection:"column" , gap:"2px" }}>
-                         <p  className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.artNature} </p>
+                         <p  className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event?.opportunity?.artNature} </p>
   
-                         <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.category}</p>
+                         <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event?.opportunity?.category}</p>
   
-                         <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.location}</p>
+                         <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event?.opportunity?.location}</p>
   
-                         <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{new Date(event.performanceDate).toLocaleDateString(
+                         <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{new Date(event?.opportunity?.performanceDate).toLocaleDateString(
                             "en-US",
                             { day: "numeric", month: "short", year: "numeric" }
                           )}</p>
   
-                         <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.budget}</p>
+                         <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event?.opportunity?.budget}</p>
   
                          <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>
-                          {event.languages?.map((lan, index) => (
+                          {event?.opportunity?.languages?.map((lan, index) => (
                               <span key={index}>{lan} {``}</span>
                             ))}</p>
   
                            <p className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}> {new Date(
-                            event?.applicationPeriod?.end
+                            event?.opportunity?.applicationPeriod?.end
                           ).toLocaleDateString("en-US", {
                             day: "numeric",
                             month: "short",

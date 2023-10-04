@@ -49,8 +49,8 @@ function StatusOfApplication() {
  const {data} = response;
  console.log('data' , data);
   
-  if(response.success === 'success'){
-        setAppliedData(response.data);
+  if(response.status === 'success'){
+        setAppliedData(response?.data);
 
         // next step for inprogress data 
         const inprogressAppli = data?.filter((event) => {

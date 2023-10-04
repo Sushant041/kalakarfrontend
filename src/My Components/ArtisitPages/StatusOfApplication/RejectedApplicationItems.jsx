@@ -45,27 +45,27 @@ function RejectedApplicationItems({currentEvent , jobData ,loading}){
                 <div key={index} className="single_saved_event">
                   {/* left part  */}
                   <div className="saved_event_leftPart">
-                    <h3 className="single_inprogress_heading">{event.position}</h3>
+                    <h3 className="single_inprogress_heading">{event?.opportunity?.position}</h3>
                     <div className="saved_event_data">
                       <div className="saved_event_data_left">
                         <img src={artnature} alt="location" />
                         <p className="inprogress_text">Nature Of Art:</p>
                       </div>
-                      <p  className="inprogress_text">{event.artNature}</p>
+                      <p  className="inprogress_text">{event?.opportunity?.artNature}</p>
                     </div>
                     <div className="saved_event_data">
                       <div className="saved_event_data_left">
                         <img src={category} alt="location" />
                         <p className="inprogress_text">Category:</p>
                       </div>
-                      <p className="inprogress_text">{event.category}</p>
+                      <p className="inprogress_text">{event?.opportunity?.category}</p>
                     </div>
                     <div className="saved_event_data">
                       <div className="saved_event_data_left">
                         <img src={location} alt="location" />
                         <p className="inprogress_text">Location:</p>
                       </div>
-                      <p className="inprogress_text">{event.location}</p>
+                      <p className="inprogress_text">{event?.opportunity?.location}</p>
                     </div>
   
                     <div className="saved_event_data">
@@ -77,7 +77,7 @@ function RejectedApplicationItems({currentEvent , jobData ,loading}){
                       </div>
                       <p className="inprogress_text">
                       {new Date(
-                            event?.performanceDate
+                            event?.opportunity?.performanceDate
                           ).toLocaleDateString("en-US", {
                             day: "numeric",
                             month: "short",
@@ -91,7 +91,7 @@ function RejectedApplicationItems({currentEvent , jobData ,loading}){
                         <img src={amount} alt="dop" />
                         <p className="inprogress_text">Amount :</p>
                       </div>
-                      <p className="inprogress_text">{event.budget}</p>
+                      <p className="inprogress_text">{event?.opportunity?.budget}</p>
                     </div>
   
                     <div className="saved_event_data">
@@ -118,7 +118,7 @@ function RejectedApplicationItems({currentEvent , jobData ,loading}){
                       </div>
                       <p className="inprogress_text">
                         {new Date(
-                          event.applicationPeriod.end
+                          event?.opportunity?.applicationPeriod.end
                         ).toLocaleDateString("en-US", {
                           day: "numeric",
                           month: "short",
