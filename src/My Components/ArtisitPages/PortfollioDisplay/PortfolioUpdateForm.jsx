@@ -36,7 +36,6 @@ function PortfolioUpdateForm() {
     totalNoOfPerformance:"",
     chargePerPerformance:"",
     talent: "",
-    performanceType:"",
     minimumBudget: "",
     location: "",
     handles: {
@@ -53,47 +52,13 @@ function PortfolioUpdateForm() {
         artistProfilePoints.FETCH_PROFILE_DATA_API,
         accessToken
       );
-      // console.log("res1", response);
-      const {
-        firstName,
-        lastName,
-        artName,
-        phoneNumber,
-        email,
-        address,
-        handles,
-        natureOfArt,
-        aboutJourney , 
-        category , 
-        age ,
-        performanceType ,
-        totalNoOfPerformance ,
-        chargePerPerformance , 
-        yearOfExperience ,
-        eventType ,
-        minimumBudget ,
-        
-      } = response.data;
+      const {address, socialLinks , personalInfo ,artInfo, performanceInfo } = response.data;
+      console.log("res1", response);
+
+    
 
       setFormData({
-        firstName,
-        category: artName,
-        contactNumber: phoneNumber,
-        email,
-        location: address.state,
-        handles: { ...handles },
-         natureOfArt,
-         lastName,
-         aboutJourney,
-        category , 
-        age ,
-        performanceType ,
-        totalNoOfPerformance ,
-        chargePerPerformance , 
-        yearOfExperience ,
-        eventType ,
-        minimumBudget ,
-        artName
+        contactNumber :personalInfo?.contactNumber , email : personalInfo?.email ,address :address , handles : socialLinks , firstName:personalInfo?.firstName , lastName : personalInfo?.lastName , natureOfArt :artInfo?.artNature  ,  age : personalInfo?.age , chargePerPerformance:performanceInfo?.perfCharge ,yearOfExperience : performanceInfo?.experience , eventType:performanceInfo?.perfEvent   , minimumBudget : personalInfo?.monthlyIncome , noOfPerformance : performanceInfo?.lastYearPerfs  ,performanceType : performanceInfo?.perfType , artName : artInfo?.artName , aboutJourney: personalInfo?.about , location: address?.details
       });
 
     } catch (error) {
@@ -129,22 +94,51 @@ function PortfolioUpdateForm() {
     });
     event.preventDefault();
 
+
     try {
+
+      const {location , handles , firstName , lastName , aboutJourney , contactNumber , email , age , minimumBudget , artName , natureOfArt , performanceType , totalNoOfPerformance , chargePerPerformance} = formData;
+
+      let address = {
+       location
+      }
+      let  socialLinks  = handles;
+
+      let  personalInfo ={ firstName , lastName , about:aboutJourney , contactNumber , email , age , monthlyIncome:minimumBudget 
+      }
+
+      let artInfo ={
+         artNature: natureOfArt , artName , perfType:performanceType ,
+      }
+
+      let  performanceInfo = {
+        totalPerfs:totalNoOfPerformance , perfCharge: chargePerPerformance , 
+      }
+
+
       const response = await makeAuthenticatedPATCHRequest(
         artistProfilePoints.UPDATE_PROFILE_DATA_API,
-        formData,
+        {personalInfo , socialLinks , artInfo , performanceInfo , address},
         accessToken
       );
-      // console.log("res", response);
-      if (response.success === "success") {
+
+      console.log("res", response);
+
+
+
+
+      if (response.status === "success") {
         toast.success("successfully update" , {
           position:"top-center"
         });
+
         navigate(-1);
+
       } else {
         toast.error(response.message , {
           position:"top-center"
         });
+
       }
     } catch (error) {
       console.log(error);

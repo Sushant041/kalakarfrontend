@@ -49,11 +49,17 @@ function EditPortfolio() {
     try{
       
       const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API , accessToken);
-      // console.log("res" , response);
-      if(response.success === 'success'){
-        const {phoneNumber , email,address , handles , firstName , lastName , natureOfArt , category , age , chargePerPerformance , experience , eventType , minimumBudget , noOfPerformance , performanceType } = response.data;
+
+      console.log('res' ,response);
+
+      if(response.status === 'success'){
+
+        const {address, socialLinks , personalInfo ,artInfo, performanceInfo } = response.data;
+
+
       setPortfolioData({
-        phoneNumber , email,address , handles , firstName , lastName , natureOfArt , category ,  age , chargePerPerformance ,experience , eventType , minimumBudget , noOfPerformance  ,performanceType
+        phoneNumber :personalInfo?.contactNumber , email : personalInfo?.email ,address :address , handles : socialLinks , firstName:personalInfo?.firstName , lastName : personalInfo?.lastName , natureOfArt :artInfo?.artNature  ,  age : personalInfo?.age , chargePerPerformance:performanceInfo?.perfCharge ,experience : performanceInfo?.experience , eventType:performanceInfo?.perfEvent   , minimumBudget : personalInfo?.monthlyIncome , noOfPerformance : performanceInfo?.lastYearPerfs  ,performanceType : performanceInfo?.perfType
+
       })
       }else{
         toast.error('something went wrong , please refresh the page' , {

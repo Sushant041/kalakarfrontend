@@ -13,9 +13,12 @@ import { artistOpportunityPoints } from "../../../services/apis";
 export function Artist_OpportunitiesMoreInfo() {
 
   const navigate = useNavigate();
+
   const location = useLocation();
 
   let job = location.state?.job;
+
+  console.log('job' , job);
 
   const [currentId , setCurrentId] = useState(null);
 
@@ -32,15 +35,19 @@ export function Artist_OpportunitiesMoreInfo() {
 
   useEffect(()=>{
    if(job?.status === 'Applied'){
-    setCurrentId(job._id);
+    setCurrentId(job?._id);
     setJobData(job);
    }
    else {
-    setCurrentId(job._id);
+    setCurrentId(job?._id);
     setJobData(job);
    }
   },[])
 
+
+  console.log('setjobda' , jobData);
+
+  console.log('curenid' ,currentId);
 
   const applySubmitHandler = async (event) => {
     const toastId = toast.loading("Loading..."  ,{
@@ -48,10 +55,10 @@ export function Artist_OpportunitiesMoreInfo() {
     });
     try {
       event.preventDefault();
-      const response = await makeAuthenticatedPOSTRequest(artistOpportunityPoints.APPLY_OPPOR_API + `/${job._id}/apply`, { applyAns }, accessToken);
+      const response = await makeAuthenticatedPOSTRequest(artistOpportunityPoints.APPLY_OPPOR_API + `/${job._id}`, { applyAns }, accessToken);
       console.log("response", response);
 
-      if (response.success === "success") {
+      if (response.status === "success") {
         toast.success("successfully applied" , {
           position:"top-center"
         });
@@ -78,7 +85,7 @@ const savedHandler = async()=>{
 
     const response = await makeAuthenticatedPOSTRequestWithoutBody(artistOpportunityPoints.SAVE_OPPR_BY_ID + `/${currentId}`,accessToken);
     console.log('response saved' , response);
-    if(response.success === 'success'){
+    if(response.status === 'success'){
       toast.success('successfully Saved' , {
         position:"top-center"
       });
@@ -154,53 +161,53 @@ useEffect(() => {
             </div>
             <div>
               <p>
-                <span>{jobData?.expertise}</span>
+                <span>{jobData?.expertise} a</span>
               </p>
               <p>
-                <span>{jobData?.location}</span>
+                <span>{jobData?.location} a</span>
               </p>
               <p>
                 <span>
                   {jobData?.languages?.map((lag, index) => (
-                    <span key={index}>{lag} </span>
+                    <span key={index}>{lag}  </span>
                   ))}
                 </span>
               </p>
               <p>
-                <span>{jobData?.budget}</span>
+                <span>{jobData?.budget} </span>
               </p>
               <p>
-                <span>{jobData?.theme}</span>
+                <span>{jobData?.theme} </span>
               </p>
               <p>
-                <span>{jobData?.timeSlot}</span>
+                <span>{jobData?.timeSlot} </span>
               </p>
               <p>
-                <span>{jobData?.performanceDuration}</span>
+                <span>{jobData?.performanceDuration} </span>
               </p>
               <p>
-                <span>{jobData?.artNature}</span>
+                <span>{jobData?.artNature} </span>
               </p>
               <p>
-                <span>{jobData?.performanceType}</span>
+                <span>{jobData?.performanceType} </span>
               </p>
               <p>
-                <span>{jobData?.mediaType}</span>
+                <span>{jobData?.mediaType} </span>
               </p>
               <p>
-                <span>{jobData?.artLevel}</span>
+                <span>{jobData?.artLevel} </span>
               </p>
               <p>
-                <span>{jobData?.location}</span>
+                <span>{jobData?.location} </span>
               </p>
               <p>
-                <span>{jobData?.postedBy}</span>
+                <span>{jobData?.postedBy} </span>
               </p>
             </div>
           </div>
           <h1>Perks and Benefits</h1>
           <div className="OpportunitiesMoreInfoPage_bottombox_PB">
-            {jobData?.incentives?.map((data, index) => (
+            {jobData?.opportunity?.incentives?.map((data, index) => (
               <p key={index}>{data}</p>
             ))}
           </div>
@@ -275,7 +282,7 @@ useEffect(() => {
                 </p>
                 <p>
                   {" "}
-                  Opening :&emsp;&emsp; <span>{jobData?.requiredArtists}</span>
+                  Opening :&emsp;&emsp; <span>{jobData?.requiredArtists }</span>
                 </p>
               </div>
               <h1>Why do you want ot Apply for this Role?</h1>
