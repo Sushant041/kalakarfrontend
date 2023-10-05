@@ -107,7 +107,7 @@ const EditOpportunity = () => {
                 <input defaultValue={formData?.performanceType} name="performanceType" onChange={inputChangeHandler} type="text" placeholder="Enter performance type" />
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
-                <label>Languages*</label>
+                <label>Languages</label>
                 <input defaultValue={formData?.languages} name="languages" onChange={inputChangeHandler} type="text" placeholder="Enter languages" />
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
@@ -166,8 +166,8 @@ const EditOpportunity = () => {
                 <label>Category*</label>
                 <input onChange={inputChangeHandler} type="text" name="category" defaultValue={formData?.category} placeholder="Enter Category" />
               </div>
-            </div>
-            <div className="ArtistOpportunities_Page_Infoform_Contenttwo">
+            {/* </div> */}
+            {/* <div className="ArtistOpportunities_Page_Infoform_Contenttwo"> */}
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Proposed Budget*</label>
                 <input onChange={inputChangeHandler} defaultValue={formData?.budget} name="budget" type="text" placeholder="Enter proposed budget" />
@@ -180,20 +180,36 @@ const EditOpportunity = () => {
                 <label>Last Date of Application*</label>
                 <input onChange={inputChangeHandler} name="end" defaultValue={formData?.applicationPeriod?.end} type="date" placeholder="Enter application last date" />
               </div>
-              <div className="ArtistOpportunities_Page_Infoform_inputfield">
-                <label>Any Other Requirements*</label>
-                <input
+            </div>
+            <div className="ArtistOpportunities_Page_Infoform_Contenttwo">
+              <div className="ArtistOpportunities_Page_Infoform_inputfield textareafield">
+                <label>Any Other Requirements</label>
+                {/* <input
                   onChange={inputChangeHandler}
                   name="otherRequirements"
                   defaultValue={formData?.otherRequirements}
                   style={{ height: "200px" }}
                   type="text"
                   placeholder="Enter Any Other requirements"
-                />
+                /> */}
+                <textarea
+                  onChange={inputChangeHandler}
+                  name="otherRequirements"
+                  value={formData?.otherRequirements}
+                  style={{ height: "200px", resize: "none" }}
+                  placeholder="Enter Any Other requirements"
+                ></textarea>
               </div>
-              <div className="ArtistOpportunities_Page_Infoform_inputfield">
-                <label>Do you Offer any Additional Facilities(incentives)*</label>
-                <input onChange={inputChangeHandler} name="incentives" defaultValue={formData?.incentives} style={{ height: "200px" }} type="text" placeholder="Enter Incentives" />
+              <div className="ArtistOpportunities_Page_Infoform_inputfield textareafield">
+                <label>Do you Offer any Additional Facilities(incentives)</label>
+                {/* <input onChange={inputChangeHandler} name="incentives" defaultValue={formData?.incentives} style={{ height: "200px" }} type="text" placeholder="Enter Incentives" /> */}
+                <textarea
+                  onChange={inputChangeHandler}
+                  name="incentives"
+                  value={formData?.incentives}
+                  style={{ height: "200px",resize:"none" }}
+                  placeholder="Enter Incentives"
+                ></textarea>
               </div>
             </div>
             <div className="ArtistOpportunities_Page_Infoform_btns">

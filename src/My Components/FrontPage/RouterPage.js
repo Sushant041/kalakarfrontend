@@ -57,6 +57,7 @@ import Contact from "../AdminPages/Contact/Contact";
 import ViewArtistApplication from "../AdminPages/ViewApplicants/ViewArtistApplication/ViewArtistApplication";
 import Chat from "../AdminPages/AdmiChatPage/Chat";
 import MoreinfoArtistOppurtunity from "../AdminPages/ViewApplicants/ViewArtistApplication/ArtistOppurtunity/MoreInfo/MoreinfoArtistOppurtunity";
+import TermAndCondition from "./TermAndCondition";
 
 export default function RouterPage() {
   const { role, accessToken } = useSelector((state) => state.auth);
@@ -93,6 +94,7 @@ export default function RouterPage() {
             <Route path="/Login" exact element={<LoginPage />} />
             <Route path="/Choose" exact element={<Choosing />} />
             <Route path="/register" exact element={<Signup />} />
+            <Route path="/termAndCondition" element={<TermAndCondition />} />
             <Route path="/resetPassword" exact element={<ResetPassword />} />
             <Route path="/forgetPassword" exact element={<ForgetPassword />} />
             <Route path="/verifyCode" exact element={<VerificationCode />} />
