@@ -273,11 +273,11 @@ const shortlistArtistHandler = async()=>{
                     <p className="profession_info">{artistData?.performanceInfo?.perfEvent}</p>
                     
                 </div>
-                <div  className="single_userProfession_detail">
+                {/* <div  className="single_userProfession_detail">
                     <p className="profession_title">Minimum Budget:</p>
                     <p className="profession_info">{artistData?.performanceInfo?.totalPerfs} Not found in response</p>
                     
-                </div>
+                </div> */}
                 <div  className="single_userProfession_detail">
                     <p className="profession_title">Instagram:</p>
                     <p className="profession_info">{artistData?.socialLinks?.instagram}</p>

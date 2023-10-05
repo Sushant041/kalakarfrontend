@@ -51,19 +51,23 @@
 
 .ArtistOpportunities_Page_Infoform_Contentone {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   flex-wrap: wrap;
   
   width: 1340px;
   margin-top: 20px;
+  gap: 20px;
+  align-items: flex-start;
+  flex-grow: 1;
 }
 
 .ArtistOpportunities_Page_Infoform_Contenttwo {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  width: 900px;
+  /* width: 900px; */
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .ArtistOpportunities_Page_Infoform_inputfield {
@@ -79,7 +83,7 @@
   line-height: normal;
 }
 
-.ArtistOpportunities_Page_Infoform_inputfield input {
+.ArtistOpportunities_Page_Infoform_inputfield input,textarea {
   width: 430px;
   height: 60px;
   padding: 10px;
@@ -142,6 +146,15 @@
   margin: 10px;
 }
 
+.textareafield{
+  width: 47%;
+  margin: 10px 0px; 
+}
+
+.textareafield textarea{
+  width: 100%;
+}
+
 
 @media (max-width:1360px) {
   .ArtistOpportunities_Page_Infoform_Contentone{
@@ -176,6 +189,17 @@
     font-size: 56px;
   }
 
+  .ArtistOpportunities_Page_Infoform_Contentone{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .textareafield{
+    width:100%
+  }
   
   .ArtistOpportunities_Page_Infoform_btns{
     width: 60%;
@@ -183,6 +207,13 @@
 }
 
 @media (max-width: 800px) {
+  .ArtistOpportunities_Page_Infoform_Contentone{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
   .ArtistOpportunities_Image {
     width: 90%;
     height: 200px;
@@ -204,6 +235,13 @@
 
 
 @media (max-width:655px) {
+  .ArtistOpportunities_Page_Infoform_Contentone{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
   .ArtistOpportunities_Page_Infoform_inputfield {
     width: 90%;
     margin: 0 auto;

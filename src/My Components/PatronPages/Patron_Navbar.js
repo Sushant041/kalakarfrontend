@@ -105,7 +105,7 @@ export default function Patron_Navbar() {
                             <Link  to={"/Patron_Portfolio"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Portfolio</Link>
                             <Link to={"/UploadOpportunity"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Upload Opportunities</Link>
                             <Link to={"/UploadedOpportunities"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Uploaded Opportunities</Link>
-                            <Link to={"/ViewArtistProfiles"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>View Artists Application</Link>
+                            {/* <Link to={"/ViewArtistProfiles"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>View Artists Application</Link> */}
                             
                             <Link to={"/patron-artist-appli"} style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}>Application Updates</Link>
                             <Link to={"/login"} onClick={()=>{
