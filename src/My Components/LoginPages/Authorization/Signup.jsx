@@ -25,6 +25,8 @@ const joiningData = [
 function Signup() {
   const navigate = useNavigate();
 
+  const [checkbox , setCheckbox]  = useState(true);
+
   const [formData, setFormData] = useState({
     role: "Patron",
     firstName: "",
@@ -47,6 +49,10 @@ function Signup() {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+
+    if(!checkbox){
+      return toast.error('Agree Terms and condition');
+    }
 
     if (formData.password !== formData.passwordConfirm) {
       return toast.error("password do not match" , {
@@ -220,6 +226,12 @@ function Signup() {
         <button type="submit" className="registerButton">
           Register
         </button>
+
+       <div className="termAndCondition">
+        <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
+        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>Terms And Condition</p>
+        </div> 
+       
         <p className=" navigateLoginPara">
           Don’t have an account?{" "}
           <span onClick={() => navigate("/Login")} className="">
