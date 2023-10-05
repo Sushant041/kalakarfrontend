@@ -51,7 +51,7 @@ function Signup() {
     event.preventDefault();
 
     if(!checkbox){
-      return toast.error('Agree Terms and condition');
+      return toast.error('Agree to the Terms and conditions');
     }
 
     if (formData.password !== formData.passwordConfirm) {
@@ -229,7 +229,7 @@ function Signup() {
 
        <div className="termAndCondition">
         <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
-        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>Terms And Condition</p>
+        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
         </div> 
        
         <p className=" navigateLoginPara">
