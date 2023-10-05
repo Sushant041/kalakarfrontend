@@ -6,6 +6,15 @@
 
 }
 
+.termAndCondition{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: start;
+  /* background-color: red; */
+  width: 100%;
+}
+
 .fullNameWrapper{
   width: 95%;
   display: flex;
