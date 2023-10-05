@@ -3,13 +3,14 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../FrontPage/Images/eK_Logo_Trasnparent_1.png";
 import "./Artist_navbar.css";
+
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from "react-redux";
 import { setAccessToken  , setRefreshToken , } from "../../reducer/slices/authSlice";
 
-export default function Artist_navbar() {
+export default function () {
   const [AccountpopupVisible, setAccountPopupVisible] = useState(false);
   const accountPopupRef = useRef(null);
 
@@ -136,6 +137,12 @@ export default function Artist_navbar() {
                 style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}
               >
                 Latest News
+              </Link>
+              <Link
+                to={"/contactUs"}
+                style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}
+              >
+                Contect Us
               </Link>
               <Link to={"/login"} onClick={()=>{
                    console.log('Logging out...'); // Corrected function name

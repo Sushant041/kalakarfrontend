@@ -316,7 +316,7 @@ body{
   padding: 10px;
   background-color: white;
   color: black;
-  width: 151px;
+  width: 100%;
   height: 60px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
@@ -963,28 +963,27 @@ body{
 
 .BasicProfile_Addressshort {
   display: flex;
-  flex-direction: row;
+  flex-direction: row-reverse;
   width: 100%;
-  justify-content: space-between;
 }
 
 .BasicProfile_Addressshort select {
   padding: 10px;
   background-color: white;
   color: black;
-  width: 151px;
+  width: 100%;
   height: 60px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .BasicProfile_Addressshort input[type="text"] {
-  width: 235px;
+  width:100%;
   height: 60px;
 }
 
 .BasicProfile_Addressshort input[type="number"] {
-  width: 151px;
+  width: 100%;
   height: 60px;
 }
 

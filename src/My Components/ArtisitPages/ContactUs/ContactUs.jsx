@@ -11,7 +11,7 @@ import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
-
+import Artist_navbar from "../Artist_navbar"
 
 const formDetail = [
     {
@@ -116,6 +116,8 @@ function ContactUs() {
     }
 
   return (
+    <>
+    <Artist_navbar />
     <div className="contactUs_wrapper">
       {/* actual navbar section */}
       <nav className="actual_navbar"></nav>
@@ -165,6 +167,7 @@ function ContactUs() {
 
 
     </div>
+  </>
   );
 }
 

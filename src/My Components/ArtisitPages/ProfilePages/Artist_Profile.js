@@ -14,10 +14,9 @@ import art from "./assets/art.svg"
 import star from "./assets/star.svg"
 import performance from "./assets/performance.svg"
 import { specialization , languages , artform , performanceduration , performancetype , natureofArt , nameofart , courses , highestLevelOfPerformance , ChargesPerPerformance } from "../../../Data/artistProfile";
-
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
-
+  const defaultPic = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   const initialActiveSection = "basic";
   
@@ -733,9 +732,11 @@ setProfileAvatar(null);
       <div className="chiku-ProfileSection">
         <div className="profile-left">
         <div className="BasicProfile_avatar">
-          <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} />
+          {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
+          <img loading="lazy"src={defaultPic} />
+
           <button onClick={handleButtonClick} className="BasicProfile_editavatar">Edit Profile Picture</button>
-          <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button>
+          {/* <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button> */}
           <p style={{fontWeight:"500" , fontSize:"30px"}} >
             {" "}
             Hello,<br />{basicFormData.firstName.toUpperCase()} {basicFormData.lastName.toUpperCase()}
@@ -775,7 +776,8 @@ setProfileAvatar(null);
       {activeSection === "basic" && (
         <div style={{fontFamily:"Poppins"}} className="BasicProfile_Infoform">
           <form onSubmit={basicSubmitHandler}>
-            <h4>PERSONAL INFORMATIONAL</h4>
+            <h4>BASIC PROFILE</h4> 
+            {/* //PERSONAL INFORMATIONAL */}
             <div className="BasicProfile_PersonalINfo">
               <div className="BasicProfile_inputfield">
                 <label htmlFor="firstName">First Name</label>
@@ -801,7 +803,9 @@ setProfileAvatar(null);
 
               <div className="BasicProfile_inputfield gender">
                 <label>Gender</label>
-                <div className="Genderinfo">
+
+
+                {/* <div className="Genderinfo">
                   <label>
                     <input type="radio" name="gender" value="Male" checked={basicFormData.gender === "Male"} onChange={changeHandler} />
                     &nbsp; Male
@@ -814,11 +818,25 @@ setProfileAvatar(null);
                     <input type="radio" name="gender" value="Others" checked={basicFormData.gender === "Others"} onChange={changeHandler} />
                     &nbsp; Others
                   </label>
+                </div> */}
+
+                <div className="Genderinfo1"  >
+                <select style={{fontFamily:"Poppins" ,background:"transparent" , color:"black" , height:"60px", border:"1px solid black"}}>
+                    <option selected hidden>
+                      Gander
+                    </option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+
                 </div>
+
+
               </div>
               <div className="BasicProfile_inputfield">
                 <label htmlFor="age">Language Known*</label>
-                <select onChange={changeHandler} style={{fontFamily:"Poppins" ,background:"transparent" , color:"black" , height:"60px", border:"1px solid black"}} name="" id="">
+                <select onChange={changeHandler} style={{fontFamily:"Poppins" ,background:"transparent" , color:"black" , height:"60px", width:"137%", border:"1px solid black"}} name="" id="">
                   <option value="" selected defaultChecked >You can select multiple languages</option>
                   {languages.map((option) => (
           <option  value={option}>
@@ -828,9 +846,21 @@ setProfileAvatar(null);
                 </select>
               </div>
 
-              <div className="BasicProfile_inputfield">
+              <div className="BasicProfile_inputfield" style={{width:"47%"}}>
                 <label htmlFor="age">Monthly Income*</label>
-                <input type="number" name="monthlyIncome" onChange={changeHandler} placeholder="Enter your monthly income" value={basicFormData.monthlyIncome}></input>
+                <select style={{fontFamily:"Poppins" ,background:"transparent" , width:"100%",color:"black" , height:"60px", border:"1px solid black"}}>
+                    <option selected hidden>
+                    Income
+                    </option>
+                    <option value="10k">below 10,000</option>
+                    <option value="25k">10k-25k</option>
+                    <option value="50k">25k-50k</option>
+                    <option value="75k">50k-75k</option>
+                    <option value="1lakh">75k-1lakh</option>
+                    <option value="2lakh">1 lakh-2 lakh</option>
+                    <option value="more">More Then 2 Lakh</option>
+                  </select>
+                {/* <input type="number" name="monthlyIncome" onChange={changeHandler} placeholder="Enter your monthly income" value={basicFormData.monthlyIncome}></input> */}
               </div>
 
               <div style={{width:"100%" , marginTop:"20px"}}>
@@ -895,19 +925,21 @@ setProfileAvatar(null);
                   <input onChange={changeHandler} value={basicFormData.address.pincode} name="address.pincode" type="number"></input>
                 </div>
               </div>
-              <div className="BasicProfile_inputfield BasicProfile_Addresslong">
+
+              {/* <div className="BasicProfile_inputfield BasicProfile_Addresslong">
                 <label>Detailed Address</label>
                 <textarea style={{width:"100%" , height:"150px" , resize:"none" , borderRadius:"10px" , padding:"10px"}} onChange={changeHandler} name="address.details" value={basicFormData.address.details} type="text" />
-              </div>
+              </div> */}
+
             </div>
             <h4>
               OTHER DETAILS <span style={{ color: "rgba(0, 0, 0, 0.70)", fontWeight: "400" }}>(optional)</span>
             </h4>
             <div className="BasicProfile_OtherDetails">
-              <div className="BasicProfile_inputfield">
+              {/* <div className="BasicProfile_inputfield">
                 <label>No of Performance Last Year</label>
                 <input onChange={changeHandler} name="numOfperformanceLastYear" placeholder="Enter no of performance" value={basicFormData.numOfperformanceLastYear} type="text"></input>
-              </div>
+              </div> */}
               <div className="BasicProfile_inputfield">
                 <label>PAN Number</label>
                 <input onChange={changeHandler} name="panNumber" placeholder="Enter PAN number" value={basicFormData.panNumber} type="number"></input>
@@ -964,7 +996,7 @@ setProfileAvatar(null);
             <h4>ART INFORMATION</h4>
             <div className="ArtProfile_ArtInfo">
               <div className="ArtProfile_inputfield">
-                <label>Nature of Art*</label>
+                <label>Category of Art*</label>
              
                 <select onChange={artChangeHandler} value={artFormData.natureOfArt} name="natureOfArt" placeholder="Select nature of art" >
                   <option selected hidden>
@@ -978,7 +1010,7 @@ setProfileAvatar(null);
                 </select>
               </div>
               <div className="ArtProfile_inputfield">
-                <label>Art form*</label>
+                <label>Art Form*</label>
                 <select onChange={artChangeHandler} value={artFormData.artForm}  name="artForm" placeholder="Select art form" >
                   <option value={""} disabled>
                   Select art form
@@ -1217,7 +1249,7 @@ setProfileAvatar(null);
             <h4>PERFORMANCE INFORMATION</h4>
 
             <div className="PerformanceProfile_PerformInfo">
-              <div className="PerformanceProfile_inputfield">
+              {/* <div className="PerformanceProfile_inputfield">
                 <label>Performance Type</label>
                 <select name="performanceType" onChange={perforChangeHandler} value={performanceFormData?.performanceType} >
                   <option  disabled value={""} >
@@ -1229,7 +1261,7 @@ setProfileAvatar(null);
           </option>
         ))}
                 </select>
-              </div>
+              </div> */}
               <div className="PerformanceProfile_inputfield">
                 <label>Years of Experience</label>
                 <input value={performanceFormData?.yearOfExperience} onChange={perforChangeHandler} name="yearOfExperience" type="text"></input>
@@ -1361,7 +1393,7 @@ setProfileAvatar(null);
         ))}
                 </select>
               </div>
-              <div className="PerformanceProfile_inputfield">
+              <div className="PerformanceProfile_inputfield" style={{width:"100%"}}>
                 <label>Charges Per Performance</label>
                 <select value={performanceFormData.chargesPerPerformance} onChange={perforChangeHandler} name="chargesPerPerformance">
                   <option selected hidden>
@@ -1374,7 +1406,7 @@ setProfileAvatar(null);
         ))}
                 </select>
               </div>
-              <div className="PerformanceProfile_inputfield">
+              {/* <div className="PerformanceProfile_inputfield">
                 <label>Income for Performing Art*</label>
                 <select value={performanceFormData.averagePerformanceIncome} onChange={perforChangeHandler} name="averagePerformanceIncome">
                   <option selected hidden>
@@ -1386,7 +1418,7 @@ setProfileAvatar(null);
           </option>
         ))}
                 </select>
-              </div>
+              </div> */}
 
               <h4>PERFORMANCE IMAGES</h4>
               <div className="PerformanceProfile_inputfield performancefilebox">
@@ -1474,10 +1506,10 @@ setProfileAvatar(null);
                         </select>
                       </div>
                       <div className="AwardProfile_inputfield">
-                        <label>Category</label>
+                        <label>Name of Art</label>
                         <select value={award.category} onChange={(e) => handleInputChange(index, "category", e.target.value)}>
                           <option selected hidden>
-                            Select Category
+                            Select Art
                           </option>
                           {nameofart.map((option) => (
           <option  value={option}>
@@ -1486,10 +1518,10 @@ setProfileAvatar(null);
         ))}
                         </select>
                       </div>
-                      <div className="AwardProfile_inputfield">
+                      {/* <div className="AwardProfile_inputfield">
                         <label>Name of the Stage</label>
                         <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
-                      </div>
+                      </div> */}
                       <div className="AwardProfile_inputfield">
                         <label>Award Year</label>
                         <input value={award.year} onChange={(e) => handleInputChange(index, "year", e.target.value)} type="text"></input>
