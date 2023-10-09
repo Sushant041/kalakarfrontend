@@ -56,7 +56,11 @@
     border-radius: var(--br-lg);
     min-width: 450px;
 }
-
+@media (min-width:100px){
+    .r_container_admin{
+        min-width: 250px;
+    }
+}
 @media (max-width:650px) {
     .menu-icon-admin-cont{
         display: flex;
