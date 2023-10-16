@@ -2,6 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
 @import '//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css';
 
+
+  /* font sizes */
+:root{
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-21xl: 50px;
+  --font-size-base-9: 16.9px;
+  --font-size-mini-5: 14.5px;
+  --font-size-lgi: 19px;
+  --font-size-mini: 15px;
+}
+
+
+
+
 .Benefits_Page {
   background: #fbdfaf;
   min-height: 40vh !important;
@@ -32,6 +47,7 @@
   width: 100%;
   padding: 4vh 0px;
   text-align: center;
+  font-size: var(--font-size-21xl);
 }
 
 .Benefits_page h1 {

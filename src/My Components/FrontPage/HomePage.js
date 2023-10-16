@@ -1215,7 +1215,7 @@ export function HomePage() {
           <a href="#Mediagallery">
             <div className="Ekworld_Media_Items">
               <img
-                src="assets/Ekworld/Rectangle142.png"
+                src="assets/MediaGallery/MediaGallerry_img_1.png"
                 className="Ekworld_Media_Item"
                 alt="Dance"
               />
@@ -1226,7 +1226,7 @@ export function HomePage() {
           <a href="#Mediagallery">
             <div className="Ekworld_Media_Items">
               <img
-                src="assets/Ekworld/image49.png"
+                src="assets/Ekworld/12(10).png"
                 className="Ekworld_Media_Item"
                 alt="Song"
               />

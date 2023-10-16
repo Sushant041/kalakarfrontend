@@ -1,3 +1,15 @@
+:root{
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-21xl: 50px;
+    --font-size-base-9: 16.9px;
+    --font-size-mini-5: 14.5px;
+    --font-size-lgi: 19px;
+    --font-size-mini: 15px;
+    --font-para-16 : 16px;
+    --font-para-18 : 18px;
+  
+  }
 .contactUs_wrapper{
     display: flex;
     width: 100%;
@@ -117,12 +129,14 @@ margin: 0 auto;
 color: black;
 font-family: Poppins;
 font-weight: 400;
-font-size: 16px;
+font-size: var(--font-para-16);
 opacity: 70%;
 }
 
 .contactUs_textarea{
     resize: none;
+    width: 100%;
+
     border-radius: 10px;
     padding-left: 12px;
     border: 1px solid black;

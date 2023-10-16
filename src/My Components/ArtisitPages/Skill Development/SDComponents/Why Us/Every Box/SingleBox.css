@@ -1,3 +1,16 @@
+:root{
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-21xl: 50px;
+    --font-size-base-9: 16.9px;
+    --font-size-mini-5: 14.5px;
+    --font-size-lgi: 19px;
+    --font-size-mini: 15px;
+    --font-para-16 : 16px;
+    --font-para-18 : 18px;
+    --font-para-24 : 24px;
+  
+  }
 .every-box {
     display: flex;
     align-items: center;
@@ -29,7 +42,7 @@
 
 .every-box-heading {
     font-family: var(--main-font-family);
-    font-size: 24px;
+    font-size: var(--font-size-xl);
     font-weight: 500;
     text-align: center;
 }
@@ -38,7 +51,7 @@
     color: rgba(0, 0, 0, 0.70);
     text-align: justify;
     font-family: var(--main-font-family);
-    font-size: 20px;
+    font-size:var(--font-para-16);
     font-weight: 400;
 }
 

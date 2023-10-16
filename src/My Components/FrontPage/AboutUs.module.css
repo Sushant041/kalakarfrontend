@@ -15,7 +15,7 @@ body {
   /* font sizes */
   --font-size-lg: 18px;
   --font-size-xl: 20px;
-  --font-size-21xl: 40px;
+  --font-size-21xl: 50px;
   --font-size-base-9: 16.9px;
   --font-size-mini-5: 14.5px;
   --font-size-lgi: 19px;
@@ -46,9 +46,11 @@ body {
 .ekalakaarekIsBuilding {
   align-self: center;
   position: relative;
+  font-size:var(--font-size-21xl);
 }
 .ekalakaarekIsBuilding {
-  font-size: var(--font-size-lg);
+  /* font-size: var(--font-size-lg); */
+  font-size: 17px;
   font-family: var(--font-poppins);
   text-align: justify;
 }
