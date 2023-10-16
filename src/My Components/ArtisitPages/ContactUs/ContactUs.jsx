@@ -148,7 +148,7 @@ function ContactUs() {
         </main>
 
 {/* three box */}
-        <div className="contact_details_box">
+        {/* <div className="contact_details_box">
              {
                 boxDetail.map((box , index)=>(
                     <div key={index} className="contactUs_single_box">
@@ -161,7 +161,7 @@ function ContactUs() {
                     </div>
                 ))
              }
-        </div>
+        </div> */}
 
       </section>
 

@@ -36,12 +36,12 @@ function ViewProfile() {
   // }, [pathname]);
 
   const fetchUserById = async () => {
-    const response = await makeAuthenticatedGETRequest(
-      `${Admin.GET_USER_BY_ID}${stateData.state.id}`,
+    const { data } = await makeAuthenticatedGETRequest(
+      `${Admin.GET_USER_BY_ID}${id}`,
       accessToken
     );
-    setData(response.data);
-    console.log(response.data);
+    setData(data);
+    console.log(data);
   };
 
   useEffect(() => {
