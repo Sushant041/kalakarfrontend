@@ -100,7 +100,7 @@ function UploadOpportunities() {
           <form onSubmit={submitHandler}>
             <div className="ArtistOpportunities_Page_Infoform_Contentone">
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
-                <label>Nature of Art*</label>
+                <label>Category  of Art*</label>
                 <input
                   required
                   value={formData?.artNature}

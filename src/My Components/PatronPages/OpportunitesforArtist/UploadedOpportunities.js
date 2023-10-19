@@ -74,20 +74,52 @@ setLoading(false);
  ):(
 
  
-                <div>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }}>
                     {
                         Opportunities.length > 0 && 
                         (
                             
                     Opportunities.map((opportunity , index)=>{
                     return(
-                    <div key={index} className="OpportunitiesPage_displayonejob" 
+                    <div key={index} style={{width:'45%'}} className="OpportunitiesPage_displayonejob" 
                     >
                         <h4>{opportunity.position}</h4>
-                        <div className="OpportunitiesPage_displayonejob_content">
+                        <p style={{ color: "rgba(0, 0, 0, 0.7)" }}>{opportunity.description}</p>
+                        <div style={{flexDirection:'column'}}className="OpportunitiesPage_displayonejob_content">
                             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
                                 <div className="OpportunitiesPage_displayonejob_contentdetailsone_text">
                                     <div>
+                                    <p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
+                                                <path
+                                                    d="M2.13925 7.75407L13.7993 2.20207C15.4993 1.39207 17.2733 3.16707 16.4643 4.86807L10.9123 16.5271C10.1533 18.1201 7.85325 18.0221 7.23325 16.3691L6.20725 13.6301C6.107 13.3629 5.95072 13.1202 5.74892 12.9184C5.54712 12.7166 5.30446 12.5603 5.03725 12.4601L2.29725 11.4331C0.645253 10.8131 0.546253 8.51307 2.13925 7.75407Z"
+                                                    stroke="#AD2F3B"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                            </svg>{" "}
+                                            Nature Of Art:
+                                        </p>
+                                    <p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
+                                                <path
+                                                    d="M2.13925 7.75407L13.7993 2.20207C15.4993 1.39207 17.2733 3.16707 16.4643 4.86807L10.9123 16.5271C10.1533 18.1201 7.85325 18.0221 7.23325 16.3691L6.20725 13.6301C6.107 13.3629 5.95072 13.1202 5.74892 12.9184C5.54712 12.7166 5.30446 12.5603 5.03725 12.4601L2.29725 11.4331C0.645253 10.8131 0.546253 8.51307 2.13925 7.75407Z"
+                                                    stroke="#AD2F3B"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                />
+                                            </svg>{" "}
+                                            Category:
+                                        </p>
                                         <p>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
                                                 <path
@@ -139,6 +171,8 @@ setLoading(false);
                                     </div>
 
                       <div className="OpportunitiesPage_displayonejob_contentdetailstwo">
+                        <p>{opportunity.artNature}</p>
+                        <p>{opportunity.category}</p>
                         <p>{opportunity.location}</p>
                        
                         <p>{opportunity.performanceDate.slice(0, 10)}</p>
@@ -150,7 +184,7 @@ setLoading(false);
                     </div>
                   </div>
 
-                  <div className="OpportunitiesPage_displayonejob_contentdetailsbuttons">
+                  <div style={{flexDirection:'row'}} className="OpportunitiesPage_displayonejob_contentdetailsbuttons">
                     <button className="btnone">
                       {" "}
                       <Link to={`/EditOpportunity`} state={{ opportunity }} style={{ textDecoration: "none", color: "#ad2f3b" }}>

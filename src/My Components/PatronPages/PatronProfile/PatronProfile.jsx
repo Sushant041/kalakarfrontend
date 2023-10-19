@@ -18,6 +18,41 @@ const profession = "Patron Profession";
 function PatronProfile() {
   const { accessToken } = useSelector((state) => state.auth);
 
+  const indianStates = ['Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'];
+
+  const citiesByState = {
+    'Andhra Pradesh': ['Visakhapatnam', 'Vijayawada', 'Guntur', 'Nellore', 'Kurnool'],
+    'Arunachal Pradesh': ['Itanagar', 'Naharlagun', 'Tawang', 'Pasighat', 'Ziro'],
+    'Assam': ['Guwahati', 'Jorhat', 'Dibrugarh', 'Silchar', 'Nagaon'],
+    'Bihar': ['Patna', 'Gaya', 'Muzaffarpur', 'Bhagalpur', 'Darbhanga'],
+    'Chhattisgarh': ['Raipur', 'Bhilai', 'Bilaspur', 'Korba', 'Raigarh'],
+    'Goa': ['Panaji', 'Vasco da Gama', 'Margao', 'Mapusa', 'Ponda'],
+    'Gujarat': ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Gandhinagar'],
+    'Haryana': ['Faridabad', 'Gurugram', 'Rohtak', 'Panipat', 'Karnal'],
+    'Himachal Pradesh': ['Shimla', 'Mandi', 'Solan', 'Dharamshala', 'Kullu'],
+    'Jharkhand': ['Ranchi', 'Jamshedpur', 'Dhanbad', 'Bokaro', 'Hazaribagh'],
+    'Karnataka': ['Bangalore', 'Mysore', 'Hubli', 'Mangalore', 'Belgaum'],
+    'Kerala': ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur', 'Kollam'],
+    'Madhya Pradesh': ['Bhopal', 'Indore', 'Jabalpur', 'Gwalior', 'Ujjain'],
+    'Maharashtra': ['Mumbai', 'Pune', 'Nagpur', 'Nashik', 'Aurangabad'],
+    'Manipur': ['Imphal', 'Thoubal', 'Bishnupur', 'Churachandpur', 'Kakching'],
+    'Meghalaya': ['Shillong', 'Tura', 'Jowai', 'Nongpoh', 'Williamnagar'],
+    'Mizoram': ['Aizawl', 'Lunglei', 'Champhai', 'Saiha', 'Kolasib'],
+    'Nagaland': ['Kohima', 'Dimapur', 'Mokokchung', 'Tuensang', 'Wokha'],
+    'Odisha': ['Bhubaneswar', 'Cuttack', 'Rourkela', 'Berhampur', 'Sambalpur'],
+    'Punjab': ['Ludhiana', 'Amritsar', 'Jalandhar', 'Patiala', 'Bathinda'],
+    'Rajasthan': ['Jaipur', 'Jodhpur', 'Udaipur', 'Kota', 'Bikaner'],
+    'Sikkim': ['Gangtok', 'Namchi', 'Mangan', 'Singtam', 'Gyalshing'],
+    'Tamil Nadu': ['Chennai', 'Coimbatore', 'Madurai', 'Tiruchirappalli', 'Salem'],
+    'Telangana': ['Hyderabad', 'Warangal', 'Nizamabad', 'Karimnagar', 'Khammam'],
+    'Tripura': ['Agartala', 'Dharmanagar', 'Udaipur', 'Kailashahar', 'Belonia'],
+    'Uttar Pradesh': ['Lucknow', 'Kanpur', 'Agra', 'Varanasi', 'Allahabad'],
+    'Uttarakhand': ['Dehradun', 'Haridwar', 'Roorkee', 'Haldwani', 'Rudrapur'],
+    'West Bengal': ['Kolkata', 'Howrah', 'Durgapur', 'Asansol', 'Siliguri'],
+  };
+  
+
+
   const [formData, setFormData] = useState({
     personalInfo: {
       profession: "",
@@ -125,6 +160,9 @@ function PatronProfile() {
         <div className="patron_img_name_container">
           <img src={profileImg} alt="" className="patron_img" />
           <div className="verify_name_wrapper">
+            {/* <p className="patron_name">
+              {formData?.personalInfo?.companyName}
+            </p> */}
             <p className="patron_name">
               {formData?.personalInfo?.firstName}{" "}
               {formData?.personalInfo?.lastName}{" "}
@@ -141,24 +179,26 @@ function PatronProfile() {
         {/* personal information  */}
         <main className="personal_information_wrapper">
           <form onSubmit={submitHandler} className="personal_info_form">
-            <p className="personal_information_text">Personal Information</p>
+            <p className="personal_information_text">Basic Profile</p>
             <div className="personal_info_form_part">
               <label htmlFor="" className="single_personal_info">
-                <p className="form_title">First Name</p>
+                <p className="form_title">First Name*</p>
                 <input
                   name="personalInfo.firstName"
                   onChange={changeHandler}
                   value={formData.personalInfo.firstName}
                   className={`personal_form_input`}
+                  required
                 />
               </label>
               <label htmlFor="" className="single_personal_info">
-                <p className="form_title">Last Name</p>
+                <p className="form_title">Last Name*</p>
                 <input
                   name="personalInfo.lastName"
                   onChange={changeHandler}
                   value={formData.personalInfo.lastName}
                   className={`personal_form_input`}
+                  required
                 />
               </label>
               <label htmlFor="" className="single_personal_info">
@@ -211,30 +251,63 @@ function PatronProfile() {
             <p className="personal_information_text">Address</p>
             <div className="personal_info_form_part">
               <label htmlFor="" className="single_personal_info">
-                <p className="form_title">state</p>
-                <input
+                <p className="form_title">state*</p>
+                {/* <input
                   name="address.state"
                   onChange={changeHandler}
                   value={formData.address.state}
                   className={`personal_form_input`}
-                />
+                /> */}
+                <select
+                  style={{ backgroundColor: "White", color: "black" }}
+                  name="address.state"
+                  onChange={changeHandler}
+                  value={formData.address.state}
+                  className={`personal_form_input`}
+                  required
+                >
+                  {indianStates.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
               </label>
               <label htmlFor="" className="single_personal_info">
-                <p className="form_title">City</p>
-                <input
+                <p className="form_title">City*</p>
+                {/* <input
                   name="address.city"
                   onChange={changeHandler}
                   value={formData.address.city}
                   className={`personal_form_input`}
-                />
+                /> */}
+                <select
+                  style={{ backgroundColor: "White", color: "black" }}
+                  name="address.city"
+                  onChange={changeHandler}
+                  value={formData.address.city}
+                  className={`personal_form_input`}
+                  required
+                >
+                  {formData.address.state &&
+                    citiesByState[formData.address.state] &&
+                    citiesByState[formData.address.state].map((city) => (
+                      <option key={city} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                </select>
               </label>
               <label htmlFor="" className="single_personal_info">
-                <p className="form_title">Pincode</p>
+                <p className="form_title">Pincode*</p>
                 <input
                   name="address.pincode"
+                  maxLength={6}
+                  pattern="[0-9]{6}"
                   onChange={changeHandler}
                   value={formData.address.pincode}
                   className={`personal_form_input`}
+                  required
                 />
               </label>
               <label htmlFor="" className="single_personal_info">
@@ -251,21 +324,23 @@ function PatronProfile() {
             <p className="personal_information_text">Contact</p>
             <div className="personal_info_form_part">
               <label htmlFor="" className="single_personal_info">
-                <p className="form_title">Company Email</p>
+                <p className="form_title">Company Email*</p>
                 <input
                   name="contactDetails.email"
                   onChange={changeHandler}
                   value={formData.contactDetails.email}
                   className={`personal_form_input`}
+                  required
                 />
               </label>
               <label htmlFor="" className="single_personal_info">
-                <p className="form_title">Contact Number</p>
+                <p className="form_title">Contact Number*</p>
                 <input
                   name="contactDetails.contactNumber"
                   onChange={changeHandler}
                   value={formData.contactDetails.contactNumber}
                   className={`personal_form_input`}
+                  required
                 />
               </label>
               <label htmlFor="" className="single_personal_info">

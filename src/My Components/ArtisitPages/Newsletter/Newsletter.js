@@ -8,11 +8,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
+import Patron_Navbar from "../../PatronPages/Patron_Navbar";
 
 const API_KEY = "a508cd51cc1c4e68b737330667020e05";
 const API_URL = `https://newsapi.org/v2/top-headlines?country=in&category=entertainment&apiKey=${API_KEY}`;
 
 export function Newsletter() {
+
+  const [Role,setRole]=useState("");
   const [latestNews, setLatestNews] = useState(null);
 
   const [imageNews, setImageNews] = useState(null);
@@ -39,12 +42,14 @@ export function Newsletter() {
         setImageNews(image);
       })
       .catch((error) => console.error("Error fetching news data :", error));
+    setRole(localStorage.getItem("role"));
   }, []);
 
   return (
     imageNews !== null && (
       <>
-        <Artist_navbar />
+        {Role === "Artist" ? <Artist_navbar /> : <Patron_Navbar />}
+
         <div className="NewsletterPage">
           <div className="NewsletterPage_BDA">
             <div className="NewsletterPage_left">

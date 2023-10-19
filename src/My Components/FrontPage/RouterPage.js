@@ -58,6 +58,7 @@ import ViewArtistApplication from "../AdminPages/ViewApplicants/ViewArtistApplic
 import Chat from "../AdminPages/AdmiChatPage/Chat";
 import MoreinfoArtistOppurtunity from "../AdminPages/ViewApplicants/ViewArtistApplication/ArtistOppurtunity/MoreInfo/MoreinfoArtistOppurtunity";
 import TermAndCondition from "./TermAndCondition";
+import Contactus from "../PatronPages/ContactUs/ContactUs";
 
 export default function RouterPage() {
   const { role, accessToken } = useSelector((state) => state.auth);
@@ -167,6 +168,10 @@ export default function RouterPage() {
             <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
 
             <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
+
+            <Route path="/contactUs" element={<Contactus />} />
+
+            <Route path="/latestNews" exact element={<Newsletter />} />
 
             <Route
               path="/patron-event-appli/:id"
