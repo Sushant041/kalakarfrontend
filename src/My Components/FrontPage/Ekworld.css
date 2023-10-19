@@ -4,6 +4,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sansita Swashed:wght@300;400;500&display=swap');
 
+
+  /* font sizes */
+  :root{
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-21xl: 50px;
+    --font-size-base-9: 16.9px;
+    --font-size-mini-5: 14.5px;
+    --font-size-lgi: 19px;
+    --font-size-mini: 15px;
+    --font-para-16 : 16px;
+    --font-para-18 : 18px;
+
+  }
+  
+  
+
 .Ekworld_Page {
   background: #fbdfaf;
   min-height: 100vh;
@@ -16,6 +33,7 @@
   width: 100%;
   padding: 4vh 0px;
   text-align: center;
+  font-size: var(--font-size-21xl);
 }
 
 .Ekworld_page h1 {
@@ -38,7 +56,7 @@
   color: #000;
 text-align: justify;
 font-family: Poppins;
-font-size: 18px;
+font-size: var(--font-para-16);
 font-style: normal;
 font-weight: 400;
 line-height: 142%; /* 25.56px */

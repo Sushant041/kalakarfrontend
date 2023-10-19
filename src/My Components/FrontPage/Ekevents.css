@@ -2,6 +2,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@300;500&display=swap');
 
+:root{
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-21xl: 50px;
+  --font-size-base-9: 16.9px;
+  --font-size-mini-5: 14.5px;
+  --font-size-lgi: 19px;
+  --font-size-mini: 15px;
+  --font-para-16 : 16px;
+  --font-para-18 : 18px;
+
+}
+
+
 .Ekevents_Page {
   background: #fbdfaf;
   min-height: 100vh;
@@ -18,7 +32,7 @@
   color: #000;
   text-align: center;
   font-family: Plus Jakarta Sans;
-  font-size: 40px;
+  font-size: var(--font-size-21xl);
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -40,6 +54,11 @@
 
 .Ekevents_events span {
   color: #ea4335;
+  font-size: var(--font-para-18);
+}
+
+.Ekevents_events li {
+  font-size: var(--font-para-18);
 }
 
 

@@ -1,6 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
+  /* font sizes */
+  :root{
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-21xl: 50px;
+    --font-size-base-9: 16.9px;
+    --font-size-mini-5: 14.5px;
+    --font-size-lgi: 19px;
+    --font-size-mini: 15px;
+    --font-para-16 : 16px;
+    --font-para-18 : 18px;
+
+  }
+
 .Ekperformance_page {
   text-align: center;
   justify-content: center;
@@ -48,7 +62,7 @@
   text-align: center;
   text-shadow: 8px 4px 7px 0px rgba(0, 0, 0, 0.25);
   font-family: Plus Jakarta Sans;
-  font-size: 40px;
+  font-size:var(--font-size-21xl);
   font-style: normal;
   font-weight: 700;
 }
@@ -70,6 +84,7 @@
   display: flex;
   width: calc(85% - 40px);
   max-width: calc(1202px -40px);
+  font-size: var(--font-para-16);
 
   margin-left: auto;
   margin-right: auto;
@@ -81,8 +96,6 @@
   text-align: justify;
 
   font-family: Poppins;
-
-  font-size: 18px;
 
   font-style: normal;
 

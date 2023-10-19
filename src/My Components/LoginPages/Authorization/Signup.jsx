@@ -172,6 +172,19 @@ function Signup() {
             />
           </label>
         </div>
+        <label htmlFor="contactNumber" className="signupFormLabel">
+          <p className="signupFormPara">Mobile Number</p>
+          <input
+            required
+            value={formData.phoneNumber}
+            onChange={changeHandler}
+            type="number"
+            name="phoneNumber"
+            className="signupFormInput "
+            placeholder="Enter your Mobile number"
+            max={10}
+          />
+        </label>
 
         <label htmlFor="email" className="signupFormLabel">
           <p className="signupFormPara">Email</p>
@@ -210,27 +223,24 @@ function Signup() {
           />
         </label>
 
-        <label htmlFor="contactNumber" className="signupFormLabel">
-          <p className="signupFormPara">Mobile Number</p>
-          <input
-            required
-            value={formData.phoneNumber}
-            onChange={changeHandler}
-            type="number"
-            name="phoneNumber"
-            className="signupFormInput "
-            placeholder="Enter your Mobile number"
-          />
-        </label>
+       
+        <div className="termAndCondition">
+        <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
+        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>Terms And Condition</p>
+        </div> 
 
         <button type="submit" className="registerButton">
           Register
         </button>
 
+<<<<<<< HEAD
+   
+=======
        <div className="termAndCondition">
         <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
         <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
         </div> 
+>>>>>>> 60691353177a42d0e6be6baa33005830c07ceb81
        
         <p className=" navigateLoginPara">
           Don’t have an account?{" "}

@@ -2,7 +2,7 @@ import React from 'react';
 import './Ekworld.css';
 import Carousel from "react-bootstrap/Carousel";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import DancePic from '../../../public/assets/Ekworld/Rectangle206.png';
 export function Ekworld() {
   return (
     <div className='Ekworld_Page'>
@@ -25,7 +25,8 @@ export function Ekworld() {
       <div className="Ekworld_Media">
         <a href='#Mediagallery'>
           <div className="Ekworld_Media_Items">
-            <img src="assets/Ekworld/Rectangle 142.png" className="Ekworld_Media_Item" alt="Dance" />
+            {/* <img src="assets/Ekworld/Rectangle 142.png" className="Ekworld_Media_Item" alt="Dance" /> */}
+            <img src={DancePic} className="Ekworld_Media_Item" alt="Dance" />
             <h3>
               Dance
             </h3>

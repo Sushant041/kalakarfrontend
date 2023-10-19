@@ -16,6 +16,35 @@ body{
   visibility: hidden;
 }
 
+.profileImg{
+position: relative;
+padding: 0;
+width: 240px;
+height:240px;
+background:conic-gradient(#AD2F3B 86deg, #d9d9d9 0deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+border-radius: 50%;
+
+}
+.progressBar{
+border-radius: 50%;
+  width: 35px;height: 35px;
+  background-color: #AD2F3B;
+  position: absolute;
+  left: 0;top: 0;right: 0;bottom: 0;
+  margin: auto;
+overflow: hidden;
+color:#fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size:12px;
+  transform: translate(115px);
+
+}
 
 .Profile_navbarbutton button{
   border: none;
@@ -45,14 +74,13 @@ body{
   width: 100vw;
   height: 70rem;
   display: grid;
-  grid-template-columns: 1.5fr 3fr;
+  grid-template-columns:1fr;
 }
 .profile-left{
   width: 100%;
   height: 100%;
-    display: flex;
-    align-items: center;
-  flex-direction: column;
+   display: grid;
+   grid-template-columns: 1fr 4fr;
   gap: 3rem;
 
   padding: 2rem;
@@ -60,8 +88,6 @@ body{
 .profile-right{
   width: 100%;
   height: 100%;
-    display: flex;
-  
 }
 
 
@@ -72,7 +98,7 @@ body{
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   width: 341px;
-  height: 460px;
+  height: 396px;
 }
 
 .BasicProfile_AccSet h1 {
@@ -127,7 +153,6 @@ body{
   background-position:center; 
   /* background-repeat: no-repeat; */
   background-size:contain; 
-  border: 10px solid #d9d9d9;
   stroke-width: 10px;
   stroke: rgba(0, 0, 0, 0.01);
 }
@@ -154,10 +179,10 @@ body{
   align-items: center;
   border: none;
   border-radius: 15px;
-  margin-top: 50px;
+  margin-top:10px;
   color: #fff;
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -269,11 +294,32 @@ body{
 .ArtProfile_Infoform select,
 .PerformanceProfile_Infoform select,
 .AwardProfile_Infoform select,
+
 .ExpectedoppoProfile_Infoform select {
   padding: 10px;
   background-color: white;
   color: black;
   width: 440px;
+  height: 60px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+.input{
+  padding: 20px;
+  width: 575px;
+  height: 60px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content:end ;
+  
+}
+.BasicProfile_inputfield select {
+  padding: 10px;
+  background-color: white;
+  color: black;
+  width: 575px;
   height: 60px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
@@ -310,25 +356,26 @@ body{
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+  gap: 36px;
 }
 
 .BasicProfile_Addressshort select {
   padding: 10px;
   background-color: white;
   color: black;
-  width: 100%;
+  width: 270px;
   height: 60px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .BasicProfile_Addressshort input[type="text"] {
-  width: 235px;
+  width: 270px;
   height: 60px;
 }
 
 .BasicProfile_Addressshort input[type="number"] {
-  width: 151px;
+  width: 270px;
   height: 60px;
 }
 
@@ -783,9 +830,6 @@ body{
   background-position:center; 
   /* background-repeat: no-repeat; */
   background-size:contain; 
-  border: 10px solid #d9d9d9;
-  stroke-width: 10px;
-  stroke: rgba(0, 0, 0, 0.01);
 }
 
 .BasicProfile_removeavatar {
@@ -810,10 +854,10 @@ body{
   align-items: center;
   border: none;
   border-radius: 15px;
-  margin-top: 50px;
+  margin-top:10px;
   color: #fff;
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -845,7 +889,7 @@ body{
 .PerformanceProfile_Infoform,
 .AwardProfile_Infoform,
 .ExpectedoppoProfile_Infoform {
-  width: 999px;
+  width: 75%;
   height: auto;
   padding: 0px 32px;
   border-radius: 20px;
@@ -916,7 +960,7 @@ body{
 .AwardProfile_Infoform form input,
 .ExpectedoppoProfile_Infoform form input {
   padding: 20px;
-  width: 440px;
+  width: 575px;
   height: 60px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
@@ -929,14 +973,29 @@ body{
   padding: 10px;
   background-color: white;
   color: black;
-  width: 440px;
+  width: 575px;
   height: 60px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
 }
+.red{
+  color: red;
+}
+table, tr, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+table{
+  width: 100%;
+}
+#upload{
+  width: 100%;
+  text-align: right;
+}
 
 .BasicProfile_Infoform form .gender {
-  width: 440px;
+  width: 575px;
   height: 70px;
 }
 .BasicProfile_Infoform form .Genderinfo {
@@ -971,19 +1030,19 @@ body{
   padding: 10px;
   background-color: white;
   color: black;
-  width: 100%;
+  width: 575px;
   height: 60px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .BasicProfile_Addressshort input[type="text"] {
-  width:100%;
+  width:270px;
   height: 60px;
 }
 
 .BasicProfile_Addressshort input[type="number"] {
-  width: 100%;
+  width: 270px;
   height: 60px;
 }
 

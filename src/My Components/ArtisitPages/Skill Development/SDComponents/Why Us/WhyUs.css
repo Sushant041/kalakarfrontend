@@ -1,3 +1,16 @@
+
+:root{
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-21xl: 50px;
+    --font-size-base-9: 16.9px;
+    --font-size-mini-5: 14.5px;
+    --font-size-lgi: 19px;
+    --font-size-mini: 15px;
+    --font-para-16 : 16px;
+    --font-para-18 : 18px;
+  
+  }
 #complete-why-us-section {
     display: flex;
     flex-direction: column;
@@ -9,7 +22,7 @@
     color: #AD2F3B;
     text-align: center;
     font-family: var(--main-font-family);
-    font-size: 48px;
+    font-size: var(--font-size-21xl);
     font-weight: 700;
     line-height: 60px;
     letter-spacing: -0.96px;
