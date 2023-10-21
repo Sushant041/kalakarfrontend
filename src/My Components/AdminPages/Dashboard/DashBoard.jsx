@@ -79,7 +79,7 @@ function DashBoard() {
               className="dashboard-graph-bttn-content"
               onClick={() => console.log("iii")}
             >
-              <h6>New User</h6>
+              <h6>User Lost</h6>
               <p>100</p>
             </div>
           </div>

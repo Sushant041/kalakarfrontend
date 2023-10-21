@@ -10,6 +10,12 @@ import {
   makeAuthenticatedPOSTRequest,
   makeAuthenticated_Multi_Patch_REQ,
 } from "../../../services/serverHelper";
+import {
+  makeAuthenticatedGETRequest,
+  makeAuthenticatedPATCHRequest,
+  makeAuthenticatedPOSTRequest,
+  makeAuthenticated_Multi_Patch_REQ,
+} from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -34,11 +40,16 @@ export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
   const defaultPic =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+  const defaultPic =
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   const initialActiveSection = "basic";
 
+
   const [activeSection, setActiveSection] = useState(initialActiveSection);
 
+  // ! this is for avatar
+  const [profileAvatar, setProfileAvatar] = useState(null);
   // ! this is for avatar
   const [profileAvatar, setProfileAvatar] = useState(null);
 
@@ -46,6 +57,229 @@ export function Artist_Profile() {
     setActiveSection(section);
     localStorage.setItem("activeSection", section);
   };
+
+  const statesOFIndiaData = [
+    {
+      key: "AN",
+      name: "Andaman and Nicobar Islands",
+    },
+    {
+      key: "AP",
+      name: "Andhra Pradesh",
+    },
+    {
+      key: "AR",
+      name: "Arunachal Pradesh",
+    },
+    {
+      key: "AS",
+      name: "Assam",
+    },
+    {
+      key: "BR",
+      name: "Bihar",
+    },
+    {
+      key: "CG",
+      name: "Chandigarh",
+    },
+    {
+      key: "CH",
+      name: "Chhattisgarh",
+    },
+    {
+      key: "DH",
+      name: "Dadra and Nagar Haveli",
+    },
+    {
+      key: "DD",
+      name: "Daman and Diu",
+    },
+    {
+      key: "DL",
+      name: "Delhi",
+    },
+    {
+      key: "GA",
+      name: "Goa",
+    },
+    {
+      key: "GJ",
+      name: "Gujarat",
+    },
+    {
+      key: "HR",
+      name: "Haryana",
+    },
+    {
+      key: "HP",
+      name: "Himachal Pradesh",
+    },
+    {
+      key: "JK",
+      name: "Jammu and Kashmir",
+    },
+    {
+      key: "JH",
+      name: "Jharkhand",
+    },
+    {
+      key: "KA",
+      name: "Karnataka",
+    },
+    {
+      key: "KL",
+      name: "Kerala",
+    },
+    {
+      key: "LD",
+      name: "Lakshadweep",
+    },
+    {
+      key: "MP",
+      name: "Madhya Pradesh",
+    },
+    {
+      key: "MH",
+      name: "Maharashtra",
+    },
+    {
+      key: "MN",
+      name: "Manipur",
+    },
+    {
+      key: "ML",
+      name: "Meghalaya",
+    },
+    {
+      key: "MZ",
+      name: "Mizoram",
+    },
+    {
+      key: "NL",
+      name: "Nagaland",
+    },
+    {
+      key: "OR",
+      name: "Odisha",
+    },
+    {
+      key: "PY",
+      name: "Puducherry",
+    },
+    {
+      key: "PB",
+      name: "Punjab",
+    },
+    {
+      key: "RJ",
+      name: "Rajasthan",
+    },
+    {
+      key: "SK",
+      name: "Sikkim",
+    },
+    {
+      key: "TN",
+      name: "Tamil Nadu",
+    },
+    {
+      key: "TS",
+      name: "Telangana",
+    },
+    {
+      key: "TR",
+      name: "Tripura",
+    },
+    {
+      key: "UK",
+      name: "Uttar Pradesh",
+    },
+    {
+      key: "UP",
+      name: "Uttarakhand",
+    },
+    {
+      key: "WB",
+      name: "West Bengal",
+    },
+  ];
+
+  const MajorIndianCities = [
+    {
+      city: "Mumbai",
+      state: "Maharashtra",
+    },
+    {
+      city: "Delhi",
+      state: "Delhi",
+    },
+    {
+      city: "Bangalore",
+      state: "Karnataka",
+    },
+    {
+      city: "Kolkata",
+      state: "West Bengal",
+    },
+    {
+      city: "Chennai",
+      state: "Tamil Nadu",
+    },
+    {
+      city: "Hyderabad",
+      state: "Telangana",
+    },
+    {
+      city: "Pune",
+      state: "Maharashtra",
+    },
+    {
+      city: "Ahmedabad",
+      state: "Gujarat",
+    },
+    {
+      city: "Jaipur",
+      state: "Rajasthan",
+    },
+    {
+      city: "Lucknow",
+      state: "Uttar Pradesh",
+    },
+  ];
+
+  const MajorInternationalCities = [
+    "United States",
+    "China",
+    "India",
+    "Indonesia",
+    "Pakistan",
+    "Brazil",
+    "Nigeria",
+    "Bangladesh",
+    "Russia",
+    "Mexico",
+    "Japan",
+    "Ethiopia",
+    "Philippines",
+    "Egypt",
+    "Vietnam",
+    "DR Congo",
+    "Turkey",
+    "Iran",
+    "Germany",
+    "Thailand",
+    "United Kingdom",
+    "France",
+    "Italy",
+    "South Africa",
+    "Myanmar",
+    "South Korea",
+    "Colombia",
+    "Spain",
+    "Ukraine",
+    "Tanzania",
+  ];
 
   // !  for basic proile
   const [basicFormData, setBasicFormData] = useState({
@@ -364,24 +598,37 @@ export function Artist_Profile() {
 
   //  ! for performance profile section
   const [performanceFormData, setPerformanceFormData] = useState({
-    yearOfExperience: "",
     affiliatedToAnyGroup: "",
-    nameOfTheAffiliatedGroup: "",
-    affiliatedToAnyOrg: "",
-    nameOfTheAffiliatedOrg: "",
-    totalNoOfPerformance: "",
+    nameOfArtistGroupOrg: "",
+    locationOfGroupOrg: "",
+    contactNoOfGroupOrg: "",
+    typeOfPerformance: "",
     highestLevelOfPerformance: "",
-    topFivePerformance: [],
-    performanceEvents: "",
-    thematic: "",
-    NoOfPerformanceLastYear: "",
-    performanceDuration: "",
-    performanceType: "",
-    chargesPerPerformance: "",
-    averagePerformanceIncome: "",
+    totalPerfs: "",
+    experience: "",
+    avgPerfDurationIn: "",
+    avgPerfFeeIn: "",
+    avgPerfDurationInternational: "",
+    avgPerfFeeInternational: "",
+    majorPerfCityIndia: "",
+    majorPerfCountryInternational: "",
     aboutJourney: "",
+    topFivePerformance: [],
     performanceImages: "",
     performancevideos: "",
+
+    // nameOfTheAffiliatedGroup: "",
+    // affiliatedToAnyOrg: "",
+    // nameOfTheAffiliatedOrg: "",
+    // totalNoOfPerformance: "",
+    // performanceEvents: "",
+    // thematic: "",
+    // NoOfPerformanceLastYear: "",
+    // performanceDuration: "",
+    // performanceType: "",
+    // chargesPerPerformance: "",
+    // averagePerformanceIncome: "",
+    // aboutJourney: "",
   });
 
   const perforChangeHandler = (event) => {
@@ -419,65 +666,85 @@ export function Artist_Profile() {
     const toastId = toast.loading("Loading...");
     try {
       const {
-        yearOfExperience,
         affiliatedToAnyGroup,
-        nameOfTheAffiliatedGroup,
-        affiliatedToAnyOrg,
-        nameOfTheAffiliatedOrg,
-        totalNoOfPerformance,
+        nameOfArtistGroupOrg,
+        locationOfGroupOrg,
+        contactNoOfGroupOrg,
+        typeOfPerformance,
         highestLevelOfPerformance,
+        totalPerfs,
+        experience,
+        avgPerfDurationIn,
+        avgPerfFeeIn,
+        avgPerfDurationInternational,
+        avgPerfFeeInternational,
+        aboutJourney,
+        majorPerfCityIndia,
+        majorPerfCountryInternational,
         topFivePerformance,
-        performanceEvents,
-        thematic,
-        NoOfPerformanceLastYear,
-        performanceDuration,
-        chargesPerPerformance,
-        averagePerformanceIncome,
-        performanceType,
+        performanceImages,
+        performancevideos,
+        // yearOfExperience,
+        // affiliatedToAnyGroup,
+        // nameOfTheAffiliatedGroup,
+        // affiliatedToAnyOrg,
+        // nameOfTheAffiliatedOrg,
+        // totalNoOfPerformance,
+        // highestLevelOfPerformance,
+        // performanceEvents,
+        // thematic,
+        // NoOfPerformanceLastYear,
+        // performanceDuration,
+        // chargesPerPerformance,
+        // averagePerformanceIncome,
+        // performanceType,
       } = performanceFormData;
 
       let performanceInfo = {
-        perfType: performanceType,
-        experience: yearOfExperience,
         affiliation: {
-          group: {
-            groupName: nameOfTheAffiliatedGroup,
-            isAffiliated: affiliatedToAnyGroup,
-          },
-          organization: {
-            orgName: nameOfTheAffiliatedOrg,
-            isAffiliated: affiliatedToAnyOrg,
-          },
+          name: nameOfArtistGroupOrg,
+          isAffiliated: affiliatedToAnyGroup,
+          location: locationOfGroupOrg,
+          conactNumber: contactNoOfGroupOrg,
         },
-        totalPerfs: totalNoOfPerformance,
-
+        perfDuration: {
+          india: avgPerfDurationIn,
+          international: avgPerfDurationInternational,
+        },
+        perfCharge: {
+          india: avgPerfFeeIn,
+          international: avgPerfFeeInternational,
+        },
+        perfType: typeOfPerformance,
+        experience: experience,
+        highlights: aboutJourney,
+        totalPerfs: totalPerfs,
         peakPerf: highestLevelOfPerformance,
-        perfNames: [...topFivePerformance],
-        perfEvent: performanceEvents,
-        thematic: thematic,
-        lastYearPerfs: NoOfPerformanceLastYear,
-        perfDuration: performanceDuration,
-        perfCharge: chargesPerPerformance,
-        perfIncome: averagePerformanceIncome,
+        majorPerfCity: majorPerfCityIndia,
+        majorPerfCountry: majorPerfCountryInternational,
+        perfDetails: topFivePerformance,
+        perfImgs: performanceImages,
+        perfVideos: performancevideos,
       };
+      console.log(performanceInfo);
 
-      const response = await makeAuthenticatedPATCHRequest(
-        artistProfilePoints.UPDATE_PROFILE_DATA_API,
-        { performanceInfo },
-        accessToken
-      );
-      console.log("response ", response);
-      if (response.status === "success") {
-        toast.success("successfully updated ", {
-          position: "top-center",
-        });
-        setActiveSection("award");
-        localStorage.setItem("activeSection", activeSection);
-      } else {
-        toast.error(response.message, {
-          position: "top-center",
-        });
-      }
+      // const response = await makeAuthenticatedPATCHRequest(
+      //   artistProfilePoints.UPDATE_PROFILE_DATA_API,
+      //   { performanceInfo },
+      //   accessToken
+      // );
+      // console.log("response ", response);
+      // if (response.status === "success") {
+      //   toast.success("successfully updated ", {
+      //     position: "top-center",
+      //   });
+      //   setActiveSection("award");
+      //   localStorage.setItem("activeSection", activeSection);
+      // } else {
+      //   toast.error(response.message, {
+      //     position: "top-center",
+      //   });
+      // }
     } catch (error) {
       console.log(error);
       toast.error("cannot updated successfully , please try again", {
@@ -760,7 +1027,11 @@ export function Artist_Profile() {
   }, []);
 
   // ! this is to add avatar file
+  // ! this is to add avatar file
   const handleButtonClick = () => {
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".jpg, .jpeg, .png";
     const fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.accept = ".jpg, .jpeg, .png";
@@ -768,6 +1039,7 @@ export function Artist_Profile() {
     fileInput.click();
   };
 
+  // ! this is to add the avatar
   // ! this is to add the avatar
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
@@ -783,12 +1055,29 @@ export function Artist_Profile() {
       );
       console.log("res", response);
       setProfileAvatar(response?.data?.avatar);
+      const response = await makeAuthenticated_Multi_Patch_REQ(
+        artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+        formData,
+        accessToken
+      );
+      console.log("res", response);
+      setProfileAvatar(response?.data?.avatar);
     }
   };
 
   //! this is for remove avatart
   const handleRemoveAvatar = async (event) => {
+  //! this is for remove avatart
+  const handleRemoveAvatar = async (event) => {
     event.preventDefault();
+
+    const response = await makeAuthenticatedPOSTRequest(
+      artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+      { avatar: "" },
+      accessToken
+    );
+    setProfileAvatar(null);
+  };
 
     const response = await makeAuthenticatedPOSTRequest(
       artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
@@ -808,11 +1097,21 @@ export function Artist_Profile() {
     marginLeft: "0vh",
     marginTop: "-2vh",
   };
+  //   ! dont change this
+  const mystyle = {
+    fontSize: "large",
+    fontWeight: "500",
+  };
+  const back = {
+    backgroundColor: "transparent",
+    marginLeft: "0vh",
+    marginTop: "-2vh",
+  };
 
   return (
     <div className="Profile_Page">
       <div className="ProfilePage_Navbar">
-        <Artist_navbar />
+        <Artist_navbar  />
         <Navbar
           style={{ zIndex: "99" }}
           className="navbar nav_frontpage navbar-expand-lg "
@@ -820,6 +1119,7 @@ export function Artist_Profile() {
         >
           {/* <Container> */}
           <div className="container-fluid">
+            {/* <!--Art Lover : i am comment the Navbar.Toggle for remove the menu Button--> */}
             {/* <!--Art Lover : i am comment the Navbar.Toggle for remove the menu Button--> */}
 
             {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
@@ -952,6 +1252,8 @@ export function Artist_Profile() {
             </h4>
           </div>
         </div>
+
+
 
         {/* this is for basic  */}
 
@@ -1243,8 +1545,8 @@ export function Artist_Profile() {
                     {/* </div> */}
                     {/* </div> */}
 
-                    <div className="BasicProfile_OtherDetails">
-                      {/* <div className="BasicProfile_inputfield">
+                        <div className="BasicProfile_OtherDetails">
+                          {/* <div className="BasicProfile_inputfield">
                 <label>No of Performance Last Year</label>
                 <input onChange={changeHandler} name="numOfperformanceLastYear" placeholder="Enter no of performance" value={basicFormData.numOfperformanceLastYear} type="text"></input>
               </div> */}
@@ -2641,7 +2943,7 @@ export function Artist_Profile() {
                   {/* <div className="PerformanceProfile_inputfield">
                 <label>Income for Performing Art*</label>
                 <select value={performanceFormData.averagePerformanceIncome} onChange={perforChangeHandler} name="averagePerformanceIncome">
-                  <option selected hidden>
+                  <option selected >
                     Select average income
                   </option>
                   {ChargesPerPerformance.map((option) => (
