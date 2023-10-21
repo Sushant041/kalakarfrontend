@@ -10,12 +10,12 @@ import {
   makeAuthenticatedPOSTRequest,
   makeAuthenticated_Multi_Patch_REQ,
 } from "../../../services/serverHelper";
-import {
-  makeAuthenticatedGETRequest,
-  makeAuthenticatedPATCHRequest,
-  makeAuthenticatedPOSTRequest,
-  makeAuthenticated_Multi_Patch_REQ,
-} from "../../../services/serverHelper";
+// import {
+//   makeAuthenticatedGETRequest,
+//   makeAuthenticatedPATCHRequest,
+//   makeAuthenticatedPOSTRequest,
+//   makeAuthenticated_Multi_Patch_REQ,
+// } from "../../../services/serverHelper";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -40,8 +40,8 @@ export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
   const defaultPic =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
-  const defaultPic =
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+  // const defaultPic =
+  //   "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 
   const initialActiveSection = "basic";
 
@@ -51,7 +51,7 @@ export function Artist_Profile() {
   // ! this is for avatar
   const [profileAvatar, setProfileAvatar] = useState(null);
   // ! this is for avatar
-  const [profileAvatar, setProfileAvatar] = useState(null);
+  // const [profileAvatar, setProfileAvatar] = useState(null);
 
   const handleClick = (section) => {
     setActiveSection(section);
@@ -1029,9 +1029,9 @@ export function Artist_Profile() {
   // ! this is to add avatar file
   // ! this is to add avatar file
   const handleButtonClick = () => {
-    const fileInput = document.createElement("input");
-    fileInput.type = "file";
-    fileInput.accept = ".jpg, .jpeg, .png";
+    // const fileInput = document.createElement("input");
+    // fileInput.type = "file";
+    // fileInput.accept = ".jpg, .jpeg, .png";
     const fileInput = document.createElement("input");
     fileInput.type = "file";
     fileInput.accept = ".jpg, .jpeg, .png";
@@ -1055,13 +1055,13 @@ export function Artist_Profile() {
       );
       console.log("res", response);
       setProfileAvatar(response?.data?.avatar);
-      const response = await makeAuthenticated_Multi_Patch_REQ(
-        artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
-        formData,
-        accessToken
-      );
-      console.log("res", response);
-      setProfileAvatar(response?.data?.avatar);
+      // const response = await makeAuthenticated_Multi_Patch_REQ(
+      //   artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+      //   formData,
+      //   accessToken
+      // );
+      // console.log("res", response);
+      // setProfileAvatar(response?.data?.avatar);
     }
   };
 
@@ -1098,15 +1098,15 @@ export function Artist_Profile() {
     marginTop: "-2vh",
   };
   //   ! dont change this
-  const mystyle = {
-    fontSize: "large",
-    fontWeight: "500",
-  };
-  const back = {
-    backgroundColor: "transparent",
-    marginLeft: "0vh",
-    marginTop: "-2vh",
-  };
+  // const mystyle = {
+  //   fontSize: "large",
+  //   fontWeight: "500",
+  // };
+  // const back = {
+  //   backgroundColor: "transparent",
+  //   marginLeft: "0vh",
+  //   marginTop: "-2vh",
+  // };
 
   return (
     <div className="Profile_Page">
