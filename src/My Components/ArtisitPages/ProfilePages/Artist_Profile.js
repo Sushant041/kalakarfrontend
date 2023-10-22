@@ -1298,6 +1298,8 @@ export function Artist_Profile() {
                       value={basicFormData.email}
                       name="email"
                       type="email"
+                      readOnly
+                      style={{ backgroundColor: ' rgba(0, 0, 0, 0.15);' }}
                     />
                   </div>
                   {/* <div className="BasicProfile_inputfield">
@@ -1339,6 +1341,7 @@ export function Artist_Profile() {
                         placeholder="1234567890"
                         style={{ width: "83%" }}
                         required
+                        
                       />
                     </div>
                   </div>

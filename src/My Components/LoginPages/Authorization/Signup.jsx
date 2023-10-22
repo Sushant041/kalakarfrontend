@@ -226,17 +226,14 @@ function Signup() {
        
         <div className="termAndCondition">
         <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
-        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>Terms And Condition</p>
+        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"2px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
         </div> 
 
         <button type="submit" className="registerButton">
           Register
         </button>
 
-       <div className="termAndCondition">
-        <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
-        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
-        </div> 
+      
        
         <p className=" navigateLoginPara">
           Don’t have an account?{" "}

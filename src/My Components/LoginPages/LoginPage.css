@@ -65,7 +65,7 @@
   color: black;
   font-weight: 500;
   font-size: 16px;
-  padding-left: 8px;
+  padding-bottom: 12px;
 }
 
 .loginFormInput{
@@ -120,7 +120,7 @@ input::placeholder {
   font-weight: 600;
   line-height: normal;  cursor: pointer;
   font-weight: 500;
-  margin-top: 10px;
+  margin-top: 2px;
   text-align: right;
 
 }
@@ -134,7 +134,7 @@ input::placeholder {
 }
 
 .login_rememberMe_Text{
-  margin-top: 14px;
+  margin-top: 2px;
   font-family: Poppins;
   font-size:15px;
   font-style: normal;
