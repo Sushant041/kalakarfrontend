@@ -45,7 +45,6 @@ export function Artist_Profile() {
 
   const initialActiveSection = "basic";
 
-
   const [activeSection, setActiveSection] = useState(initialActiveSection);
 
   // ! this is for avatar
@@ -305,7 +304,7 @@ export function Artist_Profile() {
       pincode: "",
       details: "",
     },
-    anunalIncomeByPerf:"",
+    anunalIncomeByPerf: "",
     numOfperformanceLastYear: "",
     handles: {
       instagram: "",
@@ -313,9 +312,9 @@ export function Artist_Profile() {
       youtube: "",
       linkedIn: "",
       website: "",
-      twitter:""
+      twitter: "",
     },
-    gstIn:"",
+    gstIn: "",
     aadharNumber: "",
     panNumber: "",
     upiId: "",
@@ -351,7 +350,7 @@ export function Artist_Profile() {
           [name.split(".")[1]]: value,
         },
       }));
-    }else {
+    } else {
       // Otherwise, update the top-level state
       setBasicFormData((prevData) => ({
         ...prevData,
@@ -367,7 +366,7 @@ export function Artist_Profile() {
     const toastId = toast.loading("Loading...");
 
     let address = basicFormData.address;
-    let idProof=basicFormData.idProof;
+    let idProof = basicFormData.idProof;
 
     let {
       firstName,
@@ -388,7 +387,7 @@ export function Artist_Profile() {
       handles,
       pwd,
       incomeSrc,
-      gstIn
+      gstIn,
     } = basicFormData;
 
     let personalInfo = {
@@ -413,7 +412,7 @@ export function Artist_Profile() {
       numOfperformanceLastYear,
       idProof,
       gstIn,
-      anunalIncomeByPerf
+      anunalIncomeByPerf,
     };
 
     let socialLinks = handles;
@@ -614,8 +613,8 @@ export function Artist_Profile() {
     majorPerfCountryInternational: "",
     aboutJourney: "",
     topFivePerformance: [],
-    performanceImages: "",
-    performancevideos: "",
+    performanceImages: [],
+    performancevideos: [],
 
     // nameOfTheAffiliatedGroup: "",
     // affiliatedToAnyOrg: "",
@@ -728,23 +727,23 @@ export function Artist_Profile() {
       };
       console.log(performanceInfo);
 
-      // const response = await makeAuthenticatedPATCHRequest(
-      //   artistProfilePoints.UPDATE_PROFILE_DATA_API,
-      //   { performanceInfo },
-      //   accessToken
-      // );
-      // console.log("response ", response);
-      // if (response.status === "success") {
-      //   toast.success("successfully updated ", {
-      //     position: "top-center",
-      //   });
-      //   setActiveSection("award");
-      //   localStorage.setItem("activeSection", activeSection);
-      // } else {
-      //   toast.error(response.message, {
-      //     position: "top-center",
-      //   });
-      // }
+      const response = await makeAuthenticatedPATCHRequest(
+        artistProfilePoints.UPDATE_PROFILE_DATA_API,
+        { performanceInfo },
+        accessToken
+      );
+      console.log("response ", response);
+      if (response.status === "success") {
+        toast.success("successfully updated ", {
+          position: "top-center",
+        });
+        setActiveSection("award");
+        localStorage.setItem("activeSection", activeSection);
+      } else {
+        toast.error(response.message, {
+          position: "top-center",
+        });
+      }
     } catch (error) {
       console.log(error);
       toast.error("cannot updated successfully , please try again", {
@@ -902,14 +901,14 @@ export function Artist_Profile() {
         about: personalInfo?.about,
         language: personalInfo?.languages,
         monthlyIncome: personalInfo?.monthlyIncome,
-        socialCategory:personalInfo?.socialCategory,
-        pwd:personalInfo?.pwd,
-        incomeSrc:personalInfo?.incomeSrc,
+        socialCategory: personalInfo?.socialCategory,
+        pwd: personalInfo?.pwd,
+        incomeSrc: personalInfo?.incomeSrc,
         aadharNumber: otherInfo?.aadharNumber,
         panNumber: otherInfo?.panNumber,
-        anunalIncomeByPerf:otherInfo?.anunalIncomeByPerf,
+        anunalIncomeByPerf: otherInfo?.anunalIncomeByPerf,
         upiId: otherInfo?.upiId,
-        gstIn:otherInfo?.gstIn,
+        gstIn: otherInfo?.gstIn,
         numOfperformanceLastYear: otherInfo?.lastYearPerfsCount,
         passportNumber: otherInfo?.passportNumber,
         address: {
@@ -920,10 +919,10 @@ export function Artist_Profile() {
           ...prev.handles,
           ...response.data.socialLinks,
         },
-        idProof:{
+        idProof: {
           ...prev.idProof,
-          ...response.data.otherInfo.idProof
-        }
+          ...response.data.otherInfo.idProof,
+        },
       }));
 
       setArtFormData((prev) => ({
@@ -1065,19 +1064,33 @@ export function Artist_Profile() {
     }
   };
 
-  //! this is for remove avatart
-  const handleRemoveAvatar = async (event) => {
-  //! this is for remove avatart
-  const handleRemoveAvatar = async (event) => {
-    event.preventDefault();
+  const handelMultipleImages = async (e) => {
+    // const [selectedImages, setSelectedImages] = useState([]);
+    console.log("okko");
+    const files = e.target.files;
 
-    const response = await makeAuthenticatedPOSTRequest(
-      artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
-      { avatar: "" },
-      accessToken
-    );
-    setProfileAvatar(null);
+    // Convert the FileList to an array
+    const newImages = Array.from(files);
+
+    setPerformanceFormData({
+      ...performanceFormData,
+      performanceImages: [...newImages],
+    });
   };
+
+  //! this is for remove avatart
+  const handleRemoveAvatar = async (event) => {
+    //! this is for remove avatart
+    const handleRemoveAvatar = async (event) => {
+      event.preventDefault();
+
+      const response = await makeAuthenticatedPOSTRequest(
+        artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+        { avatar: "" },
+        accessToken
+      );
+      setProfileAvatar(null);
+    };
 
     const response = await makeAuthenticatedPOSTRequest(
       artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
@@ -1111,7 +1124,7 @@ export function Artist_Profile() {
   return (
     <div className="Profile_Page">
       <div className="ProfilePage_Navbar">
-        <Artist_navbar  />
+        <Artist_navbar />
         <Navbar
           style={{ zIndex: "99" }}
           className="navbar nav_frontpage navbar-expand-lg "
@@ -1253,8 +1266,6 @@ export function Artist_Profile() {
           </div>
         </div>
 
-
-
         {/* this is for basic  */}
 
         <div className="profile-right">
@@ -1299,7 +1310,7 @@ export function Artist_Profile() {
                       name="email"
                       type="email"
                       readOnly
-                      style={{ backgroundColor: ' rgba(0, 0, 0, 0.15);' }}
+                      style={{ backgroundColor: " rgba(0, 0, 0, 0.15);" }}
                     />
                   </div>
                   {/* <div className="BasicProfile_inputfield">
@@ -1341,7 +1352,6 @@ export function Artist_Profile() {
                         placeholder="1234567890"
                         style={{ width: "83%" }}
                         required
-                        
                       />
                     </div>
                   </div>
@@ -1548,8 +1558,8 @@ export function Artist_Profile() {
                     {/* </div> */}
                     {/* </div> */}
 
-                        <div className="BasicProfile_OtherDetails">
-                          {/* <div className="BasicProfile_inputfield">
+                    <div className="BasicProfile_OtherDetails">
+                      {/* <div className="BasicProfile_inputfield">
                 <label>No of Performance Last Year</label>
                 <input onChange={changeHandler} name="numOfperformanceLastYear" placeholder="Enter no of performance" value={basicFormData.numOfperformanceLastYear} type="text"></input>
               </div> */}
@@ -1743,7 +1753,7 @@ export function Artist_Profile() {
                         />
                       </div>
                       {/* <div className="BasicProfile_inputfield"> */}
-                        {/* <label>Upload Profile (If Any)</label>
+                      {/* <label>Upload Profile (If Any)</label>
                         <input
                           style={{ display: "none" }}
                           onChange={changeHandler}
@@ -2101,293 +2111,83 @@ export function Artist_Profile() {
                   <div className="BasicProfile_inputfield">
                     <label>Affiliated To Any Group/Organization</label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name={"affiliatedToAnyGroup"}
+                      value={performanceFormData.affiliatedToAnyGroup}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
                     <label>Name Of Artist Group/Organisation </label>
-                    <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
-                    >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
-                    </select>
+                    <input
+                      onChange={(e) =>
+                        setPerformanceFormData({
+                          ...performanceFormData,
+                          nameOfArtistGroupOrg: e.target.value,
+                        })
+                      }
+                      name="nameOfArtistGroupOrg"
+                      value={performanceFormData.nameOfArtistGroupOrg}
+                    ></input>
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Name Of Artist Group/Organisation </label>
+                    <label>Location of Group/Organization</label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="locationOfGroupOrg"
+                      value={performanceFormData.locationOfGroupOrg}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      {MajorIndianCities.map((i, index) => {
+                        return (
+                          <option key={index} value={i.city}>
+                            {i.city}
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
                   <div className="PerformanceProfile_inputfield">
                     <label>Contact Number Of Group/Organisation</label>
                     <input
                       type="number"
-                      value={performanceFormData.nameOfTheAffiliatedGroup}
+                      value={performanceFormData.contactNoOfGroupOrg}
                       placeholder="+91"
                       onChange={perforChangeHandler}
-                      name="nameOfTheAffiliatedGroup"
+                      name="contactNoOfGroupOrg"
                     ></input>
                   </div>
 
                   <div className="BasicProfile_inputfield">
                     <label>Type Of Performance (Solo,Group,Both)</label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="typeOfPerformance"
+                      value={performanceFormData.typeOfPerformance}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      <option value="solo">solo</option>
+                      <option value="group">group</option>
+                      <option value="both">both</option>
                     </select>
                   </div>
 
                   <div className="BasicProfile_inputfield">
                     <label>Highest Level Of Performance</label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="highestLevelOfPerformance"
+                      value={performanceFormData.highestLevelOfPerformance}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      <option value="International">International</option>
+                      <option value="National">National</option>
+                      <option value="State">State</option>
+                      <option value="District">District</option>
                     </select>
                   </div>
 
@@ -2396,57 +2196,21 @@ export function Artist_Profile() {
                       Total Number Of Performance <span className="red">*</span>
                     </label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="totalPerfs"
+                      value={performanceFormData.totalPerfs}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      {[
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+                        17, 18, 19, 20, 21, 22, 23, 24, 25,
+                      ].map((item, index) => {
+                        return <option value={item}>{item}</option>;
+                      })}
+
+                      {/* <option value={"1-10"}>1-10</option>
+                      <option value={"10-25"}>10-25</option>
+                      <option value={"25-50"}>25-50</option> */}
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -2454,170 +2218,44 @@ export function Artist_Profile() {
                       No Of Years Of Experience <span className="red">*</span>{" "}
                     </label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="experience"
+                      value={performanceFormData.experience}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      {[
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+                      ].map((i) => {
+                        return <option value={i}>{i}</option>;
+                      })}
                     </select>
                   </div>
 
                   <div className="BasicProfile_inputfield">
                     <label>Average Duration Of Performance (India)</label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="avgPerfDurationIn"
+                      value={performanceFormData.avgPerfDurationIn}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      <option value="10min">10min</option>
+                      <option value="10-30min">10-30min</option>
+                      <option value="30-60min">30-60min</option>
+                      <option value="60-120min">60-120min</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Name Of Artist Group/Organisation </label>
+                    <label>Average Fee Per Performance (India) </label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="avgPerfFeeIn"
+                      value={performanceFormData.avgPerfFeeIn}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      <option value="5000">5000</option>
+                      <option value="5000-10000">5000-10000</option>
+                      <option value="10000-20000">10000-20000</option>
                     </select>
                   </div>
 
@@ -2626,230 +2264,67 @@ export function Artist_Profile() {
                       Average Duration Of Performance (International)
                     </label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="avgPerfDurationInternational"
+                      value={performanceFormData.avgPerfDurationInternational}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      <option value="30min">30min</option>
+                      <option value="30-60min">30-60min</option>
+                      <option value="60-120min">60-120min</option>
+                      <option value="120min">120min</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
                     <label>Average Fee Per Performance (International)</label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="avgPerfFeeInternational"
+                      value={performanceFormData.avgPerfFeeInternational}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      <option value="25000">25000</option>
+                      <option value="25000-50000">25000-50000</option>
+                      <option value="50000-100000">50000-100000</option>
                     </select>
                   </div>
 
                   <div className="BasicProfile_inputfield">
-                    <label>Major Performance Cities</label>
+                    <label>Major Performance Cities (India)</label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="majorPerfCityIndia"
+                      value={performanceFormData.majorPerfCityIndia}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      {MajorIndianCities.map((i, index) => {
+                        return (
+                          <option key={index} value={i.city}>
+                            {i.city}
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Major Countries for Performance</label>
+                    <label>Major Countries for Performance International</label>
                     <select
-                      onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      onChange={perforChangeHandler}
+                      name="majorPerfCountryInternational"
+                      value={performanceFormData.majorPerfCountryInternational}
                     >
-                      <option selected hidden>
-                        Select State
-                      </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option selected>Select</option>
+                      {MajorInternationalCities.map((i, index) => {
+                        return (
+                          <option key={index} value={i}>
+                            {i}
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
-                  <h4>Top Performances (max. 5)</h4>
                   <div className="ArtProfile_Traditional">
+                    <label>Major Performances/ Events (max. 5)</label>
                     <table>
                       <tbody>
                         <tr>
@@ -2888,14 +2363,17 @@ export function Artist_Profile() {
                     </table>
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Performance Photograph(Max. 5)</label>
+                    <label htmlFor="performanceImages">
+                      Performance Photograph(Max. 5)
+                    </label>
                     <input
                       style={{ display: "none" }}
-                      onChange={changeHandler}
-                      id="fileID"
-                      placeholder="Enter UPI Id"
-                      name="upiId"
+                      onChange={handelMultipleImages}
+                      id="performanceImages"
                       type="file"
+                      accept="image/*"
+                      multiple
+                      name="performanceImages"
                     />
                     <div className="input">
                       <label id="upload" htmlFor="fileID">
@@ -2919,7 +2397,7 @@ export function Artist_Profile() {
                     <label>Performance Video(Max. 3)</label>
                     <input
                       style={{ display: "none" }}
-                      onChange={changeHandler}
+                      onChange={perforChangeHandler}
                       id="fileID"
                       placeholder="Enter UPI Id"
                       name="upiId"
@@ -2962,8 +2440,13 @@ export function Artist_Profile() {
                     </label>
                     <textarea
                       name="aboutJourney"
-                      value={basicFormData.aboutJourney}
-                      onChange={changeHandler}
+                      value={performanceFormData.aboutJourney}
+                      onChange={(e) =>
+                        setPerformanceFormData({
+                          ...performanceFormData,
+                          aboutJourney: e.target.value,
+                        })
+                      }
                       style={{
                         width: "100%",
                         border: "2px solid rgb(0,0,0,0.5)",
