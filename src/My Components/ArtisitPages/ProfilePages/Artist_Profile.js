@@ -291,7 +291,7 @@ export function Artist_Profile() {
     gender: "",
     language: "",
     monthlyIncome: "",
-    aboutJourney: "",
+    about: "",
     pwd:"",
     incomeSrc:"",
     socialCategory:"",
@@ -899,7 +899,7 @@ export function Artist_Profile() {
         age: personalInfo?.age,
         phoneNumber: personalInfo?.contactNumber,
         gender: personalInfo?.gender,
-        aboutJourney: personalInfo?.about,
+        about: personalInfo?.about,
         language: personalInfo?.languages,
         monthlyIncome: personalInfo?.monthlyIncome,
         socialCategory:personalInfo?.socialCategory,
@@ -1843,10 +1843,10 @@ export function Artist_Profile() {
                   </div>
 
                   <div style={{ width: "100%", marginTop: "20px" }}>
-                    <label htmlFor="aboutJourney">About My Journey</label>
+                    <label htmlFor="about">About My Journey</label>
                     <textarea
-                      name="aboutJourney"
-                      value={basicFormData.aboutJourney}
+                      name="about"
+                      value={basicFormData.about}
                       onChange={changeHandler}
                       style={{
                         width: "100%",
