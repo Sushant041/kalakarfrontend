@@ -927,7 +927,7 @@ export function Artist_Profile() {
 
       setArtFormData((prev) => ({
         ...prev,
-        natureOfArt: artInfo?.artNature,
+        natureOfArt: artInfo?.artCategory,
         // check
         areaOfInterest: artInfo?.areaOfInterest,
 

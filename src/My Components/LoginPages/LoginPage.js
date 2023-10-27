@@ -66,7 +66,8 @@ export function LoginPage() {
         localStorage.setItem("role", role);
 
         if (role === "Artist") {
-          navigate("/artist_profile");
+          // navigate("/artist_profile");
+          navigate("/Artist_limited_Profile")
         } else {
           navigate("/Patron_Profile");
         }
