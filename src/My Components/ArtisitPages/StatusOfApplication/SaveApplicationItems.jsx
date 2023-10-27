@@ -147,49 +147,11 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                       <h3 className="saved_event_heading">{event.position}</h3>
                       <div className="saved_event_data">
                         <div className="saved_event_data_left">
-                          <img src={artnature} alt="location" />
-                          <p className="save_event_data_para">Nature Of Art:</p>
-                        </div>
-                        <p className="save_event_data_ans">{event.artNature}</p>
-                      </div>
-                      <div className="saved_event_data">
-                        <div className="saved_event_data_left">
-                          <img src={category} alt="location" />
-                          <p className="save_event_data_para">Category:</p>
-                        </div>
-                        <p className="save_event_data_ans">{event.category}</p>
-                      </div>
-                      <div className="saved_event_data">
-                        <div className="saved_event_data_left">
                           <img src={location} alt="location" />
                           <p className="save_event_data_para">Location:</p>
                         </div>
                         <p className="save_event_data_ans">{event.location}</p>
                       </div>
-
-                      <div className="saved_event_data">
-                        <div className="saved_event_data_left">
-                          <img src={dateOfPerformance} alt="dop" />
-                          <p className="save_event_data_para">
-                            Date of Performance :
-                          </p>
-                        </div>
-                        <p className="save_event_data_ans">
-                         {new Date(event.performanceDate).toLocaleDateString(
-                          "en-US",
-                          { day: "numeric", month: "short", year: "numeric" }
-                        )}
-                        </p>
-                      </div>
-
-                      <div className="saved_event_data">
-                        <div className="saved_event_data_left">
-                          <img src={amount} alt="dop" />
-                          <p className="save_event_data_para">Amount :</p>
-                        </div>
-                        <p className="save_event_data_ans">{event.budget}</p>
-                      </div>
-
                       <div className="saved_event_data">
                         <div className="saved_event_data_left">
                           <img src={language} alt="dop" />
@@ -204,7 +166,34 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                           </span>
                         </p>
                       </div>
-
+                      <div className="saved_event_data">
+                        <div className="saved_event_data_left">
+                          <img src={amount} alt="dop" />
+                          <p className="save_event_data_para">Amount :</p>
+                        </div>
+                        <p className="save_event_data_ans">{event.budget}</p>
+                      </div>
+                      <div className="saved_event_data">
+                        <div className="saved_event_data_left">
+                          <img src={dateOfPerformance} alt="dop" />
+                          <p className="save_event_data_para">
+                            Date of Performance :
+                          </p>
+                        </div>
+                        <p className="save_event_data_ans">
+                         {new Date(event.performanceDate).toLocaleDateString(
+                          "en-US",
+                          { day: "numeric", month: "short", year: "numeric" }
+                        )}
+                        </p>
+                      </div>
+                      <div className="saved_event_data">
+                        <div className="saved_event_data_left">
+                          <img src={dateOfPerformance} alt="" />
+                          <p className="save_event_data_para">Duration</p>
+                        </div>
+                        <p className="save_event_data_ans">{event.performanceDuration}</p>
+                      </div>
                       <div className="saved_event_data">
                         <div className="saved_event_data_left">
                           <img src={applicationDueDate} alt="dop" />
@@ -222,6 +211,9 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                           })}
                         </p>
                       </div>
+
+                      
+                      
                     </div>
                     {/* right part  */}
                     <div className="saved_event_rightPart">
