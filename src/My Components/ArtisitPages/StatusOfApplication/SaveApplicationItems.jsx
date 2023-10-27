@@ -148,14 +148,14 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                       <div className="saved_event_data">
                         <div className="saved_event_data_left">
                           <img src={location} alt="location" />
-                          <p className="save_event_data_para">Location:</p>
+                          <p className="save_event_data_para">Location of Performance:</p>
                         </div>
                         <p className="save_event_data_ans">{event.location}</p>
                       </div>
                       <div className="saved_event_data">
                         <div className="saved_event_data_left">
                           <img src={language} alt="dop" />
-                          <p className="save_event_data_para">Language :</p>
+                          <p className="save_event_data_para">Language of Performance :</p>
                         </div>
                         <p className="save_event_data_ans">
                           {" "}
@@ -190,7 +190,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                       <div className="saved_event_data">
                         <div className="saved_event_data_left">
                           <img src={dateOfPerformance} alt="" />
-                          <p className="save_event_data_para">Duration</p>
+                          <p className="save_event_data_para">Duration of Performance :</p>
                         </div>
                         <p className="save_event_data_ans">{event.performanceDuration}</p>
                       </div>
