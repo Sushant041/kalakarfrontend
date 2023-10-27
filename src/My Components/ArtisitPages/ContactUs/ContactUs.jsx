@@ -5,9 +5,11 @@ import doorImage from "./assets/doorImage.svg"
 import location from "./assets/location.svg"
 import phone from "./assets/phone.svg"
 import mail from "./assets/mail.svg"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { contactUsPoints } from "../../../services/apis";
 import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
+import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
+import { artistProfilePoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
@@ -62,6 +64,39 @@ const boxDetail = [
 function ContactUs() {
 
     const {accessToken} = useSelector((state)=>state.auth)
+
+  const [portfolioData , setPortfolioData] = useState(null);
+
+  const fetchUserData = async()=>{
+    try{
+      
+      const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API , accessToken);
+
+      console.log('res' ,response);
+
+      if(response.status === 'success'){
+
+        const {address, socialLinks , personalInfo ,artInfo, performanceInfo } = response.data;
+
+
+      setFormData({
+        phoneNumber :personalInfo?.contactNumber , email : personalInfo?.email  , name:personalInfo?.firstName 
+
+      })
+      }else{
+        toast.error('something went wrong , please refresh the page' , {
+          position:"top-center"
+        });
+      }
+  
+    } catch(error){
+      console.log(error);
+    }
+  }
+  
+    useEffect(()=>{
+     fetchUserData();
+    },[])
 
     const [formData , setFormData ] = useState({
         name:"",

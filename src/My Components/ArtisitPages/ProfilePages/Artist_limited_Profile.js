@@ -243,6 +243,7 @@ export default function Artist_limited_Profile() {
                 onChange={changeHandler}
                 value={basicFormData.personalInfo.age}
                 style={{ width: "100%" }}
+                required
               ></input>
             </div>
 
@@ -382,6 +383,7 @@ export default function Artist_limited_Profile() {
                   value={basicFormData.address.city}
                   type="text"
                   style={{ width: "100%" }}
+                  required
                 ></input>
               </div>
             </div>
@@ -434,6 +436,7 @@ export default function Artist_limited_Profile() {
                   name="totalperformances"
                   value={basicFormData.totalperformances}
                   type="text"
+                  required
                 ></input>
               </div>
             </div>
