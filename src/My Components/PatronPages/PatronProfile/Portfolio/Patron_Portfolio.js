@@ -85,7 +85,7 @@ fetchPatronData();
                         <img src= {`${patronAvatar !== "" ? (`https://api.ekalakaar.com/uploads/avatars/${patronAvatar}`):(`https://ui-avatars.com/api/?name=${userData.personalInfo.firstName}+${userData.personalInfo.lastName}`)}`}></img>
 
                         <h3>{userData?.personalInfo?.firstName} {userData?.personalInfo?.lastName} </h3>
-                        <h5>{userData?.personalInfo?.profession}</h5>
+                        <h5>{userData?.personalInfo?.companyName}-{userData?.personalInfo?.profession}</h5>
                     </div>
 
                     {/* strip  */}
@@ -154,7 +154,7 @@ fetchPatronData();
                                             stroke-linejoin="round"
                                         />
                                     </svg>
-                                    &nbsp;{userData?.address?.details}
+                                    &nbsp;{userData?.address?.state}
                                 </p>
                             </div>
                         </div>
