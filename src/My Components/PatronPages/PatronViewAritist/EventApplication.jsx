@@ -167,7 +167,7 @@ function EventApplication() {
         <img src={eventBg} alt="background" className="event_bgImg" />
         <img src={bgFilter} alt="" className="event_appli_bgFilter" />
         <p className="event_application_text">
-          Event Application for Kathak Dance
+          Event Application for {opportunityData?.position}
         </p>
       </section>
 
@@ -175,15 +175,22 @@ function EventApplication() {
       <section className="patron_job_description_wrapper">
         {/* left side */}
         <div className="job_description_container">
-          <p className="job_description_text">Job Description</p>
-          <p className="job_description_para">{opportunityData?.description}</p>
-          <ul className="job_des_allList">
+          <p className="job_description_text"> Description - {opportunityData?.description}</p>
+          <p className="job_description_text">Location - {opportunityData?.location}</p>
+          <p className="job_description_text">Language - {opportunityData?.languages.join(", ")}</p>
+          <p className="job_description_text">Amount - {opportunityData?.budget}</p>
+          <p className="job_description_text">Date of Performance  - {opportunityData?.performanceDate.slice(0, 10)}</p>
+          <p className="job_description_text">Duration of Performance  - {opportunityData?.performanceDuration}</p>
+         
+         
+          {/* <p className="job_description_para">{opportunityData?.description}</p> */}
+          {/* <ul className="job_des_allList">
             {jobDesList.map((desc, index) => (
               <li className="job_des_list" key={index}>
                 {desc?.title}
               </li>
             ))}
-          </ul>
+          </ul> */}
 
           <div className="desc_buttons">
             {btnData.map((btn, index) => (
@@ -235,11 +242,11 @@ function EventApplication() {
                           })}</p>
               </div>
 
-              <div  className="single_job_overview">
+              {/* <div  className="single_job_overview">
                 <img src={opening} alt="" className="single_overview_img" />
                 <p style={{fontWeight:"500" , fontSize:"18px"}} className="single_job_category">Opening</p>
                 <p className="single_job_title">{opportunityData?.requiredArtists}</p>
-              </div>
+              </div> */}
             
           </div>
         </div>
@@ -285,7 +292,7 @@ function EventApplication() {
                         {" "}
                         <img src={locationArt} alt="" />{" "}
                       </div>
-                      <p className="personal_detail_title">{data?.appliedBy?.address?.details}</p>
+                      <p className="personal_detail_title">{data?.appliedBy?.address?.state}</p>
                     </div>
                  
                 </div>
@@ -315,7 +322,7 @@ function EventApplication() {
               <div className="card_right_part">
                 <img src={DP} alt="" className="userDP" />
                 <p className="card_right_userName">{data?.appliedBy?.firstName} {data?.appliedBy?.lastName} </p>
-                <p className="card_right_user_profession">{data?.artNature}</p>
+                <p className="card_right_user_profession">{data?.appliedBy?.category}</p>
               </div>
             </div>
     
@@ -329,6 +336,10 @@ function EventApplication() {
             <p className="single_detail_ans">{new Date(
                             data?.appliedOn).toLocaleDateString("en-US", {day: "numeric",month: "short",year: "numeric",
                           })}</p>
+        </div>   
+        <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Art Name</p>
+            <p className="single_detail_ans">{data?.appliedBy?.artName}</p>
         </div>    
        <div className="single_event_appli_detail" > 
             <p  className="single_detail_title">Location</p>

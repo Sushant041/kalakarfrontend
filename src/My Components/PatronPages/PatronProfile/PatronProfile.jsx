@@ -67,7 +67,7 @@ function PatronProfile() {
       state: "",
       city: "",
       pincode: "",
-      details: "",
+      // details: "",
     },
     contactDetails: {
       email: "",
@@ -172,6 +172,7 @@ function PatronProfile() {
             </div>
           </div>
           <p className="patron_profession">
+            {formData?.personalInfo?.companyName}-
             {formData?.personalInfo?.profession}
           </p>
         </div>
@@ -250,6 +251,19 @@ function PatronProfile() {
             </div>
             <p className="personal_information_text">Address</p>
             <div className="personal_info_form_part">
+
+            <label htmlFor="" className="single_personal_info">
+                <p className="form_title">Pincode*</p>
+                <input
+                  name="address.pincode"
+                  maxLength={6}
+                  pattern="[0-9]{6}"
+                  onChange={changeHandler}
+                  value={formData.address.pincode}
+                  className={`personal_form_input`}
+                  required
+                />
+              </label>
               <label htmlFor="" className="single_personal_info">
                 <p className="form_title">state*</p>
                 {/* <input
@@ -298,19 +312,8 @@ function PatronProfile() {
                     ))}
                 </select>
               </label>
-              <label htmlFor="" className="single_personal_info">
-                <p className="form_title">Pincode*</p>
-                <input
-                  name="address.pincode"
-                  maxLength={6}
-                  pattern="[0-9]{6}"
-                  onChange={changeHandler}
-                  value={formData.address.pincode}
-                  className={`personal_form_input`}
-                  required
-                />
-              </label>
-              <label htmlFor="" className="single_personal_info">
+         
+              {/* <label htmlFor="" className="single_personal_info">
                 <p className="form_title">Detailed Address</p>
                 <textarea
                   name="address.details"
@@ -319,7 +322,7 @@ function PatronProfile() {
                   style={{ height: "150px", resize: "none" }}
                   className={`personal_form_input  "aboutUs_input `}
                 />
-              </label>
+              </label> */}
             </div>
             <p className="personal_information_text">Contact</p>
             <div className="personal_info_form_part">

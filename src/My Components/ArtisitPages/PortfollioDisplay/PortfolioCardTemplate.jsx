@@ -70,8 +70,8 @@ function PortfolioDisplayTemplate({
             />
             <p className="card_socialMedia_id">
               {viewAsAdmin == false
-                ? portfolioData?.socialLinks?.instagram
-                : portfolioData?.socialLinks?.instagram}
+                ? portfolioData?.handles?.instagram
+                : portfolioData?.handles?.instagram}
             </p>
           </div>
           <div className="card_single_socialDetail">
@@ -82,8 +82,8 @@ function PortfolioDisplayTemplate({
             />
             <p className="card_socialMedia_id">
               {viewAsAdmin == false
-                ? portfolioData?.socialLinks?.facebook
-                : portfolioData?.socialLinks?.facebook}
+                ? portfolioData?.handles?.facebook
+                : portfolioData?.handles?.facebook}
             </p>
           </div>
         </div>
