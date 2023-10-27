@@ -10,48 +10,43 @@ import amount from "./assets/amount.svg";
 import language from "./assets/language.svg";
 import appliDueDate from "./assets/applicationDueDate.svg";
 
- const appli_Data = [
+const appli_Data = [
   {
-    img:location , 
-    title:"Location of Performance :"
+    img: location,
+    title: "Location of Performance :",
   },
   {
-    img: language , 
-    title:"Language of Performance :"
+    img: language,
+    title: "Language of Performance :",
   },
   {
-    img: amount , 
-    title:"Amount :"
+    img: amount,
+    title: "Amount :",
   },
   {
-    img: dateOfPerformance , 
-    title:"Date of Performance :"
+    img: dateOfPerformance,
+    title: "Date of Performance :",
   },
   {
-    img: dateOfPerformance , 
-    title:"Duration of Performance :"
+    img: dateOfPerformance,
+    title: "Duration of Performance :",
   },
   {
-    img: appliDueDate , 
-    title:"Application Due Date :"
+    img: appliDueDate,
+    title: "Application Due Date :",
   },
- ]
+];
 
 function AppliedApplicationItems({ currentEvent, loading, jobData }) {
-
-
   return (
     <div className="applied_Application_wrapper">
-
       <p className="applied_event_text">
         {currentEvent} Events : {jobData.length}{" "}
       </p>
 
       <div className="applied_event_Detail_Container">
         {loading ? (
-        
           <div class="custom-loader"></div>
-
         ) : jobData.length === 0 ? (
           <NoDataTemplate
             image={appliedNoData}
@@ -59,29 +54,29 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
           />
         ) : (
           <div className="applied_Event_details">
-
-            {   jobData?.map((event, index) => (
-
+            {jobData?.map((event, index) => (
               <div key={index} className="single_applied_eventWrapper">
                 <div>
-                  <div className="single_applied_top"
+                  <div
+                    className="single_applied_top"
                     style={{
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
                     }}
                   >
-                    <h1 className="single_applied_heading">{event?.opportunity?.position}</h1>
+                    <h1 className="single_applied_heading">
+                      {event?.opportunity?.position}
+                    </h1>
                     <div className="appliedOn_container">
                       Applied On <br />{" "}
-                      {new Date(event.applicationPeriod?.end).toLocaleDateString(
-                        "en-US",
-                        {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        }
-                      )}
+                      {new Date(
+                        event.applicationPeriod?.end
+                      ).toLocaleDateString("en-US", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
                     </div>
                   </div>
 
@@ -96,64 +91,151 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
                     {event.description}
                   </p>
 
-                  <div style={{display:"flex" , alignItems:"center"}} className="appli_detail_btn_wrapper">
-                    <main  className="appli_detail_container">
-
-                       {/* left side */}
-                       <div className="appli_detail_container_left" style={{display:"flex" , flexDirection:"column" , gap:"2px" }} >
-                       {
-                        appli_Data.map((data , index)=>(
-                          <div key={index} style={{display:"flex" , gap:"10px" ,  }}>
-                            <img src={data.img} alt="" style={{
-                              marginBottom:"10px"
-                            }} />
-                            <p className="applied_appli_title" style={{color:"rgb(0,0,0,0.7)" , fontWeight:"500" , fontFamily:"Poppins"}} >{data.title}</p>
+                  <div
+                    style={{ display: "flex", alignItems: "center" }}
+                    className="appli_detail_btn_wrapper"
+                  >
+                    <main className="appli_detail_container">
+                      {/* left side */}
+                      <div
+                        className="appli_detail_container_left"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "2px",
+                        }}
+                      >
+                        {appli_Data.map((data, index) => (
+                          <div
+                            key={index}
+                            style={{ display: "flex", gap: "10px" }}
+                          >
+                            <img
+                              src={data.img}
+                              alt=""
+                              style={{
+                                marginBottom: "10px",
+                              }}
+                            />
+                            <p
+                              className="applied_appli_title"
+                              style={{
+                                color: "rgb(0,0,0,0.7)",
+                                fontWeight: "500",
+                                fontFamily: "Poppins",
+                              }}
+                            >
+                              {data.title}
+                            </p>
                           </div>
-                        ))
-                       }
-                       </div>
+                        ))}
+                      </div>
 
-                       {/* right side */}
-                       <div className="appli_detail_container_right" style={{display:"flex" , flexDirection:"column" , gap:"2px" }}>
-                         <p className="applied_appli_title"  style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.opportunity?.artNature} </p>
+                      {/* right side */}
+                      <div
+                        className="appli_detail_container_right"
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "5px",
+                        }}
+                      >
+                        <p
+                          className="applied_appli_title"
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "500",
+                            color: "black",
+                          }}
+                        >
+                          {event.opportunity?.location}{" "}
+                        </p>
 
-                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.opportunity?.category}</p>
-
-                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.opportunity?.location}</p>
-
-                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{new Date(event?.opportunity?.performanceDate).toLocaleDateString(
-                          "en-US",
-                          { day: "numeric", month: "short", year: "numeric" }
-                        )}</p>
-
-                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event.opportunity?.budget}</p>
-
-                         <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>
+                        <p
+                          className="applied_appli_title"
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "500",
+                            color: "black",
+                          }}
+                        >
                           {event?.opportunity?.languages?.map((lan, index) => (
-                              <span key={index}>{lan} {``}</span>
-                            ))}</p>
+                            <span key={index}>
+                              {lan} {``}
+                            </span>
+                          ))}
+                          {event?.opportunity?.languages && <span>NA</span>}
+                        </p>
 
-                           <p className="applied_appli_title" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}> {new Date(
+                        <p
+                          className="applied_appli_title"
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "500",
+                            color: "black",
+                          }}
+                        >
+                          {event.opportunity?.budget}
+                        </p>
+
+                        <p
+                          className="applied_appli_title"
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "500",
+                            color: "black",
+                          }}
+                        >
+                          {new Date(
+                            event?.opportunity?.performanceDate
+                          ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                        </p>
+
+                        <p
+                          className="applied_appli_title"
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "500",
+                            color: "black",
+                          }}
+                        >
+                          NA
+                        </p>
+
+                        <p
+                          className="applied_appli_title"
+                          style={{
+                            fontFamily: "Poppins",
+                            fontWeight: "500",
+                            color: "black",
+                          }}
+                        >
+                          {" "}
+                          {new Date(
                             event?.opportunity?.applicationPeriod?.end
                           ).toLocaleDateString("en-US", {
                             day: "numeric",
                             month: "short",
                             year: "numeric",
                           })}
-                          </p>
-                       </div>
+                        </p>
+                      </div>
                     </main>
 
-                  <Link to={`/Artist_OpportunityDetails`}  state={{ job: jobData[index] }} >
-                    <button className="view_information_btn">
-                      View Information
-                    </button>
-                   </Link>
+                    <Link
+                      to={`/Artist_OpportunityDetails`}
+                      state={{ job: jobData[index] }}
+                    >
+                      <button className="view_information_btn">
+                        View Information
+                      </button>
+                    </Link>
                   </div>
-                
                 </div>
-
-              
               </div>
             ))}
           </div>
