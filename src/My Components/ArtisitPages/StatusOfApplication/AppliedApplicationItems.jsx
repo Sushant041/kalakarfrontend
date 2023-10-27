@@ -12,28 +12,24 @@ import appliDueDate from "./assets/applicationDueDate.svg";
 
  const appli_Data = [
   {
-    img:artNature , 
-    title:"Nature of Art :"
+    img:location , 
+    title:"Location of Performance :"
   },
   {
-    img: category , 
-    title:"Category :"
-  },
-  {
-    img: location , 
-    title:"Location :"
-  },
-  {
-    img: dateOfPerformance , 
-    title:"Date of Performance :"
+    img: language , 
+    title:"Language of Performance :"
   },
   {
     img: amount , 
     title:"Amount :"
   },
   {
-    img: language , 
-    title:"Language :"
+    img: dateOfPerformance , 
+    title:"Date of Performance :"
+  },
+  {
+    img: dateOfPerformance , 
+    title:"Duration of Performance :"
   },
   {
     img: appliDueDate , 
