@@ -309,7 +309,7 @@ function PortfolioDisplay() {
             </div>
             <div className="field large">
               <h2>No. of years of experience</h2>
-              <p>{portfolioData.experience}</p>
+              <p>{portfolioData.yearOfExperience}</p>
             </div>
           </div>
           <div className="userAbout_section">
