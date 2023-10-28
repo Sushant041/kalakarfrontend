@@ -178,11 +178,11 @@ function Signup() {
             required
             value={formData.phoneNumber}
             onChange={changeHandler}
-            type="number"
+            type="tel"
             name="phoneNumber"
             className="signupFormInput "
             placeholder="Enter your Mobile number"
-            max={10}
+            pattern="\d{10}"
           />
         </label>
 
