@@ -260,7 +260,7 @@ const shortlistArtistHandler = async()=>{
                 </div>
                 <div  className="single_userProfession_detail">
                     <p className="profession_title">Charges Per Performance:</p>
-                    <p className="profession_info">{artistData?.performanceInfo?.perfCharge}</p>
+                    <p className="profession_info">{artistData?.performanceInfo?.perfCharge?.india}</p>
                     
                 </div>
                 <div  className="single_userProfession_detail">
