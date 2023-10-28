@@ -51,10 +51,9 @@ export function Newsletter() {
         {Role === "Artist" ? <Artist_navbar /> : <Patron_Navbar />}
 
         <div className="NewsletterPage">
-          <div className="NewsletterPage_BDA">
+          {/* <div className="NewsletterPage_BDA">
             <div className="NewsletterPage_left">
-              {/* <p className="NewsletterPage_BDA_text">{imageNews[0]?.title?.split(" ").slice(0, 2).join(" ")}...</p> */}
-
+   
               <div className="NewsletterPage_BDA_image_text">
                 <img className="newLetter_img" onClick={() => (window.location.href = imageNews[0].url)} src={imageNews[0]?.urlToImage} />
                 <p className="newsLetter_para"> {imageNews[0]?.description?.split(" ").slice(0, 15).join(" ")} ...</p>
@@ -73,7 +72,7 @@ export function Newsletter() {
                 <div className="NewsletterPage_BDA_Today_images_text">{imageNews[2]?.source?.name} </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="latest_news_wrapper">
             <h1 className="latest_news_text">Latest News</h1>

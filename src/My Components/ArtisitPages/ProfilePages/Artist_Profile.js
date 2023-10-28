@@ -725,7 +725,7 @@ export function Artist_Profile() {
         perfImgs: performanceImages,
         perfVideos: performancevideos,
       };
-      console.log(performanceInfo);
+      // console.log(performanceFormData);
 
       const response = await makeAuthenticatedPATCHRequest(
         artistProfilePoints.UPDATE_PROFILE_DATA_API,
@@ -927,7 +927,7 @@ export function Artist_Profile() {
 
       setArtFormData((prev) => ({
         ...prev,
-        natureOfArt: artInfo?.artNature,
+        natureOfArt: artInfo?.artCategory,
         // check
         areaOfInterest: artInfo?.areaOfInterest,
 
@@ -971,27 +971,27 @@ export function Artist_Profile() {
           ...certificateInfo?.duration,
         },
       }));
-
       setPerformanceFormData((prev) => ({
         ...prev,
-        yearOfExperience: performanceInfo?.experience,
-        performanceType: performanceInfo?.perfType,
-        affiliatedToAnyGroup: performanceInfo?.affiliation?.group?.isAffiliated,
-        nameOfTheAffiliatedGroup:
-          performanceInfo?.affiliation?.group?.groupName,
-        affiliatedToAnyOrg:
-          performanceInfo?.affiliation?.organization?.isAffiliated,
-        nameOfTheAffiliatedOrg:
-          performanceInfo?.affiliation?.organization?.orgName,
-        totalNoOfPerformance: performanceInfo?.totalPerfs,
+        experience: performanceInfo?.experience,
+        typeOfPerformance: performanceInfo?.perfType,
+        nameOfArtistGroupOrg: performanceInfo?.affiliation?.name,
+        affiliatedToAnyGroup: performanceInfo?.affiliation?.isAffiliated,
+        totalPerfs: performanceInfo?.totalPerfs,
         highestLevelOfPerformance: performanceInfo?.peakPerf,
-        topFivePerformance: performanceInfo?.perfNames,
-        performanceEvents: performanceInfo?.perfEvent,
-        thematic: performanceInfo?.thematic,
-        NoOfPerformanceLastYear: performanceInfo?.lastYearPerfs,
-        performanceDuration: performanceInfo?.perfDuration,
-        chargesPerPerformance: performanceInfo?.perfCharge,
-        averagePerformanceIncome: performanceInfo?.perfIncome,
+        topFivePerformance: performanceInfo?.perfDetails,
+        locationOfGroupOrg: performanceInfo?.affiliation?.location,
+        contactNoOfGroupOrg: performanceInfo?.affiliation?.contactNumber,
+        avgPerfDurationIn: performanceInfo?.perfDuration?.india,
+        avgPerfFeeIn: performanceInfo?.perfCharge?.india,
+        avgPerfDurationInternational:
+          performanceInfo?.perfDuration?.international,
+        avgPerfFeeInternational: performanceInfo?.perfCharge?.international,
+        majorPerfCityIndia: performanceInfo?.majorPerfCity,
+        majorPerfCountryInternational: performanceInfo?.majorPerfCountry,
+        aboutJourney: performanceInfo?.highlights,
+        performanceImages: performanceInfo?.perfImgs,
+        performancevideos: performanceInfo?.perfVideos,
       }));
 
       setAwardFormData((prev) => ({
@@ -1066,11 +1066,13 @@ export function Artist_Profile() {
 
   const handelMultipleImages = async (e) => {
     // const [selectedImages, setSelectedImages] = useState([]);
+
     console.log("okko");
-    const files = e.target.files;
+    const Files = e.target.files;
+    console.log(e.target.files);
 
     // Convert the FileList to an array
-    const newImages = Array.from(files);
+    const newImages = Array.from(Files);
 
     setPerformanceFormData({
       ...performanceFormData,
@@ -2362,36 +2364,38 @@ export function Artist_Profile() {
                       </tbody>
                     </table>
                   </div>
-                  <div className="BasicProfile_inputfield">
-                    <label htmlFor="performanceImages">
+                  <div className="BasicProfile_inputfield position-relative">
+                    <label
+                      htmlFor="performanceImages"
+                      className="custom-file-input"
+                    >
                       Performance Photograph(Max. 5)
                     </label>
                     <input
-                      style={{ display: "none" }}
-                      onChange={handelMultipleImages}
-                      id="performanceImages"
+                      style={{ color: "white" }}
+                      // onChange={handelMultipleImages}
                       type="file"
                       accept="image/*"
                       multiple
                       name="performanceImages"
                     />
-                    <div className="input">
-                      <label id="upload" htmlFor="fileID">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="30"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <path
-                            d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
-                            fill="black"
-                            fill-opacity="0.54"
-                          />
-                        </svg>
-                      </label>
-                    </div>
+                    <svg
+                      className="position-absolute bottom-0 end-0 mb-2 mx-2"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
+                        fill="black"
+                        fill-opacity="0.54"
+                      />
+                    </svg>
+                    {/* <div className="input position-absolute bottom-0">
+                      
+                    </div> */}
                   </div>
                   <div className="BasicProfile_inputfield">
                     <label>Performance Video(Max. 3)</label>
