@@ -104,7 +104,7 @@ function Signup() {
             position:"top-center"
           });
         }
-      } else if (response.success === "success") {
+      } else if (response.status === "success") {
         toast.success("Successfully register" , {
           position:"top-center"
         });
@@ -178,11 +178,11 @@ function Signup() {
             required
             value={formData.phoneNumber}
             onChange={changeHandler}
-            type="number"
+            type="tel"
             name="phoneNumber"
             className="signupFormInput "
             placeholder="Enter your Mobile number"
-            max={10}
+            pattern="\d{10}"
           />
         </label>
 
@@ -226,7 +226,7 @@ function Signup() {
        
         <div className="termAndCondition">
         <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
-        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>Terms And Condition</p>
+        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"2px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
         </div> 
 
         <button type="submit" className="registerButton">
@@ -237,8 +237,7 @@ function Signup() {
        <div className="termAndCondition">
         <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
         <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
-        </div> 
-       
+        </div>       
         <p className=" navigateLoginPara">
           Don’t have an account?{" "}
           <span onClick={() => navigate("/Login")} className="">

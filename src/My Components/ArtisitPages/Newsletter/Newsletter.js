@@ -8,11 +8,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
+import Patron_Navbar from "../../PatronPages/Patron_Navbar";
 
 const API_KEY = "a508cd51cc1c4e68b737330667020e05";
 const API_URL = `https://newsapi.org/v2/top-headlines?country=in&category=entertainment&apiKey=${API_KEY}`;
 
 export function Newsletter() {
+
+  const [Role,setRole]=useState("");
   const [latestNews, setLatestNews] = useState(null);
 
   const [imageNews, setImageNews] = useState(null);
@@ -39,17 +42,18 @@ export function Newsletter() {
         setImageNews(image);
       })
       .catch((error) => console.error("Error fetching news data :", error));
+    setRole(localStorage.getItem("role"));
   }, []);
 
   return (
     imageNews !== null && (
       <>
-        <Artist_navbar />
-        <div className="NewsletterPage">
-          <div className="NewsletterPage_BDA">
-            <div className="NewsletterPage_left">
-              {/* <p className="NewsletterPage_BDA_text">{imageNews[0]?.title?.split(" ").slice(0, 2).join(" ")}...</p> */}
+        {Role === "Artist" ? <Artist_navbar /> : <Patron_Navbar />}
 
+        <div className="NewsletterPage">
+          {/* <div className="NewsletterPage_BDA">
+            <div className="NewsletterPage_left">
+   
               <div className="NewsletterPage_BDA_image_text">
                 <img className="newLetter_img" onClick={() => (window.location.href = imageNews[0].url)} src={imageNews[0]?.urlToImage} />
                 <p className="newsLetter_para"> {imageNews[0]?.description?.split(" ").slice(0, 15).join(" ")} ...</p>
@@ -68,7 +72,7 @@ export function Newsletter() {
                 <div className="NewsletterPage_BDA_Today_images_text">{imageNews[2]?.source?.name} </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="latest_news_wrapper">
             <h1 className="latest_news_text">Latest News</h1>

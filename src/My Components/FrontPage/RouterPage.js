@@ -18,6 +18,7 @@ import ForgetPassword from "../../My Components/LoginPages/Authorization/ForgetP
 import VerificationCode from "../../My Components/LoginPages/Authorization/VerificationCode";
 import { useSelector } from "react-redux";
 import { Artist_Profile } from "../ArtisitPages/ProfilePages/Artist_Profile";
+import  Artist_limited_Profile  from "../ArtisitPages/ProfilePages/Artist_limited_Profile";
 import { Artist_OpportunitiesMoreInfo } from "../ArtisitPages/ProfilePages/Artist_OpportunitiesMoreInfo";
 import { Newsletter } from "../ArtisitPages/Newsletter/Newsletter";
 import { Artist_Opportunities } from "../ArtisitPages/ProfilePages/Artist_Opportunities";
@@ -58,6 +59,7 @@ import ViewArtistApplication from "../AdminPages/ViewApplicants/ViewArtistApplic
 import Chat from "../AdminPages/AdmiChatPage/Chat";
 import MoreinfoArtistOppurtunity from "../AdminPages/ViewApplicants/ViewArtistApplication/ArtistOppurtunity/MoreInfo/MoreinfoArtistOppurtunity";
 import TermAndCondition from "./TermAndCondition";
+import Contactus from "../PatronPages/ContactUs/ContactUs";
 
 export default function RouterPage() {
   const { role, accessToken } = useSelector((state) => state.auth);
@@ -108,6 +110,7 @@ export default function RouterPage() {
 
         {role === "Artist" && (
           <>
+            <Route path="/Artist_limited_Profile" exact element={<Artist_limited_Profile />}/>
             <Route path="/Artist_Profile" exact element={<Artist_Profile />} />
             <Route
               path="/Artist_Opportunities"
@@ -167,6 +170,10 @@ export default function RouterPage() {
             <Route path="/ViewArtistProfiles" element={<ArtistProfiles />} />
 
             <Route path="/patron-view-artist/:id" element={<ViewArtist />} />
+
+            <Route path="/contactUs" element={<Contactus />} />
+
+            <Route path="/latestNews" exact element={<Newsletter />} />
 
             <Route
               path="/patron-event-appli/:id"

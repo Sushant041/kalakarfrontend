@@ -95,12 +95,12 @@ const EditOpportunity = () => {
                 <input defaultValue={formData?.location} name="location" onChange={inputChangeHandler} type="text" placeholder="Enter location" />
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
-                <label>Description*</label>
-                <input name="description" defaultValue={formData?.description} onChange={inputChangeHandler} type="text" placeholder="Enter art Description" />
-              </div>
-              <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Date of Performance*</label>
                 <input defaultValue={formData?.performanceDate} name="performanceDate" onChange={inputChangeHandler} type="date" placeholder="Enter event date" />
+              </div>
+              <div className="ArtistOpportunities_Page_Infoform_inputfield" style={{width:"100%"}}>
+                <label>Description*</label>
+                <input name="description" defaultValue={formData?.description} onChange={inputChangeHandler} style={{width:"100%"}} type="text" placeholder="Enter art Description" />
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Type of Performance*</label>
@@ -196,7 +196,7 @@ const EditOpportunity = () => {
                   onChange={inputChangeHandler}
                   name="otherRequirements"
                   value={formData?.otherRequirements}
-                  style={{ height: "200px", resize: "none" }}
+                  style={{ height: "100px", resize: "none" }}
                   placeholder="Enter Any Other requirements"
                 ></textarea>
               </div>
@@ -207,7 +207,7 @@ const EditOpportunity = () => {
                   onChange={inputChangeHandler}
                   name="incentives"
                   value={formData?.incentives}
-                  style={{ height: "200px",resize:"none" }}
+                  style={{ height: "100px",resize:"none" }}
                   placeholder="Enter Incentives"
                 ></textarea>
               </div>

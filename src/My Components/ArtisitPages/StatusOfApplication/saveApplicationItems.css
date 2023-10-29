@@ -53,7 +53,7 @@
 .saved_event_leftPart{
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 10px;
     width: 100%;
 }
 
@@ -80,11 +80,8 @@
 
 .saved_event_data_left{
     width: 100%;
-    /* background-color: red; */
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
     gap: 5px;
     justify-content: flex-start;
     /* background-color: aqua; */
@@ -99,6 +96,7 @@ margin-bottom: 15px;
 .save_event_data_para{
     font-weight:500;
     opacity: 80%;
+    padding-bottom: 15px;
 }
 
 .save_event_data_ans{
