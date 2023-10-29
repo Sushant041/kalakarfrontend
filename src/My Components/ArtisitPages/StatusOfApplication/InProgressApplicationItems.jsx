@@ -112,9 +112,7 @@ function InProgressApplicationItems({ currentEvent , jobData  , loading}) {
                            <p className="inprogress_text"  style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event?.opportunity?.location} </p>
     
                            <p  className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>
-                            {event?.opportunity?.languages?.map((lan, index) => (
-                                <span key={index}>{lan} {``}</span>
-                              ))}</p>
+                            {event?.opportunity?.languages}</p>
     
                            <p  className="inprogress_text" style={{fontFamily:"Poppins"  , fontWeight:"500" , color:"black"}}>{event?.opportunity?.budget}</p>
     
