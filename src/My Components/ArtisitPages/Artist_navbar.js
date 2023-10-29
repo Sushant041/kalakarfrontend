@@ -35,7 +35,8 @@ export default function () {
 
   return (
     <Navbar
-      style={{ zIndex: "99" }}
+      style={{ zIndex: "99",position: "sticky",
+      top: "0" }}
       className="navbar nav_frontpage navbar-expand-lg "
       // bg="light"
       expand="lg"

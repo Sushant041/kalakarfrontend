@@ -603,10 +603,11 @@ export function Artist_Opportunities() {
                     <div className="OpportunitiesPage_displayonejob_contentdetailstwo">
                       <p>{job.location}</p>
                       <p>
-                        {job.languages?.map((lag, index) => (
+                        {/* {job.languages?.map((lag, index) => (
                           <span key={index}>{lag} </span>
                         ))}
-                        {!job.language && "NA"}
+                        {!job.language && "NA"} */}
+                        {job.languages}
                       </p>
                       <p>{job.budget}</p>
                       <p>
@@ -689,9 +690,10 @@ export function Artist_Opportunities() {
                         <p>
                           Language : &emsp;{" "}
                           <span>
-                            {job.languages?.map((lag, index) => (
+                            {/* {job.languages?.map((lag, index) => (
                               <span key={index}>{lag} </span>
-                            ))}
+                            ))} */}
+                            {job.languages}
                           </span>
                         </p>
                         <p>

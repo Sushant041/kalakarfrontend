@@ -194,9 +194,10 @@ export function Artist_OpportunitiesMoreInfo() {
               </p>
               <p>
                 <span>
-                  {jobData?.languages?.map((lag, index) => (
+                  {/* {jobData?.languages?.map((lag, index) => (
                     <span key={index}>{lag} </span>
-                  ))}
+                  ))} */}
+                  {jobData?.languages}
                 </span>
                 NA
               </p>

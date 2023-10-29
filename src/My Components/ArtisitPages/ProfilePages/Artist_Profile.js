@@ -1125,7 +1125,8 @@ export function Artist_Profile() {
 
   return (
     <div className="Profile_Page">
-      <div className="ProfilePage_Navbar">
+      <div className="ProfilePage_Navbar" style={{    position: "sticky",
+    top: "0"}}>
         <Artist_navbar />
         <Navbar
           style={{ zIndex: "99" }}
@@ -1407,6 +1408,7 @@ export function Artist_Profile() {
                           height: "60px",
                           border: "1px solid black",
                         }}
+                        onChange={changeHandler}
                         value={basicFormData.gender}
                       >
                         <option selected hidden>

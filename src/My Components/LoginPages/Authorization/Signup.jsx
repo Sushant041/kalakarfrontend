@@ -104,7 +104,7 @@ function Signup() {
             position:"top-center"
           });
         }
-      } else if (response.success === "success") {
+      } else if (response.status === "success") {
         toast.success("Successfully register" , {
           position:"top-center"
         });

@@ -58,7 +58,11 @@ export default function Artist_limited_Profile() {
     "Russian",
   ];
 
-  const natureofArt=["Visual Arts", "Performing Arts", "Literary Arts", "Digital Arts", "Applied Arts", "Craftsmanship", "Culinary Arts", "Performance Arts", "Body Arts", "Environmental Art", "Conceptual Art", "Sound Art", "Textile Arts", "Community Arts", "Graffiti Art"]
+  const natureofArt=["Dance",
+    "Music",
+    "Song",
+    "Theator",
+    "Any Other"]
 
   const nameofart=["Bharatanatyam", "Kathak", "Odissi", "Kathakali", "Manipuri", "Mohiniyattam", "Bhangra", "Garba", "Dandiya Raas", "Lavani", "Kuchipudi", "Sattriya", "Chhau", "Giddha", "Yakshagana", "Bihu", "Rauf", "Kalbelia", "Gotipua"
 ]
@@ -139,17 +143,16 @@ export default function Artist_limited_Profile() {
       console.log("ress", response);
 
       if (response.status === "success") {
-        const { age, languages, gender } = response.data.personalInfo;
+        const { age, language, gender } = response.data.personalInfo;
         const { artCategory, artName } = response.data.artInfo;
         const { pincode, state, city } = response.data.address;
-        const { experience, perfDetails } = response.data.performanceInfo;
-        const { length: totalperformances } = perfDetails;
+        const { experience, perfDetails,totalPerfs } = response.data.performanceInfo;
 
         setBasicFormData({
           personalInfo: {
             age: age,
             gender: gender,
-            language: languages[0],
+            language: language,
           },
           address: {
             state: state,
@@ -163,8 +166,8 @@ export default function Artist_limited_Profile() {
           performanceInfo: {
             experience: experience,
             perfDetails: perfDetails,
+            totalPerfs:totalPerfs
           },
-          totalperformances:totalperformances
         });
         console.log(basicFormData);
       } else {
@@ -266,6 +269,8 @@ export default function Artist_limited_Profile() {
                   }}
                   name="personalInfo.gender"
                   value={basicFormData.personalInfo.gender}
+                  onChange={changeHandler}
+                  required
                 >
                   <option selected hidden>
                     Gender
@@ -282,6 +287,7 @@ export default function Artist_limited_Profile() {
               </label>
               <select
                 onChange={changeHandler}
+                required
                 style={{
                   fontFamily: "Poppins",
                   background: "transparent",
@@ -329,6 +335,7 @@ export default function Artist_limited_Profile() {
                   name="address.state"
                   value={basicFormData.address.state}
                   style={{ width: "100%" }}
+                  required
                 >
                   <option selected hidden>
                     Select State
@@ -396,6 +403,7 @@ export default function Artist_limited_Profile() {
                   onChange={changeHandler}
                   name="artinfo.artCategory"
                   value={basicFormData.artinfo.artCategory}
+                  required
                 >
                   <option selected hidden>
                     Select Category of Art
@@ -411,6 +419,7 @@ export default function Artist_limited_Profile() {
                   onChange={changeHandler}
                   name="artinfo.artName"
                   value={basicFormData.artinfo.artName}
+                  required
                 >
                   <option selected hidden>
                     Select Name of Art
@@ -427,14 +436,15 @@ export default function Artist_limited_Profile() {
                   name="performanceInfo.experience"
                   value={basicFormData.performanceInfo.experience}
                   type="text"
+                  required
                 ></input>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Total Number of Performances* </label>
                 <input
                     onChange={changeHandler}
-                  name="totalperformances"
-                  value={basicFormData.totalperformances}
+                  name="performanceInfo.totalPerfs"
+                  value={basicFormData.performanceInfo.totalPerfs}
                   type="text"
                   required
                 ></input>
