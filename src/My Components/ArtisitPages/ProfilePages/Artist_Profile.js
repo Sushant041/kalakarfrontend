@@ -13,7 +13,7 @@ import Artist_navbar from "../Artist_navbar";
 import art from "./assets/art.svg"
 import star from "./assets/star.svg"
 import performance from "./assets/performance.svg"
-import { specialization , languages , artform , performanceduration , performancetype , natureofArt , nameofart , courses , highestLevelOfPerformance , ChargesPerPerformance } from "../../../Data/artistProfile";
+import { specialization , languages , typeOfArt,artform , performanceduration , performancetype , natureofArt , nameofart , courses , highestLevelOfPerformance , ChargesPerPerformance , artInfo1} from "../../../Data/artistProfile";
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
   const defaultPic = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
@@ -62,7 +62,24 @@ export function Artist_Profile() {
     passportNumber: "",
   });
 
+// ART INFORMATION
+const [artInfoFormData, setArtInfoFormData] = useState({
+  aboutArt:"",
+  artCategory:"",
+  artEducation:"",
+  artName:"",
+  artType:"",
+   // {aboutArt,artCategory,artEducation,artName,artType}
+});
 
+const [artEducation,setArtEducation] = useState({
+  artName:"",
+  artGuru:"",
+  location:"",
+  duration:"",
+  completionYear:""
+});
+console.log(artInfoFormData);
   // ! change  handler for basic profile
   const changeHandler = (event) => {
     const { name, value } = event.target;
@@ -177,29 +194,73 @@ export function Artist_Profile() {
     },
   });
 
+  const [art,setArt] = useState([]);
+const artChangesHandler = (e) => {
+  const { name, value } = e.target;
+  if(name.startsWith("artEduDuration.")){
+    setArt(artInfo1.find(ctr=>ctr.art === value).name);
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      artCategory:value,
+    }))
+  }
+  else if(name.startsWith("artForm.")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      artName:value,
+    }))
+    
+  }
+  else if(name.startsWith("artEducations.")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      artEducation:value,
+    }))
+    
+  }
+  else if(name.startsWith("artName.")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      artType:value,
+    }))
+  }else if(name.startsWith("aboutJourney")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      aboutArt:value,
+    }))
+  }
+
+  else if(name.startsWith("pGuruName")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      guruName:value,
+    }))
+  }
+}
+
   const artChangeHandler = (event) => {
     const { name, value } = event.target;
-
     if (name.startsWith("artEduDuration.")) {
       // If the change is related to address, update the nested state
-      setArtFormData((prevData) => ({
+      setArtInfoFormData((prevData) => ({
         ...prevData,
         artEduDuration: {
-          ...prevData.artEduDuration,
+          ...prevData.artInfoFormData,
           [name.split(".")[1]]: value,
         },
       }));
     } else if (name.startsWith("academicQualificationDuration.")) {
       // If the change is related to address, update the nested state
-      setArtFormData((prevData) => ({
+      setArtInfoFormData((prevData) => ({
         ...prevData,
         academicQualificationDuration: {
           ...prevData.academicQualificationDuration,
           [name.split(".")[1]]: value,
         },
       }));
-    } else {
-      setArtFormData((prevData) => ({
+    } 
+    else {
+      setArtInfoFormData((prevData) => ({
         ...prevData,
         [name]: value,
       }));
@@ -210,34 +271,35 @@ export function Artist_Profile() {
     event.preventDefault();
     const toastId = toast.loading("Loading...");
 
-    const {artEduDuration , artForm , artName , performanceType ,natureOfArt  , nameOfGuru , yearOfCompletation , traditionArtName , academicQualification , course , specialization , institute , academicQualificationDuration ,certificateCourse , certificateInstitute , certificateDuration } = artFormData;
+    // const {artEduDuration , artForm , artName , performanceType ,natureOfArt  , nameOfGuru , yearOfCompletation , traditionArtName , academicQualification , course , specialization , institute , academicQualificationDuration ,certificateCourse , certificateInstitute , certificateDuration } = artFormData;
+    //chiku
+    const {aboutArt,artCategory,artEducation,artName,artType} = artInfoFormData;
 
+    let artInfo = {aboutArt,artCategory,artEducation,artName,artType};
 
+    // let artInfo = {
+    //     artForm , artName , perfType:performanceType , artNature : natureOfArt
+    // }
 
-    let artInfo = {
-        artForm , artName , perfType:performanceType , artNature : natureOfArt
-    }
+    // let traditionalInfo = {
+    //   guruName: nameOfGuru , completionYear:yearOfCompletation , artName : traditionArtName , duration:artEduDuration
+    // }
 
-    let traditionalInfo = {
-      guruName: nameOfGuru , completionYear:yearOfCompletation , artName : traditionArtName , duration:artEduDuration
-    }
+    // let professionalInfo = {
+    //   course: course , duration:academicQualificationDuration , institute , specialization , qualification:academicQualification
+    // }
 
-    let professionalInfo = {
-      course: course , duration:academicQualificationDuration , institute , specialization , qualification:academicQualification
-    }
-
-    let certificateInfo = {
-      course: certificateCourse , 
-      duration :certificateDuration , 
-      institute :certificateInstitute 
-    }
+    // let certificateInfo = {
+    //   course: certificateCourse , 
+    //   duration :certificateDuration , 
+    //   institute :certificateInstitute 
+    // }
 
 
     try {
-      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, {artInfo , traditionalInfo , professionalInfo , certificateInfo} , accessToken);
-
+      // const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, {artInfo , traditionalInfo , professionalInfo , certificateInfo} , accessToken);
+      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, {artInfo} , accessToken);
       console.log('artrespone' , response);
-
       if (response.status === "success") {
         toast.success("successfuly update" , {
           position:"top-center"
@@ -492,14 +554,16 @@ export function Artist_Profile() {
   const fetchProileData = async () => {
     try {
       const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API, accessToken);
-      console.log("fetchdata", response);
+      console.log("fetchdata Chiku", response);
 
 
-    const {address , appliedOpportunities , artInfo , awardsInfo , certificateInfo , otherInfo , performanceInfo , personalInfo , professionalInfo , savedOpportunities , socialLinks , traditionalInfo} = response.data;
-      
+    let {address , appliedOpportunities , artInfo , awardsInfo , certificateInfo , otherInfo , performanceInfo , personalInfo , professionalInfo , savedOpportunities , socialLinks , traditionalInfo} = response.data;
+    console.log("fetchdata Chiku 1",artInfo);
+   
       if(personalInfo.avatar.url){
         setProfileAvatar(personalInfo.avatar.url);
       }
+
 
      
       setBasicFormData((prev) => ({
@@ -526,6 +590,13 @@ export function Artist_Profile() {
           ...prev.handles,
           ...response.data.socialLinks,
         },
+      }));
+
+      //chiku art Information
+      setArtInfoFormData((prev) => ({
+        ...prev,
+        artCategory:artInfo?.artCategory,
+        artName:artInfo?.artName,
       }));
 
       setArtFormData((prev) => ({
@@ -743,6 +814,7 @@ setProfileAvatar(null);
             </svg>{" "}
             Basic Profile
           </button>
+
           <button className={activeSection === "art" ? "active" : ""} onClick={() => handleClick("art")}>
             <img src={art} /> Art Profile
           </button>
@@ -1229,37 +1301,37 @@ setProfileAvatar(null);
               <div className="ArtProfile_inputfield">
                 <label>Category of Art <span className="red">*</span></label>
              
-                <select onChange={artChangeHandler} value={artFormData.natureOfArt} name="natureOfArt" placeholder="Select nature of art" >
+                <select onChange={artChangesHandler} value={artInfoFormData.artCategory} name="artEduDuration.education" placeholder="Select nature of art" >
                   <option selected hidden>
                   Select nature of art
                   </option>
-                  {natureofArt.map((option ,index) => (
-          <option key={index} value={option}>
-            {option}
+                  {artInfo1.map((option ,index) => (
+          <option key={index} value={option.art}>
+            {option.art}
           </option>
         ))}
                 </select>
               </div>
               <div className="ArtProfile_inputfield">
                 <label>Name Of Art  <span className="red">*</span></label>
-                <select onChange={artChangeHandler} value={artFormData.artForm}  name="artForm" placeholder="Select art form" >
+                <select onChange={artChangesHandler} value={artInfoFormData.artName}  name="artForm.name" placeholder="Select art form" >
                   <option value={""} disabled>
                   Select art form
                   </option>
-                  {artform.map((option ,index) => (
-          <option key={index}  value={option}>
-            {option}
+                  {art.map((option ,index) => (
+          <option key={index}  value={option.type}>
+            {option.type}
           </option>
         ))}
                 </select>
               </div>
               <div className="ArtProfile_inputfield">
-                <label>Name of Art</label>
-                <select onChange={artChangeHandler}   name="artName" value={artFormData.artName} placeholder="Select name of the art " >
+                <label>Types of Art</label>
+                <select onChange={artChangesHandler} name="artName.name" value={artInfoFormData.artType} placeholder="Select name of the art " >
                   <option  value={""} disabled>
                   Select name of the art
                   </option>
-                  {nameofart.map((option ,index) => (
+                  {typeOfArt.map((option ,index) => (
           <option key={index}   value={option}>
             {option}
           </option>
@@ -1268,7 +1340,7 @@ setProfileAvatar(null);
               </div>
               <div className="ArtProfile_inputfield">
                 <label>Art Education</label>
-                <select onChange={artChangeHandler} value={artFormData.performanceType} name="performanceType" placeholder="Select name of the art " >
+                <select onChange={artChangesHandler} value={artInfoFormData.artEducation} name="artEducations.education" placeholder="Select name of the art " >
                   <option value={""} disabled >
                   Select performance type
                   </option>
@@ -1345,7 +1417,7 @@ setProfileAvatar(null);
                   <td>Upload Document	</td>
                 </tr>
                 <tr>
-                  <td>.</td>
+                  <td>{artInfoFormData.artName}</td>
                   <td>.</td>
                   <td>.</td>
                   <td>.</td>
@@ -1381,8 +1453,115 @@ setProfileAvatar(null);
             </div>
             <div style={{width:"100%" , marginTop:"20px"}}>
                   <label htmlFor="aboutJourney">About The Art</label>
-                  <textarea name="aboutJourney" value={basicFormData.aboutJourney} onChange={changeHandler} style={{width:"100%"  , border:"2px solid rgb(0,0,0,0.5)" , padding:"10px", borderRadius:"10px" , resize:"none" , height:"166px" }}  />
+                  <textarea name="aboutJourney" value={artInfoFormData.artAbout} onChange={artChangesHandler} style={{width:"100%"  , border:"2px solid rgb(0,0,0,0.5)" , padding:"10px", borderRadius:"10px" , resize:"none" , height:"166px" }}  />
               </div>
+
+
+              <h4>Add Professional Art Education +</h4>
+
+              {awardFormData.awards.map((award, index) => (
+              <React.Fragment key={index}>
+                {index === awardFormData.awards.length - 1 ? (
+                  // last index => add plus button
+                  <>
+                    <div className="AwardProfile_Awarddetials">
+                      <div className="AwardProfile_inputfield">
+                        <label>Name Of  Art</label>
+                        <input value={award.title} onChange={(e) => handleInputChange(index, "title", e.target.value)} type="text"></input>
+                      </div>
+                      <div className="AwardProfile_inputfield">
+                        <label>Name Of Guru</label>
+                        <input value={award.title} onChange={(e) => handleInputChange(index, "title", e.target.value)} type="text"></input>
+
+                      </div>
+                      <div className="AwardProfile_inputfield">
+                        <label>Location</label>
+                        <input value={award.title} onChange={(e) => handleInputChange(index, "title", e.target.value)} type="text"></input>
+                      </div>
+                      {/* <div className="AwardProfile_inputfield">
+                        <label>Name of the Stage</label>
+                        <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
+                      </div> */}
+                      <div className="AwardProfile_inputfield">
+                        <label>Duration ( month)</label>
+                        <input value={award.year} onChange={(e) => handleInputChange(index, "year", e.target.value)} type="text"></input>
+                      </div>
+                      <div className="AwardProfile_inputfield">
+                        <label>Year Of Compiletion</label>
+                        <input value={award.givenBy} onChange={(e) => handleInputChange(index, "givenBy", e.target.value)} type="text"></input>
+                      </div>
+
+                      <div className="AwardProfile_inputfield">
+                        <label>Upload</label>
+                        <input value={award.givenBy} onChange={(e) => handleInputChange(index, "givenBy", e.target.value)} type="text"></input>
+                      </div>
+                    </div>
+
+                    <div className="AwardProfile_Addmorebtn">
+                      <p>Add More Awards Details</p>
+                      <button type="button">
+                        {" "}
+                        <svg onClick={addNewAward} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                          <circle cx="20" cy="20" r="20" fill="#AD2F3B" />
+                          <text x="50%" y="50%" text-anchor="middle" fill="white" font-size="24px" font-family="Arial" dy=".3em">
+                            +
+                          </text>
+                        </svg>
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  // not last index => add - button
+                  <>
+                  <div className="AwardProfile_Awarddetials">
+                    
+                    <div className="AwardProfile_inputfield">
+                      <label>Name Of Guru</label>
+                      <input value={"szddfg"} onChange={artChangesHandler} type="pGuruName"></input>
+
+                    </div>
+                    <div className="AwardProfile_inputfield">
+                      <label>Location</label>
+                      <input value={award.title} onChange={artChangesHandler} type="location"></input>
+                    </div>
+                    {/* <div className="AwardProfile_inputfield">
+                      <label>Name of the Stage</label>
+                      <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
+                    </div> */}
+                    <div className="AwardProfile_inputfield">
+                      <label>Duration ( month)</label>
+                      <input value={award.year} onChange={artChangesHandler} type="duration"></input>
+                    </div>
+                    <div className="AwardProfile_inputfield">
+                      <label>Year Of Compiletion</label>
+                      <input value={award.givenBy} onChange={artChangesHandler} type="year"></input>
+                    </div>
+
+                    <div className="AwardProfile_inputfield">
+                      <label>Upload</label>
+                      <input value={award.givenBy} onChange={artChangesHandler} type="text"></input>
+                    </div>
+                  </div>
+
+                  <div className="AwardProfile_Addmorebtn">
+                      <p>Remove</p>
+                      <button type="button">
+                        {" "}
+                        <svg onClick={removeLastAward} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                          <circle cx="20" cy="20" r="20" fill="#AD2F3B" />
+                          <text x="50%" y="50%" text-anchor="middle" fill="white" font-size="24px" font-family="Arial" dy=".3em">
+                            -
+                          </text>
+                        </svg>
+                      </button>
+                    </div> 
+                </>
+                )}
+              </React.Fragment>
+            ))}
+
+
+
 
             <button type="submit" className="updateBtn">
               Update
@@ -2014,7 +2193,7 @@ setProfileAvatar(null);
                   <td>.</td>
                   <td>.</td>
                   <td>.</td>
-                  <td>.</td>
+                  <td contenteditable="true">A</td>
                 </tr>
                 <tr>
                   <td>.</td>
@@ -2035,6 +2214,106 @@ setProfileAvatar(null);
               </tbody>
             </table>
             </div>
+            {awardFormData.awards.map((award, index) => (
+              <React.Fragment key={index}>
+                {index === awardFormData.awards.length - 1 ? (
+                  // last index => add plus button
+                  <>
+                    <div className="AwardProfile_Awarddetials">
+                      <div className="AwardProfile_inputfield">
+                        <label>Name Of  Art</label>
+                        <input value={award.title} onChange={(e) => handleInputChange(index, "title", e.target.value)} type="text"></input>
+                      </div>
+                      <div className="AwardProfile_inputfield">
+                        <label>Name Of Guru</label>
+                        <input value={award.title} onChange={(e) => handleInputChange(index, "title", e.target.value)} type="text"></input>
+
+                      </div>
+                      <div className="AwardProfile_inputfield">
+                        <label>Location</label>
+                        <input value={award.title} onChange={(e) => handleInputChange(index, "title", e.target.value)} type="text"></input>
+                      </div>
+                      {/* <div className="AwardProfile_inputfield">
+                        <label>Name of the Stage</label>
+                        <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
+                      </div> */}
+                      <div className="AwardProfile_inputfield">
+                        <label>Duration ( month)</label>
+                        <input value={award.year} onChange={(e) => handleInputChange(index, "year", e.target.value)} type="text"></input>
+                      </div>
+                      <div className="AwardProfile_inputfield">
+                        <label>Year Of Compiletion</label>
+                        <input value={award.givenBy} onChange={(e) => handleInputChange(index, "givenBy", e.target.value)} type="text"></input>
+                      </div>
+
+                      <div className="AwardProfile_inputfield">
+                        <label>Upload</label>
+                        <input value={award.givenBy} onChange={(e) => handleInputChange(index, "givenBy", e.target.value)} type="text"></input>
+                      </div>
+                    </div>
+
+                    <div className="AwardProfile_Addmorebtn">
+                      <p>Add More Awards Details</p>
+                      <button type="button">
+                        {" "}
+                        <svg onClick={addNewAward} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                          <circle cx="20" cy="20" r="20" fill="#AD2F3B" />
+                          <text x="50%" y="50%" text-anchor="middle" fill="white" font-size="24px" font-family="Arial" dy=".3em">
+                            +
+                          </text>
+                        </svg>
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  // not last index => add - button
+                  <>
+                  <div className="AwardProfile_Awarddetials">
+                    
+                    <div className="AwardProfile_inputfield">
+                      <label>Name Of Guru</label>
+                      <input value={"szddfg"} onChange={artChangesHandler} type="pGuruName"></input>
+
+                    </div>
+                    <div className="AwardProfile_inputfield">
+                      <label>Location</label>
+                      <input value={award.title} onChange={artChangesHandler} type="location"></input>
+                    </div>
+                    {/* <div className="AwardProfile_inputfield">
+                      <label>Name of the Stage</label>
+                      <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
+                    </div> */}
+                    <div className="AwardProfile_inputfield">
+                      <label>Duration ( month)</label>
+                      <input value={award.year} onChange={artChangesHandler} type="duration"></input>
+                    </div>
+                    <div className="AwardProfile_inputfield">
+                      <label>Year Of Compiletion</label>
+                      <input value={award.givenBy} onChange={artChangesHandler} type="year"></input>
+                    </div>
+
+                    <div className="AwardProfile_inputfield">
+                      <label>Upload</label>
+                      <input value={award.givenBy} onChange={artChangesHandler} type="text"></input>
+                    </div>
+                  </div>
+
+                  <div className="AwardProfile_Addmorebtn">
+                      <p>Remove</p>
+                      <button type="button">
+                        {" "}
+                        <svg onClick={removeLastAward} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                          <circle cx="20" cy="20" r="20" fill="#AD2F3B" />
+                          <text x="50%" y="50%" text-anchor="middle" fill="white" font-size="24px" font-family="Arial" dy=".3em">
+                            -
+                          </text>
+                        </svg>
+                      </button>
+                    </div> 
+                </>
+                )}
+              </React.Fragment>
+            ))}
             <div className="BasicProfile_inputfield">
                 <label >Performance Photograph(Max. 5)</label>
                 <input style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
