@@ -505,6 +505,9 @@ color:#fff;
   width: 172px;
   border-radius: 10px;
 }
+.performance_responsive{
+  background-color: "red";
+}
 
 .AwardProfile_Addmorebtn {
   display: flex;
@@ -1436,4 +1439,20 @@ table{
 
 @media(max-width:332px){
   
+}
+
+
+.performance_table th{
+  /* background-color: red; */
+  padding: 10px;
+  border-right: 1px solid black;
+}
+.performance_table{
+  /* background-color: red; */
+}
+.performance_table td input{
+  padding:0 10px;
+  height: 50px;
+  border: none;
+  border-radius: 0;
 }

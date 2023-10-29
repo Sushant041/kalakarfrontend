@@ -116,11 +116,11 @@ export function Artist_OpportunitiesMoreInfo() {
       <Artist_navbar />
       <div className="OpportunitiesMoreInfoPage">
         <div className="OpportunitiesMoreInfoPage_Topbox">
-          <h1 style={{ color: "#AD2F3B" }}>{jobData?.position}</h1>
+          <h1 style={{ color: "#AD2F3B" }}>{jobData?.purpose}</h1>
           <div className="OpportunitiesMoreInfoPage_Topboxcontent">
             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
               <p>
-                Category :&emsp;<span>{jobData?.category}</span>
+                Category :&emsp;<span>{jobData?.artCategory}</span>
               </p>
               <p>
                 Posted on :&emsp;
@@ -194,9 +194,7 @@ export function Artist_OpportunitiesMoreInfo() {
               </p>
               <p>
                 <span>
-                  {/* {jobData?.languages?.map((lag, index) => (
-                    <span key={index}>{lag} </span>
-                  ))} */}
+                  {/* {jobData?.languages} */}
                   {jobData?.languages}
                 </span>
                 NA

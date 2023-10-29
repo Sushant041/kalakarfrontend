@@ -291,12 +291,12 @@ export function Artist_Profile() {
     language: "",
     monthlyIncome: "",
     about: "",
-    pwd:"",
-    incomeSrc:"",
-    socialCategory:"",
-    idProof:{
-      name:"",
-      num:""
+    pwd: "",
+    incomeSrc: "",
+    socialCategory: "",
+    idProof: {
+      name: "",
+      num: "",
     },
     address: {
       state: "",
@@ -596,6 +596,34 @@ export function Artist_Profile() {
   };
 
   //  ! for performance profile section
+
+  const [tableData, setTableData] = useState([
+    // Initial data with column headings
+    {
+      eventName: "",
+      duration: "",
+      level: "",
+      location: "",
+      collaborator: "",
+      link: "",
+    },
+    {
+      eventName: "",
+      duration: "",
+      level: "",
+      location: "",
+      collaborator: "",
+      link: "",
+    },
+    {
+      eventName: "",
+      duration: "",
+      level: "",
+      location: "",
+      collaborator: "",
+      link: "",
+    },
+  ]);
   const [performanceFormData, setPerformanceFormData] = useState({
     affiliatedToAnyGroup: "",
     nameOfArtistGroupOrg: "",
@@ -680,7 +708,6 @@ export function Artist_Profile() {
         aboutJourney,
         majorPerfCityIndia,
         majorPerfCountryInternational,
-        topFivePerformance,
         performanceImages,
         performancevideos,
         // yearOfExperience,
@@ -721,7 +748,7 @@ export function Artist_Profile() {
         peakPerf: highestLevelOfPerformance,
         majorPerfCity: majorPerfCityIndia,
         majorPerfCountry: majorPerfCountryInternational,
-        perfDetails: topFivePerformance,
+        perfDetails: tableData,
         perfImgs: performanceImages,
         perfVideos: performancevideos,
       };
@@ -1019,6 +1046,12 @@ export function Artist_Profile() {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handlePerformanceTableChange = (e, rowIdx, key) => {
+    const newData = [...tableData];
+    newData[rowIdx][key] = e.target.value;
+    setTableData(newData);
   };
 
   useEffect(() => {
@@ -2093,7 +2126,7 @@ export function Artist_Profile() {
           {activeSection === "performance" && (
             <div
               style={{ fontFamily: "Poppins" }}
-              className="PerformanceProfile_Infoform"
+              className="PerformanceProfile_Infoform performance_responsive"
             >
               <form onSubmit={perforSubmitHandler}>
                 <h4>PERFORMANCE INFORMATION</h4>
@@ -2329,40 +2362,37 @@ export function Artist_Profile() {
                   </div>
                   <div className="ArtProfile_Traditional">
                     <label>Major Performances/ Events (max. 5)</label>
-                    <table>
+                    <table className="performance_table">
+                      <thead>
+                        <tr>
+                          <th>Name of Event</th>
+                          <th>Month-Year</th>
+                          <th>Level</th>
+                          <th>Location</th>
+                          <th>Partner/Organizer</th>
+                          <th>Media Links</th>
+                        </tr>
+                      </thead>
                       <tbody>
-                        <tr>
-                          <td> Name Of Event</td>
-                          <td> Month-Year </td>
-                          <td> Level</td>
-                          <td> Location</td>
-                          <td> Partner/Organizer </td>
-                          <td>Media Links</td>
-                        </tr>
-                        <tr>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                        </tr>
-                        <tr>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                        </tr>
-                        <tr>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                          <td>.</td>
-                        </tr>
+                        {tableData.map((row, rowIndex) => (
+                          <tr key={rowIndex}>
+                            {Object.keys(row).map((key, colIndex) => (
+                              <td key={colIndex}>
+                                <input
+                                  type="text"
+                                  value={row[key]}
+                                  onChange={(e) =>
+                                    handlePerformanceTableChange(
+                                      e,
+                                      rowIndex,
+                                      key
+                                    )
+                                  }
+                                />
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                   </div>

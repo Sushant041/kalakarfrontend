@@ -508,7 +508,7 @@ export function Artist_Opportunities() {
 
           {eventToMap.map((job, index) => (
             <div className="OpportunitiesPage_displayonejob" key={index}>
-              <h4>{job.position}</h4>
+              <h4>{job.purpose}</h4>
               <h5>{job.description}</h5>
               <div className="OpportunitiesPage_displayonejob_content">
                 <div className="OpportunitiesPage_displayonejob_contentdetailsone">

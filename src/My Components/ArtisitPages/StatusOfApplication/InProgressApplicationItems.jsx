@@ -140,7 +140,7 @@ function InProgressApplicationItems({ currentEvent , jobData  , loading}) {
                           {/* this is for buttons */}
                           <div className="inprogress_btn_wrapper">
     
-    <Link 
+                          <Link 
                             to="/Artist_OpportunityDetails"
     
                             style={{ textDecoration: "none" }}
