@@ -222,7 +222,8 @@ function UploadedOpportunities() {
                             {/* <p>{opportunity.artNature}</p>
                         <p>{opportunity.category}</p> */}
                             <p>{opportunity.location}</p>
-                            <p>{opportunity.languages.join(", ")}</p>
+                            {/* <p>{opportunity.languages.join(", ")}</p> */}
+                            <p>{opportunity.languages}</p>
                             <p>{opportunity.budget} INR</p>
                             <p>{opportunity.performanceDate.slice(0, 10)}</p>
                             <p>{opportunity.performanceDuration} </p>
