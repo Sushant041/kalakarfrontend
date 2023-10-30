@@ -234,6 +234,9 @@ const EditOpportunity = () => {
     e.preventDefault();
 
     const toastId = toast.loading("Loading...");
+    console.log(" -> ");
+    console.log(updatedFormData);
+    console.log(formData);
     try {
       const response = await makeAuthenticatedPATCHRequest(
         `${patronProfilePoints.UPDATE_OPPOR_API}/${opportunity._id}`,
@@ -275,12 +278,11 @@ const EditOpportunity = () => {
                 <select
                   required
                   name="purpose"
-                  value={formData?.purpose}
                   onChange={inputChangeHandler}
                   style={{ width: "100%" }}
                 >
-                  <option selected hidden>
-                    Select purpose
+                  <option selected hidden defaultValue={formData?.purpose}>
+                    {formData?.purpose}
                   </option>
                   {purposeOfPerformance?.map((item, index) => {
                     return (
@@ -299,7 +301,8 @@ const EditOpportunity = () => {
                 <input
                   required
                   name="description"
-                  value={formData?.description}
+                  // value={formData?.description}
+                  defaultValue={formData?.description}
                   onChange={inputChangeHandler}
                   type="text"
                   style={{ width: "100%" }}
@@ -308,14 +311,9 @@ const EditOpportunity = () => {
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Location of Performance</label>
-                <select
-                  onChange={inputChangeHandler}
-                  name="location"
-                  value={formData?.location}
-                  required
-                >
-                  <option selected hidden>
-                    Select location
+                <select onChange={inputChangeHandler} name="location" required>
+                  <option selected hidden defaultValue={formData?.location}>
+                    {formData?.location}
                   </option>
                   <option value="City/District">City/District</option>
                   <option value="State">State</option>
@@ -324,12 +322,10 @@ const EditOpportunity = () => {
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Language of Performance</label>
-                <select
-                  onChange={inputChangeHandler}
-                  name="languages"
-                  value={formData?.languages}
-                >
-                  <option selected>Enter Language</option>
+                <select onChange={inputChangeHandler} name="languages" required>
+                  <option selected hidden defaultValue={formData?.languages}>
+                    {formData?.languages}
+                  </option>
                   {allLanguages?.map((item, index) => {
                     return (
                       <option value={item} key={index}>
@@ -341,14 +337,9 @@ const EditOpportunity = () => {
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Approx. Budget for Performance</label>
-                <select
-                  required
-                  onChange={inputChangeHandler}
-                  value={formData?.budget}
-                  name="budget"
-                >
-                  <option selected hidden>
-                    Select budget
+                <select required onChange={inputChangeHandler} name="budget">
+                  <option selected hidden defaultValuevalue={formData?.budget}>
+                    {formData?.budget}
                   </option>
                   <option value="24000">Below 25000</option>
                   <option value="35000">25000-50000</option>
@@ -362,7 +353,7 @@ const EditOpportunity = () => {
                 <label>Date of Performance*</label>
                 <input
                   required
-                  value={formData?.performanceDate}
+                  defaultValue={formData?.performanceDate}
                   name="performanceDate"
                   onChange={inputChangeHandler}
                   type="date"
@@ -374,9 +365,9 @@ const EditOpportunity = () => {
                 <input
                   required
                   onChange={inputChangeHandler}
-                  value={formData?.performanceDuration}
+                  defaultValue={formData?.performanceDuration}
                   name="performanceDuration"
-                  type="text"
+                  type="number"
                   placeholder="Enter Performance Duration"
                 />
               </div>
@@ -386,7 +377,7 @@ const EditOpportunity = () => {
                   required
                   onChange={inputChangeHandler}
                   name="end"
-                  value={formData?.applicationPeriod?.end}
+                  defaultValue={formData?.applicationPeriod?.end}
                   type="date"
                   placeholder="Enter application last date"
                 />
@@ -394,13 +385,10 @@ const EditOpportunity = () => {
 
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Type of Art*</label>
-                <select
-                  required
-                  value={formData?.artType}
-                  name="artType"
-                  onChange={inputChangeHandler}
-                >
-                  <option selected>Select Art</option>
+                <select required name="artType" onChange={inputChangeHandler}>
+                  <option selected hidden defaultValue={formData?.artType}>
+                    {formData?.artType}
+                  </option>
                   <option value="Folk">Folk</option>
                   <option value="Classical">Classical</option>
                   <option value="Fusion">Fusion</option>
@@ -413,9 +401,10 @@ const EditOpportunity = () => {
                   required
                   onChange={inputChangeHandler}
                   name="artCategory"
-                  value={formData?.artCategory}
                 >
-                  <option selected>Enter Category</option>
+                  <option selected hidden defaultValue={formData?.artCategory}>
+                    {formData?.artCategory}
+                  </option>
                   <option value="dance">Dance</option>
                   <option value="song">song</option>
                   <option value="music">Music</option>
@@ -425,14 +414,9 @@ const EditOpportunity = () => {
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Name of Art</label>
-                <select
-                  required
-                  value={formData?.artName}
-                  name="artName"
-                  onChange={inputChangeHandler}
-                >
-                  <option selected hidden>
-                    Select
+                <select required name="artName" onChange={inputChangeHandler}>
+                  <option selected hidden defaultValue={formData?.artName}>
+                    {formData?.artName}
                   </option>
                   {ArtNames?.map((item, index) => {
                     return (
@@ -448,7 +432,7 @@ const EditOpportunity = () => {
                 <input
                   required
                   onChange={inputChangeHandler}
-                  value={formData?.theme}
+                  defaultValue={formData?.theme}
                   name="theme"
                   type="text"
                   placeholder="Theme for Performmance/Event"
@@ -457,8 +441,8 @@ const EditOpportunity = () => {
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Live/Recorded/Part Live</label>
                 <select onChange={inputChangeHandler} name="mediaType">
-                  <option selected hidden>
-                    Select
+                  <option selected hidden defaultValue={formData?.mediaType}>
+                    {formData?.mediaType}
                   </option>
                   <option value="Live">Live</option>
                   <option value="Recorded">Recorded</option>
@@ -480,11 +464,14 @@ const EditOpportunity = () => {
                 <label>No. of Required Artist*</label>
                 <select
                   required
-                  value={formData?.requiredArtists}
                   name="requiredArtists"
                   onChange={inputChangeHandler}
                 >
-                  <option selected hidden>
+                  <option
+                    selected
+                    hidden
+                    defaultValue={formData?.requiredArtists}
+                  >
                     Select
                   </option>
                   <option value="1">1</option>
@@ -499,11 +486,10 @@ const EditOpportunity = () => {
                 <select
                   required
                   onChange={inputChangeHandler}
-                  value={formData?.artistLevel}
                   name="artistLevel"
                 >
-                  <option selected hidden>
-                    Select
+                  <option selected hidden defaultValue={formData?.artistLevel}>
+                    {formData?.artistLevel}
                   </option>
                   <option value="international">International</option>
                   <option value="national">National</option>
@@ -519,11 +505,14 @@ const EditOpportunity = () => {
                 <select
                   onChange={inputChangeHandler}
                   name="artistLocation"
-                  value={formData?.artistLocation}
                   required
                 >
-                  <option selected hidden>
-                    Select
+                  <option
+                    selected
+                    hidden
+                    defaultValue={formData?.artistLocation}
+                  >
+                    {formData?.artistLocation}
                   </option>
                   <option value="local">Local</option>
                   <option value="outstation">Outstation</option>
@@ -535,10 +524,9 @@ const EditOpportunity = () => {
                 <select
                   onChange={inputChangeHandler}
                   name="audienceSize"
-                  value={formData?.audienceSize}
                   required
                 >
-                  <option selected hidden>
+                  <option selected hidden defaultValue={formData?.audienceSize}>
                     Select
                   </option>
                   <option value="20">Below 25</option>
@@ -554,11 +542,14 @@ const EditOpportunity = () => {
                 <select
                   onChange={inputChangeHandler}
                   name="audienceProfile"
-                  value={formData?.audienceProfile}
                   required
                 >
-                  <option selected hidden>
-                    Select
+                  <option
+                    selected
+                    hidden
+                    defaultValue={formData?.audienceProfile}
+                  >
+                    {formData?.audienceProfile}
                   </option>
                   <option value="Hotel inhouse Guests ">
                     Hotel inhouse Guests
@@ -572,14 +563,9 @@ const EditOpportunity = () => {
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Venue of Performance</label>
-                <select
-                  onChange={inputChangeHandler}
-                  name="venue"
-                  value={formData?.venue}
-                  required
-                >
-                  <option selected hidden>
-                    Select
+                <select onChange={inputChangeHandler} name="venue" required>
+                  <option selected hidden defaultValue={formData?.venue}>
+                    {formData?.venue}
                   </option>
                   {venueTypes?.map((item, index) => {
                     return (
@@ -599,11 +585,10 @@ const EditOpportunity = () => {
                   style={{ width: "100%" }}
                   onChange={inputChangeHandler}
                   name="facilities"
-                  value={formData?.facilities}
                   required
                 >
-                  <option selected hidden>
-                    Select
+                  <option selected hidden defaultValue={formData?.facilities}>
+                    {formData?.facilities}
                   </option>
                   {performanceFacilitiesaArr?.map((item, index) => {
                     return (
@@ -627,7 +612,7 @@ const EditOpportunity = () => {
                 <textarea
                   onChange={inputChangeHandler}
                   name="otherRequirements"
-                  value={formData?.otherRequirements}
+                  defaultValue={formData?.otherRequirements}
                   style={{ height: "60px", resize: "none", width: "100%" }}
                   placeholder="Enter Any Other requirements"
                 ></textarea>
@@ -636,7 +621,7 @@ const EditOpportunity = () => {
                 <label>Name</label>
                 <input
                   readOnly
-                  value={opportunity?.contactPersonName}
+                  defaultValue={opportunity?.contactPersonName}
                   name="Name"
                   type="text"
                   placeholder="Name of User"
@@ -646,7 +631,7 @@ const EditOpportunity = () => {
                 <label>Contact Number</label>
                 <input
                   readOnly
-                  value={opportunity?.contactPersonNumber}
+                  defaultValue={opportunity?.contactPersonNumber}
                   name="Name"
                   type="text"
                   placeholder="Contact Number"
@@ -656,7 +641,7 @@ const EditOpportunity = () => {
                 <label>Email</label>
                 <input
                   readOnly
-                  value={opportunity?.contactEmail}
+                  defaultValue={opportunity?.contactEmail}
                   name="Email"
                   type="text"
                   placeholder="Email of User"

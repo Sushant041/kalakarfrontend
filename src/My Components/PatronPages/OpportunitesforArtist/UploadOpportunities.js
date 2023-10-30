@@ -398,7 +398,7 @@ function UploadOpportunities() {
                   onChange={inputChangeHandler}
                   value={formData?.performanceDuration}
                   name="performanceDuration"
-                  type="text"
+                  type="number"
                   placeholder="Enter Performance Duration"
                 />
               </div>
