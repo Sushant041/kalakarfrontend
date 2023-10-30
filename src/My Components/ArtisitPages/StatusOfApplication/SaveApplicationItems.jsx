@@ -97,21 +97,23 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
       event.preventDefault();
       const response = await makeAuthenticatedPOSTRequest(
         artistOpportunityPoints.APPLY_OPPOR_API +
-          `/${popupData?._id}/apply`,
+          `/${popupData?._id}`,
         { whyText },
         accessToken
       );
 
-      if (response.success === "success") {
+      if (response.status === "success") {
         toast.success("successfully applied" , {
           position:"top-center"
         });
         setPopupData(null);
         setWhyText("");
+        setPopupData(null)
       } else {
         toast.error(response.message  ,{
           position:"top-center"
         });
+        setPopupData(null)
       }
     } catch (error) {
       console.log(error);

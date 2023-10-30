@@ -116,11 +116,11 @@ export function Artist_OpportunitiesMoreInfo() {
       <Artist_navbar />
       <div className="OpportunitiesMoreInfoPage">
         <div className="OpportunitiesMoreInfoPage_Topbox">
-          <h1 style={{ color: "#AD2F3B" }}>{jobData?.position}</h1>
+          <h1 style={{ color: "#AD2F3B" }}>{jobData?.purpose}</h1>
           <div className="OpportunitiesMoreInfoPage_Topboxcontent">
             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
               <p>
-                Category :&emsp;<span>{jobData?.category}</span>
+                Category :&emsp;<span>{jobData?.artCategory}</span>
               </p>
               <p>
                 Posted on :&emsp;
@@ -190,25 +190,26 @@ export function Artist_OpportunitiesMoreInfo() {
             <div>
               <p>NA</p>
               <p>
-                <span>{jobData?.location} a</span>
+                <span>{jobData?.location}</span>
               </p>
               <p>
                 <span>
-                  {jobData?.languages?.map((lag, index) => (
-                    <span key={index}>{lag} </span>
-                  ))}
+                  {/* {jobData?.languages} */}
+                  {jobData?.languages}
                 </span>
-                NA
               </p>
               <p>
                 <span>{jobData?.budget} </span>
               </p>
               <p>
-                {new Date(jobData?.performanceDate).toLocaleDateString("en-US", {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })}
+                {new Date(jobData?.performanceDate).toLocaleDateString(
+                  "en-US",
+                  {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  }
+                )}
               </p>
               <p>
                 <span>{jobData?.performanceDuration} </span>
@@ -218,36 +219,55 @@ export function Artist_OpportunitiesMoreInfo() {
                   "en-US",
                   { day: "numeric", month: "short", year: "numeric" }
                 )}
-              
               </p>
               <p>
-                <span>{jobData?.artNature} </span>
+                <span>{jobData?.artType} </span>
               </p>
               <p>
-                <span>{jobData?.category} </span>
+                <span>{jobData?.artCategory} </span>
               </p>
-              <p>NA</p>
+              <p>
+                <span>{jobData?.artName} </span>
+              </p>
               <p>
                 <span>{jobData?.theme} </span>
               </p>
               <p>
-                <span>{jobData?.performanceType} </span>
+                <span>{jobData?.mediaType} </span>
               </p>
-              <p> NA </p>
+              <p>
+                <span>{jobData?.customization} </span>
+              </p>
               <p>
                 <span>{jobData?.requiredArtists} </span>
               </p>
-              <p> NA </p>
-              <p> NA </p>
-              <p> NA </p>
-              <p> NA </p>
-              <p> NA </p>
+              <p>
+                <span>{jobData?.artistLocation} </span>
+              </p>
+              <p>
+                <span>{jobData?.audienceSize} </span>
+              </p>
+              <p>
+                <span>{jobData?.audienceProfile} </span>
+              </p>
+              <p>
+                <span>{jobData?.venue} </span>
+              </p>
+              <p>
+                <span>{jobData?.facilities} </span>
+              </p>
               <p>
                 <span>{jobData?.otherRequirements} </span>
               </p>
-              <p> NA </p>
-              <p> NA </p>
-              <p> NA </p>
+              <p>
+                <span>{jobData?.contactPersonName} </span>
+              </p>
+              <p>
+                <span>{jobData?.contactPersonNumber} </span>
+              </p>
+              <p>
+                <span>{jobData?.contactEmail} </span>
+              </p>
             </div>
           </div>
           <h1>Perks and Benefits</h1>

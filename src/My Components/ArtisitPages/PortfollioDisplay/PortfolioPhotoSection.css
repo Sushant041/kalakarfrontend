@@ -33,6 +33,7 @@
     border-radius: 0 3px 3px 0;
     user-select: none;
     margin-top:78px;
+    background-color: rgba(225, 213, 213, 0.8);
   }
   
   /* Position the "next button" to the right */
@@ -44,7 +45,7 @@
   
   /* On hover, add a black background color with a little bit see-through */
   .prev:hover, .next:hover {
-    background-color: rgba(225, 213, 213, 0.8);
+    background-color: rgba(252, 249, 249, 0.8);
   }
 
 

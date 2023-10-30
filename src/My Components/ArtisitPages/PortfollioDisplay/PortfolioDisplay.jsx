@@ -9,6 +9,7 @@ import phone from "./assets/phone.svg";
 import location from "./assets/location.svg";
 import instagram from "./assets/instagram.svg";
 import facebookimg from "./assets/facebookimg.svg";
+import images from "./assets/images.svg"
 import PortfolioPhotoSection from "./PortfolioPhotoSection";
 import PortfolioVideoSection from "./PortfolioVideoSection";
 import mail from "./assets/Mail.svg";
@@ -74,17 +75,18 @@ function PortfolioDisplay() {
           about,
           avatar,
           gender,
+          language
           // monthlyIncome
         } = response.data.personalInfo;
-        const { monthlyIncome } = response.data.personalInfo.annualIncome;
+        const { monthlyIncome } = response.data.otherInfo.anunalIncomeByPerf;
         const { artCategory, artName } = response.data.artInfo;
         const { aboutArt } = response.data.artInfo;
         const { pincode, state, city } = response.data.address;
 
-        const { perfType, perfEvent, experience, perfDetails } =
+        const { perfType, perfEvent, experience, totalPerfs } =
           response.data.performanceInfo;
         const { perfCharge } = response.data.performanceInfo.perfCharge.india;
-        const { length: totalperformances } = perfDetails;
+        // const { length: totalperformances } = perfDetails;
 
         setPortfolioData({
           phoneNumber: contactNumber,
@@ -100,7 +102,7 @@ function PortfolioDisplay() {
           minimumBudget: monthlyIncome,
           aboutArt: aboutArt,
           chargePerPerformance: perfCharge,
-          totalperformances: totalperformances,
+          totalperformances: totalPerfs,
           avatar,
           yearOfExperience: experience,
           pincode,
@@ -108,6 +110,7 @@ function PortfolioDisplay() {
           city,
           artName,
           gender,
+          language:language,
           aboutJourney: about,
         });
         console.log(portfolioData);
@@ -280,8 +283,8 @@ function PortfolioDisplay() {
               <p>{portfolioData.gender}</p>
             </div>
             <div className="field">
-              <h2>Gender</h2>
-              <p>{portfolioData.gender}</p>
+              <h2>languages</h2>
+              <p>{portfolioData.language}</p>
             </div>
             <div className="field">
               <h2>Pincode</h2>

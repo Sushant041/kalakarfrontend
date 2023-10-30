@@ -21,21 +21,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { artistProfilePoints } from "../../../services/apis";
 import Artist_navbar from "../Artist_navbar";
-import art from "./assets/art.svg";
-import star from "./assets/star.svg";
-import performance from "./assets/performance.svg";
-import {
-  specialization,
-  languages,
-  artform,
-  performanceduration,
-  performancetype,
-  natureofArt,
-  nameofart,
-  courses,
-  highestLevelOfPerformance,
-  ChargesPerPerformance,
-} from "../../../Data/artistProfile";
+import art from "./assets/art.svg"
+import star from "./assets/star.svg"
+import performance from "./assets/performance.svg"
+import { specialization , languages , artform , performanceduration , performancetype , natureofArt , nameofart , courses , highestLevelOfPerformance , ChargesPerPerformance } from "../../../Data/artistProfile";
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
   const defaultPic =
@@ -321,6 +310,7 @@ export function Artist_Profile() {
     passportNumber: "",
   });
 
+
   // ! change  handler for basic profile
   const changeHandler = (event) => {
     const { name, value } = event.target;
@@ -485,29 +475,73 @@ export function Artist_Profile() {
     },
   });
 
+  const [art,setArt] = useState([]);
+const artChangesHandler = (e) => {
+  const { name, value } = e.target;
+  if(name.startsWith("artEduDuration.")){
+    setArt(artInfo1.find(ctr=>ctr.art === value).name);
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      artCategory:value,
+    }))
+  }
+  else if(name.startsWith("artForm.")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      artName:value,
+    }))
+    
+  }
+  else if(name.startsWith("artEducations.")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      artEducation:value,
+    }))
+    
+  }
+  else if(name.startsWith("artName.")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      artType:value,
+    }))
+  }else if(name.startsWith("aboutJourney")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      aboutArt:value,
+    }))
+  }
+
+  else if(name.startsWith("pGuruName")){
+    setArtInfoFormData((prevData) => ({
+      ...prevData,
+      guruName:value,
+    }))
+  }
+}
+
   const artChangeHandler = (event) => {
     const { name, value } = event.target;
-
     if (name.startsWith("artEduDuration.")) {
       // If the change is related to address, update the nested state
-      setArtFormData((prevData) => ({
+      setArtInfoFormData((prevData) => ({
         ...prevData,
         artEduDuration: {
-          ...prevData.artEduDuration,
+          ...prevData.artInfoFormData,
           [name.split(".")[1]]: value,
         },
       }));
     } else if (name.startsWith("academicQualificationDuration.")) {
       // If the change is related to address, update the nested state
-      setArtFormData((prevData) => ({
+      setArtInfoFormData((prevData) => ({
         ...prevData,
         academicQualificationDuration: {
           ...prevData.academicQualificationDuration,
           [name.split(".")[1]]: value,
         },
       }));
-    } else {
-      setArtFormData((prevData) => ({
+    } 
+    else {
+      setArtInfoFormData((prevData) => ({
         ...prevData,
         [name]: value,
       }));
@@ -518,61 +552,33 @@ export function Artist_Profile() {
     event.preventDefault();
     const toastId = toast.loading("Loading...");
 
-    const {
-      artEduDuration,
-      artForm,
-      artName,
-      performanceType,
-      natureOfArt,
-      nameOfGuru,
-      yearOfCompletation,
-      traditionArtName,
-      academicQualification,
-      course,
-      specialization,
-      institute,
-      academicQualificationDuration,
-      certificateCourse,
-      certificateInstitute,
-      certificateDuration,
-    } = artFormData;
+    const {artEduDuration , artForm , artName , performanceType ,natureOfArt  , nameOfGuru , yearOfCompletation , traditionArtName , academicQualification , course , specialization , institute , academicQualificationDuration ,certificateCourse , certificateInstitute , certificateDuration } = artFormData;
+
+
 
     let artInfo = {
-      artForm,
-      artName,
-      perfType: performanceType,
-      artNature: natureOfArt,
-    };
+        artForm , artName , perfType:performanceType , artNature : natureOfArt
+    }
 
     let traditionalInfo = {
-      guruName: nameOfGuru,
-      completionYear: yearOfCompletation,
-      artName: traditionArtName,
-      duration: artEduDuration,
-    };
+      guruName: nameOfGuru , completionYear:yearOfCompletation , artName : traditionArtName , duration:artEduDuration
+    }
 
     let professionalInfo = {
-      course: course,
-      duration: academicQualificationDuration,
-      institute,
-      specialization,
-      qualification: academicQualification,
-    };
+      course: course , duration:academicQualificationDuration , institute , specialization , qualification:academicQualification
+    }
 
     let certificateInfo = {
-      course: certificateCourse,
-      duration: certificateDuration,
-      institute: certificateInstitute,
-    };
+      course: certificateCourse , 
+      duration :certificateDuration , 
+      institute :certificateInstitute 
+    }
+
 
     try {
-      const response = await makeAuthenticatedPATCHRequest(
-        artistProfilePoints.UPDATE_PROFILE_DATA_API,
-        { artInfo, traditionalInfo, professionalInfo, certificateInfo },
-        accessToken
-      );
+      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, {artInfo , traditionalInfo , professionalInfo , certificateInfo} , accessToken);
 
-      console.log("artrespone", response);
+      console.log('artrespone' , response);
 
       if (response.status === "success") {
         toast.success("successfuly update", {
@@ -892,31 +898,17 @@ export function Artist_Profile() {
   //  ! fetch  profile data function
   const fetchProileData = async () => {
     try {
-      const response = await makeAuthenticatedGETRequest(
-        artistProfilePoints.FETCH_PROFILE_DATA_API,
-        accessToken
-      );
+      const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API, accessToken);
       console.log("fetchdata", response);
 
-      const {
-        address,
-        appliedOpportunities,
-        artInfo,
-        awardsInfo,
-        certificateInfo,
-        otherInfo,
-        performanceInfo,
-        personalInfo,
-        professionalInfo,
-        savedOpportunities,
-        socialLinks,
-        traditionalInfo,
-      } = response.data;
 
-      if (personalInfo.avatar.url) {
+    const {address , appliedOpportunities , artInfo , awardsInfo , certificateInfo , otherInfo , performanceInfo , personalInfo , professionalInfo , savedOpportunities , socialLinks , traditionalInfo} = response.data;
+      
+      if(personalInfo.avatar.url){
         setProfileAvatar(personalInfo.avatar.url);
       }
 
+     
       setBasicFormData((prev) => ({
         ...prev,
         firstName: personalInfo?.firstName,
@@ -950,6 +942,13 @@ export function Artist_Profile() {
           ...prev.idProof,
           ...response.data.otherInfo.idProof,
         },
+      }));
+
+      //chiku art Information
+      setArtInfoFormData((prev) => ({
+        ...prev,
+        artCategory:artInfo?.artCategory,
+        artName:artInfo?.artName,
       }));
 
       setArtFormData((prev) => ({
@@ -1158,7 +1157,8 @@ export function Artist_Profile() {
 
   return (
     <div className="Profile_Page">
-      <div className="ProfilePage_Navbar">
+      <div className="ProfilePage_Navbar" style={{    position: "sticky",
+    top: "0"}}>
         <Artist_navbar />
         <Navbar
           style={{ zIndex: "99" }}
@@ -1222,84 +1222,53 @@ export function Artist_Profile() {
 
       <div className="chiku-ProfileSection">
         <div className="profile-left">
-          <div className="BasicProfile_AccSet">
-            <h1>Account Settings</h1>
-            <button
-              className={activeSection === "basic" ? "active" : ""}
-              onClick={() => handleClick("basic")}
-            >
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  id="Vector"
-                  d="M10 0C11.3261 0 12.5979 0.526784 13.5355 1.46447C14.4732 2.40215 15 3.67392 15 5C15 6.32608 14.4732 7.59785 13.5355 8.53553C12.5979 9.47322 11.3261 10 10 10C8.67392 10 7.40215 9.47322 6.46447 8.53553C5.52678 7.59785 5 6.32608 5 5C5 3.67392 5.52678 2.40215 6.46447 1.46447C7.40215 0.526784 8.67392 0 10 0ZM10 20C10 20 20 20 20 17.5C20 14.5 15.125 11.25 10 11.25C4.875 11.25 0 14.5 0 17.5C0 20 10 20 10 20Z"
-                  fill="black"
-                />
-              </svg>{" "}
-              Basic Profile
-            </button>
-            <button
-              className={activeSection === "art" ? "active" : ""}
-              onClick={() => handleClick("art")}
-            >
-              <img src={art} /> Art Profile
-            </button>
-            <button
-              className={activeSection === "performance" ? "active" : ""}
-              onClick={() => handleClick("performance")}
-            >
-              <img src={performance} /> Performance Profile
-            </button>
-            <button
-              className={activeSection === "award" ? "active" : ""}
-              onClick={() => handleClick("award")}
-            >
-              <img src={star} /> Award Profile
-            </button>
-          </div>
-          <div className="BasicProfile_avatar">
-            {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
-            <div className="profileImg">
-              <img loading="lazy" src={defaultPic} />
-              <div className="progressBar">25%</div>
-            </div>
-            <p style={{ fontWeight: "500", fontSize: "30px" }}>
-              {" "}
-              {basicFormData.firstName.toUpperCase()}{" "}
-              {basicFormData.lastName.toUpperCase()}(eK ID: 12334)
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="35"
-                height="35"
-                viewBox="0 0 50 50"
-                fill="none"
-              >
-                <circle cx="25" cy="25" r="25" fill="#61C6FF" />
-                <path
-                  d="M14 26.7143L19.4935 32.2791C19.885 32.6757 20.5252 32.6757 20.9168 32.2791L36 17"
-                  stroke="white"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                />
-              </svg>
-              <b></b>
-            </p>
-            <button
-              onClick={handleButtonClick}
-              className="BasicProfile_editavatar"
-            >
-              Upload/Edit Profile Picture
-            </button>
-            {/* <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button> */}
-            <h4 style={{ color: "#AD2F3B", marginTop: "10px" }}>
-              Completing your profile means more performance opportunities !{" "}
-            </h4>
-          </div>
+        <div className="BasicProfile_AccSet">
+          <h1>Account Settings</h1>
+          <button className={activeSection === "basic" ? "active" : ""} onClick={() => handleClick("basic")}>
+            <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path
+                id="Vector"
+                d="M10 0C11.3261 0 12.5979 0.526784 13.5355 1.46447C14.4732 2.40215 15 3.67392 15 5C15 6.32608 14.4732 7.59785 13.5355 8.53553C12.5979 9.47322 11.3261 10 10 10C8.67392 10 7.40215 9.47322 6.46447 8.53553C5.52678 7.59785 5 6.32608 5 5C5 3.67392 5.52678 2.40215 6.46447 1.46447C7.40215 0.526784 8.67392 0 10 0ZM10 20C10 20 20 20 20 17.5C20 14.5 15.125 11.25 10 11.25C4.875 11.25 0 14.5 0 17.5C0 20 10 20 10 20Z"
+                fill="black"
+              />
+            </svg>{" "}
+            Basic Profile
+          </button>
+          <button className={activeSection === "art" ? "active" : ""} onClick={() => handleClick("art")}>
+            <img src={art} /> Art Profile
+          </button>
+          <button className={activeSection === "performance" ? "active" : ""} onClick={() => handleClick("performance")}>
+            <img src={performance} /> Performance Profile
+          </button>
+          <button className={activeSection === "award" ? "active" : ""} onClick={() => handleClick("award")}>
+            <img src={star} /> Award Profile
+          </button>
+        
         </div>
+        <div className="BasicProfile_avatar">
+          {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
+          <div className="profileImg">
+          <img loading="lazy"src={defaultPic} />
+            <div className="progressBar">25%</div>
+          </div>
+          <p style={{fontWeight:"500" , fontSize:"30px"}} >
+            {" "}
+            {basicFormData.firstName.toUpperCase()} {basicFormData.lastName.toUpperCase()}(eK ID: 12334)<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 50 50" fill="none">
+  <circle cx="25" cy="25" r="25" fill="#61C6FF"/>
+  <path d="M14 26.7143L19.4935 32.2791C19.885 32.6757 20.5252 32.6757 20.9168 32.2791L36 17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>
+            <b></b>
+          </p>
+          <button onClick={handleButtonClick} className="BasicProfile_editavatar">Upload/Edit Profile Picture</button>
+          {/* <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button> */}
+         
+        </div>
+
+        
+        
+      </div>
+
+
 
         {/* this is for basic  */}
 
@@ -1440,6 +1409,7 @@ export function Artist_Profile() {
                           height: "60px",
                           border: "1px solid black",
                         }}
+                        onChange={changeHandler}
                         value={basicFormData.gender}
                       >
                         <option selected hidden>
@@ -1911,93 +1881,66 @@ export function Artist_Profile() {
             </div>
           )}
 
-          {/* this is for art profile */}
-          {activeSection === "art" && (
-            <div
-              style={{ fontFamily: "Poppins" }}
-              className="ArtProfile_Infoform"
-            >
-              <form onSubmit={artSubmitHandler}>
-                <h4>ART INFORMATION</h4>
-                <div className="ArtProfile_ArtInfo">
-                  <div className="ArtProfile_inputfield">
-                    <label>
-                      Category of Art <span className="red">*</span>
-                    </label>
-
-                    <select
-                      onChange={artChangeHandler}
-                      value={artFormData.natureOfArt}
-                      name="natureOfArt"
-                      placeholder="Select nature of art"
-                    >
-                      <option selected hidden>
-                        Select nature of art
-                      </option>
-                      {natureofArt.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="ArtProfile_inputfield">
-                    <label>
-                      Name Of Art <span className="red">*</span>
-                    </label>
-                    <select
-                      onChange={artChangeHandler}
-                      value={artFormData.artForm}
-                      name="artForm"
-                      placeholder="Select art form"
-                    >
-                      <option value={""} disabled>
-                        Select art form
-                      </option>
-                      {artform.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="ArtProfile_inputfield">
-                    <label>Name of Art</label>
-                    <select
-                      onChange={artChangeHandler}
-                      name="artName"
-                      value={artFormData.artName}
-                      placeholder="Select name of the art "
-                    >
-                      <option value={""} disabled>
-                        Select name of the art
-                      </option>
-                      {nameofart.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="ArtProfile_inputfield">
-                    <label>Art Education</label>
-                    <select
-                      onChange={artChangeHandler}
-                      value={artFormData.performanceType}
-                      name="performanceType"
-                      placeholder="Select name of the art "
-                    >
-                      <option value={""} disabled>
-                        Select performance type
-                      </option>
-                      {performancetype.map((option, index) => (
-                        <option key={index} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  {/* <div className="ArtProfile_inputfield">
+{/* this is for art profile */}
+      {activeSection === "art" && (
+        <div style={{fontFamily:"Poppins"}} className="ArtProfile_Infoform">
+          <form onSubmit={artSubmitHandler}>
+            <h4>ART INFORMATION</h4>
+            <div className="ArtProfile_ArtInfo">
+              <div className="ArtProfile_inputfield">
+                <label>Category of Art <span className="red">*</span></label>
+             
+                <select onChange={artChangeHandler} value={artFormData.natureOfArt} name="natureOfArt" placeholder="Select nature of art" >
+                  <option selected hidden>
+                  Select nature of art
+                  </option>
+                  {natureofArt.map((option ,index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+                </select>
+              </div>
+              <div className="ArtProfile_inputfield">
+                <label>Name Of Art  <span className="red">*</span></label>
+                <select onChange={artChangeHandler} value={artFormData.artForm}  name="artForm" placeholder="Select art form" >
+                  <option value={""} disabled>
+                  Select art form
+                  </option>
+                  {artform.map((option ,index) => (
+          <option key={index}  value={option}>
+            {option}
+          </option>
+        ))}
+                </select>
+              </div>
+              <div className="ArtProfile_inputfield">
+                <label>Name of Art</label>
+                <select onChange={artChangeHandler}   name="artName" value={artFormData.artName} placeholder="Select name of the art " >
+                  <option  value={""} disabled>
+                  Select name of the art
+                  </option>
+                  {nameofart.map((option ,index) => (
+          <option key={index}   value={option}>
+            {option}
+          </option>
+        ))}
+                </select>
+              </div>
+              <div className="ArtProfile_inputfield">
+                <label>Art Education</label>
+                <select onChange={artChangeHandler} value={artFormData.performanceType} name="performanceType" placeholder="Select name of the art " >
+                  <option value={""} disabled >
+                  Select performance type
+                  </option>
+                  {performancetype.map((option ,index) => (
+          <option key={index} value={option}>
+            {option}
+          </option>
+        ))}
+                </select>
+              </div>
+              {/* <div className="ArtProfile_inputfield">
                 <label>Genre</label>
                 <input onChange={artChangeHandler} value={artFormData.genre} name="genre" type="text"></input>
               </div>
@@ -2009,116 +1952,105 @@ export function Artist_Profile() {
                   </option>
                 </select>
               </div> */}
-                </div>
-                <h4>Professional Art Education +</h4>
-                <div className="ArtProfile_Traditional">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td> Name of art </td>
-                        <td> Name of Guru </td>
-                        <td> Location </td>
-                        <td> Duration (Month)</td>
-                        <td> Year of Completion </td>
-                        <td>Upload Document </td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <h4>Traditional Art Education +</h4>
-                <div className="ArtProfile_Traditional">
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td> Name of Course </td>
-                        <td> Specialisation</td>
-                        <td> Name of Institute </td>
-                        <td> Duration (Month)</td>
-                        <td> Year of Completion </td>
-                        <td>Upload Document </td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                      </tr>
-                      <tr>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                        <td>.</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div style={{ width: "100%", marginTop: "20px" }}>
-                  <label htmlFor="aboutJourney">About The Art</label>
-                  <textarea
-                    name="aboutJourney"
-                    value={basicFormData.aboutJourney}
-                    onChange={changeHandler}
-                    style={{
-                      width: "100%",
-                      border: "2px solid rgb(0,0,0,0.5)",
-                      padding: "10px",
-                      borderRadius: "10px",
-                      resize: "none",
-                      height: "166px",
-                    }}
-                  />
-                </div>
-
-                <button type="submit" className="updateBtn">
-                  Update
-                </button>
-              </form>
+            
             </div>
-          )}
+            <h4>Professional Art Education +</h4>
+            <div className="ArtProfile_Traditional">
+            <table>
+              <tbody>
+                <tr>
+                  <td> Name of art 	</td>
+                  <td> Name of Guru		</td>
+                  <td> Location	</td>
+                  <td> Duration	(Month)</td>
+                  <td> Year of Completion	 	</td>
+                  <td>Upload Document	</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <h4>Traditional Art Education +</h4>
+            <div className="ArtProfile_Traditional">
+            <table>
+              <tbody>
+                <tr>
+                  <td> Name of Course 	</td>
+                  <td> Specialisation</td>
+                  <td> Name of Institute	</td>
+                  <td> Duration	(Month)</td>
+                  <td> Year of Completion	 	</td>
+                  <td>Upload Document	</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <div style={{width:"100%" , marginTop:"20px"}}>
+                  <label htmlFor="aboutJourney">About The Art</label>
+                  <textarea name="aboutJourney" value={basicFormData.aboutJourney} onChange={changeHandler} style={{width:"100%"  , border:"2px solid rgb(0,0,0,0.5)" , padding:"10px", borderRadius:"10px" , resize:"none" , height:"166px" }}  />
+              </div>
+
+            <button type="submit" className="updateBtn">
+              Update
+            </button>
+          </form>
+        </div>
+      )}
 
           {/* this is for performance */}
           {activeSection === "performance" && (
@@ -2324,138 +2256,156 @@ export function Artist_Profile() {
                     </select>
                   </div>
 
-                  <div className="BasicProfile_inputfield">
-                    <label>Major Performance Cities (India)</label>
-                    <select
-                      onChange={perforChangeHandler}
-                      name="majorPerfCityIndia"
-                      value={performanceFormData.majorPerfCityIndia}
-                    >
-                      <option selected>Select</option>
-                      {MajorIndianCities.map((i, index) => {
-                        return (
-                          <option key={index} value={i.city}>
-                            {i.city}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                  <div className="BasicProfile_inputfield">
-                    <label>Major Countries for Performance International</label>
-                    <select
-                      onChange={perforChangeHandler}
-                      name="majorPerfCountryInternational"
-                      value={performanceFormData.majorPerfCountryInternational}
-                    >
-                      <option selected>Select</option>
-                      {MajorInternationalCities.map((i, index) => {
-                        return (
-                          <option key={index} value={i}>
-                            {i}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                  <div className="ArtProfile_Traditional">
-                    <label>Major Performances/ Events (max. 5)</label>
-                    <table className="performance_table">
-                      <thead>
-                        <tr>
-                          <th>Name of Event</th>
-                          <th>Month-Year</th>
-                          <th>Level</th>
-                          <th>Location</th>
-                          <th>Partner/Organizer</th>
-                          <th>Media Links</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {tableData.map((row, rowIndex) => (
-                          <tr key={rowIndex}>
-                            {Object.keys(row).map((key, colIndex) => (
-                              <td key={colIndex}>
-                                <input
-                                  type="text"
-                                  value={row[key]}
-                                  onChange={(e) =>
-                                    handlePerformanceTableChange(
-                                      e,
-                                      rowIndex,
-                                      key
-                                    )
-                                  }
-                                />
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="BasicProfile_inputfield position-relative">
-                    <label
-                      htmlFor="performanceImages"
-                      className="custom-file-input"
-                    >
-                      Performance Photograph(Max. 5)
-                    </label>
-                    <input
-                      style={{ color: "white" }}
-                      // onChange={handelMultipleImages}
-                      type="file"
-                      accept="image/*"
-                      multiple
-                      name="performanceImages"
-                    />
-                    <svg
-                      className="position-absolute bottom-0 end-0 mb-2 mx-2"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="30"
-                      height="30"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <path
-                        d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
-                        fill="black"
-                        fill-opacity="0.54"
-                      />
-                    </svg>
-                    {/* <div className="input position-absolute bottom-0">
-                      
-                    </div> */}
-                  </div>
-                  <div className="BasicProfile_inputfield">
-                    <label>Performance Video(Max. 3)</label>
-                    <input
-                      style={{ display: "none" }}
-                      onChange={perforChangeHandler}
-                      id="fileID"
-                      placeholder="Enter UPI Id"
-                      name="upiId"
-                      type="file"
-                    />
-                    <div className="input">
-                      <label id="upload" htmlFor="fileID">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="30"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <path
-                            d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
-                            fill="black"
-                            fill-opacity="0.54"
-                          />
-                        </svg>
-                      </label>
-                    </div>
-                  </div>
-                  {/* <div className="PerformanceProfile_inputfield">
+              <div className="BasicProfile_inputfield">
+                <label>Major Performance Cities</label>
+                  <select onChange={changeHandler} name="address.state" value={basicFormData.address.state}>
+                    <option selected hidden>
+                      Select State
+                    </option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                    <option value="Daman and Diu">Daman and Diu</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Puducherry">Puducherry</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                  </select>
+              </div>
+              <div className="BasicProfile_inputfield">
+                <label>Major Countries for Performance</label>
+                  <select onChange={changeHandler} name="address.state" value={basicFormData.address.state}>
+                    <option selected hidden>
+                      Select State
+                    </option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chandigarh">Chandigarh</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                    <option value="Daman and Diu">Daman and Diu</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Lakshadweep">Lakshadweep</option>
+                    <option value="Puducherry">Puducherry</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                  </select>
+              </div>
+              <h4>Top Performances (max. 5)</h4>
+            <div className="ArtProfile_Traditional">
+            <table>
+              <tbody>
+                <tr>
+                  <td> Name Of Event</td>
+                  <td> Month-Year	</td>
+                  <td> Level</td>
+                  <td> Location</td>
+                  <td> Partner/Organizer 	</td>
+                  <td>Media Links</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+                <tr>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                  <td>.</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <div className="BasicProfile_inputfield">
+                <label >Performance Photograph(Max. 5)</label>
+                <input style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
+                <div className="input" >
+                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
+</svg></label>
+
+                </div>
+
+              </div>
+              <div className="BasicProfile_inputfield">
+                <label >Performance Video(Max. 3)</label>
+                <input style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
+                <div className="input" >
+                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
+</svg></label>
+
+                </div>
+
+              </div>
+              {/* <div className="PerformanceProfile_inputfield">
                 <label>Income for Performing Art*</label>
                 <select value={performanceFormData.averagePerformanceIncome} onChange={perforChangeHandler} name="averagePerformanceIncome">
                   <option selected >

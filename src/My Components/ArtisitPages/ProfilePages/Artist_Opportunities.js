@@ -508,7 +508,7 @@ export function Artist_Opportunities() {
 
           {eventToMap.map((job, index) => (
             <div className="OpportunitiesPage_displayonejob" key={index}>
-              <h4>{job.position}</h4>
+              <h4>{job.purpose}</h4>
               <h5>{job.description}</h5>
               <div className="OpportunitiesPage_displayonejob_content">
                 <div className="OpportunitiesPage_displayonejob_contentdetailsone">
@@ -603,10 +603,11 @@ export function Artist_Opportunities() {
                     <div className="OpportunitiesPage_displayonejob_contentdetailstwo">
                       <p>{job.location}</p>
                       <p>
-                        {job.languages?.map((lag, index) => (
+                        {/* {job.languages?.map((lag, index) => (
                           <span key={index}>{lag} </span>
                         ))}
-                        {!job.language && "NA"}
+                        {!job.language && "NA"} */}
+                        {job.languages}
                       </p>
                       <p>{job.budget}</p>
                       <p>
@@ -689,9 +690,10 @@ export function Artist_Opportunities() {
                         <p>
                           Language : &emsp;{" "}
                           <span>
-                            {job.languages?.map((lag, index) => (
+                            {/* {job.languages?.map((lag, index) => (
                               <span key={index}>{lag} </span>
-                            ))}
+                            ))} */}
+                            {job.languages}
                           </span>
                         </p>
                         <p>
