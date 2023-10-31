@@ -47,13 +47,12 @@
 .saved_event_rightPart{
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: 10px;
 }
 
 .saved_event_leftPart{
     display: flex;
     flex-direction: column;
-    gap: 10px;
     width: 100%;
 }
 
@@ -65,7 +64,7 @@
     color: #AD2F3B;
     font-family: Poppins;
     font-weight: 500;
-
+    margin-bottom: 10%;
 }
 
 .saved_event_data{
