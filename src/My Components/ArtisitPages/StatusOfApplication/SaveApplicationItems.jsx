@@ -162,9 +162,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                         <p className="save_event_data_ans">
                           {" "}
                           <span>
-                            {event.languages?.map((lan, index) => (
-                              <span key={index}>{lan}</span>
-                            ))}
+                            {event.languages}
                           </span>
                         </p>
                       </div>
