@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
 import { patronProfilePoints } from "../../../services/apis";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 function UploadOpportunities() {
   const { accessToken } = useSelector((state) => state.auth);
@@ -17,10 +17,10 @@ function UploadOpportunities() {
 
   const inputChangeHandler = (e) => {
     setFormData((prevState) => {
-      if (e.target.name === "languages" || e.target.name === "incentives") {
-        const array = e.target.value.split(/\s*,\s*/);
-        return { ...prevState, [e.target.name]: array };
-      }
+      // if (e.target.name === "languages" || e.target.name === "incentives") {
+      //   const array = e.target.value.split(/\s*,\s*/);
+      //   return { ...prevState, [e.target.name]: array };
+      // }
 
       if (e.target.name === "start" || e.target.name === "end") {
         const applicationPeriod = {
@@ -42,7 +42,14 @@ function UploadOpportunities() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    setFormData({
+      ...formData,
+      contactPersonName: "william",
+      contactEmail: "william@gmail.com",
+      contactPersonNumber: "1234567890",
+    });
 
+    console.log(formData);
     const toastId = toast.loading("Loading...");
 
     try {
@@ -85,10 +92,6 @@ function UploadOpportunities() {
     toast.dismiss(toastId);
   };
 
-  let performanceFacilitiesaArr = [
-    "Stage / Light/ Sound/ Camera/ Video",
-    "Outstation Travel/ Local Travel/ Food/ Accommodation etc",
-  ];
   let allLanguages = [
     "Assamese",
     "Bengali",
@@ -131,143 +134,132 @@ function UploadOpportunities() {
     "Korean",
     "Russian",
   ];
-  let citiesInIndia = [
-    "Agartala",
-    "Agra",
-    "Ahmedabad",
-    "Ahmednagar",
-    "Ajmer",
-    "Akola",
-    "Aligarh",
-    "Allahabad",
-    "Ambattur",
-    "Amravati",
-    "Amritsar",
-    "Asansol",
-    "Aurangabad",
-    "Bareilly",
-    "Belgaum",
-    "Bellary",
-    "Bharatpur",
-    "Bhatpara",
-    "Bhavnagar",
-    "Bhilai",
-    "Bhilwara",
-    "Bhiwandi",
-    "Bhopal",
-    "Bhubaneswar",
-    "Bihar Sharif",
-    "Bijapur",
-    "Bikaner",
-    "Bilaspur",
-    "Bokaro",
-    "Brahmapur",
-    "Chandigarh",
-    "Chandrapur",
-    "Chennai",
-    "Coimbatore",
-    "Cuttack",
-    "Darbhanga",
-    "Davanagere",
-    "Dehradun",
-    "Delhi",
-    "Dhanbad",
-    "Dhule",
-    "Durgapur",
-    "Faridabad",
-    "Firozabad",
-    "Gaya",
-    "Ghaziabad",
-    "Gorakhpur",
-    "Gulbarga",
-    "Guntur",
-    "Gurgaon",
-    "Guwahati",
-    "Gwalior",
-    "Howrah",
-    "Hubli",
-    "Hyderabad",
-    "Indore",
-    "Jabalpur",
-    "Jaipur",
-    "Jalandhar",
-    "Jamnagar",
-    "Jamshedpur",
-    "Jammu",
-    "Jhansi",
-    "Jodhpur",
-    "Kakinada",
-    "Kamarhati",
-    "Kanpur",
-    "Kochi",
-    "Kolkata",
-    "Kollam",
-    "Kota",
-    "Kozhikode",
-    "Kulti",
-    "Kurnool",
-    "Latur",
-    "Loni",
-    "Lucknow",
-    "Ludhiana",
-    "Madurai",
-    "Maheshtala",
-    "Malegaon",
-    "Mangalore",
-    "Mathura",
-    "Meerut",
-    "Moradabad",
-    "Mumbai",
-    "Muzaffarpur",
-    "Muzaffarnagar",
-    "Mysore",
-    "Nagpur",
-    "Nanded",
-    "Nashik",
-    "Navi Mumbai",
-    "Nellore",
-    "Nizamabad",
-    "Noida",
-    "Panihati",
-    "Panipat",
-    "Patiala",
-    "Patna",
-    "Pune",
-    "Raipur",
-    "Rajahmundry",
-    "Rajkot",
-    "Rajpur Sonarpur",
-    "Rampur",
-    "Rohtak",
-    "Rourkela",
-    "Saharanpur",
-    "Salem",
-    "Sangli-Miraj & Kupwad",
-    "Shahjahanpur",
-    "Siliguri",
-    "Srinagar",
-    "Surat",
-    "Thane",
-    "Thrissur",
-    "Tiruchirappalli",
-    "Tumkur",
-    "Udaipur",
-    "Ujjain",
-    "Ulhasnagar",
-    "Vadodara",
-    "Varanasi",
-    "Vijayawada",
-    "Visakhapatnam",
-    "Warangal",
-    "South Dumdum",
-    "Navi Mumbai",
-    "Bally",
-    "Pune",
-    "South Dumdum",
-    "Ozhukarai",
-    "Rajpur Sonarpur",
+
+  const purposeOfPerformance = [
+    "Annual / Foundation Day",
+    "Conference/ Workshop/ Training",
+    "Employee Engagement",
+    "Family functions",
+    "National/ State Day Celebration",
+    "Office Functions",
+    "Performance for hotel guests",
+    "Product Launch",
+    "Special Day – Marriage, Anniversary",
+    "Special Events",
+    "Any other",
   ];
 
+  const ArtNames = [
+    "Bharatanatyam",
+    "Bihu",
+    "Chhau",
+    "Dandiya Raas",
+    "Dollu Kunitha",
+    "Dumhal",
+    "Garba",
+    "Gaur Dance",
+    "Giddha",
+    "Gotipua",
+    "Jhumar",
+    "Kacchi Ghodi",
+    "Kalbelia",
+    "Karakattam",
+    "Kathak",
+    "Kathakali",
+    "Kathakar",
+    "Koli",
+    "Kuchipudi",
+    "Lavani",
+    "Manipuri",
+    "Mayurbhanj Chhau",
+    "Mohiniyattam",
+    "Odissi",
+    "Raas Leela",
+    "Sattriya",
+    "Tamasha",
+    "Tera Tali",
+    "Thang-Ta",
+    "Yakshagana",
+    "Dhrupad",
+    "Khayal",
+    "Thumri",
+    "Tappa",
+    "Ghazal",
+    "Qawwali",
+    "Kriti",
+    "Varnam",
+    "Tillana",
+    "Ragamalika",
+    "Javali",
+    "Swarajati",
+    "Bhajans",
+    "Kirtan",
+    "Sufi Music",
+    "Abhangas",
+    "Shabad Kirtan (Sikh)",
+    "Bansuri",
+    "Dilruba",
+    "Dholak",
+    "Ektara",
+    "Esraj",
+    "Flute (Bansuri)",
+    "Ghatam",
+    "Harmonium",
+    "Jal Tarang",
+    "Mridangam",
+    "Nadaswaram",
+    "Pakhawaj",
+    "Ravanahatha",
+    "Sarangi",
+    "Sarod",
+    "Santoor",
+    "Shehnai",
+    "Sitar",
+    "Tabla",
+    "Tanpura",
+    "Tumbi",
+    "Veena",
+    "Bhavai",
+    "Bhand Pather",
+    "Jatra",
+    "Koodiyattam",
+    "Mudiyettu",
+    "Nautanki",
+    "Pandavani",
+    "Pothu Koothu",
+    "Ramlila",
+    "Ram Lila",
+    "Ras Leela",
+    "Sattriya",
+    "Tamaasha",
+    "Therukoothu",
+    "Yakshagana",
+  ];
+
+  const venueTypes = [
+    "Banquette Hall",
+    "Classroom",
+    "Corporate",
+    "Hotel",
+    "Open Ground",
+    "Private House",
+    "Theater",
+    "Training Center",
+    "Any other",
+  ];
+  const performanceFacilitiesaArr = [
+    "Accommodation",
+    "Food",
+    "Light",
+    "Local Travel",
+    "Musical Instruments",
+    "Outstation Travel",
+    "Photography",
+    "Sound",
+    "Stage",
+    "Video",
+    "Any other",
+  ];
   return (
     <>
       <Patron_Navbar />
@@ -302,15 +294,24 @@ function UploadOpportunities() {
                 style={{ width: "100%" }}
               >
                 <label>PURPOSE OF PERFORMANCE</label>
-                <input
+                <select
                   required
                   name="purpose"
                   value={formData?.purpose}
                   onChange={inputChangeHandler}
-                  type="text"
                   style={{ width: "100%" }}
-                  placeholder="Enter art Description"
-                />
+                >
+                  <option selected hidden>
+                    Select purpose
+                  </option>
+                  {purposeOfPerformance?.map((item, index) => {
+                    return (
+                      <option value={item} key={index}>
+                        {item}
+                      </option>
+                    );
+                  })}
+                </select>
               </div>
               <div
                 className="ArtistOpportunities_Page_Infoform_inputfield"
@@ -335,14 +336,12 @@ function UploadOpportunities() {
                   value={formData?.location}
                   required
                 >
-                  <option selected>City,Country</option>
-                  {citiesInIndia?.map((item, index) => {
-                    return (
-                      <option value={item} key={index}>
-                        {item}
-                      </option>
-                    );
-                  })}
+                  <option selected hidden>
+                    Select location
+                  </option>
+                  <option value="City/District">City/District</option>
+                  <option value="State">State</option>
+                  <option value="Country">Country</option>
                 </select>
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
@@ -364,14 +363,22 @@ function UploadOpportunities() {
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Approx. Budget for Performance</label>
-                <input
+                <select
                   required
                   onChange={inputChangeHandler}
                   value={formData?.budget}
                   name="budget"
-                  type="text"
-                  placeholder="Enter proposed budget"
-                />
+                >
+                  <option selected hidden>
+                    Select budget
+                  </option>
+                  <option value="24000">Below 25000</option>
+                  <option value="35000">25000-50000</option>
+                  <option value="70000">50000-100000</option>
+                  <option value="200000">100000-250000</option>
+                  <option value="800000">250000-1000000</option>
+                  <option value="1200000">Above 1000000</option>
+                </select>
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Date of Performance*</label>
@@ -385,13 +392,13 @@ function UploadOpportunities() {
                 />
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
-                <label>Duration of Performance*</label>
+                <label>Duration of Performance (hrs)*</label>
                 <input
                   required
                   onChange={inputChangeHandler}
                   value={formData?.performanceDuration}
                   name="performanceDuration"
-                  type="text"
+                  type="number"
                   placeholder="Enter Performance Duration"
                 />
               </div>
@@ -427,11 +434,12 @@ function UploadOpportunities() {
                 <select
                   required
                   onChange={inputChangeHandler}
-                  name="categoryOfArt"
-                  value={formData?.categoryofArt}
+                  name="artCategory"
+                  value={formData?.artCategory}
                 >
                   <option selected>Enter Category</option>
                   <option value="dance">Dance</option>
+                  <option value="song">song</option>
                   <option value="music">Music</option>
                   <option value="theater">Theater</option>
                   <option value="Other">Other</option>
@@ -439,14 +447,23 @@ function UploadOpportunities() {
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Name of Art</label>
-                <input
+                <select
                   required
-                  value={formData?.nameOfArt}
-                  name="nameOfArt"
+                  value={formData?.artName}
+                  name="artName"
                   onChange={inputChangeHandler}
-                  type="text"
-                  placeholder="Enter name of art"
-                />
+                >
+                  <option selected hidden>
+                    Select
+                  </option>
+                  {ArtNames?.map((item, index) => {
+                    return (
+                      <option value={item} key={index}>
+                        {item}
+                      </option>
+                    );
+                  })}
+                </select>
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Theme of Performance</label>
@@ -462,16 +479,21 @@ function UploadOpportunities() {
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Live/Recorded/Part Live</label>
                 <select onChange={inputChangeHandler} name="mediaType">
-                  <option selected>Select</option>
+                  <option selected hidden>
+                    Select
+                  </option>
                   <option value="Live">Live</option>
                   <option value="Recorded">Recorded</option>
                   <option value="PartLive">Part Live</option>
+                  <option value="other">Other</option>
                 </select>
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Need Customized/ curated Performance</label>
-                <select onChange={inputChangeHandler} name="needCustomize">
-                  <option selected>Select</option>
+                <select onChange={inputChangeHandler} name="customization">
+                  <option selected hidden>
+                    Select
+                  </option>
                   <option value="true">Yes</option>
                   <option value="false">No</option>
                 </select>
@@ -484,14 +506,14 @@ function UploadOpportunities() {
                   name="requiredArtists"
                   onChange={inputChangeHandler}
                 >
-                  <option selected>Select</option>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
-                    return (
-                      <option key={item} value={item}>
-                        {item}
-                      </option>
-                    );
-                  })}
+                  <option selected hidden>
+                    Select
+                  </option>
+                  <option value="1">1</option>
+                  <option value="3">2-5</option>
+                  <option value="7">5-10</option>
+                  <option value="20">10-50</option>
+                  <option value="60">Above 50</option>
                 </select>
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
@@ -502,12 +524,16 @@ function UploadOpportunities() {
                   value={formData?.artistLevel}
                   name="artistLevel"
                 >
-                  <option selected>Select</option>
+                  <option selected hidden>
+                    Select
+                  </option>
                   <option value="international">International</option>
                   <option value="national">National</option>
                   <option value="state">State</option>
                   <option value="district">District</option>
+                  <option value="taluka">Taluka</option>
                   <option value="local">Local</option>
+                  <option value="Others">Others</option>
                 </select>
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
@@ -518,14 +544,12 @@ function UploadOpportunities() {
                   value={formData?.artistLocation}
                   required
                 >
-                  <option selected>City,Country</option>
-                  {citiesInIndia?.map((item, index) => {
-                    return (
-                      <option value={item} key={index}>
-                        {item}
-                      </option>
-                    );
-                  })}
+                  <option selected hidden>
+                    Select
+                  </option>
+                  <option value="local">Local</option>
+                  <option value="outstation">Outstation</option>
+                  <option value="Others">Others</option>
                 </select>
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
@@ -536,10 +560,15 @@ function UploadOpportunities() {
                   value={formData?.audienceSize}
                   required
                 >
-                  <option selected>select</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option selected hidden>
+                    Select
+                  </option>
+                  <option value="20">Below 25</option>
+                  <option value="35">25-50</option>
+                  <option value="70">50-100</option>
+                  <option value="300">100-500</option>
+                  <option value="800">500-1000</option>
+                  <option value="1200">Above 1000</option>
                 </select>
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
@@ -550,26 +579,37 @@ function UploadOpportunities() {
                   value={formData?.audienceProfile}
                   required
                 >
-                  <option selected>select</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
+                  <option selected hidden>
+                    Select
+                  </option>
+                  <option value="Hotel inhouse Guests ">
+                    Hotel inhouse Guests
+                  </option>
+                  <option value="Professional/ Executives">
+                    Professional/ Executives
+                  </option>
+                  <option value="Students">Students</option>
+                  <option value="Family Guests">Family Guests</option>
                 </select>
               </div>
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Venue of Performance</label>
                 <select
                   onChange={inputChangeHandler}
-                  name="performanceVenue"
-                  value={formData?.performanceVenue}
+                  name="venue"
+                  value={formData?.venue}
                   required
                 >
-                  <option selected>select</option>
-                  <option value="Hotel">Hotel</option>
-                  <option value="Banquet Hall">Banquet Hall</option>
-                  <option value="Corporate">Corporate</option>
-                  <option value="Private Property">Private Property</option>
-                  <option value="Other">Other</option>
+                  <option selected hidden>
+                    Select
+                  </option>
+                  {venueTypes?.map((item, index) => {
+                    return (
+                      <option value={item} key={index}>
+                        {item}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
               <div
@@ -580,15 +620,19 @@ function UploadOpportunities() {
                 <select
                   style={{ width: "100%" }}
                   onChange={inputChangeHandler}
-                  name="performanceFacilities"
-                  value={formData?.performanceFacilities}
+                  name="facilities"
+                  value={formData?.facilities}
                   required
                 >
-                  <option selected>select</option>
-                  {performanceFacilitiesaArr.map((item, index) => {
-                    <option key={index} value={item}>
-                      {item}
-                    </option>;
+                  <option selected hidden>
+                    Select
+                  </option>
+                  {performanceFacilitiesaArr?.map((item, index) => {
+                    return (
+                      <option value={item} key={index}>
+                        {item}
+                      </option>
+                    );
                   })}
                 </select>
               </div>
@@ -614,7 +658,7 @@ function UploadOpportunities() {
                 <label>Name</label>
                 <input
                   readOnly
-                  value={formData?.theme}
+                  value={"william wilson"}
                   name="Name"
                   type="text"
                   placeholder="Name of User"
@@ -624,7 +668,7 @@ function UploadOpportunities() {
                 <label>Contact Number</label>
                 <input
                   readOnly
-                  value={formData?.theme}
+                  value={"1234567890"}
                   name="Name"
                   type="text"
                   placeholder="Contact Number"
@@ -634,7 +678,7 @@ function UploadOpportunities() {
                 <label>Email</label>
                 <input
                   readOnly
-                  value={formData?.theme}
+                  value={"william@gmail.com"}
                   name="Email"
                   type="text"
                   placeholder="Email of User"
