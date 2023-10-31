@@ -100,6 +100,7 @@ toast.dismiss(toastId);
           <p className="artist_head_date">Date</p>
           <p className="artist_head_Event">Event</p>
           <p className="artist_head_appli">Applications</p>
+          <p className="artist_head_date">Location</p>
           <p className="artist_head_status">Application Status</p>
           <p className="artist_head_deadline">Deadline</p>
         </div>
@@ -110,7 +111,7 @@ toast.dismiss(toastId);
             <div key={index} className="single_artist_body_row">
               <p className="body_date artist_body ">{new Date(data.applicationPeriod.start)
   .toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</p>
-              <p className="body_event artist_body">{data.position?.split("").slice(0,30).join("")}..</p>
+              <p className="body_event artist_body">{data.purpose?.split("").slice(0,30).join("")}..</p>
            
              <p onClick={()=>navigate(`/patron-event-appli/${data._id}` , {state : {dataObj :data}}) } className="body_appli artist_body">
                 {data.application}{" "}
@@ -118,7 +119,7 @@ toast.dismiss(toastId);
                   {data.totalApplicants}(View Applications)
                 </span>{" "}
               </p>
-           
+              <p className="body_date artist_body">{data.location}</p>
               <p
                 className={`body_status artist_body ${
                   !data.active ? "statusClose" : "statusOpen"
@@ -146,7 +147,7 @@ toast.dismiss(toastId);
             </div>
             <div className="single_element">
               <p className="single_ele_title">Event</p>
-              <p>{data.position?.split("").slice(0,30).join("")}..</p>
+              <p>{data.purpose?.split("").slice(0,30).join("")}..</p>
             </div>
             <div className="single_element">
               <p className="single_ele_title">Applications</p>
@@ -156,6 +157,12 @@ toast.dismiss(toastId);
                 <span className="view_appli_text">(View Applications)</span>
               </p>
             
+            </div>
+            <div className="single_element">
+              <p className="single_ele_title">Location</p>
+              <p>
+                {data.location}
+              </p>
             </div>
             <div className="single_element">
               <p className="single_ele_title">Application Status</p>

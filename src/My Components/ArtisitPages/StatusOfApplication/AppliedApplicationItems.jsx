@@ -159,11 +159,11 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
                             color: "black",
                           }}
                         >
-                          {event?.opportunity?.languages?.map((lan, index) => (
+                          {/* {event?.opportunity?.languages?.map((lan, index) => (
                             <span key={index}>
                               {lan} {``}
                             </span>
-                          ))}
+                          ))} */}
                           {event?.opportunity?.languages && <span>NA</span>}
                         </p>
 
@@ -228,7 +228,7 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
 
                     <Link
                       to={`/Artist_OpportunityDetails`}
-                      state={{ job: jobData[index] }}
+                      state={{ job: jobData[index].opportunity }}
                     >
                       <button className="view_information_btn">
                         View Information

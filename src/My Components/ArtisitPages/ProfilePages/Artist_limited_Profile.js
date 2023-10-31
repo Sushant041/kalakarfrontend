@@ -70,23 +70,22 @@ export default function Artist_limited_Profile() {
   const [basicFormData, setBasicFormData] = useState({
     personalInfo: {
       age: "",
-      gender: "",
-      language: "",
+      gender: "Male",
+      language: languages[0],
     },
     address: {
-      state: "",
+      state: "Andhra Pradesh",
       city: "",
       pincode: "",
     },
     artinfo: {
-      artCategory: "",
-      artName: "",
+      artCategory: natureofArt[0],
+      artName: nameofart[0],
     },
     performanceInfo: {
       experience: "",
-      perfDetails: [],
+      totalPerfs:0
     },
-    totalperformances:0
   });
 
   const changeHandler = (event) => {
@@ -272,9 +271,9 @@ export default function Artist_limited_Profile() {
                   onChange={changeHandler}
                   required
                 >
-                  <option selected hidden>
+                  {/* <option selected hidden>
                     Gender
-                  </option>
+                  </option> */}
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                   <option value="Other">Other</option>
@@ -300,9 +299,9 @@ export default function Artist_limited_Profile() {
                 id=""
                 value={basicFormData.personalInfo.language}
               >
-                <option value="" selected defaultChecked>
+                {/* <option value="" selected defaultChecked>
                   You can select languages
-                </option>
+                </option> */}
                 {languages.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
@@ -337,9 +336,9 @@ export default function Artist_limited_Profile() {
                   style={{ width: "100%" }}
                   required
                 >
-                  <option selected hidden>
+                  {/* <option selected hidden>
                     Select State
-                  </option>
+                  </option> */}
                   <option value="Andhra Pradesh">Andhra Pradesh</option>
                   <option value="Andaman and Nicobar Islands">
                     Andaman and Nicobar Islands
@@ -405,9 +404,9 @@ export default function Artist_limited_Profile() {
                   value={basicFormData.artinfo.artCategory}
                   required
                 >
-                  <option selected hidden>
+                  {/* <option selected hidden>
                     Select Category of Art
-                  </option>
+                  </option> */}
                   {natureofArt.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
