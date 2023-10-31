@@ -24,7 +24,7 @@ import Artist_navbar from "../Artist_navbar";
 import art from "./assets/art.svg"
 import star from "./assets/star.svg"
 import performance from "./assets/performance.svg"
-import { specialization , languages , artform , performanceduration , performancetype , natureofArt , nameofart , courses , highestLevelOfPerformance , ChargesPerPerformance } from "../../../Data/artistProfile";
+import { specialization , languages , artform , performanceduration ,artTypeData, performancetype , natureofArt , nameofart , courses , highestLevelOfPerformance , ChargesPerPerformance,artInfo1 } from "../../../Data/artistProfile";
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
   const defaultPic =
@@ -310,10 +310,13 @@ export function Artist_Profile() {
     passportNumber: "",
   });
 
-
+const [numberOfAward,setNumberOfAward]= useState("")
+const [hightLevel,sethightLevel]= useState("")
   // ! change  handler for basic profile
   const changeHandler = (event) => {
     const { name, value } = event.target;
+    setNumberOfAward(value);
+    sethightLevel(value);
 
     if (name.startsWith("address.")) {
       // If the change is related to address, update the nested state
@@ -474,21 +477,24 @@ export function Artist_Profile() {
       end: "",
     },
   });
+const [artInfoFormData,setArtInfoFormData]= useState({
+  artName:"",
+  artEducation:"",
+  artType:"",
+  artCategory:"",
+  aboutArt:""
 
+})
   const [art,setArt] = useState([]);
+  const [artName1,setArtName1] = useState("");
 const artChangesHandler = (e) => {
   const { name, value } = e.target;
+  setArtName1(value);
+  setArt(artInfo1.find(ctr=>ctr.art === value).name);
   if(name.startsWith("artEduDuration.")){
-    setArt(artInfo1.find(ctr=>ctr.art === value).name);
+    console.log("hello ",art);
     setArtInfoFormData((prevData) => ({
       ...prevData,
-      artCategory:value,
-    }))
-  }
-  else if(name.startsWith("artForm.")){
-    setArtInfoFormData((prevData) => ({
-      ...prevData,
-      artName:value,
     }))
     
   }
@@ -518,9 +524,10 @@ const artChangesHandler = (e) => {
     }))
   }
 }
-
+const [artTypeDataState,setArtTypeDataState] = useState("")
   const artChangeHandler = (event) => {
     const { name, value } = event.target;
+    setArtTypeDataState(value);
     if (name.startsWith("artEduDuration.")) {
       // If the change is related to address, update the nested state
       setArtInfoFormData((prevData) => ({
@@ -1890,37 +1897,37 @@ const artChangesHandler = (e) => {
               <div className="ArtProfile_inputfield">
                 <label>Category of Art <span className="red">*</span></label>
              
-                <select onChange={artChangeHandler} value={artFormData.natureOfArt} name="natureOfArt" placeholder="Select nature of art" >
+                <select onChange={artChangesHandler} value={artName1} name="artEducations.education" placeholder="Select nature of art" >
                   <option selected hidden>
                   Select nature of art
                   </option>
-                  {natureofArt.map((option ,index) => (
-          <option key={index} value={option}>
-            {option}
+                  {artInfo1.map((option ,index) => (
+          <option key={index} value={option.art}>
+            {option.art}
           </option>
         ))}
                 </select>
               </div>
               <div className="ArtProfile_inputfield">
                 <label>Name Of Art  <span className="red">*</span></label>
-                <select onChange={artChangeHandler} value={artFormData.artForm}  name="artForm" placeholder="Select art form" >
+                <select onChange={artChangesHandler} value={artInfoFormData.artName}  name="artName.name" placeholder="Select art form" >
                   <option value={""} disabled>
                   Select art form
                   </option>
-                  {artform.map((option ,index) => (
-          <option key={index}  value={option}>
-            {option}
+                  {art.map((option ,index) => (
+          <option key={index}  value={option.type}>
+            {option.type}
           </option>
         ))}
                 </select>
               </div>
               <div className="ArtProfile_inputfield">
-                <label>Name of Art</label>
-                <select onChange={artChangeHandler}   name="artName" value={artFormData.artName} placeholder="Select name of the art " >
+                <label>Type of Art</label>
+                <select onChange={artChangeHandler}   name="artName" value={artTypeDataState} placeholder="Select name of the art " >
                   <option  value={""} disabled>
                   Select name of the art
                   </option>
-                  {nameofart.map((option ,index) => (
+                  {artTypeData.map((option ,index) => (
           <option key={index}   value={option}>
             {option}
           </option>
@@ -2457,115 +2464,44 @@ const artChangesHandler = (e) => {
                 <h4>AWARDS</h4>
                 <div className="AwardProfile_AwardInfo">
                   <div className="BasicProfile_inputfield">
-                    <label>Social Category </label>
+                    <label>Total Number of Awards</label>
                     <select
                       onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      name="award"
+                      value={numberOfAward}
                     >
                       <option selected hidden>
                         Select State
                       </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
-                      </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
-                      </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                     <option value="5">1-5</option>
+                     <option value="10">5-10</option>
+                     <option value="15">10-15</option>
+                     <option value="20">15-20</option>
+                     <option value="more">More</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Social Category </label>
+                    <label>Highest Level of Awards </label>
                     <select
                       onChange={changeHandler}
-                      name="address.state"
-                      value={basicFormData.address.state}
+                      name="hightest"
+                      value={hightLevel}
                     >
                       <option selected hidden>
                         Select State
                       </option>
-                      <option value="Andhra Pradesh">Andhra Pradesh</option>
-                      <option value="Andaman and Nicobar Islands">
-                        Andaman and Nicobar Islands
+                      <option value="International">International</option>
+                      <option value="National">
+                        National
                       </option>
-                      <option value="Arunachal Pradesh">
-                        Arunachal Pradesh
+                      <option value="State">
+                        State
                       </option>
-                      <option value="Assam">Assam</option>
-                      <option value="Bihar">Bihar</option>
-                      <option value="Chandigarh">Chandigarh</option>
-                      <option value="Chhattisgarh">Chhattisgarh</option>
-                      <option value="Dadar and Nagar Haveli">
-                        Dadar and Nagar Haveli
-                      </option>
-                      <option value="Daman and Diu">Daman and Diu</option>
-                      <option value="Delhi">Delhi</option>
-                      <option value="Lakshadweep">Lakshadweep</option>
-                      <option value="Puducherry">Puducherry</option>
-                      <option value="Goa">Goa</option>
-                      <option value="Gujarat">Gujarat</option>
-                      <option value="Haryana">Haryana</option>
-                      <option value="Himachal Pradesh">Himachal Pradesh</option>
-                      <option value="Jammu and Kashmir">
-                        Jammu and Kashmir
-                      </option>
-                      <option value="Jharkhand">Jharkhand</option>
-                      <option value="Karnataka">Karnataka</option>
-                      <option value="Kerala">Kerala</option>
-                      <option value="Madhya Pradesh">Madhya Pradesh</option>
-                      <option value="Maharashtra">Maharashtra</option>
-                      <option value="Manipur">Manipur</option>
-                      <option value="Meghalaya">Meghalaya</option>
-                      <option value="Mizoram">Mizoram</option>
-                      <option value="Nagaland">Nagaland</option>
-                      <option value="Odisha">Odisha</option>
-                      <option value="Punjab">Punjab</option>
-                      <option value="Rajasthan">Rajasthan</option>
-                      <option value="Sikkim">Sikkim</option>
-                      <option value="Tamil Nadu">Tamil Nadu</option>
-                      <option value="Telangana">Telangana</option>
-                      <option value="Tripura">Tripura</option>
-                      <option value="Uttar Pradesh">Uttar Pradesh</option>
-                      <option value="Uttarakhand">Uttarakhand</option>
-                      <option value="West Bengal">West Bengal</option>
+                      <option value="District">District</option>
+                      <option value="Taluka">Taluka</option>
+                      <option value="Local">Local</option>
+                      <option value="Others">Others</option>
+                     
                     </select>
                   </div>
                   <h4>List Of Top Awards +</h4>

@@ -329,7 +329,12 @@ export const artInfo1=[
   }
 ]
 
-
+export const artTypeData = [
+  "Classical",
+ "folk",
+ "fusion", 
+"any other"
+]
 
 
 
