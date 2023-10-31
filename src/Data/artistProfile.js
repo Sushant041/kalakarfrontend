@@ -23,7 +23,7 @@ export const performancetype=[
   // "Solo Act", "Band/Group", "Dance Crew", "Theatre/Play", "Comedy", "Magic/Illusion", "Circus/Street Performance", "Visual Arts", "Fire/Danger Acts", "Variety Show", "Interactive/Immersive", "Folk/Cultural", "Digital/Technology", "Poetry/Spoken Word", "Performance Art"
 ]
 
-export const natureofArt=["Visual Arts", "Performing Arts", "Literary Arts", "Digital Arts", "Applied Arts", "Craftsmanship", "Culinary Arts", "Performance Arts", "Body Arts", "Environmental Art", "Conceptual Art", "Sound Art", "Textile Arts", "Community Arts", "Graffiti Art"]
+export const natureofArt=["Dance","Song","Music","Theatre","Any Other"]
 
 export const nameofart=["Bharatanatyam", "Kathak", "Odissi", "Kathakali", "Manipuri", "Mohiniyattam", "Bhangra", "Garba", "Dandiya Raas", "Lavani", "Kuchipudi", "Sattriya", "Chhau", "Giddha", "Yakshagana", "Bihu", "Rauf", "Kalbelia", "Gotipua"
 ]
@@ -38,3 +38,340 @@ export const performanceduration=[
 ]
 
 export const ChargesPerPerformance=["5000", "10000", "15000", "20000", "25000", "30000", "35000", "40000", "45000", "50000"]
+
+export const typeOfArt = ["Classical","folk","fusion"," any other"]
+
+export const artInfo1=[
+  {
+    art:"Dance",
+    name:[
+      {
+        type:"Bharatanatyam"
+      },
+      {
+        type:"Bihu"
+      },
+      {
+        type:"Chhau"
+      },
+      {
+        type:"Dandiya Raas"
+      },
+      {
+        type:"Dollu Kunitha"
+      },
+      {
+        type:"Dumhal"
+      },
+      {
+        type:"Garba"
+      },
+      {
+        type:"Gaur Dance"
+      },
+      {
+        type:"Giddha"
+      },
+      {
+        type:"Gotipua"
+      },
+      {
+        type:"Jhumar"
+      },
+      {
+        type:"Kacchi Ghodi"
+      },
+      {
+        type:"Kalbelia"
+      },
+      {
+        type:"Karakattam"
+      },
+      {
+        type:"Kathak"
+      },
+      {
+        type:"Kathakali"
+      },
+      {
+        type:"Kathakar"
+      },
+      {
+        type:"Koli"
+      },
+      {
+        type:"Kuchipudi"
+      },
+       {
+        type:"Lavani"
+      },
+      {
+        type:"Manipuri"
+      },
+      {
+        type:"Mayurbhanj Chhau"
+      },
+      {
+        type:"Mohiniyattam"
+      },
+      {
+        type:"Odissi"
+      },
+      {
+        type:"Raas Leela"
+      },
+      {
+        type:"Sattriya"
+      },
+      {
+        type:"Tamasha"
+      },
+      {
+        type:"Tera Tali"
+      },
+      {
+        type:"Thang-Ta"
+      },
+      {
+        type:"Yakshagana"
+      }
+    ]
+
+  },
+  {
+    art:"Song",
+    name:[
+      {
+        type:"Dhrupad"
+      },
+      {
+        type:"Khayal"
+      },
+      {
+        type:"Thumri"
+      },
+      {
+        type:"Tappa"
+      },
+      {
+        type:"Ghazal"
+      },
+      {
+        type:"Qawwali"
+      },
+      {
+        type:"Kriti"
+      },
+      {
+        type:"Varnam"
+      },
+      {
+        type:"Tillana"
+      },
+      {
+        type:"Ragamalika"
+      },
+      {
+        type:"Javali"
+      },
+      {
+        type:"Swarajati"
+      },
+      {
+        type:"Bhajans"
+      },
+      {
+        type:"Kirtan"
+      },
+      {
+        type:"Sufi Music"
+      },
+      {
+        type:"Abhangas"
+      },
+      {
+        type:"Shabad Kirtan (Sikh)"
+      }
+    ]
+  },
+  {
+    art:"Music",
+    name:[
+      {
+        type:"Bansuri"
+      },
+      {
+        type:"Dilruba"
+      },
+      {
+        type:"Dholak"
+      },
+      {
+        type:"Ektara"
+      },
+      {
+        type:"Esraj"
+      },
+      {
+        type:"Flute (Bansuri)"
+      },
+      {
+        type:"Ghatam"
+      },
+      {
+        type:"Harmonium"
+      },
+      {
+        type:"Jal Tarang"
+      },
+      {
+        type:"Mridangam"
+      },
+      {
+        type:"Nadaswaram"
+      },
+      {
+        type:"Pakhawaj"
+      },
+      {
+        type:"Ravanahatha"
+      },
+      {
+        type:"Ravanahatha"
+      },
+      {
+        type:"Sarangi"
+      },
+      {
+        type:"Sarod"
+      },
+      
+      {
+        type:"Santoor"
+      },
+      {
+        type:"Shehnai"
+      },
+      {
+        type:"Sitar"
+      },
+      {
+        type:"Tabla"
+      },
+      {
+        type:"Tanpura"
+      },
+      {
+        type:"Tumbi"
+      },
+      {
+        type:"Veena"
+      },
+    ]
+  },
+  {
+    art:"Theatre",
+    name:[
+      {
+        type:"Bhavai"
+      },
+      {
+        type:"Bhand Pather"
+      },
+      {
+        type:"Jatra"
+      },
+      {
+        type:"Koodiyattam"
+      },
+      {
+        type:"Mudiyettu"
+      },
+      {
+        type:"Nautanki"
+      },
+      {
+        type:"Pandavani"
+      },
+      {
+        type:"Pothu Koothu"
+      },
+      {
+        type:"Ramlila"
+      },
+      {
+        type:"Ram Lila"
+      },
+      {
+        type:"Ras Leela"
+      },
+      {
+        type:"Sattriya"
+      },
+      {
+        type:"Tamaasha"
+      },
+      {
+        type:"Therukoothu"
+      },
+      {
+        type:"Yakshagana"
+      }
+    ]
+  },
+  {
+    art:"Any Other",
+    name:[
+      {
+        type:"Other"
+      }
+    ]
+  }
+]
+
+export const artTypeData = [
+  "Classical",
+ "folk",
+ "fusion", 
+"any other"
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

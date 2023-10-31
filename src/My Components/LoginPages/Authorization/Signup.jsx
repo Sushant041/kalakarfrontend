@@ -233,8 +233,11 @@ function Signup() {
           Register
         </button>
 
-      
-       
+
+       <div className="termAndCondition">
+        <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
+        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
+        </div>       
         <p className=" navigateLoginPara">
           Don’t have an account?{" "}
           <span onClick={() => navigate("/Login")} className="">

@@ -146,7 +146,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                   <div key={index} className="single_saved_event">
                     {/* left part  */}
                     <div className="saved_event_leftPart">
-                      <h3 className="saved_event_heading">{event.position}</h3>
+                      <h3 className="saved_event_heading">Event Name</h3>
                       <div className="saved_event_data">
                         <div className="saved_event_data_left">
                           <img src={location} alt="location" />
@@ -162,9 +162,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                         <p className="save_event_data_ans">
                           {" "}
                           <span>
-                            {event.languages?.map((lan, index) => (
-                              <span key={index}>{lan}</span>
-                            ))}
+                            {event.languages}
                           </span>
                         </p>
                       </div>

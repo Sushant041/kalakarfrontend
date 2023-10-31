@@ -177,7 +177,7 @@ function EventApplication() {
         <div className="job_description_container">
           <p className="job_description_text"> Description - {opportunityData?.description}</p>
           <p className="job_description_text">Location - {opportunityData?.location}</p>
-          <p className="job_description_text">Language - {opportunityData?.language}</p>
+          <p className="job_description_text">Language - {opportunityData?.languages}</p>
           <p className="job_description_text">Amount - {opportunityData?.budget}</p>
           <p className="job_description_text">Date of Performance  - {opportunityData?.performanceDate.slice(0, 10)}</p>
           <p className="job_description_text">Duration of Performance  - {opportunityData?.performanceDuration}</p>

@@ -66,7 +66,7 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
                     }}
                   >
                     <h1 className="single_applied_heading">
-                      {event?.opportunity?.position}
+                      {event?.opportunity?.purpose}
                     </h1>
                     <div className="appliedOn_container">
                       Applied On <br />{" "}
@@ -159,12 +159,8 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
                             color: "black",
                           }}
                         >
-                          {/* {event?.opportunity?.languages?.map((lan, index) => (
-                            <span key={index}>
-                              {lan} {``}
-                            </span>
-                          ))} */}
-                          {event?.opportunity?.languages && <span>NA</span>}
+                          {event?.opportunity?.languages}
+                          
                         </p>
 
                         <p

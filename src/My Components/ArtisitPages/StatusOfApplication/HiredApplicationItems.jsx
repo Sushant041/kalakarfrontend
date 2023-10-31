@@ -202,14 +202,7 @@ function HiredApplicationItems({ currentEvent, jobData, loading }) {
                               color: "black",
                             }}
                           >
-                            {event?.opportunity?.languages?.map(
-                              (lan, index) => (
-                                <span key={index}>
-                                  {lan} {``}
-                                </span>
-                              )
-                            )}
-                            NA
+                            {event?.opportunity?.languages}
                           </p>
 
                           <p
