@@ -6,6 +6,7 @@ import "./dashboard.css";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { statusOfAppliPoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from 'react-toastify';
 
 const Dashboard = () => {
   const { accessToken } = useSelector((state) => state.auth);
