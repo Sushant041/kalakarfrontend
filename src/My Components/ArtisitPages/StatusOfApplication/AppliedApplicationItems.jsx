@@ -224,7 +224,7 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
 
                     <Link
                       to={`/Artist_OpportunityDetails`}
-                      state={{ job: jobData[index] }}
+                      state={{ job: jobData[index].opportunity }}
                     >
                       <button className="view_information_btn">
                         View Information

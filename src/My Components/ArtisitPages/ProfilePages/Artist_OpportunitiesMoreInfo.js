@@ -215,7 +215,7 @@ export function Artist_OpportunitiesMoreInfo() {
                 <span>{jobData?.performanceDuration} </span>
               </p>
               <p>
-                {new Date(jobData?.applicationPeriod.end).toLocaleDateString(
+                {new Date(jobData?.applicationPeriod?.end).toLocaleDateString(
                   "en-US",
                   { day: "numeric", month: "short", year: "numeric" }
                 )}
