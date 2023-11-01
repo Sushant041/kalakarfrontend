@@ -94,7 +94,7 @@ const Dashboard = () => {
                   <th className="table-head">Location</th>
                   <th className="table-head">Applied on</th>
                   <th className="table-head">Status</th>
-                  <th className="table-head">Income</th>
+                  <th className="table-head">Income (INR)</th>
                 </tr>
 
                 {appliedData.map((event, index) => (
