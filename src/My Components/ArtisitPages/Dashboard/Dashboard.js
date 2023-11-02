@@ -6,11 +6,14 @@ import "./dashboard.css";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 import { statusOfAppliPoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const { accessToken } = useSelector((state) => state.auth);
   const [appliedData, setAppliedData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [statusFilter, setStatusFilter] = useState("All");
 
   const fetchApplication = async () => {
     setLoading(true);
@@ -26,7 +29,7 @@ const Dashboard = () => {
       if (response.status === "success") {
         setAppliedData(response?.data);
 
-        console.log(appliedData);
+        // console.log(appliedData);
       } else {
         toast.error("Cannot fetch Applied Appliction , please refresh page", {
           position: "top-center",
@@ -36,6 +39,25 @@ const Dashboard = () => {
       console.log(error);
     }
     setLoading(false);
+  };
+
+  const handleStatusChange = (e) => {
+    setStatusFilter(e.target.value);
+
+    // appliedData.filter((event) => {
+    //   if(statusFilter === "All" ){
+    //     return event;
+    //   }
+    //   else if(statusFilter === "Hired" ){
+    //     return event.status === "Hired";
+    //   }
+    //   else if(statusFilter === "Shortlisted" ){
+    //     return event.status === "Shortlisted";
+    //   }
+    //   else if(statusFilter === "Rejected" ){
+    //     return event.status === "Rejected";
+    //   }
+    // });
   };
 
   useEffect(() => {
@@ -55,31 +77,28 @@ const Dashboard = () => {
 
           <div className="filter-container">
             <div className="dashboard-filter">
-              <label className="filter-label">Applied</label>
-              <select className="dashboard-select">
-                <option>Select</option>
-                <option>Unselect</option>
+              <label className="filter-label">Status</label>
+              <select
+                className="dashboard-select"
+                onChange={handleStatusChange}
+                defaultValue={statusFilter}
+              >
+                <option>All</option>
+                <option>Applied</option>
+                <option>Shortlisted</option>
+                <option>Hired</option>
+                <option>Rejected</option>
               </select>
             </div>
             <div className="dashboard-filter">
-              <label className="filter-label">Shortlisted</label>
+              <label className="filter-label">Budget Amount</label>
               <select className="dashboard-select">
-                <option>Select</option>
-                <option>Unselect</option>
-              </select>
-            </div>
-            <div className="dashboard-filter">
-              <label className="filter-label">Hired</label>
-              <select className="dashboard-select">
-                <option>Select</option>
-                <option>Unselect</option>
-              </select>
-            </div>
-            <div className="dashboard-filter">
-              <label className="filter-label">Rejected</label>
-              <select className="dashboard-select">
-                <option>Select</option>
-                <option>Unselect</option>
+                <option>All</option>
+                <option>Below 5000</option>
+                <option>Rs 8,000 - Rs 10,000</option>
+                <option>Rs 10,000 - Rs 20,000</option>
+                <option>Rs 20,000 - Rs 50,000</option>
+                <option>Above Rs 50,000</option>
               </select>
             </div>
           </div>
@@ -97,27 +116,43 @@ const Dashboard = () => {
                   <th className="table-head">Income (INR)</th>
                 </tr>
 
-                {appliedData.map((event, index) => (
-                  <tr className="table-row" key={index}>
-                    <td className="table-body">No Data Found</td>
-                    <td className="table-body">
-                      {event?.opportunity?.location}
-                    </td>
-                    <td className="table-body">
-                      {new Date(event?.appliedOn).toLocaleDateString("en-US", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}
-                    </td>
-                    <td className="table-body">{event?.status}</td>
-                    <td className="table-body">
-                      {event?.status === "Hired"
-                        ? event?.opportunity?.budget
-                        : 0}
-                    </td>
-                  </tr>
-                ))}
+                {appliedData.map(
+                  (event, index) =>
+                    (event?.status === statusFilter ||
+                      statusFilter === "All") && (
+                      <tr className="table-row" key={index}>
+                        <td className="table-body">
+                          <Link
+                            to={`/Artist_OpportunityDetails`}
+                            state={{ job: appliedData[index].opportunity }}
+                            style={{textDecoration: "none", fontWeight: "600"}}
+                          >
+                            No Data Found
+                          </Link>
+                        </td>
+
+                        <td className="table-body">
+                          {event?.opportunity?.location}
+                        </td>
+                        <td className="table-body">
+                          {new Date(event?.appliedOn).toLocaleDateString(
+                            "en-US",
+                            {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            }
+                          )}
+                        </td>
+                        <td className="table-body">{event?.status}</td>
+                        <td className="table-body">
+                          {event?.status === "Hired"
+                            ? event?.opportunity?.budget
+                            : 0}
+                        </td>
+                      </tr>
+                    )
+                )}
               </table>
             )}
           </div>
