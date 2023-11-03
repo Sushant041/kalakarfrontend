@@ -68,29 +68,29 @@ export default function RouterPage() {
   return (
     <div>
       <Routes>
-        <Route path="admin" element={<RootAdmin />}>
+        <Route path="admin" element={<RootAdmin />}/>
           <Route
             path="admin"
             element={<Navigate to="userverification" replace />}
           />
-          <Route path="userverification" element={<UserVerfication />}></Route>
+          <Route path="userverification" element={<UserVerfication />}/>
           <Route path="dashboard" element={<DashBoard />} />
-          <Route path="view-user" element={<ViewUser />}>
-            <Route path=":id" element={<ViewProfile />}>
+          <Route path="view-user" element={<ViewUser />}/>
+            <Route path=":id" element={<ViewProfile />}/>
               <Route path="edit" element={<EditAdminProtfolio />} />
-            </Route>
-          </Route>
+          
+        
 
-          <Route path="view-applicants" element={<ViewApplicants />}>
-            <Route path=":id" element={<ViewArtistApplication />}>
+          <Route path="view-applicants" element={<ViewApplicants />}/>
+            <Route path=":id" element={<ViewArtistApplication />}/>
               <Route path="view-more" element={<MoreinfoArtistOppurtunity />} />
-            </Route>
-          </Route>
+        
+         
           <Route path="courses-products" element={<ViewCoursesProduct />} />
-          <Route path="contact" element={<Contact />}>
+          <Route path="contact" element={<Contact />}/>
             <Route path="chat" element={<Chat />} />
-          </Route>
-        </Route>
+         
+        
 
         {!accessToken && (
           <>

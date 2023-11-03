@@ -8,6 +8,7 @@ import { statusOfAppliPoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
 
 const Dashboard = () => {
   const { accessToken } = useSelector((state) => state.auth);

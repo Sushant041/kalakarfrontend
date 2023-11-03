@@ -4,6 +4,7 @@ import { AiOutlineStar } from "react-icons/ai";
 import { AiFillStar } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import PortfolioCardTemplate from "./PortfolioCardTemplate"
+import Patron_Navbar from "../Patron_Navbar";
 import phone from "./assets/phone.svg";
 import instagram from "./assets/instagram.svg";
 import facebookimg from "./assets/facebookimg.svg";
@@ -13,6 +14,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
+import PortfolioPhotoSection from "../../ArtisitPages/PortfollioDisplay/PortfolioPhotoSection";
 
 
 
@@ -178,13 +180,15 @@ const shortlistArtistHandler = async()=>{
 }
 
   return (
+    <>
+    <Patron_Navbar />
     <div className="portfolioDisplay_wrapper">
    
 
-      <h1 className="portfolio_display_heading">{artistData?.personalInfo?.firstName} {artistData?.personalInfo?.lastName} Portfolio</h1>
+      {/* <h1 className="portfolio_display_heading">{artistData?.personalInfo?.firstName} {artistData?.personalInfo?.lastName} Portfolio</h1> */}
 
       {/* portfolio card */}
-       <PortfolioCardTemplate socalMedia={socalMedia} userDetails={userDetails} profession={artistData?.artInfo?.artNature} userName={userName} />
+       {/* <PortfolioCardTemplate socalMedia={socalMedia} userDetails={userDetails} profession={artistData?.artInfo?.artNature} userName={userName} /> */}
 
       
 
@@ -218,15 +222,23 @@ const shortlistArtistHandler = async()=>{
 
             <p className="read_review_text">Read Reviews</p>
           </div>
+          
            
         </div>
-
+        </section>
+          {/* portfolio card */}
+        <PortfolioCardTemplate socalMedia={socalMedia} userDetails={userDetails} profession={artistData?.artInfo?.artNature} userName={userName} />
+      <section className="portfolio_usersDetails">
         <div className="userAbout_section">
-            <h1 className="about_me_text">About Me</h1>
+            <h1 className="about_me_text">About Artist</h1>
               <p className="user_aboutMe_detail">{artistData?.personalInfo?.about}</p>
         </div>
+        <div className="userAbout_section">
+            <h1 className="about_me_text">About Art</h1>
+              <p className="user_aboutMe_detail">{artistData?.artInfo?.aboutArt}</p>
+        </div>
 
-      <div className="user_profession_details">
+      {/* <div className="user_profession_details">
            
                 <div  className="single_userProfession_detail">
                     <p className="profession_title">Category:</p>
@@ -273,11 +285,11 @@ const shortlistArtistHandler = async()=>{
                     <p className="profession_info">{artistData?.performanceInfo?.perfEvent}</p>
                     
                 </div>
-                {/* <div  className="single_userProfession_detail">
+                <div  className="single_userProfession_detail">
                     <p className="profession_title">Minimum Budget:</p>
                     <p className="profession_info">{artistData?.performanceInfo?.totalPerfs} Not found in response</p>
                     
-                </div> */}
+                </div>
                 <div  className="single_userProfession_detail">
                     <p className="profession_title">Instagram:</p>
                     <p className="profession_info">{artistData?.socialLinks?.instagram}</p>
@@ -294,7 +306,67 @@ const shortlistArtistHandler = async()=>{
                     
                 </div>
           
-      </div>
+      </div> */}
+
+{/* <div className="userAbout_section">
+            <h1 className="about_me_text">About Me</h1>
+            <p className="user_aboutMe_detail">{artistData?.aboutJourney}</p>
+          </div> */}
+          <div className="Portfolio_Info">
+            <div className="field">
+              <h2>Age</h2>
+              <p>{artistData?.personalInfo?.age}</p>
+            </div>
+            <div className="field">
+              <h2>Gender</h2>
+              <p>{artistData?.personalInfo?.gender}</p>
+            </div>
+            <div className="field">
+              <h2>languages</h2>
+              <p>{artistData?.personalInfo?.language}</p>
+            </div>
+            <div className="field">
+              <h2>Pincode</h2>
+              <p>{artistData?.address?.pincode}</p>
+            </div>
+            <div className="field">
+              <h2>State</h2>
+              <p>{artistData?.address?.state}</p>
+            </div>
+            <div className="field">
+              <h2>City</h2>
+              <p>{artistData?.address?.city}</p>
+            </div>
+            <div className="field large">
+              <h2>Category of Art</h2>
+              <p>{artistData?.artInfo?.artCategory}</p>
+            </div>
+            <div className="field large">
+              <h2>Art Name</h2>
+              <p>{artistData?.artInfo?.artName}</p>
+            </div>
+            <div className="field large">
+              <h2>Total No. of Performances</h2>
+              <p>{artistData?.performanceInfo?.totalPerfs}</p>
+            </div>
+            <div className="field large">
+              <h2>No. of years of experience</h2>
+              <p>{artistData?.performanceInfo?.experience}</p>
+            </div>
+          </div>
+          {/* <div className="userAbout_section">
+            <h1 className="about_me_text">About Art</h1>
+            <p className="user_aboutMe_detail">{artistData?.aboutArt}</p>
+          </div> */}
+          <div className="photos">
+            <h1 className="about_me_text">Photos</h1>
+            <PortfolioPhotoSection />
+          </div>
+          <div className="photos">
+            <h1 className="about_me_text">Videos</h1>
+            <PortfolioPhotoSection />
+          </div>
+
 
       
  
@@ -344,6 +416,7 @@ const shortlistArtistHandler = async()=>{
     </div>
 
     </div>
+    </>
   );
 }
 

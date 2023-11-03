@@ -88,6 +88,8 @@ export default function Artist_limited_Profile() {
     },
   });
 
+  const [go, setgo] = useState(false)
+
   const changeHandler = (event) => {
     const { name, value } = event.target;
 
@@ -145,7 +147,7 @@ export default function Artist_limited_Profile() {
         const { age, language, gender } = response.data.personalInfo;
         const { artCategory, artName } = response.data.artInfo;
         const { pincode, state, city } = response.data.address;
-        const { experience, perfDetails,totalPerfs } = response.data.performanceInfo;
+        const { experience,totalPerfs } = response.data.performanceInfo;
 
         setBasicFormData({
           personalInfo: {
@@ -164,11 +166,11 @@ export default function Artist_limited_Profile() {
           },
           performanceInfo: {
             experience: experience,
-            perfDetails: perfDetails,
             totalPerfs:totalPerfs
           },
         });
-        console.log(basicFormData);
+        // console.log(basicFormData);
+        setgo(true);
       } else {
         toast.error("something went wrong , please refresh the page", {
           position: "top-center",
@@ -182,6 +184,30 @@ export default function Artist_limited_Profile() {
   useEffect(() => {
     fetchUserData();
   }, []);
+
+
+  useEffect(()=>{
+    if (
+      basicFormData.personalInfo.age !== "" &&
+      basicFormData.personalInfo.gender !== "" &&
+      basicFormData.personalInfo.language !== "" &&
+      basicFormData.address.pincode !== "" &&
+      basicFormData.address.state !== "" &&
+      basicFormData.address.city !== "" &&
+      basicFormData.artinfo.artCategory !== "" &&
+      basicFormData.artinfo.artName !== "" &&
+      basicFormData.performanceInfo.totalPerfs !== 0 &&
+      basicFormData.performanceInfo.experience !== ""
+    ) {
+      console.log(basicFormData);
+      console.log("00000");
+      navigate("/artist_profile");
+    }
+    console.log(basicFormData);
+    console.log("11111")
+  },[go])
+
+
 
 
   const basicSubmitHandler = async (event) => {

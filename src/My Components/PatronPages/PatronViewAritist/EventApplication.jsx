@@ -23,6 +23,13 @@ import { toast } from 'react-toastify';
   import { useLocation } from "react-router-dom";
   import noAppli from "./assets/no_uploaded_oppor.svg"
 import NoDataTemplate from "../../ArtisitPages/StatusOfApplication/NoDataTemplate";
+import Patron_Navbar from "../Patron_Navbar";
+
+import locationC from "./assets/locationC.svg";
+import dateOfPerformance from "./assets/dateOfPerformance.svg";
+import amount from "./assets/amount.svg";
+import language from "./assets/language.svg";
+import appliDueDate from "./assets/applicationDueDate.svg";
 
 
 
@@ -57,6 +64,7 @@ const btnData = [
   },
 ];
 
+
 function EventApplication() {
 
   const navigate = useNavigate();
@@ -83,6 +91,39 @@ function EventApplication() {
   
   // this is for getting the opportunity data in object form 
   const opportunityData = location.state?.dataObj;
+
+  const appli_Data = [
+    {
+      img:locationC,
+      title: "Location of Performance :",
+      value:opportunityData?.location
+    },
+    {
+      img: language,
+      title: "Language of Performance :",
+      value:opportunityData?.language
+    },
+    {
+      img: amount,
+      title: "Amount :",
+      value:opportunityData?.budget
+    },
+    {
+      img: dateOfPerformance,
+      title: "Date of Performance :",
+      value:opportunityData?.performanceDate.slice(0, 10)
+    },
+    {
+      img: dateOfPerformance,
+      title: "Duration of Performance :",
+      value:opportunityData?.performanceDuration
+    },
+    {
+      img: appliDueDate,
+      title: "Application Due Date :",
+      value:opportunityData?.applicationPeriod?.end.slice(0,10)
+    },
+  ];
 
 
 
@@ -161,13 +202,15 @@ function EventApplication() {
 
 
   return (
+    <>
+    <Patron_Navbar/>
     <div className="patron_event_appli_wrapper">
       {/* image section */}
       <section className="event_image_section">
         <img src={eventBg} alt="background" className="event_bgImg" />
         <img src={bgFilter} alt="" className="event_appli_bgFilter" />
         <p className="event_application_text">
-          Event Application for {opportunityData?.position}
+          Event Application for {opportunityData?.artName}
         </p>
       </section>
 
@@ -175,12 +218,49 @@ function EventApplication() {
       <section className="patron_job_description_wrapper">
         {/* left side */}
         <div className="job_description_container">
-          <p className="job_description_text"> Description - {opportunityData?.description}</p>
-          <p className="job_description_text">Location - {opportunityData?.location}</p>
+        <h1 className="job_description_text" style={{color:"#AD2F3B",margin:"5px 0"}}>{opportunityData?.artName}</h1>
+           <p className="job_description_text" style={{opacity:"70%",color:"#000000"}}>{opportunityData?.description}</p>
+          {/*<p className="job_description_text">Location - {opportunityData?.location}</p>
           <p className="job_description_text">Language - {opportunityData?.languages}</p>
           <p className="job_description_text">Amount - {opportunityData?.budget}</p>
           <p className="job_description_text">Date of Performance  - {opportunityData?.performanceDate.slice(0, 10)}</p>
-          <p className="job_description_text">Duration of Performance  - {opportunityData?.performanceDuration}</p>
+          <p className="job_description_text">Duration of Performance  - {opportunityData?.performanceDuration}</p> */}
+
+{appli_Data.map((data, index) => (
+                          <div
+                            key={index}
+                            style={{ display: "flex", gap: "10px",margin:"10px 0" }}
+                          >
+                            <img
+                              src={data.img}
+                              alt=""
+                              style={{
+                                marginBottom: "10px",
+                              }}
+                            />
+                            <p
+                              className="applied_appli_title"
+                              style={{
+                                color: "rgb(0,0,0,0.7)",
+                                fontWeight: "500",
+                                fontFamily: "Poppins",
+                              }}
+                            >
+                              {data.title}
+                            </p>
+                            <p
+                              className="applied_appli_title"
+                              style={{
+                                color: "rgb(0,0,0)",
+                                fontWeight: "500",
+                                fontFamily: "Poppins",
+                              }}
+                            >
+                              {data.value}
+                            </p>
+
+                          </div>
+                        ))}
          
          
           {/* <p className="job_description_para">{opportunityData?.description}</p> */}
@@ -216,7 +296,7 @@ function EventApplication() {
               <div  className="single_job_overview">
                 <img src={category} alt="" className="single_overview_img" />
                 <p style={{fontWeight:"500" , fontSize:"18px"}} className="single_job_category">Category</p>
-                <p className="single_job_title">{opportunityData?.category}</p>
+                <p className="single_job_title">{opportunityData?.artCategory}</p>
               </div>
 
               <div  className="single_job_overview">
@@ -592,6 +672,7 @@ function EventApplication() {
                 )
               }
     </div>
+    </>
   );
 }
 
