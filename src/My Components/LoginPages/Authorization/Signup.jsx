@@ -116,6 +116,12 @@ function Signup() {
     toast.dismiss(toastId);
   };
 
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <AuthTemplate justifyFlag={true} signupFlag={true}>
       <div className="signupWrapper">
@@ -199,34 +205,46 @@ function Signup() {
           />
         </label>
         <label htmlFor="password" className="signupFormLabel">
-          <p className="signupFormPara">Password </p>
+          <p className="signupFormPara">Password(minimum 8 characters) </p>
           <input
             required
             onChange={changeHandler}
             value={formData.password}
-            type="password"
+            type={passwordVisible ? 'text' : 'password'}
             name="password"
             className="signupFormInput  "
             placeholder="Enter your password"
           />
+          <span
+        onClick={togglePasswordVisibility}
+        className={`fa fa-fw field-icon toggle-password ${
+          passwordVisible ? 'fa-eye-slash' : 'fa-eye'
+        }`}
+      ></span>
         </label>
         <label htmlFor="confirmPassword" className="signupFormLabel">
-          <p className="signupFormPara">confirm Password</p>
+          <p className="signupFormPara">Confirm Password</p>
           <input
             required
             value={formData.passwordConfirm}
             onChange={changeHandler}
-            type="password"
+            type={passwordVisible ? 'text' : 'password'}
             name="passwordConfirm"
             className="signupFormInput "
             placeholder="confirm password"
           />
+          {/* <span
+        onClick={togglePasswordVisibility}
+        className={`fa fa-fw field-icon toggle-password ${
+          passwordVisible ? 'fa-eye-slash' : 'fa-eye'
+        }`}
+      ></span> */}
         </label>
 
        
         <div className="termAndCondition">
         <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
-        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"2px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
+        <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"2px" , color:"red" , cursor:"pointer"}}>I Agree to the Terms And Condition</p>
         </div> 
 
         <button type="submit" className="registerButton">
@@ -234,10 +252,10 @@ function Signup() {
         </button>
 
 
-       <div className="termAndCondition">
+       {/* <div className="termAndCondition">
         <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
         <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
-        </div>       
+        </div>        */}
         <p className=" navigateLoginPara">
           Don’t have an account?{" "}
           <span onClick={() => navigate("/Login")} className="">

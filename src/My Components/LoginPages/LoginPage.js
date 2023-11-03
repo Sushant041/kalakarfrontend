@@ -94,6 +94,12 @@ export function LoginPage() {
     }
   };
 
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <AuthTemplate justifyFlag={false}>
       <div className="loginWrapper">
@@ -120,11 +126,17 @@ export function LoginPage() {
             required
             onChange={changeHandler}
             value={formData.password}
-            type="password"
+            type={passwordVisible ? 'text' : 'password'}
             name="password"
             className="loginFormInput"
             placeholder="Enter your password"
           />
+          <span
+        onClick={togglePasswordVisibility}
+        className={`fa fa-fw field-icon toggle-password ${
+          passwordVisible ? 'fa-eye-slash' : 'fa-eye'
+        }`}
+      ></span>
         </label>
 
         <div className="checkbox_forgetPassword_container">
