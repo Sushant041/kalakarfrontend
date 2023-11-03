@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const { accessToken } = useSelector((state) => state.auth);
+  
   const [appliedData, setAppliedData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [statusFilter, setStatusFilter] = useState("All");
@@ -58,6 +59,17 @@ const Dashboard = () => {
     //     return event.status === "Rejected";
     //   }
     // });
+  };
+
+  const getTypeBackgroundColor = (status) => {
+    // Define background colors for each type
+    const typeColors = {
+      Shortlisted: "#FFF8B7",
+      Hired: "#DAFFE8",
+      Rejected: "#FFCCCB",
+      Applied: "blue"
+    };
+    return typeColors[status] || "#ffffff"; // Default to white if type is not found
   };
 
   useEffect(() => {
@@ -125,7 +137,10 @@ const Dashboard = () => {
                           <Link
                             to={`/Artist_OpportunityDetails`}
                             state={{ job: appliedData[index].opportunity }}
-                            style={{textDecoration: "none", fontWeight: "600"}}
+                            style={{
+                              textDecoration: "none",
+                              fontWeight: "600",
+                            }}
                           >
                             No Data Found
                           </Link>
@@ -144,7 +159,19 @@ const Dashboard = () => {
                             }
                           )}
                         </td>
-                        <td className="table-body">{event?.status}</td>
+                        <td>
+                          <div
+                            className="table-body"
+                            style={{
+                              backgroundColor: getTypeBackgroundColor(
+                                event?.status
+                              ),
+                              color: "white",
+                            }}
+                          >
+                            {event?.status}
+                          </div>
+                        </td>
                         <td className="table-body">
                           {event?.status === "Hired"
                             ? event?.opportunity?.budget

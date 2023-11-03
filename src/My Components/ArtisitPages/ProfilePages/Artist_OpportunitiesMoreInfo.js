@@ -352,9 +352,7 @@ export function Artist_OpportunitiesMoreInfo() {
                 <p>
                   Language : &emsp;{" "}
                   <span>
-                    {job.languages?.map((lag, index) => (
-                      <span key={index}>{lag} </span>
-                    ))}
+                    {job.languages}
                   </span>
                 </p>
                 <p>
