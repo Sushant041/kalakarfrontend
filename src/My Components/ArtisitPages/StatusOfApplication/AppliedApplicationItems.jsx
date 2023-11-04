@@ -71,12 +71,12 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
                     <div className="appliedOn_container">
                       Applied On <br />{" "}
                       {new Date(
-                        event.applicationPeriod?.end
-                      ).toLocaleDateString("en-US", {
-                        day: "numeric",
-                        month: "short",
-                        year: "numeric",
-                      })}
+                            event?.appliedOn
+                          ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
                     </div>
                   </div>
 
