@@ -805,6 +805,17 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
     awards: [],
   });
 
+
+  // Professional Profile 
+  const [artProfile,setArtProfile] = useState({
+   categoryOfArt:"",
+   nameOfArt:"",
+   typeOFArt:"",
+   artEducation:"",
+  professional: [],
+  Traditional:[]
+  });
+
   const awardChangeHandler = (event) => {
     const { name, value } = event.target;
 
@@ -877,19 +888,71 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
   // ! this is to add the new award in award section
   const addNewAward = () => {
     const newAward = {
-      name: "",
-      level: "",
-      category: "",
-      nameOfTheStage: "",
+      NameOfGuru:"",
+      Location: "",
+      Duration: "",
       year: "",
-      givenBy: "",
+      Document: "",
     };
-
     setAwardFormData({
       ...awardFormData,
       awards: [...awardFormData.awards, newAward],
     });
   };
+
+
+// this is add button in Professional Art Education 
+
+const addProfessional = () => {
+  const filled = {
+    NameOfGuru:"",
+      Location: "",
+      Duration: "",
+      year: "",
+      Document: ""
+  };
+  setArtProfile({
+    ...artProfile,
+    professional:[...artProfile.professional, filled],
+
+  });
+};
+
+const addTraditional = () => {
+  const newTradition = {
+    Course:"",
+    Specialisation: "",
+    Institute: "",
+    Duration: "",
+    Completion: "",
+    Document: ""
+  };
+  setArtProfile({
+    ...artProfile,
+    Traditional:[...artProfile.Traditional, newTradition],
+
+  });
+};
+
+//remove the //remove the Professional
+const removeLastTradition = () => {
+  const newTradition = [...artProfile.Traditional];
+  newTradition.pop(); // Remove the last element
+
+  setArtProfile({
+    ...artProfile,
+    Traditional: newTradition,
+  });
+};
+const removeLastProfessional = () => {
+  const filled = [...artProfile.professional];
+  filled.pop(); // Remove the last element
+
+  setArtProfile({
+    ...artProfile,
+    professional: filled,
+  });
+};
 
   // ! remove the award detail in award section
   const removeLastAward = () => {
@@ -1961,7 +2024,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
               </div> */}
             
             </div>
-            <h4>Professional Art Education +</h4>
+            <h4>Professional Art Education </h4>
             <div className="ArtProfile_Traditional">
             <table>
               <tbody>
@@ -2000,7 +2063,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
               </tbody>
             </table>
             </div>
-            <h4>Traditional Art Education +</h4>
+            <h4>Traditional Art Education </h4>
             <div className="ArtProfile_Traditional">
             <table>
               <tbody>
@@ -2051,6 +2114,514 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                   <label htmlFor="aboutJourney">About The Art</label>
                   <textarea name="aboutJourney" value={basicFormData.aboutJourney} onChange={changeHandler} style={{width:"100%"  , border:"2px solid rgb(0,0,0,0.5)" , padding:"10px", borderRadius:"10px" , resize:"none" , height:"166px" }}  />
               </div>
+
+              {artProfile.professional.map((professional, index) => (
+                  <React.Fragment key={index}>
+                                <h4>Professional Art Education +</h4>
+
+                    {index === artProfile.professional.length - 1 ? (
+                      // last index => add plus button
+                      <>
+                      
+                        <div className="AwardProfile_Awarddetials">
+
+                          <div className="AwardProfile_inputfield">
+                            <label>Name of Guru</label>
+                            <input
+                              value={professional.NameOfGuru}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "title",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="AwardProfile_inputfield">
+                            <label>Location</label>
+                            <input
+                              value={professional.Location}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "Location",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="AwardProfile_inputfield">
+                            <label>Duration (Month)</label>
+                            <select
+                              value={professional.Duration}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "category",
+                                  e.target.value
+                                )
+                              }
+                            >
+                              <option selected hidden>
+                                Select Art
+                              </option>
+                             <option>1</option>
+                            </select>
+                          </div>
+                          {/* <div className="AwardProfile_inputfield">
+                        <label>Name of the Stage</label>
+                        <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
+                      </div> */}
+                          <div className="AwardProfile_inputfield">
+                            <label>Year of Completion</label>
+                            <input
+                              value={professional.year}
+                              onChange={(e) =>
+                                handleInputChange(index, "year", e.target.value)
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="BasicProfile_inputfield">
+                <label >Upload Document</label>
+                <input  value={professional.Document} style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
+                <div className="input" >
+                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
+</svg></label>
+
+                </div>
+
+              </div>
+                        </div>
+
+                        <div className="AwardProfile_Addmorebtn">
+                          <p>Add More Awards Details</p>
+                          <button type="button">
+                            {" "}
+                            <svg
+                              onClick={addProfessional}
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="40"
+                              height="40"
+                              viewBox="0 0 40 40"
+                              fill="none"
+                            >
+                              <circle cx="20" cy="20" r="20" fill="#AD2F3B" />
+                              <text
+                                x="50%"
+                                y="50%"
+                                text-anchor="middle"
+                                fill="white"
+                                font-size="24px"
+                                font-family="Arial"
+                                dy=".3em"
+                              >
+                                +
+                              </text>
+                            </svg>
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      // not last index => add - button
+                      <>
+                        <div className="AwardProfile_Awarddetials">
+                          <div className="AwardProfile_inputfield">
+                            <label>Name of Guru</label>
+                            <input
+                              value={professional.NameOfGuru}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "title",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="AwardProfile_inputfield">
+                            <label>Location</label>
+                            <input
+                              value={professional.Location}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "Location",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="AwardProfile_inputfield">
+                            <label>Duration (Month)</label>
+                            <select
+                              value={professional.Duration}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "category",
+                                  e.target.value
+                                )
+                              }
+                            >
+                              <option selected hidden>
+                                Select Duration (Month)
+                              </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                            </select>
+                          </div>
+                         
+                          <div className="AwardProfile_inputfield">
+                            <label>Year of Completion</label>
+                            <input
+                              value={professional.year}
+                              onChange={(e) =>
+                                handleInputChange(index, "year", e.target.value)
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="BasicProfile_inputfield">
+                <label >Upload Document</label>
+                <input  value={professional.Document} style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
+                <div className="input" >
+                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
+</svg></label>
+
+                </div>
+
+              </div>
+                        </div>
+
+                        <div className="AwardProfile_Addmorebtn">
+                          <p>Remove</p>
+                          <button type="button">
+                            {" "}
+                            <svg
+                              onClick={removeLastProfessional}
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="40"
+                              height="40"
+                              viewBox="0 0 40 40"
+                              fill="none"
+                            >
+                              <circle cx="20" cy="20" r="20" fill="#AD2F3B" />
+                              <text
+                                x="50%"
+                                y="50%"
+                                text-anchor="middle"
+                                fill="white"
+                                font-size="24px"
+                                font-family="Arial"
+                                dy=".3em"
+                              >
+                                -
+                              </text>
+                            </svg>
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </React.Fragment>
+                ))}
+
+
+
+
+
+
+
+
+{//comment
+}
+{awardFormData.awards.map((award, index) => (
+                  <React.Fragment key={index}>
+                                            <h4>Traditional Art Education +</h4>
+
+                    {index === awardFormData.awards.length - 1 ? (
+                      // last index => add plus button
+                      <>
+                      
+                        <div className="AwardProfile_Awarddetials">
+
+                          <div className="AwardProfile_inputfield">
+                            <label>Name of Course</label>
+                            <input
+                              value={award.title}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "title",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+
+                          <div className="AwardProfile_inputfield">
+                            <label>Specialisation	</label>
+                            <input
+                              value={award.title}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "title",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="AwardProfile_inputfield">
+                            <label>Name Of Institute</label>
+                            <input
+                              value={award.title}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "institute",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="AwardProfile_inputfield">
+                            <label>Duration (Month)</label>
+                            <select
+                              value={award.category}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "category",
+                                  e.target.value
+                                )
+                              }
+                            >
+                              <option selected hidden>
+                                Select Duration (Month)
+                              </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                             
+                            </select>
+                          </div>
+                          {/* <div className="AwardProfile_inputfield">
+                        <label>Name of the Stage</label>
+                        <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
+                      </div> */}
+                          <div className="AwardProfile_inputfield">
+                            <label>Year of Completion</label>
+                            <input
+                              value={award.year}
+                              onChange={(e) =>
+                                handleInputChange(index, "year", e.target.value)
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="BasicProfile_inputfield">
+                <label >Upload Document</label>
+                <input style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
+                <div className="input" >
+                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
+</svg></label>
+
+                </div>
+
+              </div>
+                        </div>
+                        
+
+                        <div className="AwardProfile_Addmorebtn">
+                          <p>Add More Awards Details</p>
+                          <button type="button">
+                            {" "}
+                            <svg
+                              onClick={addProfessional}
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="40"
+                              height="40"
+                              viewBox="0 0 40 40"
+                              fill="none"
+                            >
+                              <circle cx="20" cy="20" r="20" fill="#AD2F3B" />
+                              <text
+                                x="50%"
+                                y="50%"
+                                text-anchor="middle"
+                                fill="white"
+                                font-size="24px"
+                                font-family="Arial"
+                                dy=".3em"
+                              >
+                                +
+                              </text>
+                            </svg>
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      // not last index => add - button
+                      <>
+                        <div className="AwardProfile_Awarddetials">
+                          <div className="AwardProfile_inputfield">
+                            <label>Name of Course</label>
+                            <input
+                              value={award.title}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "title",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+
+                          <div className="AwardProfile_inputfield">
+                            <label>Specialisation</label>
+                            <input
+                              value={award.title}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "title",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="AwardProfile_inputfield">
+                            <label>Name Of Institute</label>
+                            <input
+                              value={award.title}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "institute",
+                                  e.target.value
+                                )
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="AwardProfile_inputfield">
+                            <label>Duration (Month)</label>
+                            <select
+                              value={award.category}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "category",
+                                  e.target.value
+                                )
+                              }
+                            >
+                              <option selected hidden>
+                                Select Duration (Month)
+                              </option>
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                              <option>6</option>
+                              <option>7</option>
+                              <option>8</option>
+                              <option>9</option>
+                              <option>10</option>
+                              <option>11</option>
+                              <option>12</option>
+                            </select>
+                          </div>
+                          
+                          <div className="AwardProfile_inputfield">
+                            <label>Year of Completion</label>
+                            <input
+                              value={award.year}
+                              onChange={(e) =>
+                                handleInputChange(index, "year", e.target.value)
+                              }
+                              type="text"
+                            ></input>
+                          </div>
+                          <div className="BasicProfile_inputfield">
+                <label >Upload Document</label>
+                <input style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
+                <div className="input" >
+                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
+</svg></label>
+
+                </div>
+
+              </div>
+                        </div>
+
+                        <div className="AwardProfile_Addmorebtn">
+                          <p>Remove</p>
+                          <button type="button">
+                            {" "}
+                            <svg
+                              onClick={removeLastProfessional}
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="40"
+                              height="40"
+                              viewBox="0 0 40 40"
+                              fill="none"
+                            >
+                              <circle cx="20" cy="20" r="20" fill="#AD2F3B" />
+                              <text
+                                x="50%"
+                                y="50%"
+                                text-anchor="middle"
+                                fill="white"
+                                font-size="24px"
+                                font-family="Arial"
+                                dy=".3em"
+                              >
+                                -
+                              </text>
+                            </svg>
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </React.Fragment>
+                ))}
 
             <button type="submit" className="updateBtn">
               Update
@@ -2570,7 +3141,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                       <>
                         <div className="AwardProfile_Awarddetials">
                           <div className="AwardProfile_inputfield">
-                            <label>Award Name</label>
+                            <label>Name of Course</label>
                             <input
                               value={award.title}
                               onChange={(e) =>
@@ -2584,24 +3155,18 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                             ></input>
                           </div>
                           <div className="AwardProfile_inputfield">
-                            <label>Award Level</label>
-                            <select
-                              value={award.level}
+                            <label>Name Of Institute</label>
+                            <input
+                              value={award.title}
                               onChange={(e) =>
                                 handleInputChange(
                                   index,
-                                  "level",
+                                  "Institute",
                                   e.target.value
                                 )
                               }
-                            >
-                              <option selected hidden>
-                                Select level
-                              </option>
-                              {highestLevelOfPerformance.map((option) => (
-                                <option value={option}>{option}</option>
-                              ))}
-                            </select>
+                              type="text"
+                            ></input>
                           </div>
                           <div className="AwardProfile_inputfield">
                             <label>Name of Art</label>
@@ -2628,7 +3193,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
                       </div> */}
                           <div className="AwardProfile_inputfield">
-                            <label>Award Year</label>
+                            <label>Year of Completion</label>
                             <input
                               value={award.year}
                               onChange={(e) =>
@@ -2700,24 +3265,21 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                             ></input>
                           </div>
                           <div className="AwardProfile_inputfield">
-                            <label>Award Level</label>
-                            <select
-                              value={award.level}
+                            <label>Name Of Institute</label>
+                            <input
+                              value={award.title}
                               onChange={(e) =>
                                 handleInputChange(
                                   index,
-                                  "level",
+                                  "institute",
                                   e.target.value
                                 )
                               }
-                            >
-                              <option selected hidden>
-                                Select level
-                              </option>
-                            </select>
+                              type="text"
+                            ></input>
                           </div>
                           <div className="AwardProfile_inputfield">
-                            <label>Category</label>
+                            <label>Duration (Month)</label>
                             <select
                               value={award.category}
                               onChange={(e) =>
@@ -2729,12 +3291,12 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                               }
                             >
                               <option selected hidden>
-                                Select Category
+                                Select Duration (Month)
                               </option>
                             </select>
                           </div>
                           <div className="AwardProfile_inputfield">
-                            <label>Name of the Stage</label>
+                            <label>Year of Completion</label>
                             <input
                               value={award.stage}
                               onChange={(e) =>

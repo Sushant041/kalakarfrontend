@@ -1077,6 +1077,7 @@ table{
 .AwardProfile_inputfield,
 .ExpectedoppoProfile_inputfield {
   margin-top: 28px;
+  width:48%;
 }
 
 .ArtProfile_Infoform form .artedu {
