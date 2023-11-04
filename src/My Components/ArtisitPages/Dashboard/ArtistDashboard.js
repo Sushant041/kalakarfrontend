@@ -8,9 +8,9 @@ import { statusOfAppliPoints } from "../../../services/apis";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
-const Dashboard = () => {
+const ArtistDashboard = () => {
   const { accessToken } = useSelector((state) => state.auth);
   
   const [appliedData, setAppliedData] = useState([]);
@@ -190,4 +190,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default ArtistDashboard;
