@@ -60,7 +60,7 @@ import Chat from "../AdminPages/AdmiChatPage/Chat";
 import MoreinfoArtistOppurtunity from "../AdminPages/ViewApplicants/ViewArtistApplication/ArtistOppurtunity/MoreInfo/MoreinfoArtistOppurtunity";
 import TermAndCondition from "./TermAndCondition";
 import Contactus from "../PatronPages/ContactUs/ContactUs";
-import Dashboard from "../ArtisitPages/Dashboard/Dashboard";
+import ArtistDashboard from "../ArtisitPages/Dashboard/ArtistDashboard";
 
 export default function RouterPage() {
   const { role, accessToken } = useSelector((state) => state.auth);
@@ -123,8 +123,8 @@ export default function RouterPage() {
               element={<StatusOfApplication />}
             />
             <Route
-              path="/Dashboard"
-              element={<Dashboard />}
+              path="/ArtistDashboard"
+              element={<ArtistDashboard />}
             />
             <Route
               path="/Artist_OpportunityDetails"

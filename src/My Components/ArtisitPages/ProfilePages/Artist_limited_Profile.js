@@ -10,62 +10,31 @@ import {
   makeAuthenticatedPATCHRequest,
 } from "../../../services/serverHelper";
 import { useNavigate } from "react-router-dom";
+import Select from 'react-select';
 
 export default function Artist_limited_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  const languages = [
-    "Hindi",
-    "Bengali",
-    "Telugu",
-    "Marathi",
-    "Tamil",
-    "Urdu",
-    "Gujarati",
-    "Kannada",
-    "Punjabi",
-    "Malayalam",
-    "Odia",
-    "Assamese",
-    "Bhojpuri",
-    "Haryanvi",
-    "Rajasthani",
-    "Sindhi",
-    "Konkani",
-    "Manipuri",
-    "Maithili",
-    "Santali",
-    "Kashmiri",
-    "Nepali",
-    "Dogri",
-    "Kokborok",
-    "Khasi",
-    "Mizo (Lushai)",
-    "Tulu",
-    "Garhwali",
-    "Kumaoni",
-    "Bhili",
-    "English",
-    "Spanish",
-    "French",
-    "German",
-    "Italian",
-    "Portuguese",
-    "Chinese",
-    "Japanese",
-    "Korean",
-    "Russian",
-  ];
+  const languages = ["Hindi", "Bengali", "Telugu", "Marathi", "Tamil", "Urdu", "Gujarati", "Kannada", "Punjabi", "Malayalam", "Odia", "Assamese", "Bhojpuri", "Haryanvi", "Rajasthani", "Sindhi", "Konkani", "Manipuri", "Maithili", "Santali", "Kashmiri", "Nepali", "Dogri", "Kokborok", "Khasi", "Mizo (Lushai)", "Tulu", "Garhwali", "Kumaoni", "Bhili", "English", "Spanish", "French", "German", "Italian", "Portuguese", "Chinese", "Japanese", "Korean", "Russian"];
 
-  const natureofArt=["Dance",
-    "Music",
-    "Song",
-    "Theator",
-    "Any Other"]
+  const CategoryArt = ["Dance", "Music", "Song", "Theator", "Any Other"];
 
-  const nameofart=["Bharatanatyam", "Kathak", "Odissi", "Kathakali", "Manipuri", "Mohiniyattam", "Bhangra", "Garba", "Dandiya Raas", "Lavani", "Kuchipudi", "Sattriya", "Chhau", "Giddha", "Yakshagana", "Bihu", "Rauf", "Kalbelia", "Gotipua"
-]
+  const experience = ["0", "1-10", "10-25", "25-50", "50-100", "100-250", "250 above"];
+
+
+  const Dance=["Bharatanatyam", "Bihu", "Chhau", "Dandiya Raas", "Dollu Kunitha", "Dumhal", "Garba", "Gaur Dance", "Giddha", "Gotipua", "Jhumar", "Kacchi Ghodi", "Kalbelia", "Karakattam", "Kathak", "Kathakali", "Kathakar", "Koli", "Kuchipudi", "Lavani", "Manipuri", "Mayurbhanj Chhau", "Mohiniyattam", "Odissi", "Raas Leela", "Sattriya", "Tamasha", "Tera Tali", "Thang-Ta", "Yakshagana"]
+
+  const Song = ["Dhrupad", "Khayal", "Thumri", "Tappa", "Ghazal", "Qawwali", "Kriti", "Varnam", "Tillana", "Ragamalika", "Javali", "Swarajati", "Bhajans", "Kirtan", "Sufi Music", "Abhangas", "Shabad Kirtan (Sikh)"]
+
+  const Theator=["Bhavai", "Bhand Pather", "Jatra", "Koodiyattam", "Mudiyettu", "Nautanki", "Pandavani", "Pothu Koothu", "Ramlila", "Ram Lila", "Ras Leela", "Sattriya", "Tamaasha", "Therukoothu", "Yakshagana"]
+
+  const Music=["Bansuri", "Dilruba", "Dholak", "Ektara", "Esraj", "Flute (Bansuri)", "Ghatam", "Harmonium", "Jal Tarang", "Mridangam", "Nadaswaram", "Pakhawaj", "Ravanahatha", "Sarangi", "Sarod", "Santoor", "Shehnai", "Sitar", "Tabla", "Tanpura", "Tumbi", "Veena"]
+
+  // avialable options
+  const artCategoryoptions = CategoryArt.map((item) => ({ value: item, label: item }));
+  const languageoptions=languages.map((item) => ({ value: item, label: item }));
+  const artnatureoptions=[...Dance, ...Song, ...Theator, ...Music].map((item) => ({ value: item, label: item }));
 
   const [basicFormData, setBasicFormData] = useState({
     personalInfo: {
@@ -79,8 +48,8 @@ export default function Artist_limited_Profile() {
       pincode: "",
     },
     artinfo: {
-      artCategory: natureofArt[0],
-      artName: nameofart[0],
+      artCategory: "",
+      artName: "",
     },
     performanceInfo: {
       experience: "",
@@ -89,6 +58,11 @@ export default function Artist_limited_Profile() {
   });
 
   const [go, setgo] = useState(false)
+
+  //selected options
+  const [Categoryartoptions, setCategoryartoptions] = useState(null);
+  const [languagesoptions,setlanguagesoptions]=useState(null)
+  const [natureOfArtoptions,setnatureOfArtoptions]=useState(null)
 
   const changeHandler = (event) => {
     const { name, value } = event.target;
@@ -127,7 +101,6 @@ export default function Artist_limited_Profile() {
         },
       }));
     } else {
-      // Otherwise, update the top-level state
       setBasicFormData((prevData) => ({
         ...prevData,
         [name]: value,
@@ -171,6 +144,10 @@ export default function Artist_limited_Profile() {
         });
         // console.log(basicFormData);
         setgo(true);
+        setCategoryartoptions(artCategory.split(" ").map((item) => ({ value: item, label: item })))
+        setlanguagesoptions(language.split(" ").map((item) => ({ value: item, label: item })))
+        setnatureOfArtoptions(artName.split(" ").map((item) => ({ value: item, label: item })))
+        // console.log(Categoryartoptions)
       } else {
         toast.error("something went wrong , please refresh the page", {
           position: "top-center",
@@ -199,12 +176,12 @@ export default function Artist_limited_Profile() {
       basicFormData.performanceInfo.totalPerfs !== 0 &&
       basicFormData.performanceInfo.experience !== ""
     ) {
-      console.log(basicFormData);
-      console.log("00000");
-      navigate("/artist_profile");
+      // console.log(basicFormData);
+      // console.log("00000");
+      // navigate("/artist_profile");
     }
-    console.log(basicFormData);
-    console.log("11111")
+    // console.log(basicFormData);
+    // console.log("11111")
   },[go])
 
 
@@ -219,7 +196,9 @@ export default function Artist_limited_Profile() {
     let personalInfo = basicFormData.personalInfo;
     let performanceInfo = basicFormData.performanceInfo;
     let artInfo = basicFormData.artinfo;
-    
+    artInfo.artCategory=Categoryartoptions.map(option => option.value).join(" ")
+    personalInfo.language=languagesoptions.map(option => option.value).join(" ")
+    artInfo.artName=natureOfArtoptions.map(option => option.value).join(" ")
     try {
       const response = await makeAuthenticatedPATCHRequest(
         artistProfilePoints.UPDATE_PROFILE_DATA_API,
@@ -265,14 +244,25 @@ export default function Artist_limited_Profile() {
               <label htmlFor="age">
                 Age <span className="red">*</span>
               </label>
-              <input
+              {/* <input
                 type="number"
                 name="personalInfo.age"
                 onChange={changeHandler}
                 value={basicFormData.personalInfo.age}
                 style={{ width: "100%" }}
                 required
-              ></input>
+              ></input> */}
+              <select name="personalInfo.age"
+                onChange={changeHandler}
+                value={basicFormData.personalInfo.age}
+                style={{ width: "100%" }}
+                required >
+                {Array.from({ length: 100 - 17 }, (_, index) => (
+                  <option key={index} value={index + 18}>
+                    {index + 18}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div
@@ -302,7 +292,9 @@ export default function Artist_limited_Profile() {
                   </option> */}
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+                  <option value="Other">Transgender</option>
+                  <option value="Any other">Any other</option>
+                  <option value="Prefer not to say">Prefer not to say</option>
                 </select>
               </div>
             </div>
@@ -310,7 +302,7 @@ export default function Artist_limited_Profile() {
               <label htmlFor="age">
                 Language  <span className="red">*</span>
               </label>
-              <select
+              {/* <select
                 onChange={changeHandler}
                 required
                 style={{
@@ -325,13 +317,20 @@ export default function Artist_limited_Profile() {
                 id=""
                 value={basicFormData.personalInfo.language}
               >
-                {/* <option value="" selected defaultChecked>
+                <option value="" selected defaultChecked>
                   You can select languages
-                </option> */}
+                </option>
                 {languages.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
-              </select>
+              </select> */}
+                <Select
+                  defaultValue={languagesoptions}
+                  value={languagesoptions}
+                  isMulti
+                  onChange={setlanguagesoptions}
+                  options={languageoptions}
+                />
             </div>
           </div>
           <div className="BasicProfile_Address">
@@ -424,23 +423,30 @@ export default function Artist_limited_Profile() {
             <div className="BasicProfile_OtherDetails">
               <div className="BasicProfile_inputfield">
                 <label>Category of Art* </label>
-                <select
+                {/* <select
                   onChange={changeHandler}
                   name="artinfo.artCategory"
                   value={basicFormData.artinfo.artCategory}
                   required
                 >
-                  {/* <option selected hidden>
+                  <option selected hidden>
                     Select Category of Art
-                  </option> */}
+                  </option>
                   {natureofArt.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
-                </select>
+                </select> */}
+                <Select
+                  defaultValue={Categoryartoptions}
+                  value={Categoryartoptions}
+                  isMulti
+                  onChange={setCategoryartoptions}
+                  options={artCategoryoptions}
+                />
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Name of Art* </label>
-                <select
+                {/* <select
                   onChange={changeHandler}
                   name="artinfo.artName"
                   value={basicFormData.artinfo.artName}
@@ -452,27 +458,46 @@ export default function Artist_limited_Profile() {
                   {nameofart.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
-                </select>
+                </select> */}
+                <Select
+                  defaultValue={natureOfArtoptions}
+                  value={natureOfArtoptions}
+                  isMulti
+                  onChange={setnatureOfArtoptions}
+                  options={artnatureoptions}
+                />
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Experience* </label>
-                <input
+                {/* <input
                     onChange={changeHandler}
                   name="performanceInfo.experience"
                   value={basicFormData.performanceInfo.experience}
                   type="text"
                   required
-                ></input>
+                ></input> */}
+                <select required onChange={changeHandler} name="performanceInfo.experience" value={basicFormData.performanceInfo.experience} >
+                  {[...Array(101).keys()].map((i) => (
+                    <option key={i} value={i}>
+                      {i}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="BasicProfile_inputfield">
                 <label>Total Number of Performances* </label>
-                <input
+                {/* <input
                     onChange={changeHandler}
                   name="performanceInfo.totalPerfs"
                   value={basicFormData.performanceInfo.totalPerfs}
                   type="text"
                   required
-                ></input>
+                ></input> */}
+                <select name="performanceInfo.totalPerfs" value={basicFormData.performanceInfo.totalPerfs} onChange={changeHandler} required>
+                    {experience.map((option)=>(
+                      <option value={option}>{option}</option>
+                    ))}
+                </select>
               </div>
             </div>
           </div>
