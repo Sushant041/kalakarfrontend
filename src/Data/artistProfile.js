@@ -337,6 +337,22 @@ export const artTypeData = [
 ]
 
 
+export const disabilitiesArray = ["Mobility Impairments", "Visual Impairments", "Hearing Impairments", "Deafblindness", "Intellectual Disabilities", "Autism Spectrum Disorder", "Speech and Language Impairments", "Learning Disabilities", "Cognitive Impairments", "Attention-Deficit/Hyperactivity Disorder (ADHD)", "Mental Health Disabilities", "Epilepsy", "Cerebral Palsy", "Down Syndrome", "Muscular Dystrophy", "Spina Bifida", "Traumatic Brain Injury (TBI)", "Chronic Pain", "Post-Traumatic Stress Disorder (PTSD)", "Multiple Sclerosis", "Rheumatoid Arthritis"];
+
+
+export const categories = [
+  "Artist",
+  "Agriculture",
+  "Business",
+  "Job - Government",
+  "Job - Private",
+  "Traditional Livelihood",
+  "Wage Labour",
+  "Any other"
+];
+
+
+
 
 
 

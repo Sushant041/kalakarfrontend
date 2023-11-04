@@ -24,7 +24,15 @@ import Artist_navbar from "../Artist_navbar";
 import art from "./assets/art.svg"
 import star from "./assets/star.svg"
 import performance from "./assets/performance.svg"
-import { specialization , languages , artform , performanceduration ,artTypeData, performancetype , natureofArt , nameofart , courses , highestLevelOfPerformance , ChargesPerPerformance,artInfo1 } from "../../../Data/artistProfile";
+import Facebook from "./assets/Facebook.svg"
+import Instagram from "./assets/Instagram.svg"
+import Globe from "./assets/Globe.svg"
+import LinkedIn from "./assets/LinkedIn.svg"
+import TwitterX from "./assets/TwitterX.svg"
+import YouTube from "./assets/YouTube.svg"
+import { specialization , languages , artform , performanceduration ,artTypeData, performancetype , natureofArt , nameofart , courses,categories ,disabilitiesArray, highestLevelOfPerformance , ChargesPerPerformance,artInfo1 } from "../../../Data/artistProfile";
+import Select from 'react-select';
+
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
   const defaultPic =
@@ -35,6 +43,10 @@ export function Artist_Profile() {
   const initialActiveSection = "basic";
 
   const [activeSection, setActiveSection] = useState(initialActiveSection);
+
+  //multiple select languages
+  const languageoptions=languages.map((item) => ({ value: item, label: item }));
+  const [languagesoptions,setlanguagesoptions]=useState(null)
 
   // ! this is for avatar
   const [profileAvatar, setProfileAvatar] = useState(null);
@@ -338,7 +350,7 @@ const [hightLevel,sethightLevel]= useState("")
     } else if (name.startsWith("idProof.")) {
       setBasicFormData((prevData) => ({
         ...prevData,
-        handles: {
+        idProof: {
           ...prevData.idProof,
           [name.split(".")[1]]: value,
         },
@@ -396,6 +408,8 @@ const [hightLevel,sethightLevel]= useState("")
       socialCategory,
       incomeSrc,
     };
+
+    personalInfo.language=languagesoptions.map(option => option.value).join(" ")
 
     let otherInfo = {
       aadharNumber,
@@ -925,7 +939,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
         phoneNumber: personalInfo?.contactNumber,
         gender: personalInfo?.gender,
         about: personalInfo?.about,
-        language: personalInfo?.languages,
+        language: personalInfo?.language,
         monthlyIncome: personalInfo?.monthlyIncome,
         socialCategory: personalInfo?.socialCategory,
         pwd: personalInfo?.pwd,
@@ -950,6 +964,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
           ...response.data.otherInfo.idProof,
         },
       }));
+      setlanguagesoptions(personalInfo.language.split(" ").map((item) => ({ value: item, label: item })))
 
       //chiku art Information
       setArtInfoFormData((prev) => ({
@@ -1374,13 +1389,24 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                     <label htmlFor="age">
                       Age <span className="red">*</span>
                     </label>
-                    <input
+                    {/* <input
                       type="number"
                       name="age"
                       onChange={changeHandler}
                       value={basicFormData.age}
                       style={{ width: "100%" }}
-                    ></input>
+                    ></input> */}
+                    <select name="age"
+                onChange={changeHandler}
+                value={basicFormData.age}
+                style={{ width: "100%" }}
+                required >
+                {Array.from({ length: 100 - 17 }, (_, index) => (
+                  <option key={index} value={index + 18}>
+                    {index + 18}
+                  </option>
+                ))}
+              </select>
                   </div>
 
                   <div
@@ -1424,7 +1450,9 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         </option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
-                        <option value="Other">Other</option>
+                        <option value="Transgender">Transgender</option>
+                        <option value="Any Other">Any Other</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
                       </select>
                     </div>
                   </div>
@@ -1432,10 +1460,10 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                     className="BasicProfile_inputfield"
                     style={{ width: "30%" }}
                   >
-                    <label htmlFor="age">
+                    <label >
                       Language Known <span className="red">*</span>
                     </label>
-                    <select
+                    {/* <select
                       onChange={changeHandler}
                       style={{
                         fontFamily: "Poppins",
@@ -1445,6 +1473,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         width: "100%",
                         border: "1px solid black",
                       }}
+                      value={basicFormData?.language}
                       name=""
                       id=""
                     >
@@ -1454,7 +1483,15 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                       {languages.map((option) => (
                         <option value={option}>{option}</option>
                       ))}
-                    </select>
+                    </select> */}
+                    <Select
+                  defaultValue={languagesoptions}
+                  value={languagesoptions}
+                  isMulti
+                  onChange={setlanguagesoptions}
+                  options={languageoptions}
+                />
+
                   </div>
                   <div>
                     {/* <div> */}
@@ -1591,6 +1628,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                           </option>
                           <option value="SC">SC (Scheduled Caste)</option>
                           <option value="ST">ST (Scheduled Tribe)</option>
+                          <option value="Any Other">Any Other</option>
                         </select>
                       </div>
                       <div className="BasicProfile_inputfield">
@@ -1603,8 +1641,8 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                           <option selected hidden>
                             Select
                           </option>
-                          <option value="Yes">Yes</option>
                           <option value="No">No</option>
+                          {disabilitiesArray.map((option)=>(<option value={option}>{option}</option>))}
                         </select>{" "}
                       </div>
                       <div className="BasicProfile_inputfield">
@@ -1617,55 +1655,8 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                           <option selected hidden>
                             Select income Source
                           </option>
-                          <option value="Ad Revenue">Ad Revenue</option>
-                          <option value="Affiliate Art Marketplaces">
-                            Affiliate Art Marketplaces
-                          </option>
-                          <option value="Affiliate Marketing">
-                            Affiliate Marketing
-                          </option>
-                          <option value="Art Appraisals">Art Appraisals</option>
-                          <option value="Art Auctions">Art Auctions</option>
-                          <option value="Art Commissions Directory">
-                            Art Commissions Directory
-                          </option>
-                          <option value="Art Critiques and Reviews">
-                            Art Critiques and Reviews
-                          </option>
-                          <option value="Art Events and Exhibitions">
-                            Art Events and Exhibitions
-                          </option>
-                          <option value="Art Grants and Scholarships">
-                            Art Grants and Scholarships
-                          </option>
-                          <option value="Art Licensing">Art Licensing</option>
-                          <option value="Art Sales">Art Sales</option>
-                          <option value="Art Subscriptions">
-                            Art Subscriptions
-                          </option>
-                          <option value="Collaborations">Collaborations</option>
-                          <option value="Commissions">Commissions</option>
-                          <option value="Donations and Crowdfunding">
-                            Donations and Crowdfunding
-                          </option>
-                          <option value="Freelance Services">
-                            Freelance Services
-                          </option>
-                          <option value="Merchandise Sales">
-                            Merchandise Sales
-                          </option>
-                          <option value="Online Courses and Workshops">
-                            Online Courses and Workshops
-                          </option>
-                          <option value="Printable Resources">
-                            Printable Resources
-                          </option>
-                          <option value="Print-on-Demand Services">
-                            Print-on-Demand Services
-                          </option>
-                          <option value="Sponsored Content">
-                            Sponsored Content
-                          </option>
+                          {categories.map((option)=>(<option value={option}>{option}</option>))}
+                          
                         </select>
                       </div>
 
@@ -1729,7 +1720,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         <input
                           onChange={changeHandler}
                           value={basicFormData.idProof.num}
-                          placeholder="Enter UPI Id"
+                          placeholder="Enter Id Num"
                           name="idProof.num"
                           type="text"
                         />
@@ -1748,9 +1739,9 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         <label>Valid Passport</label>
                         <input
                           onChange={changeHandler}
-                          value={basicFormData.upiId}
-                          placeholder="Enter UPI Id"
-                          name="upiId"
+                          value={basicFormData.passportNumber}
+                          placeholder="No/MM-YYYY"
+                          name="passportNumber"
                           type="text"
                         />
                       </div>
@@ -1806,7 +1797,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                   </div>
                 </div>
                 <div>
-                  <h4>SOCIAL PROOF</h4>
+                  <h4>SOCIAL Media</h4>
                   <div className="BasicProfile_Social">
                     <div className="BasicProfile_inputfield">
                       <label>Instagram</label>
@@ -1816,6 +1807,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         name="handles.instagram"
                         type="text"
                       ></input>
+                      <img src={Instagram} alt="Instagram" />
                     </div>
                     <div className="BasicProfile_inputfield">
                       <label>Facebook</label>
@@ -1825,6 +1817,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         name="handles.facebook"
                         type="text"
                       ></input>
+                      <img src={Facebook} alt="Facebook" />
                     </div>
                     <div className="BasicProfile_inputfield">
                       <label>Youtube</label>
@@ -1834,6 +1827,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         name="handles.youtube"
                         type="text"
                       ></input>
+                      <img src={YouTube} alt="Youtube" />
                     </div>
                     <div className="BasicProfile_inputfield">
                       <label>LinkedIn</label>
@@ -1843,6 +1837,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         name="handles.linkedIn"
                         type="text"
                       ></input>
+                      <img src={LinkedIn} alt="LinkedIn" />
                     </div>
                     <div className="BasicProfile_inputfield">
                       <label>Website</label>
@@ -1852,6 +1847,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         name="handles.website"
                         type="text"
                       ></input>
+                      <img src={Globe} alt="Globe" />
                     </div>
                     <div className="BasicProfile_inputfield">
                       <label>X</label>
@@ -1861,6 +1857,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
                         name="handles.twitter"
                         type="text"
                       ></input>
+                      <img src={TwitterX} alt="TwitterX" />
                     </div>
                   </div>
 
