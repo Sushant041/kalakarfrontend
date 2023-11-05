@@ -46,7 +46,7 @@ export function Artist_Opportunities() {
 
     const navigate = useNavigate();
 
-  const [applyAns, setApplyAns] = useState("");
+  const [applyAns, setApplyAns] = useState({quotedPrice:"",answer:""});
 
   const [isFilterOn , setIsFilterOn] = useState(false);
 
@@ -62,12 +62,14 @@ export function Artist_Opportunities() {
 
     try {
       event.preventDefault();
+      // console.log(applyAns);
       const response = await makeAuthenticatedPOSTRequest(
         artistOpportunityPoints.APPLY_OPPOR_API +
           `/${OpportunityapplynowPopup?.id}`,
         { applyAns },
         accessToken
       );
+
 
       if (response.status === "success") {
         toast.success("successfully applied" ,{
@@ -656,6 +658,7 @@ export function Artist_Opportunities() {
                       <button onClick={() => setOpportunityapplynowPopup(null)}>
                         X
                       </button>
+                      <h1 style={{color:"#AD2F3B"}}>{job.purpose}</h1>
                       <div className="Opportunityapplynowpopup_content">
                         <h4>{job.position}</h4>
                         <div className="Opportunityapplynowpopup_contentone">
@@ -668,7 +671,7 @@ export function Artist_Opportunities() {
                           </p>
                         </div>
                       </div>
-                      <h1>Description</h1>
+                      {/* <h1>Description</h1>
                       <p>{job.description}</p>
                       <div className="Opportunityapplynowpopup_contentone">
                         <h1>Other Details</h1>
@@ -690,9 +693,9 @@ export function Artist_Opportunities() {
                         <p>
                           Language : &emsp;{" "}
                           <span>
-                            {/* {job.languages?.map((lag, index) => (
+                            {job.languages?.map((lag, index) => (
                               <span key={index}>{lag} </span>
-                            ))} */}
+                            ))}
                             {job.languages}
                           </span>
                         </p>
@@ -703,14 +706,25 @@ export function Artist_Opportunities() {
                           {" "}
                           Opening :&emsp;&emsp; <span>{job.requiredArtists}</span>
                         </p>
-                      </div>
-                      <h1>Why do you want ot Apply for this Role?</h1>
+                      </div> */}
                       <div className="Opportunityapplynowpopup_contentform">
                         <form onSubmit={applySubmitHandler}>
+                        <div style={{display:"flex"}}>
+                        <p>My quoted price:</p>
+                        <input type="number" style={{marginLeft:"5px"}} name="quotedPrice" value={applyAns.quotedPrice} 
+                        onChange={(e) => setApplyAns((prevData) => ({
+                              ...prevData,
+                              quotedPrice: e.target.value
+                            }))} required/>
+                      </div>
+                      <h1>Why do you want ot Apply for this Role?</h1>
                           <textarea
                             name="applyAns"
-                            value={applyAns}
-                            onChange={(e) => setApplyAns(e.target.value)}
+                            value={applyAns.answer}
+                            onChange={(e) => setApplyAns((prevData) => ({
+                              ...prevData,
+                              answer: e.target.value
+                            }))}
                             required
                           />
                           <button type="submit">Submit</button>

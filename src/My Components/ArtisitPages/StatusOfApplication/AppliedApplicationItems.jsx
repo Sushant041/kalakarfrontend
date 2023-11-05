@@ -82,13 +82,13 @@ function AppliedApplicationItems({ currentEvent, loading, jobData }) {
 
                   <p
                     style={{
-                      marginTop: "20px",
+                      marginTop: "5px",
                       color: "black",
                       opacity: "70%",
                     }}
                     className="single_applied_para"
                   >
-                    {event.description}
+                    {event?.opportunity?.description}
                   </p>
 
                   <div

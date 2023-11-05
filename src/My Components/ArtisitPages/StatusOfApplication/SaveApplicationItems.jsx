@@ -24,7 +24,7 @@ import { artistOpportunityPoints } from "../../../services/apis";
 function SaveApplicationItems({ loading, setLoading, currentEvent }) {
   const { accessToken } = useSelector((state) => state.auth);
 
-  const [whyText , setWhyText] = useState("");
+  const [whyText , setWhyText] = useState({answer:"",quotedPrice:""});
 
   const [popupData , setPopupData] = useState(null);
 
@@ -95,6 +95,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
     const toastId = toast.loading("Loading...");
     try {
       event.preventDefault();
+      // console.log(whyText)
       const response = await makeAuthenticatedPOSTRequest(
         artistOpportunityPoints.APPLY_OPPOR_API +
           `/${popupData?._id}`,
@@ -146,7 +147,13 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                   <div key={index} className="single_saved_event">
                     {/* left part  */}
                     <div className="saved_event_leftPart">
-                      <h3 className="saved_event_heading">Event Name</h3>
+                    <div>
+                        <h3 style={{margin:"5px 0"}} className="saved_event_heading">{event.purpose}</h3>
+                      <p style={{marginTop: "20px",
+                                marginBottom: "20px",
+                                color: "black",
+                                opacity: "0.7"}}>{event.description}</p>
+                        </div>
                       <div className="saved_event_data">
                         <div className="saved_event_data_left">
                           <img src={location} alt="location" />
@@ -255,11 +262,11 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
   <>
   {/* apply now popup */}
   <div className="save_appli_Popup_wrapper">
-  <form onSubmit={applySubmitHandler} style={{display:"flex" ,flexDirection:"column" , justifyContent:"space-evenly"}} className="popup_container">
+  <form onSubmit={applySubmitHandler} style={{display:"flex" ,flexDirection:"column" , justifyContent:"space-evenly",    gap: "20px"}} className="popup_container">
 
     {/* heading */}
     <div className="save_popup_heading_wrapper">
-      <p className="save_popup_position">{popupData.position}</p>
+      <p className="save_popup_position">{popupData.purpose}</p>
       <div onClick={()=>setPopupData(null)} style={{  padding:"10px" , cursor:"pointer"}}>
 
       <img onClick={()=>setPopupData(null)} style={{cursor:"pointer"}} className="save_popup_cross" src={cross} alt="" />
@@ -284,16 +291,16 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
                             year: "numeric",
                           })} </span></p>
     </div>
-
-{/* description */}
+{/* 
+description
     <p> <span className="save_popup_common"> Description : </span> <span className="save_popup_ans"> {popupData.description}</span> </p>
 
-{/* details div */}
+details div
     <div >
       <p style={{paddingLeft:"20px"}} className="save_otherDetails_text">Other details</p>
       <div style={{display:"flex" , gap:"60px" , marginLeft:"20px"}} className="other_Detail_wrapper">
 
-        {/* left side  */}
+        left side 
         <div style={{display:"flex" , flexDirection:"column" }}>
       <p className="save_popup_common">Nature Of Art : </p>
       <p className="save_popup_common">Expertise : </p>
@@ -303,7 +310,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
       <p className="save_popup_common">Opening :  </p>
       </div>
 
-      {/* right answer side */}
+      right answer side
       <div style={{display:"flex" , flexDirection:"column" }} className="">
         <p className="save_popup_ans">{popupData.artNature}</p>
         <p className="save_popup_ans">{popupData.expertise}</p>
@@ -317,12 +324,22 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
       </div>
       </div>
      
-    </div>
+    </div> */}
 
 {/* why do you want to apply div */}
+    <div style={{display:"flex"}}>
+      <p>My quoted price:</p>
+      <input style={{marginLeft:"5px"}} type="number" onChange={(e)=>setWhyText((prevData) => ({
+        ...prevData,
+        quotedPrice: e.target.value,
+      }))} value={whyText.quotedPrice} required />
+    </div>
     <div>
            <p className="save_popup_ans">Why do you want to apply for this role ?</p>
-           <textarea required value={whyText} onChange={(e)=>setWhyText(e.target.value)} style={{width:"95%" , resize:"none" , border:"2px solid black" , borderRadius:"10px" , height:"100px" , padding:"10px" , }}  />
+           <textarea required value={whyText.answer} onChange={(e)=>setWhyText((prevData) => ({
+        ...prevData,
+        answer: e.target.value,
+      }))} style={{width:"95%" , resize:"none" , border:"2px solid black" , borderRadius:"10px" , height:"100px" , padding:"10px" , }}  />
     </div>
 
     {/* buttons  */}

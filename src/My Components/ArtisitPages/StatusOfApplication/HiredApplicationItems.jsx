@@ -100,7 +100,7 @@ function HiredApplicationItems({ currentEvent, jobData, loading }) {
                       }}
                     >
                       <h1 className="single_inprogress_heading">
-                        {event?.opportunity?.position}
+                        {event?.opportunity?.purpose}
                       </h1>
                       <div
                         style={{

@@ -163,6 +163,7 @@ function Signup() {
               value={formData.firstName}
               className="signupFormInput"
               placeholder="Enter your first Name"
+              pattern="^[A-Za-z]+$"
             />
           </label>
           <label htmlFor="fullname" className="signupFormLabel">
@@ -175,6 +176,7 @@ function Signup() {
               value={formData.lastName}
               className="signupFormInput"
               placeholder="Enter your last Name"
+              pattern="^[A-Za-z]+$"
             />
           </label>
         </div>
@@ -213,6 +215,7 @@ function Signup() {
             type={passwordVisible ? 'text' : 'password'}
             name="password"
             className="signupFormInput  "
+            minLength={8}
             placeholder="Enter your password"
           />
           <span
@@ -242,7 +245,7 @@ function Signup() {
         </label>
 
        
-        <div className="termAndCondition">
+        <div className="termAndCondition" style={{display: "flex",flexDirection: "row",justifyContent: "flex-start",marginLeft:"19px"}}>
         <input type="checkbox" checked={checkbox===true} onChange={()=>setCheckbox((prev)=>!prev)} />
         <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"2px" , color:"red" , cursor:"pointer"}}>I Agree to the Terms And Condition</p>
         </div> 
