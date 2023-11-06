@@ -77,7 +77,7 @@ export function Artist_Opportunities() {
         });
 
         setOpportunityapplynowPopup(null);
-        setApplyAns("");
+        setApplyAns({quotedPrice:"",answer:""});
         navigate("/statusOfApplication");
 
       } else {
@@ -719,7 +719,7 @@ export function Artist_Opportunities() {
                       </div>
                       <h1>Why do you want ot Apply for this Role?</h1>
                           <textarea
-                            name="applyAns"
+                            name="answer"
                             value={applyAns.answer}
                             onChange={(e) => setApplyAns((prevData) => ({
                               ...prevData,

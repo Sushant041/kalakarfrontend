@@ -108,7 +108,7 @@ function SaveApplicationItems({ loading, setLoading, currentEvent }) {
           position:"top-center"
         });
         setPopupData(null);
-        setWhyText("");
+        setWhyText({quotedPrice:"",answer:""});
         setPopupData(null)
       } else {
         toast.error(response.message  ,{

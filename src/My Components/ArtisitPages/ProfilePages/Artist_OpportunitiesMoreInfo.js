@@ -28,7 +28,7 @@ export function Artist_OpportunitiesMoreInfo() {
 
   const { accessToken } = useSelector((state) => state.auth);
 
-  const [applyAns, setApplyAns] = useState("");
+  const [applyAns, setApplyAns] = useState({quotedPrice:"",answer:""});
 
   const [jobData, setJobData] = useState(null);
 
@@ -57,6 +57,7 @@ export function Artist_OpportunitiesMoreInfo() {
         { applyAns },
         accessToken
       );
+      console.log(applyAns)
       console.log("response", response);
 
       if (response.status === "success") {
@@ -64,7 +65,7 @@ export function Artist_OpportunitiesMoreInfo() {
           position: "top-center",
         });
         setOpportunityapplynowPopup(null);
-        setApplyAns("");
+        setApplyAns({quotedPrice:"",answer:""});
       } else {
         toast.error(response.message, {
           position: "top-center",
@@ -309,7 +310,7 @@ export function Artist_OpportunitiesMoreInfo() {
                 X
               </button>
               <div className="Opportunityapplynowpopup_content">
-                <h4>{jobData?.title}</h4>
+                <h4 style={{color:"#AD2F3B"}}>{jobData?.purpose}</h4>
                 <div className="Opportunityapplynowpopup_contentone">
                   <p>
                     Posted on:{" "}
@@ -331,9 +332,8 @@ export function Artist_OpportunitiesMoreInfo() {
                   </p>
                 </div>
               </div>
-              <h1>Description</h1>
-              <p>{jobData?.description}</p>
-              <div className="Opportunityapplynowpopup_contentone">
+              {/* <p>{jobData?.description}</p> */}
+              {/* <div className="Opportunityapplynowpopup_contentone">
                 <h1>Other Details</h1>
                 <a href="#" style={{ color: "#AD2F3B" }}>
                   View all info
@@ -362,14 +362,25 @@ export function Artist_OpportunitiesMoreInfo() {
                   {" "}
                   Opening :&emsp;&emsp; <span>{jobData?.requiredArtists}</span>
                 </p>
-              </div>
-              <h1>Why do you want ot Apply for this Role?</h1>
+              </div> */}
               <div className="Opportunityapplynowpopup_contentform">
                 <form onSubmit={applySubmitHandler}>
+                  <div style={{display:"flex",marginBottom:"6px"}}>
+                    <p>My quoted price:</p>
+                    <input style={{marginLeft:"5px"}} type="number"name="quotedPrice" value={applyAns.quotedPrice} 
+                        onChange={(e) => setApplyAns((prevData) => ({
+                              ...prevData,
+                              quotedPrice: e.target.value
+                            }))} required  />
+                  </div>
+                  <h1>Why do you want ot Apply for this Role?</h1>
                   <textarea
-                    name="applyAns"
-                    value={applyAns}
-                    onChange={(e) => setApplyAns(e.target.value)}
+                    name="answer"
+                    value={applyAns.answer}
+                    onChange={(e) => setApplyAns((prevData) => ({
+                      ...prevData,
+                      answer: e.target.value
+                    }))}
                     required
                   />
                   <button type="submit">Submit</button>
