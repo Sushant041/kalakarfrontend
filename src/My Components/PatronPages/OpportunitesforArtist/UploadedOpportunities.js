@@ -86,7 +86,7 @@ function UploadedOpportunities() {
                     style={{ width: "45%" }}
                     className="OpportunitiesPage_displayonejob"
                   >
-                    <h4>{opportunity.position}</h4>
+                    <h4>{opportunity.purpose}</h4>
                     <p style={{ color: "rgba(0, 0, 0, 0.7)" }}>
                       {opportunity.description}
                     </p>
