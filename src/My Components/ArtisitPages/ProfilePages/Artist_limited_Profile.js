@@ -178,7 +178,7 @@ export default function Artist_limited_Profile() {
     ) {
       // console.log(basicFormData);
       // console.log("00000");
-      // navigate("/artist_profile");
+      navigate("/artist_profile");
     }
     // console.log(basicFormData);
     // console.log("11111")
