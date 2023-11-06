@@ -121,6 +121,7 @@ function UploadedOpportunities() {
                                             </svg>{" "}
                                             Category:
                                         </p> */}
+                           
                             <p>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -219,7 +220,7 @@ function UploadedOpportunities() {
                           </div>
 
                           <div className="OpportunitiesPage_displayonejob_contentdetailstwo">
-                            {/* <p>{opportunity.artNature}</p>
+                            {/* <p>{opportunity.purpose}</p>
                         <p>{opportunity.category}</p> */}
                             <p>{opportunity.location}</p>
                             {/* <p>{opportunity.languages.join(", ")}</p> */}
