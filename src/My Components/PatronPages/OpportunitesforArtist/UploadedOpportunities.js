@@ -86,7 +86,7 @@ function UploadedOpportunities() {
                     style={{ width: "45%" }}
                     className="OpportunitiesPage_displayonejob"
                   >
-                    <h4>{opportunity.position}</h4>
+                    <h4>{opportunity.purpose}</h4>
                     <p style={{ color: "rgba(0, 0, 0, 0.7)" }}>
                       {opportunity.description}
                     </p>
@@ -121,6 +121,7 @@ function UploadedOpportunities() {
                                             </svg>{" "}
                                             Category:
                                         </p> */}
+                           
                             <p>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -219,7 +220,7 @@ function UploadedOpportunities() {
                           </div>
 
                           <div className="OpportunitiesPage_displayonejob_contentdetailstwo">
-                            {/* <p>{opportunity.artNature}</p>
+                            {/* <p>{opportunity.purpose}</p>
                         <p>{opportunity.category}</p> */}
                             <p>{opportunity.location}</p>
                             {/* <p>{opportunity.languages.join(", ")}</p> */}
