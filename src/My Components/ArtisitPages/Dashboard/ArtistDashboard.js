@@ -26,7 +26,7 @@ const ArtistDashboard = () => {
       );
       // console.log("response", response);
       const { data } = response;
-      // console.log("data", data);
+      console.log("data", data);
 
       if (response.status === "success") {
         setAppliedData(response?.data);
@@ -65,9 +65,9 @@ const ArtistDashboard = () => {
   const getTypeBackgroundColor = (status) => {
     // Define background colors for each type
     const typeColors = {
-      Shortlisted: "#FFF8B7",
-      Hired: "#DAFFE8",
-      Rejected: "#FFCCCB",
+      Shortlisted: "#eed815",
+      Hired: "#03fd03",
+      Rejected: "#f40d09",
       Applied: "blue"
     };
     return typeColors[status] || "#ffffff"; // Default to white if type is not found
@@ -143,7 +143,7 @@ const ArtistDashboard = () => {
                               fontWeight: "600",
                             }}
                           >
-                            No Data Found
+                            {appliedData[index].opportunity.purpose}
                           </Link>
                         </td>
 
@@ -164,10 +164,10 @@ const ArtistDashboard = () => {
                           <div
                             className="table-body"
                             style={{
-                              backgroundColor: getTypeBackgroundColor(
+                              color: getTypeBackgroundColor(
                                 event?.status
                               ),
-                              color: "white",
+                              // color: "white",
                             }}
                           >
                             {event?.status}

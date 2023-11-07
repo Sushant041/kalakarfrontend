@@ -657,7 +657,7 @@ function UploadOpportunities() {
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Name</label>
                 <input
-                  readOnly
+               
                   value={"william wilson"}
                   name="Name"
                   type="text"
@@ -667,7 +667,7 @@ function UploadOpportunities() {
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Contact Number</label>
                 <input
-                  readOnly
+                
                   value={"1234567890"}
                   name="Name"
                   type="text"
@@ -677,7 +677,7 @@ function UploadOpportunities() {
               <div className="ArtistOpportunities_Page_Infoform_inputfield">
                 <label>Email</label>
                 <input
-                  readOnly
+                  
                   value={"william@gmail.com"}
                   name="Email"
                   type="text"

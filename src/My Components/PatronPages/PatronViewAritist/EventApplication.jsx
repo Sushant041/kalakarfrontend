@@ -347,6 +347,16 @@ function EventApplication() {
             {/*box ka left part ==> card  */}
             <div className="event_card_wrapper">
               {/* card ka left part */}
+              <div className="appliedOn_container">
+                      Applied On <br />{" "}
+                      {new Date(
+                            data?.appliedOn
+                          ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                    </div>
               <div className="card_left_container">
                 <img src={ekalakaa} className="card_left_ekalakaar" alt="" />
                 <div className="card_user_personal_details">
@@ -411,12 +421,12 @@ function EventApplication() {
     
     {/* top  */}
     <div className="event_appli_details" >
-       <div className="single_event_appli_detail" > 
+       {/* <div className="single_event_appli_detail" > 
             <p className="single_detail_title">Applied On</p>
             <p className="single_detail_ans">{new Date(
                             data?.appliedOn).toLocaleDateString("en-US", {day: "numeric",month: "short",year: "numeric",
                           })}</p>
-        </div>   
+        </div>    */}
         <div className="single_event_appli_detail" > 
             <p  className="single_detail_title">Art Name</p>
             <p className="single_detail_ans">{data?.appliedBy?.artName}</p>
@@ -427,18 +437,22 @@ function EventApplication() {
         </div>    
        <div className="single_event_appli_detail" > 
             <p  className="single_detail_title">Ratings</p>
-            <p ></p>
+            <p className="single_detail_ans"></p>
         </div>    
+        <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Quoted Price</p>
+            <p className="single_detail_ans">{data?.quotedPrice}</p>
+        </div> 
       
     </div>
     
     {/* ṃiddle part -> this is for why you want to hire , add it later */}
 
     
-    {/* <div style={{width:"90%" , }}>
-      <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Why do you want ot Apply for this Role?</p>
-      <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,textAlign:"left"}}>Qorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-    </div> */}
+    <div style={{width:"90%" , }}>
+      <p style={{fontFamily:"Poppins" , fontWeight:"500" ,color:"black" ,}}>Why do you want ot Apply for this Role?</p>
+      <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,}}>{data?.answer}</p>
+    </div>
     
 
     {/* bottom button */}
@@ -466,6 +480,16 @@ function EventApplication() {
                   shotlistApplication.map((data  ,index)=>(
 
                   <section key={index} className="patron_event_detail_Section">
+                    <div className="appliedOn_container">
+                      Applied On <br />{" "}
+                      {new Date(
+                            data?.appliedOn
+                          ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                    </div>
                   {/*box ka left part */}
                   <div className="event_card_wrapper">
                     {/* card ka left part */}
@@ -531,26 +555,41 @@ function EventApplication() {
           
           {/* top  */}
           <div className="event_appli_details" >
-             <div className="single_event_appli_detail" > 
+             {/* <div className="single_event_appli_detail" > 
                   <p className="single_detail_title">Applied On</p>
                   <p className="single_detail_ans">{new Date(
                             data?.appliedOn).toLocaleDateString("en-US", {day: "numeric",month: "short",year: "numeric",
                           })}</p>
-              </div>    
+              </div>     */}
              <div className="single_event_appli_detail" > 
-                  <p  className="single_detail_title">Location</p>
-                  <p className="single_detail_ans">{data?.appliedBy?.address?.city}</p>
-              </div>    
-             <div className="single_event_appli_detail" > 
-                  <p  className="single_detail_title">Ratings</p>
-                  <p ></p>
-              </div>    
+            <p  className="single_detail_title">Art Name</p>
+            <p className="single_detail_ans">{data?.appliedBy?.artName}</p>
+        </div>    
+       <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Location</p>
+            <p className="single_detail_ans">{data?.appliedBy?.address?.city}</p>
+        </div>    
+       <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Ratings</p>
+            <p className="single_detail_ans"></p>
+        </div>    
+        <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Quoted Price</p>
+            <p className="single_detail_ans">{data?.quotedPrice}</p>
+        </div>     
             
           </div>
+
+          <div style={{width:"90%" , }}>
+      <p style={{fontFamily:"Poppins" , fontWeight:"500" ,color:"black" ,}}>Why do you want ot Apply for this Role?</p>
+      <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,}}>{data?.answer}</p>
+    </div>
           
           {/* bottom button */}
+          <div style={{display:"flex"}}>
           <button onClick={()=>navigate(`/patron-view-artist/${data?.appliedBy?._id}` , {state : {applicationId :data?._id , appliType:"Shortlisted"}})}  className="view_Profile_btn">View Profile</button>
           <button className="chat_artist_btn">Chat With Artist</button>
+          </div>
           
                   </div>
                 </section>
@@ -572,6 +611,16 @@ function EventApplication() {
                   
 
                 <section key={index} className="patron_event_detail_Section">
+                  <div className="appliedOn_container">
+                      Applied On <br />{" "}
+                      {new Date(
+                            data?.appliedOn
+                          ).toLocaleDateString("en-US", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
+                    </div>
                 {/*box ka left part */}
                 <div className="event_card_wrapper">
                   {/* card ka left part */}
@@ -637,29 +686,43 @@ function EventApplication() {
         
         {/* top  */}
         <div className="event_appli_details" >
-           <div className="single_event_appli_detail" > 
+           {/* <div className="single_event_appli_detail" > 
                 <p className="single_detail_title">Applied On</p>
                 <p className="single_detail_ans">{new Date(
                             data?.appliedOn).toLocaleDateString("en-US", {day: "numeric",month: "short",year: "numeric",
                           })}</p>
-            </div>    
-           <div className="single_event_appli_detail" > 
-                <p  className="single_detail_title">Location</p>
-                <p className="single_detail_ans">{data?.appliedBy?.address?.city}</p>
-            </div>    
-           <div className="single_event_appli_detail" > 
-                <p  className="single_detail_title">Ratings</p>
-                <p ></p>
-            </div>    
+            </div>     */} 
+            <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Art Name</p>
+            <p className="single_detail_ans">{data?.appliedBy?.artName}</p>
+        </div>    
+       <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Location</p>
+            <p className="single_detail_ans">{data?.appliedBy?.address?.city}</p>
+        </div>    
+       <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Ratings</p>
+            <p className="single_detail_ans"></p>
+        </div>    
+        <div className="single_event_appli_detail" > 
+            <p  className="single_detail_title">Quoted Price</p>
+            <p className="single_detail_ans">{data?.quotedPrice}</p>
+        </div>   
           
         </div>
+
+        <div style={{width:"90%" , }}>
+      <p style={{fontFamily:"Poppins" , fontWeight:"500" ,color:"black" ,}}>Why do you want ot Apply for this Role?</p>
+      <p style={{fontFamily:"Poppins" , fontWeight:"500" , opacity:"0.7" ,color:"black" ,}}>{data?.answer}</p>
+    </div>
         
         {/* bottom button */}
+        <div style={{display:"flex"}}>
         <button onClick={()=>navigate(`/patron-view-artist/${data?.appliedBy?._id}` , {state : {applicationId :data?._id , appliType: 'Hired'}})} className="view_Profile_btn">View Profile</button>
 
 
         <button className="chat_artist_btn">Chat With Artist</button>
-        
+        </div>
                 </div>
               </section>
                 ))

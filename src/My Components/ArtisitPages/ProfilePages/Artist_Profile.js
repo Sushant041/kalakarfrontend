@@ -30,9 +30,23 @@ import Globe from "./assets/Globe.svg"
 import LinkedIn from "./assets/LinkedIn.svg"
 import TwitterX from "./assets/TwitterX.svg"
 import YouTube from "./assets/YouTube.svg"
-import { specialization , languages , artform , performanceduration ,artTypeData, performancetype , natureofArt , nameofart , courses,categories ,disabilitiesArray, highestLevelOfPerformance , ChargesPerPerformance,artInfo1 } from "../../../Data/artistProfile";
 import Select from 'react-select';
-// import { CloseButton } from "react-toastify/dist/components";
+import {
+  specialization,
+  languages,
+  artform,
+  performanceduration,
+  artTypeData,
+  performancetype,
+  natureofArt,
+  nameofart,
+  courses,
+  categories,
+  disabilitiesArray,
+  highestLevelOfPerformance,
+  ChargesPerPerformance,
+  artInfo1,
+} from "../../../Data/artistProfile";
 
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
@@ -46,8 +60,11 @@ export function Artist_Profile() {
   const [activeSection, setActiveSection] = useState(initialActiveSection);
 
   //multiple select languages
-  const languageoptions=languages.map((item) => ({ value: item, label: item }));
-  const [languagesoptions,setlanguagesoptions]=useState(null)
+  const languageoptions = languages.map((item) => ({
+    value: item,
+    label: item,
+  }));
+  const [languagesoptions, setlanguagesoptions] = useState(null);
 
   // ! this is for avatar
   const [profileAvatar, setProfileAvatar] = useState(null);
@@ -323,8 +340,8 @@ export function Artist_Profile() {
     passportNumber: "",
   });
 
-const [numberOfAward,setNumberOfAward]= useState("")
-const [hightLevel,sethightLevel]= useState("")
+  const [numberOfAward, setNumberOfAward] = useState("");
+  const [hightLevel, sethightLevel] = useState("");
   // ! change  handler for basic profile
   const changeHandler = (event) => {
     const { name, value } = event.target;
@@ -409,7 +426,9 @@ const [hightLevel,sethightLevel]= useState("")
       incomeSrc,
     };
 
-    personalInfo.language=languagesoptions.map(option => option.value).join(" ")
+    personalInfo.language = languagesoptions
+      .map((option) => option.value)
+      .join(" ");
 
     let otherInfo = {
       aadharNumber,
@@ -491,54 +510,47 @@ const [hightLevel,sethightLevel]= useState("")
       end: "",
     },
   });
-const [artInfoFormData,setArtInfoFormData]= useState({
-  artName:"",
-  artEducation:"",
-  artType:"",
-  artCategory:"",
-  aboutArt:""
-
-})
-  const [art,setArt] = useState([]);
-  const [artName1,setArtName1] = useState("");
-const artChangesHandler = (e) => {
-  const { name, value } = e.target;
-  setArtName1(value);
-  setArt(artInfo1.find(ctr=>ctr.art === value).name);
-  if(name.startsWith("artEduDuration.")){
-    console.log("hello ",art);
-    setArtInfoFormData((prevData) => ({
-      ...prevData,
-    }))
-    
-  }
-  else if(name.startsWith("artEducations.")){
-    setArtInfoFormData((prevData) => ({
-      ...prevData,
-      artEducation:value,
-    }))
-    
-  }
-  else if(name.startsWith("artName.")){
-    setArtInfoFormData((prevData) => ({
-      ...prevData,
-      artType:value,
-    }))
-  }else if(name.startsWith("aboutJourney")){
-    setArtInfoFormData((prevData) => ({
-      ...prevData,
-      aboutArt:value,
-    }))
-  }
-
-  else if(name.startsWith("pGuruName")){
-    setArtInfoFormData((prevData) => ({
-      ...prevData,
-      guruName:value,
-    }))
-  }
-}
-const [artTypeDataState,setArtTypeDataState] = useState("")
+  const [artInfoFormData, setArtInfoFormData] = useState({
+    artName: "",
+    artEducation: "",
+    artType: "",
+    artCategory: "",
+    aboutArt: "",
+  });
+  const [art, setArt] = useState([]);
+  const [artName1, setArtName1] = useState("");
+  const artChangesHandler = (e) => {
+    const { name, value } = e.target;
+    setArtName1(value);
+    setArt(artInfo1.find((ctr) => ctr.art === value).name);
+    if (name.startsWith("artEduDuration.")) {
+      console.log("hello ", art);
+      setArtInfoFormData((prevData) => ({
+        ...prevData,
+      }));
+    } else if (name.startsWith("artEducations.")) {
+      setArtInfoFormData((prevData) => ({
+        ...prevData,
+        artEducation: value,
+      }));
+    } else if (name.startsWith("artName.")) {
+      setArtInfoFormData((prevData) => ({
+        ...prevData,
+        artType: value,
+      }));
+    } else if (name.startsWith("aboutJourney")) {
+      setArtInfoFormData((prevData) => ({
+        ...prevData,
+        aboutArt: value,
+      }));
+    } else if (name.startsWith("pGuruName")) {
+      setArtInfoFormData((prevData) => ({
+        ...prevData,
+        guruName: value,
+      }));
+    }
+  };
+  const [artTypeDataState, setArtTypeDataState] = useState("");
   const artChangeHandler = (event) => {
     const { name, value } = event.target;
     setArtTypeDataState(value);
@@ -560,8 +572,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
           [name.split(".")[1]]: value,
         },
       }));
-    } 
-    else {
+    } else {
       setArtInfoFormData((prevData) => ({
         ...prevData,
         [name]: value,
@@ -573,33 +584,61 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
     event.preventDefault();
     const toastId = toast.loading("Loading...");
 
-    const {artEduDuration , artForm , artName , performanceType ,natureOfArt  , nameOfGuru , yearOfCompletation , traditionArtName , academicQualification , course , specialization , institute , academicQualificationDuration ,certificateCourse , certificateInstitute , certificateDuration } = artFormData;
-
-
+    const {
+      artEduDuration,
+      artForm,
+      artName,
+      performanceType,
+      natureOfArt,
+      nameOfGuru,
+      yearOfCompletation,
+      traditionArtName,
+      academicQualification,
+      course,
+      specialization,
+      institute,
+      academicQualificationDuration,
+      certificateCourse,
+      certificateInstitute,
+      certificateDuration,
+    } = artFormData;
 
     let artInfo = {
-        artForm , artName , perfType:performanceType , artNature : natureOfArt
-    }
+      artForm,
+      artName,
+      perfType: performanceType,
+      artNature: natureOfArt,
+    };
 
     let traditionalInfo = {
-      guruName: nameOfGuru , completionYear:yearOfCompletation , artName : traditionArtName , duration:artEduDuration
-    }
+      guruName: nameOfGuru,
+      completionYear: yearOfCompletation,
+      artName: traditionArtName,
+      duration: artEduDuration,
+    };
 
     let professionalInfo = {
-      course: course , duration:academicQualificationDuration , institute , specialization , qualification:academicQualification
-    }
+      course: course,
+      duration: academicQualificationDuration,
+      institute,
+      specialization,
+      qualification: academicQualification,
+    };
 
     let certificateInfo = {
-      course: certificateCourse , 
-      duration :certificateDuration , 
-      institute :certificateInstitute 
-    }
-
+      course: certificateCourse,
+      duration: certificateDuration,
+      institute: certificateInstitute,
+    };
 
     try {
-      const response = await makeAuthenticatedPATCHRequest(artistProfilePoints.UPDATE_PROFILE_DATA_API, {artInfo , traditionalInfo , professionalInfo , certificateInfo} , accessToken);
+      const response = await makeAuthenticatedPATCHRequest(
+        artistProfilePoints.UPDATE_PROFILE_DATA_API,
+        { artInfo, traditionalInfo, professionalInfo, certificateInfo },
+        accessToken
+      );
 
-      console.log('artrespone' , response);
+      console.log("artrespone", response);
 
       if (response.status === "success") {
         toast.success("successfuly update", {
@@ -819,15 +858,14 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
     awards: [],
   });
 
-
-  // Professional Profile 
-  const [artProfile,setArtProfile] = useState({
-   categoryOfArt:"",
-   nameOfArt:"",
-   typeOFArt:"",
-   artEducation:"",
-  professional: [],
-  Traditional:[]
+  // Professional Profile
+  const [artProfile, setArtProfile] = useState({
+    categoryOfArt: "",
+    nameOfArt: "",
+    typeOFArt: "",
+    artEducation: "",
+    professional: [],
+    Traditional: [],
   });
 
   const awardChangeHandler = (event) => {
@@ -902,7 +940,7 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
   // ! this is to add the new award in award section
   const addNewAward = () => {
     const newAward = {
-      NameOfGuru:"",
+      NameOfGuru: "",
       Location: "",
       Duration: "",
       year: "",
@@ -914,62 +952,62 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
     });
   };
 
+  // this is add button in Professional Art Education
 
 // this is add button in Professional Art Education 
 
 
 
 
-const addProfessional = () => {
-  const filled = {
-    NameOfGuru:"",
+
+  const addProfessional = () => {
+    const filled = {
+      NameOfGuru: "",
       Location: "",
       Duration: "",
       year: "",
-      Document: ""
+      Document: "",
+    };
+    setArtProfile({
+      ...artProfile,
+      professional: [...artProfile.professional, filled],
+    });
   };
-  setArtProfile({
-    ...artProfile,
-    professional:[...artProfile.professional, filled],
 
-  });
-};
-
-const addTraditional = () => {
-  const newTradition = {
-    Course:"",
-    Specialisation: "",
-    Institute: "",
-    Duration: "",
-    Completion: "",
-    Document: ""
+  const addTraditional = () => {
+    const newTradition = {
+      Course: "",
+      Specialisation: "",
+      Institute: "",
+      Duration: "",
+      Completion: "",
+      Document: "",
+    };
+    setArtProfile({
+      ...artProfile,
+      Traditional: [...artProfile.Traditional, newTradition],
+    });
   };
-  setArtProfile({
-    ...artProfile,
-    Traditional:[...artProfile.Traditional, newTradition],
 
-  });
-};
+  //remove the //remove the Professional
+  const removeLastTradition = () => {
+    const newTradition = [...artProfile.Traditional];
+    newTradition.pop(); // Remove the last element
 
-//remove the //remove the Professional
-const removeLastTradition = () => {
-  const newTradition = [...artProfile.Traditional];
-  newTradition.pop(); // Remove the last element
+    setArtProfile({
+      ...artProfile,
+      Traditional: newTradition,
+    });
+  };
+  const removeLastProfessional = () => {
+    const filled = [...artProfile.professional];
+    filled.pop(); // Remove the last element
 
-  setArtProfile({
-    ...artProfile,
-    Traditional: newTradition,
-  });
-};
-const removeLastProfessional = () => {
-  const filled = [...artProfile.professional];
-  filled.pop(); // Remove the last element
-
-  setArtProfile({
-    ...artProfile,
-    professional: filled,
-  });
-};
+    setArtProfile({
+      ...artProfile,
+      professional: filled,
+    });
+  };
 
   // ! remove the award detail in award section
   const removeLastAward = () => {
@@ -985,17 +1023,31 @@ const removeLastProfessional = () => {
   //  ! fetch  profile data function
   const fetchProileData = async () => {
     try {
-      const response = await makeAuthenticatedGETRequest(artistProfilePoints.FETCH_PROFILE_DATA_API, accessToken);
+      const response = await makeAuthenticatedGETRequest(
+        artistProfilePoints.FETCH_PROFILE_DATA_API,
+        accessToken
+      );
       console.log("fetchdata", response);
 
+      const {
+        address,
+        appliedOpportunities,
+        artInfo,
+        awardsInfo,
+        certificateInfo,
+        otherInfo,
+        performanceInfo,
+        personalInfo,
+        professionalInfo,
+        savedOpportunities,
+        socialLinks,
+        traditionalInfo,
+      } = response.data;
 
-    const {address , appliedOpportunities , artInfo , awardsInfo , certificateInfo , otherInfo , performanceInfo , personalInfo , professionalInfo , savedOpportunities , socialLinks , traditionalInfo} = response.data;
-      
-      if(personalInfo.avatar.url){
+      if (personalInfo.avatar.url) {
         setProfileAvatar(personalInfo.avatar.url);
       }
 
-     
       setBasicFormData((prev) => ({
         ...prev,
         firstName: personalInfo?.firstName,
@@ -1030,13 +1082,17 @@ const removeLastProfessional = () => {
           ...response.data.otherInfo.idProof,
         },
       }));
-      setlanguagesoptions(personalInfo.language.split(" ").map((item) => ({ value: item, label: item })))
+      setlanguagesoptions(
+        personalInfo.language
+          .split(" ")
+          .map((item) => ({ value: item, label: item }))
+      );
 
       //chiku art Information
       setArtInfoFormData((prev) => ({
         ...prev,
-        artCategory:artInfo?.artCategory,
-        artName:artInfo?.artName,
+        artCategory: artInfo?.artCategory,
+        artName: artInfo?.artName,
       }));
 
       setArtFormData((prev) => ({
@@ -1107,6 +1163,9 @@ const removeLastProfessional = () => {
         performanceImages: performanceInfo?.perfImgs,
         performancevideos: performanceInfo?.perfVideos,
       }));
+      if (performanceInfo?.perfDetails.length > 0) {
+        setTableData(performanceInfo?.perfDetails);
+      }
 
       setAwardFormData((prev) => ({
         ...prev,
@@ -1313,8 +1372,10 @@ const awardProfileSubmit = async (event) => {
 console.log("Award Data",awardProfile);
   return (
     <div className="Profile_Page">
-      <div className="ProfilePage_Navbar" style={{    position: "sticky",
-    top: "0"}}>
+      <div
+        className="ProfilePage_Navbar"
+        style={{ position: "sticky", top: "0" }}
+      >
         <Artist_navbar />
         <Navbar
           style={{ zIndex: "99" }}
@@ -1378,53 +1439,81 @@ console.log("Award Data",awardProfile);
 
       <div className="chiku-ProfileSection">
         <div className="profile-left">
-        <div className="BasicProfile_AccSet">
-          <h1>Account Settings</h1>
-          <button className={activeSection === "basic" ? "active" : ""} onClick={() => handleClick("basic")}>
-            <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-              <path
-                id="Vector"
-                d="M10 0C11.3261 0 12.5979 0.526784 13.5355 1.46447C14.4732 2.40215 15 3.67392 15 5C15 6.32608 14.4732 7.59785 13.5355 8.53553C12.5979 9.47322 11.3261 10 10 10C8.67392 10 7.40215 9.47322 6.46447 8.53553C5.52678 7.59785 5 6.32608 5 5C5 3.67392 5.52678 2.40215 6.46447 1.46447C7.40215 0.526784 8.67392 0 10 0ZM10 20C10 20 20 20 20 17.5C20 14.5 15.125 11.25 10 11.25C4.875 11.25 0 14.5 0 17.5C0 20 10 20 10 20Z"
-                fill="black"
-              />
-            </svg>{" "}
-            Basic Profile
-          </button>
-          <button className={activeSection === "art" ? "active" : ""} onClick={() => handleClick("art")}>
-            <img src={art} /> Art Profile
-          </button>
-          <button className={activeSection === "performance" ? "active" : ""} onClick={() => handleClick("performance")}>
-            <img src={performance} /> Performance Profile
-          </button>
-          <button className={activeSection === "award" ? "active" : ""} onClick={() => handleClick("award")}>
-            <img src={star} /> Award Profile
-          </button>
-        
-        </div>
-        <div className="BasicProfile_avatar">
-          {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
-          <div className="profileImg">
-          <img loading="lazy"src={defaultPic} />
-            <div className="progressBar">25%</div>
+          <div className="BasicProfile_AccSet">
+            <h1>Account Settings</h1>
+            <button
+              className={activeSection === "basic" ? "active" : ""}
+              onClick={() => handleClick("basic")}
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  id="Vector"
+                  d="M10 0C11.3261 0 12.5979 0.526784 13.5355 1.46447C14.4732 2.40215 15 3.67392 15 5C15 6.32608 14.4732 7.59785 13.5355 8.53553C12.5979 9.47322 11.3261 10 10 10C8.67392 10 7.40215 9.47322 6.46447 8.53553C5.52678 7.59785 5 6.32608 5 5C5 3.67392 5.52678 2.40215 6.46447 1.46447C7.40215 0.526784 8.67392 0 10 0ZM10 20C10 20 20 20 20 17.5C20 14.5 15.125 11.25 10 11.25C4.875 11.25 0 14.5 0 17.5C0 20 10 20 10 20Z"
+                  fill="black"
+                />
+              </svg>{" "}
+              Basic Profile
+            </button>
+            <button
+              className={activeSection === "art" ? "active" : ""}
+              onClick={() => handleClick("art")}
+            >
+              <img src={art} /> Art Profile
+            </button>
+            <button
+              className={activeSection === "performance" ? "active" : ""}
+              onClick={() => handleClick("performance")}
+            >
+              <img src={performance} /> Performance Profile
+            </button>
+            <button
+              className={activeSection === "award" ? "active" : ""}
+              onClick={() => handleClick("award")}
+            >
+              <img src={star} /> Award Profile
+            </button>
           </div>
-          <p style={{fontWeight:"500" , fontSize:"30px"}} >
-            {" "}
-            {basicFormData.firstName.toUpperCase()} {basicFormData.lastName.toUpperCase()}(eK ID: 12334)<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 50 50" fill="none">
-  <circle cx="25" cy="25" r="25" fill="#61C6FF"/>
-  <path d="M14 26.7143L19.4935 32.2791C19.885 32.6757 20.5252 32.6757 20.9168 32.2791L36 17" stroke="white" stroke-width="2" stroke-linecap="round"/>
-</svg>
-            <b></b>
-          </p>
-          <button onClick={handleButtonClick} className="BasicProfile_editavatar">Upload/Edit Profile Picture</button>
-          {/* <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button> */}
-         
+          <div className="BasicProfile_avatar">
+            {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
+            <div className="profileImg">
+              <img loading="lazy" src={defaultPic} />
+              <div className="progressBar">25%</div>
+            </div>
+            <p style={{ fontWeight: "500", fontSize: "30px" }}>
+              {" "}
+              {basicFormData.firstName.toUpperCase()}{" "}
+              {basicFormData.lastName.toUpperCase()}(eK ID: 12334)
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                viewBox="0 0 50 50"
+                fill="none"
+              >
+                <circle cx="25" cy="25" r="25" fill="#61C6FF" />
+                <path
+                  d="M14 26.7143L19.4935 32.2791C19.885 32.6757 20.5252 32.6757 20.9168 32.2791L36 17"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <b></b>
+            </p>
+            <button
+              onClick={handleButtonClick}
+              className="BasicProfile_editavatar"
+            >
+              Upload/Edit Profile Picture
+            </button>
+            {/* <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button> */}
+          </div>
         </div>
-
-        
-        
-      </div>
-
-
 
         {/* this is for basic  */}
 
@@ -1530,17 +1619,19 @@ console.log("Award Data",awardProfile);
                       value={basicFormData.age}
                       style={{ width: "100%" }}
                     ></input> */}
-                    <select name="age"
-                onChange={changeHandler}
-                value={basicFormData.age}
-                style={{ width: "100%" }}
-                required >
-                {Array.from({ length: 100 - 17 }, (_, index) => (
-                  <option key={index} value={index + 18}>
-                    {index + 18}
-                  </option>
-                ))}
-              </select>
+                    <select
+                      name="age"
+                      onChange={changeHandler}
+                      value={basicFormData.age}
+                      style={{ width: "100%" }}
+                      required
+                    >
+                      {Array.from({ length: 100 - 17 }, (_, index) => (
+                        <option key={index} value={index + 18}>
+                          {index + 18}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div
@@ -1586,7 +1677,9 @@ console.log("Award Data",awardProfile);
                         <option value="Female">Female</option>
                         <option value="Transgender">Transgender</option>
                         <option value="Any Other">Any Other</option>
-                        <option value="Prefer not to say">Prefer not to say</option>
+                        <option value="Prefer not to say">
+                          Prefer not to say
+                        </option>
                       </select>
                     </div>
                   </div>
@@ -1594,7 +1687,7 @@ console.log("Award Data",awardProfile);
                     className="BasicProfile_inputfield"
                     style={{ width: "30%" }}
                   >
-                    <label >
+                    <label>
                       Language Known <span className="red">*</span>
                     </label>
                     {/* <select
@@ -1619,13 +1712,12 @@ console.log("Award Data",awardProfile);
                       ))}
                     </select> */}
                     <Select
-                  defaultValue={languagesoptions}
-                  value={languagesoptions}
-                  isMulti
-                  onChange={setlanguagesoptions}
-                  options={languageoptions}
-                />
-
+                      defaultValue={languagesoptions}
+                      value={languagesoptions}
+                      isMulti
+                      onChange={setlanguagesoptions}
+                      options={languageoptions}
+                    />
                   </div>
                   <div>
                     {/* <div> */}
@@ -1776,7 +1868,9 @@ console.log("Award Data",awardProfile);
                             Select
                           </option>
                           <option value="No">No</option>
-                          {disabilitiesArray.map((option)=>(<option value={option}>{option}</option>))}
+                          {disabilitiesArray.map((option) => (
+                            <option value={option}>{option}</option>
+                          ))}
                         </select>{" "}
                       </div>
                       <div className="BasicProfile_inputfield">
@@ -1789,8 +1883,9 @@ console.log("Award Data",awardProfile);
                           <option selected hidden>
                             Select income Source
                           </option>
-                          {categories.map((option)=>(<option value={option}>{option}</option>))}
-                          
+                          {categories.map((option) => (
+                            <option value={option}>{option}</option>
+                          ))}
                         </select>
                       </div>
 
@@ -2019,66 +2114,93 @@ console.log("Award Data",awardProfile);
             </div>
           )}
 
-{/* this is for art profile */}
-      {activeSection === "art" && (
-        <div style={{fontFamily:"Poppins"}} className="ArtProfile_Infoform">
-          <form onSubmit={artSubmitHandler}>
-            <h4>ART INFORMATION</h4>
-            <div className="ArtProfile_ArtInfo">
-              <div className="ArtProfile_inputfield">
-                <label>Category of Art <span className="red">*</span></label>
-             
-                <select onChange={artChangesHandler} value={artName1} name="artEducations.education" placeholder="Select nature of art" >
-                  <option selected hidden>
-                  Select nature of art
-                  </option>
-                  {artInfo1.map((option ,index) => (
-          <option key={index} value={option.art}>
-            {option.art}
-          </option>
-        ))}
-                </select>
-              </div>
-              <div className="ArtProfile_inputfield">
-                <label>Name Of Art  <span className="red">*</span></label>
-                <select onChange={artChangesHandler} value={artInfoFormData.artName}  name="artName.name" placeholder="Select art form" >
-                  <option value={""} disabled>
-                  Select art form
-                  </option>
-                  {art.map((option ,index) => (
-          <option key={index}  value={option.type}>
-            {option.type}
-          </option>
-        ))}
-                </select>
-              </div>
-              <div className="ArtProfile_inputfield">
-                <label>Type of Art</label>
-                <select onChange={artChangeHandler}   name="artName" value={artTypeDataState} placeholder="Select name of the art " >
-                  <option  value={""} disabled>
-                  Select name of the art
-                  </option>
-                  {artTypeData.map((option ,index) => (
-          <option key={index}   value={option}>
-            {option}
-          </option>
-        ))}
-                </select>
-              </div>
-              <div className="ArtProfile_inputfield">
-                <label>Art Education</label>
-                <select onChange={artChangeHandler} value={artFormData.performanceType} name="performanceType" placeholder="Select name of the art " >
-                  <option value={""} disabled >
-                  Select performance type
-                  </option>
-                  {performancetype.map((option ,index) => (
-          <option key={index} value={option}>
-            {option}
-          </option>
-        ))}
-                </select>
-              </div>
-              {/* <div className="ArtProfile_inputfield">
+          {/* this is for art profile */}
+          {activeSection === "art" && (
+            <div
+              style={{ fontFamily: "Poppins" }}
+              className="ArtProfile_Infoform"
+            >
+              <form onSubmit={artSubmitHandler}>
+                <h4>ART INFORMATION</h4>
+                <div className="ArtProfile_ArtInfo">
+                  <div className="ArtProfile_inputfield">
+                    <label>
+                      Category of Art <span className="red">*</span>
+                    </label>
+
+                    <select
+                      onChange={artChangesHandler}
+                      value={artName1}
+                      name="artEducations.education"
+                      placeholder="Select nature of art"
+                    >
+                      <option selected hidden>
+                        Select nature of art
+                      </option>
+                      {artInfo1.map((option, index) => (
+                        <option key={index} value={option.art}>
+                          {option.art}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="ArtProfile_inputfield">
+                    <label>
+                      Name Of Art <span className="red">*</span>
+                    </label>
+                    <select
+                      onChange={artChangesHandler}
+                      value={artInfoFormData.artName}
+                      name="artName.name"
+                      placeholder="Select art form"
+                    >
+                      <option value={""} disabled>
+                        Select art form
+                      </option>
+                      {art.map((option, index) => (
+                        <option key={index} value={option.type}>
+                          {option.type}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="ArtProfile_inputfield">
+                    <label>Type of Art</label>
+                    <select
+                      onChange={artChangeHandler}
+                      name="artName"
+                      value={artTypeDataState}
+                      placeholder="Select name of the art "
+                    >
+                      <option value={""} disabled>
+                        Select name of the art
+                      </option>
+                      {artTypeData.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="ArtProfile_inputfield">
+                    <label>Art Education</label>
+                    <select
+                      onChange={artChangeHandler}
+                      value={artFormData.performanceType}
+                      name="performanceType"
+                      placeholder="Select name of the art "
+                    >
+                      <option value={""} disabled>
+                        Select performance type
+                      </option>
+                      {performancetype.map((option, index) => (
+                        <option key={index} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  {/* <div className="ArtProfile_inputfield">
                 <label>Genre</label>
                 <input onChange={artChangeHandler} value={artFormData.genre} name="genre" type="text"></input>
               </div>
@@ -2090,109 +2212,118 @@ console.log("Award Data",awardProfile);
                   </option>
                 </select>
               </div> */}
-            
-            </div>
-            <h4>Professional Art Education </h4>
-            <div className="ArtProfile_Traditional">
-            <table>
-              <tbody>
-                <tr>
-                  <td> Name of art 	</td>
-                  <td> Name of Guru		</td>
-                  <td> Location	</td>
-                  <td> Duration	(Month)</td>
-                  <td> Year of Completion	 	</td>
-                  <td>Upload Document	</td>
-                </tr>
-                <tr>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                </tr>
-                <tr>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                </tr>
-                <tr>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                </tr>
-              </tbody>
-            </table>
-            </div>
-            <h4>Traditional Art Education </h4>
-            <div className="ArtProfile_Traditional">
-            <table>
-              <tbody>
-                <tr>
-                  <td> Name of Course 	</td>
-                  <td> Specialisation</td>
-                  <td> Name of Institute	</td>
-                  <td> Duration	(Month)</td>
-                  <td> Year of Completion	 	</td>
-                  <td>Upload Document	</td>
-                </tr>
-                <tr>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                </tr>
-                <tr>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                </tr>
-                <tr>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                </tr>
-                <tr>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                  <td>.</td>
-                </tr>
-              </tbody>
-            </table>
-            </div>
-            <div style={{width:"100%" , marginTop:"20px"}}>
+                </div>
+                <h4>Professional Art Education </h4>
+                <div className="ArtProfile_Traditional">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td> Name of art </td>
+                        <td> Name of Guru </td>
+                        <td> Location </td>
+                        <td> Duration (Month)</td>
+                        <td> Year of Completion </td>
+                        <td>Upload Document </td>
+                      </tr>
+                      <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                      </tr>
+                      <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                      </tr>
+                      <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <h4>Traditional Art Education </h4>
+                <div className="ArtProfile_Traditional">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td> Name of Course </td>
+                        <td> Specialisation</td>
+                        <td> Name of Institute </td>
+                        <td> Duration (Month)</td>
+                        <td> Year of Completion </td>
+                        <td>Upload Document </td>
+                      </tr>
+                      <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                      </tr>
+                      <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                      </tr>
+                      <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                      </tr>
+                      <tr>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                        <td>.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div style={{ width: "100%", marginTop: "20px" }}>
                   <label htmlFor="aboutJourney">About The Art</label>
-                  <textarea name="aboutJourney" value={basicFormData.aboutJourney} onChange={changeHandler} style={{width:"100%"  , border:"2px solid rgb(0,0,0,0.5)" , padding:"10px", borderRadius:"10px" , resize:"none" , height:"166px" }}  />
-              </div>
+                  <textarea
+                    name="aboutJourney"
+                    value={basicFormData.aboutJourney}
+                    onChange={changeHandler}
+                    style={{
+                      width: "100%",
+                      border: "2px solid rgb(0,0,0,0.5)",
+                      padding: "10px",
+                      borderRadius: "10px",
+                      resize: "none",
+                      height: "166px",
+                    }}
+                  />
+                </div>
 
-              {artProfile.professional.map((professional, index) => (
+                {artProfile.professional.map((professional, index) => (
                   <React.Fragment key={index}>
-                                <h4>Professional Art Education +</h4>
+                    <h4>Professional Art Education +</h4>
 
                     {index === artProfile.professional.length - 1 ? (
                       // last index => add plus button
                       <>
-                      
                         <div className="AwardProfile_Awarddetials">
-
                           <div className="AwardProfile_inputfield">
                             <label>Name of Guru</label>
                             <input
@@ -2236,7 +2367,7 @@ console.log("Award Data",awardProfile);
                               <option selected hidden>
                                 Select Art
                               </option>
-                             <option>1</option>
+                              <option>1</option>
                             </select>
                           </div>
                           {/* <div className="AwardProfile_inputfield">
@@ -2254,16 +2385,34 @@ console.log("Award Data",awardProfile);
                             ></input>
                           </div>
                           <div className="BasicProfile_inputfield">
-                <label >Upload Document</label>
-                <input  value={professional.Document} style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
-                <div className="input" >
-                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
-  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
-</svg></label>
-
-                </div>
-
-              </div>
+                            <label>Upload Document</label>
+                            <input
+                              value={professional.Document}
+                              style={{ display: "none" }}
+                              onChange={changeHandler}
+                              id="fileID"
+                              placeholder="Enter UPI Id"
+                              name="upiId"
+                              type="file"
+                            />
+                            <div className="input">
+                              <label id="upload" htmlFor="fileID">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="30"
+                                  height="30"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
+                                    fill="black"
+                                    fill-opacity="0.54"
+                                  />
+                                </svg>
+                              </label>
+                            </div>
+                          </div>
                         </div>
 
                         <div className="AwardProfile_Addmorebtn">
@@ -2355,7 +2504,7 @@ console.log("Award Data",awardProfile);
                               <option>12</option>
                             </select>
                           </div>
-                         
+
                           <div className="AwardProfile_inputfield">
                             <label>Year of Completion</label>
                             <input
@@ -2367,16 +2516,34 @@ console.log("Award Data",awardProfile);
                             ></input>
                           </div>
                           <div className="BasicProfile_inputfield">
-                <label >Upload Document</label>
-                <input  value={professional.Document} style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
-                <div className="input" >
-                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
-  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
-</svg></label>
-
-                </div>
-
-              </div>
+                            <label>Upload Document</label>
+                            <input
+                              value={professional.Document}
+                              style={{ display: "none" }}
+                              onChange={changeHandler}
+                              id="fileID"
+                              placeholder="Enter UPI Id"
+                              name="upiId"
+                              type="file"
+                            />
+                            <div className="input">
+                              <label id="upload" htmlFor="fileID">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="30"
+                                  height="30"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
+                                    fill="black"
+                                    fill-opacity="0.54"
+                                  />
+                                </svg>
+                              </label>
+                            </div>
+                          </div>
                         </div>
 
                         <div className="AwardProfile_Addmorebtn">
@@ -2411,25 +2578,17 @@ console.log("Award Data",awardProfile);
                   </React.Fragment>
                 ))}
 
-
-
-
-
-
-
-
-{//comment
-}
-{awardFormData.awards.map((award, index) => (
+                {
+                  //comment
+                }
+                {awardFormData.awards.map((award, index) => (
                   <React.Fragment key={index}>
-                                            <h4>Traditional Art Education +</h4>
+                    <h4>Traditional Art Education +</h4>
 
                     {index === awardFormData.awards.length - 1 ? (
                       // last index => add plus button
                       <>
-                      
                         <div className="AwardProfile_Awarddetials">
-
                           <div className="AwardProfile_inputfield">
                             <label>Name of Course</label>
                             <input
@@ -2446,7 +2605,7 @@ console.log("Award Data",awardProfile);
                           </div>
 
                           <div className="AwardProfile_inputfield">
-                            <label>Specialisation	</label>
+                            <label>Specialisation </label>
                             <input
                               value={award.title}
                               onChange={(e) =>
@@ -2500,7 +2659,6 @@ console.log("Award Data",awardProfile);
                               <option>10</option>
                               <option>11</option>
                               <option>12</option>
-                             
                             </select>
                           </div>
                           {/* <div className="AwardProfile_inputfield">
@@ -2518,18 +2676,34 @@ console.log("Award Data",awardProfile);
                             ></input>
                           </div>
                           <div className="BasicProfile_inputfield">
-                <label >Upload Document</label>
-                <input style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
-                <div className="input" >
-                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
-  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
-</svg></label>
-
-                </div>
-
-              </div>
+                            <label>Upload Document</label>
+                            <input
+                              style={{ display: "none" }}
+                              onChange={changeHandler}
+                              id="fileID"
+                              placeholder="Enter UPI Id"
+                              name="upiId"
+                              type="file"
+                            />
+                            <div className="input">
+                              <label id="upload" htmlFor="fileID">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="30"
+                                  height="30"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
+                                    fill="black"
+                                    fill-opacity="0.54"
+                                  />
+                                </svg>
+                              </label>
+                            </div>
+                          </div>
                         </div>
-                        
 
                         <div className="AwardProfile_Addmorebtn">
                           <p>Add More Awards Details</p>
@@ -2635,7 +2809,7 @@ console.log("Award Data",awardProfile);
                               <option>12</option>
                             </select>
                           </div>
-                          
+
                           <div className="AwardProfile_inputfield">
                             <label>Year of Completion</label>
                             <input
@@ -2647,16 +2821,33 @@ console.log("Award Data",awardProfile);
                             ></input>
                           </div>
                           <div className="BasicProfile_inputfield">
-                <label >Upload Document</label>
-                <input style={{display:"none"}} onChange={changeHandler} id="fileID"  placeholder="Enter UPI Id" name="upiId" type="file" />
-                <div className="input" >
-                <label id="upload" htmlFor="fileID" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
-  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
-</svg></label>
-
-                </div>
-
-              </div>
+                            <label>Upload Document</label>
+                            <input
+                              style={{ display: "none" }}
+                              onChange={changeHandler}
+                              id="fileID"
+                              placeholder="Enter UPI Id"
+                              name="upiId"
+                              type="file"
+                            />
+                            <div className="input">
+                              <label id="upload" htmlFor="fileID">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="30"
+                                  height="30"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                >
+                                  <path
+                                    d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
+                                    fill="black"
+                                    fill-opacity="0.54"
+                                  />
+                                </svg>
+                              </label>
+                            </div>
+                          </div>
                         </div>
 
                         <div className="AwardProfile_Addmorebtn">
@@ -2691,18 +2882,18 @@ console.log("Award Data",awardProfile);
                   </React.Fragment>
                 ))}
 
-            <button type="submit" className="updateBtn">
-              Update
-            </button>
-          </form>
-        </div>
-      )}
+                <button type="submit" className="updateBtn">
+                  Update
+                </button>
+              </form>
+            </div>
+          )}
 
           {/* this is for performance */}
           {activeSection === "performance" && (
             <div
               style={{ fontFamily: "Poppins" }}
-              className="PerformanceProfile_Infoform performance_responsive"
+              className="PerformanceProfile_Infoform"
             >
               <form onSubmit={perforSubmitHandler}>
                 <h4>PERFORMANCE INFORMATION</h4>
@@ -2852,10 +3043,10 @@ console.log("Award Data",awardProfile);
                       value={performanceFormData.avgPerfDurationIn}
                     >
                       <option selected>Select</option>
-                      <option value="10min">10min</option>
-                      <option value="10-30min">10-30min</option>
-                      <option value="30-60min">30-60min</option>
-                      <option value="60-120min">60-120min</option>
+                      <option value="10min">10 minutes</option>
+                      <option value="10-30min">10-30 minutes</option>
+                      <option value="30-60min">30-60 minutes</option>
+                      <option value="60-120min">60-120 minutes</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -2882,10 +3073,10 @@ console.log("Award Data",awardProfile);
                       value={performanceFormData.avgPerfDurationInternational}
                     >
                       <option selected>Select</option>
-                      <option value="30min">30min</option>
-                      <option value="30-60min">30-60min</option>
-                      <option value="60-120min">60-120min</option>
-                      <option value="120min">120min</option>
+                      <option value="30min">30 minutes</option>
+                      <option value="30-60min">30-60 minutes</option>
+                      <option value="60-120min">60-120 minutes</option>
+                      <option value="120min">120 minutes</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3052,6 +3243,154 @@ console.log("Award Data",awardProfile);
 
               </div>
            
+=======
+                  <div className="BasicProfile_inputfield">
+                    <label>Major Performance Cities (India)</label>
+                    <select
+                      onChange={perforChangeHandler}
+                      name="majorPerfCityIndia"
+                      value={performanceFormData.majorPerfCityIndia}
+                    >
+                      <option selected>Select</option>
+                      {MajorIndianCities.map((i, index) => {
+                        return (
+                          <option key={index} value={i.city}>
+                            {i.city}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                  <div className="BasicProfile_inputfield">
+                    <label>Major Countries for Performance International</label>
+                    <select
+                      onChange={perforChangeHandler}
+                      name="majorPerfCountryInternational"
+                      value={performanceFormData.majorPerfCountryInternational}
+                    >
+                      <option selected>Select</option>
+                      {MajorInternationalCities.map((i, index) => {
+                        return (
+                          <option key={index} value={i}>
+                            {i}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                  <div className="ArtProfile_Traditional">
+                    <label>Major Performances/ Events (max. 5)</label>
+                    <table className="performance_table">
+                      <thead>
+                        <tr>
+                          <th>Name of Event</th>
+                          <th>Month-Year</th>
+                          <th>Level</th>
+                          <th>Location</th>
+                          <th>Partner/Organizer</th>
+                          <th>Media Links</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tableData.map((row, rowIndex) => (
+                          <tr key={rowIndex}>
+                            {Object.keys(row).map((key, colIndex) => (
+                              <td key={colIndex}>
+                                <input
+                                  type="text"
+                                  value={row[key]}
+                                  defaultValue={
+                                    performanceFormData.highestLevelOfPerformance
+                                  }
+                                  onChange={(e) =>
+                                    handlePerformanceTableChange(
+                                      e,
+                                      rowIndex,
+                                      key
+                                    )
+                                  }
+                                />
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="BasicProfile_inputfield position-relative">
+                    <label
+                      htmlFor="performanceImages"
+                      className="custom-file-input"
+                    >
+                      Performance Photograph(Max. 5)
+                    </label>
+                    <input
+                      style={{ color: "white" }}
+                      // onChange={handelMultipleImages}
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      name="performanceImages"
+                    />
+                    <svg
+                      className="position-absolute bottom-0 end-0 mb-2 mx-2"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="30"
+                      height="30"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                    >
+                      <path
+                        d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
+                        fill="black"
+                        fill-opacity="0.54"
+                      />
+                    </svg>
+                    {/* <div className="input position-absolute bottom-0">
+                      
+                    </div> */}
+                  </div>
+                  <div className="BasicProfile_inputfield">
+                    <label>Performance Video(Max. 3)</label>
+                    <input
+                      style={{ display: "none" }}
+                      onChange={perforChangeHandler}
+                      id="fileID"
+                      placeholder="Enter UPI Id"
+                      name="upiId"
+                      type="file"
+                    />
+                    <div className="input">
+                      <label id="upload" htmlFor="fileID">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="30"
+                          height="30"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
+                            fill="black"
+                            fill-opacity="0.54"
+                          />
+                        </svg>
+                      </label>
+                    </div>
+                  </div>
+                  {/* <div className="PerformanceProfile_inputfield">
+                <label>Income for Performing Art*</label>
+                <select value={performanceFormData.averagePerformanceIncome} onChange={perforChangeHandler} name="averagePerformanceIncome">
+                  <option selected >
+                    Select average income
+                  </option>
+                  {ChargesPerPerformance.map((option) => (
+          <option  value={option}>
+            {option}
+          </option>
+        ))}
+                </select>
+              </div> */}
                   <div style={{ width: "100%", marginTop: "20px" }}>
                     <label htmlFor="aboutJourney">
                       Highlights of your performance
@@ -3102,11 +3441,11 @@ console.log("Award Data",awardProfile);
                       <option selected hidden>
                       Total Number of Awards
                       </option>
-                     <option value="5">1-5</option>
-                     <option value="10">5-10</option>
-                     <option value="15">10-15</option>
-                     <option value="20">15-20</option>
-                     <option value="more">More</option>
+                      <option value="5">1-5</option>
+                      <option value="10">5-10</option>
+                      <option value="15">10-15</option>
+                      <option value="20">15-20</option>
+                      <option value="more">More</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3120,17 +3459,12 @@ console.log("Award Data",awardProfile);
                       Highest Level of Awards
                       </option>
                       <option value="International">International</option>
-                      <option value="National">
-                        National
-                      </option>
-                      <option value="State">
-                        State
-                      </option>
+                      <option value="National">National</option>
+                      <option value="State">State</option>
                       <option value="District">District</option>
                       <option value="Taluka">Taluka</option>
                       <option value="Local">Local</option>
                       <option value="Others">Others</option>
-                     
                     </select>
                   </div>
                   <h4>List Of Top Awards +</h4>

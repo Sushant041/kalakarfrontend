@@ -68,7 +68,7 @@ function InProgressApplicationItems({ currentEvent , jobData  , loading}) {
                         alignItems: "center",
                       }}
                     >
-                      <h1 className="single_inprogress_heading">{event?.opportunity?.position}</h1>
+                      <h1 className="single_inprogress_heading">{event?.opportunity?.purpose}</h1>
                       <div style={{color:'#F1BC00' , backgroundColor:"#FFF8B7" , paddingLeft:"8px" , paddingRight:"8px"  , paddingTop:"5px" ,paddingBottom:"5px", borderRadius:"10px"}} className="inprogress_text">
                       In-Progress
                       </div>

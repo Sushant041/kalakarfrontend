@@ -72,7 +72,7 @@
  grid-template-columns: 1fr 1fr;
  gap: 100px;
  /* background-color: aqua; */
- padding-left: 10px;
+ /* padding-left: 10px; */
  text-align: left;
  width: 100%;
 }
@@ -132,7 +132,7 @@ margin-bottom: 15px;
     background-color: white;
     width: 600px;
     border-radius: 20px;
-    height: 700px;
+    /* height: 700px; */
     opacity: 1;
     animation: popupContainerAnimate 0.4s linear 0s 1;
     animation-fill-mode: forwards;
