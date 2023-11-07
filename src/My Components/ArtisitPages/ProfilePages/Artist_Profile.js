@@ -32,6 +32,7 @@ import TwitterX from "./assets/TwitterX.svg"
 import YouTube from "./assets/YouTube.svg"
 import { specialization , languages , artform , performanceduration ,artTypeData, performancetype , natureofArt , nameofart , courses,categories ,disabilitiesArray, highestLevelOfPerformance , ChargesPerPerformance,artInfo1 } from "../../../Data/artistProfile";
 import Select from 'react-select';
+// import { CloseButton } from "react-toastify/dist/components";
 
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
@@ -367,7 +368,6 @@ const [hightLevel,sethightLevel]= useState("")
   //   ! submit update handler for basic profile
   const basicSubmitHandler = async (event) => {
     event.preventDefault();
-
     const toastId = toast.loading("Loading...");
 
     let address = basicFormData.address;
@@ -851,53 +851,53 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
   };
 
   // ! award section update
-  const awardSubmitHandler = async (event) => {
-    event.preventDefault();
-    const taostId = toast.loading("Loding...");
-    try {
-      const {
-        totalAwards,
-        totalNoOfLocalAwards,
-        totalNoOfDistrictAwards,
-        totalNoOfStateAwards,
-        totalNoOfNationalAwards,
-        totalNoOfInternationalAwards,
-        awards,
-      } = awardFormData;
+  // const awardSubmitHandler = async (event) => {
+  //   event.preventDefault();
+  //   const taostId = toast.loading("Loding...");
+  //   try {
+  //     const {
+  //       totalAwards,
+  //       totalNoOfLocalAwards,
+  //       totalNoOfDistrictAwards,
+  //       totalNoOfStateAwards,
+  //       totalNoOfNationalAwards,
+  //       totalNoOfInternationalAwards,
+  //       awards,
+  //     } = awardFormData;
 
-      let awardsInfo = {
-        districtAwards: totalNoOfDistrictAwards,
-        internationalAwards: totalNoOfInternationalAwards,
-        localAwards: totalNoOfLocalAwards,
-        nationalAwards: totalNoOfNationalAwards,
-        stateAwards: totalNoOfStateAwards,
-        totalAwards: totalAwards,
-        awardsDetails: [...awards],
-      };
+  //     let awardsInfo = {
+  //       districtAwards: totalNoOfDistrictAwards,
+  //       internationalAwards: totalNoOfInternationalAwards,
+  //       localAwards: totalNoOfLocalAwards,
+  //       nationalAwards: totalNoOfNationalAwards,
+  //       stateAwards: totalNoOfStateAwards,
+  //       totalAwards: totalAwards,
+  //       awardsDetails: [...awards],
+  //     };
 
-      const response = await makeAuthenticatedPATCHRequest(
-        artistProfilePoints.UPDATE_PROFILE_DATA_API,
-        { awardsInfo },
-        accessToken
-      );
-      console.log("response", response);
-      if (response.status === "success") {
-        toast.success("successfully update", {
-          position: "top-center",
-        });
+  //     const response = await makeAuthenticatedPATCHRequest(
+  //       artistProfilePoints.UPDATE_PROFILE_DATA_API,
+  //       { awardsInfo },
+  //       accessToken
+  //     );
+  //     console.log("response", response);
+  //     if (response.status === "success") {
+  //       toast.success("successfully update", {
+  //         position: "top-center",
+  //       });
 
-        localStorage.setItem("activeSection", activeSection);
-      } else {
-        toast.error(response.message, {
-          position: "top-center",
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  //       localStorage.setItem("activeSection", activeSection);
+  //     } else {
+  //       toast.error(response.message, {
+  //         position: "top-center",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
 
-    toast.dismiss(taostId);
-  };
+  //   toast.dismiss(taostId);
+  // };
 
   // ! this is to add the new award in award section
   const addNewAward = () => {
@@ -916,6 +916,9 @@ const [artTypeDataState,setArtTypeDataState] = useState("")
 
 
 // this is add button in Professional Art Education 
+
+
+
 
 const addProfessional = () => {
   const filled = {
@@ -1240,6 +1243,74 @@ const removeLastProfessional = () => {
   //   marginTop: "-2vh",
   // };
 
+
+// New Award festure are there 
+const [awardProfile,setAwardProfile] = useState({
+  totalAward:"",
+  level:"",
+  topAwards:[],
+  highlight:""
+})
+const awardHandler = (event) => {
+  const { name, value } = event.target;
+
+  if(name.startsWith("award.")){
+    setAwardProfile({...awardProfile,totalAward:value})
+  }
+  else if(name.startsWith("level.")){
+    setAwardProfile({...awardProfile,level:value})
+  }
+  else if(name.startsWith("highlight.")){
+    setAwardProfile({...awardProfile,highlight:value})
+  }
+}
+
+const awardProfileSubmit = async (event) => {
+    event.preventDefault();
+    const taostId = toast.loading("Loding...");
+    try {
+      const {
+        totalAward,
+        level,
+        topAwards,
+        highlight
+       } = awardProfile;
+
+       let awardDetails = {
+        awardsDetails:[...topAwards],
+        highlights: highlight,
+        level: level,
+        totalAwards:totalAward,
+       }
+       const responses = await makeAuthenticatedPATCHRequest(
+        artistProfilePoints.UPDATE_PROFILE_DATA_API,
+        { awardDetails },
+        accessToken
+      );
+
+      console.log("response", responses);
+      if (responses.status === "success") {
+        toast.success("successfully update", {
+          position: "top-center",
+        });
+
+        localStorage.setItem("activeSection", activeSection);
+      } else {
+        toast.error(responses.message, {
+          position: "top-center",
+        });
+      }
+    }
+     catch (error) {
+      console.log(error);
+    } 
+    finally{
+      toast.dismiss(taostId);
+    }
+
+    }
+
+console.log("Award Data",awardProfile);
   return (
     <div className="Profile_Page">
       <div className="ProfilePage_Navbar" style={{    position: "sticky",
@@ -2980,19 +3051,7 @@ const removeLastProfessional = () => {
                 </div>
 
               </div>
-              {/* <div className="PerformanceProfile_inputfield">
-                <label>Income for Performing Art*</label>
-                <select value={performanceFormData.averagePerformanceIncome} onChange={perforChangeHandler} name="averagePerformanceIncome">
-                  <option selected >
-                    Select average income
-                  </option>
-                  {ChargesPerPerformance.map((option) => (
-          <option  value={option}>
-            {option}
-          </option>
-        ))}
-                </select>
-              </div> */}
+           
                   <div style={{ width: "100%", marginTop: "20px" }}>
                     <label htmlFor="aboutJourney">
                       Highlights of your performance
@@ -3023,23 +3082,25 @@ const removeLastProfessional = () => {
           )}
 
           {/* this is for award  */}
+          {/* Award section  */}
+
           {activeSection === "award" && (
             <div
               style={{ fontFamily: "Poppins" }}
               className="AwardProfile_Infoform"
             >
-              <form onSubmit={awardSubmitHandler}>
+              <form onSubmit={awardProfileSubmit}>
                 <h4>AWARDS</h4>
                 <div className="AwardProfile_AwardInfo">
                   <div className="BasicProfile_inputfield">
                     <label>Total Number of Awards</label>
                     <select
-                      onChange={changeHandler}
-                      name="award"
-                      value={numberOfAward}
+                      onChange={awardHandler}
+                      name="award.number"
+                      value={awardProfile.totalAward}
                     >
                       <option selected hidden>
-                        Select State
+                      Total Number of Awards
                       </option>
                      <option value="5">1-5</option>
                      <option value="10">5-10</option>
@@ -3051,12 +3112,12 @@ const removeLastProfessional = () => {
                   <div className="BasicProfile_inputfield">
                     <label>Highest Level of Awards </label>
                     <select
-                      onChange={changeHandler}
-                      name="hightest"
-                      value={hightLevel}
+                      onChange={awardHandler}
+                      name="level.number"
+                      value={awardProfile.level}
                     >
                       <option selected hidden>
-                        Select State
+                      Highest Level of Awards
                       </option>
                       <option value="International">International</option>
                       <option value="National">
@@ -3117,9 +3178,9 @@ const removeLastProfessional = () => {
                     Highlights of Awards (if any)
                   </label>
                   <textarea
-                    name="aboutJourney"
-                    value={basicFormData.aboutJourney}
-                    onChange={changeHandler}
+                    onChange={awardHandler}
+                    name="highlight.about"
+                    value={awardProfile.highlight}
                     style={{
                       width: "100%",
                       border: "2px solid rgb(0,0,0,0.5)",
@@ -3138,21 +3199,17 @@ const removeLastProfessional = () => {
                       <>
                         <div className="AwardProfile_Awarddetials">
                           <div className="AwardProfile_inputfield">
-                            <label>Name of Course</label>
+                            <label>Name Of The Award</label>
                             <input
-                              value={award.title}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  index,
-                                  "title",
-                                  e.target.value
-                                )
-                              }
+                             onChange={awardHandler}
+                      name="award.number"
+                      value={awardProfile.totalAward}
                               type="text"
                             ></input>
                           </div>
+
                           <div className="AwardProfile_inputfield">
-                            <label>Name Of Institute</label>
+                            <label>Awarding Body</label>
                             <input
                               value={award.title}
                               onChange={(e) =>
@@ -3165,8 +3222,9 @@ const removeLastProfessional = () => {
                               type="text"
                             ></input>
                           </div>
+
                           <div className="AwardProfile_inputfield">
-                            <label>Name of Art</label>
+                            <label>Level</label>
                             <select
                               value={award.category}
                               onChange={(e) =>
@@ -3176,7 +3234,7 @@ const removeLastProfessional = () => {
                                   e.target.value
                                 )
                               }
-                            >
+                            > 
                               <option selected hidden>
                                 Select Art
                               </option>
@@ -3185,34 +3243,61 @@ const removeLastProfessional = () => {
                               ))}
                             </select>
                           </div>
-                          {/* <div className="AwardProfile_inputfield">
-                        <label>Name of the Stage</label>
-                        <input value={award.stage} onChange={(e) => handleInputChange(index, "stage", e.target.value)} type="text"></input>
-                      </div> */}
+
                           <div className="AwardProfile_inputfield">
-                            <label>Year of Completion</label>
-                            <input
-                              value={award.year}
-                              onChange={(e) =>
-                                handleInputChange(index, "year", e.target.value)
-                              }
-                              type="text"
-                            ></input>
-                          </div>
-                          <div className="AwardProfile_inputfield">
-                            <label>Given By</label>
-                            <input
-                              value={award.givenBy}
+                            <label>Location</label>
+                            <select
+                              value={award.category}
                               onChange={(e) =>
                                 handleInputChange(
                                   index,
-                                  "givenBy",
+                                  "category",
                                   e.target.value
                                 )
                               }
-                              type="text"
-                            ></input>
+                            > 
+                              <option selected hidden>
+                                Select Art
+                              </option>
+                              {nameofart.map((option) => (
+                                <option value={option}>{option}</option>
+                              ))}
+                            </select>
                           </div>
+                         
+                         <div className="AwardProfile_inputfield">
+                            <label>Year</label>
+                            <select
+                              value={award.category}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  index,
+                                  "category",
+                                  e.target.value
+                                )
+                              }
+                            > 
+                              <option selected hidden>
+                                Select Art
+                              </option>
+                              {nameofart.map((option) => (
+                                <option value={option}>{option}</option>
+                              ))}
+                            </select>
+                          </div>
+
+                          <div className="BasicProfile_inputfield">
+                <label >Upload Document</label>
+                <input   style={{display:"none"}} onChange={changeHandler} id="fileIDA"  placeholder="Enter UPI Id" name="upiId" type="file" />
+                <div className="input" >
+                <label id="upload" htmlFor="fileIDA" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
+</svg></label>
+
+                </div>
+
+                          </div>
+
                         </div>
 
                         <div className="AwardProfile_Addmorebtn">
@@ -3246,9 +3331,9 @@ const removeLastProfessional = () => {
                     ) : (
                       // not last index => add - button
                       <>
-                        <div className="AwardProfile_Awarddetials">
+                         <div className="AwardProfile_Awarddetials">
                           <div className="AwardProfile_inputfield">
-                            <label>Award Name</label>
+                            <label>Name Of The Award</label>
                             <input
                               value={award.title}
                               onChange={(e) =>
@@ -3261,22 +3346,24 @@ const removeLastProfessional = () => {
                               type="text"
                             ></input>
                           </div>
+
                           <div className="AwardProfile_inputfield">
-                            <label>Name Of Institute</label>
+                            <label>Awarding Body</label>
                             <input
                               value={award.title}
                               onChange={(e) =>
                                 handleInputChange(
                                   index,
-                                  "institute",
+                                  "Institute",
                                   e.target.value
                                 )
                               }
                               type="text"
                             ></input>
                           </div>
+
                           <div className="AwardProfile_inputfield">
-                            <label>Duration (Month)</label>
+                            <label>Level</label>
                             <select
                               value={award.category}
                               onChange={(e) =>
@@ -3286,50 +3373,70 @@ const removeLastProfessional = () => {
                                   e.target.value
                                 )
                               }
-                            >
+                            > 
                               <option selected hidden>
-                                Select Duration (Month)
+                                Select Art
                               </option>
+                              {nameofart.map((option) => (
+                                <option value={option}>{option}</option>
+                              ))}
                             </select>
                           </div>
+
                           <div className="AwardProfile_inputfield">
-                            <label>Year of Completion</label>
-                            <input
-                              value={award.stage}
+                            <label>Location</label>
+                            <select
+                              value={award.category}
                               onChange={(e) =>
                                 handleInputChange(
                                   index,
-                                  "stage",
+                                  "category",
                                   e.target.value
                                 )
                               }
-                              type="text"
-                            ></input>
+                            > 
+                              <option selected hidden>
+                                Select Art
+                              </option>
+                              {nameofart.map((option) => (
+                                <option value={option}>{option}</option>
+                              ))}
+                            </select>
                           </div>
-                          <div className="AwardProfile_inputfield">
-                            <label>Award Year</label>
-                            <input
-                              value={award.year}
-                              onChange={(e) =>
-                                handleInputChange(index, "year", e.target.value)
-                              }
-                              type="text"
-                            ></input>
-                          </div>
-                          <div className="AwardProfile_inputfield">
-                            <label>Given By</label>
-                            <input
-                              value={award.givenBy}
+                         
+                         <div className="AwardProfile_inputfield">
+                            <label>Year</label>
+                            <select
+                              value={award.category}
                               onChange={(e) =>
                                 handleInputChange(
                                   index,
-                                  "givenBy",
+                                  "category",
                                   e.target.value
                                 )
                               }
-                              type="text"
-                            ></input>
+                            > 
+                              <option selected hidden>
+                                Select Art
+                              </option>
+                              {nameofart.map((option) => (
+                                <option value={option}>{option}</option>
+                              ))}
+                            </select>
                           </div>
+
+                          <div className="BasicProfile_inputfield">
+                <label >Upload Document</label>
+                <input   style={{display:"none"}} onChange={changeHandler} id="fileIDA"  placeholder="Enter UPI Id" name="upiId" type="file" />
+                <div className="input" >
+                <label id="upload" htmlFor="fileIDA" ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none">
+  <path d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z" fill="black" fill-opacity="0.54"/>
+</svg></label>
+
+                </div>
+
+                          </div>
+
                         </div>
 
                         <div className="AwardProfile_Addmorebtn">
