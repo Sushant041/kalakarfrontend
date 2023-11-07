@@ -120,9 +120,9 @@ export function Artist_OpportunitiesMoreInfo() {
           <h1 style={{ color: "#AD2F3B" }}>{jobData?.purpose}</h1>
           <div className="OpportunitiesMoreInfoPage_Topboxcontent">
             <div className="OpportunitiesPage_displayonejob_contentdetailsone">
-              <p>
+              {/* <p>
                 Category :&emsp;<span>{jobData?.artCategory}</span>
-              </p>
+              </p> */}
               <p>
                 Posted on :&emsp;
                 <span>
@@ -144,10 +144,10 @@ export function Artist_OpportunitiesMoreInfo() {
                   )}
                 </span>
               </p>
-              <p>
+              {/* <p>
                 {" "}
                 Opening :&emsp; <span>{jobData?.requiredArtists}</span>
-              </p>
+              </p> */}
             </div>
             <div className="OpportunitiesMoreInfoPage_Topboxbtns">
               <button className="btnone">Share</button>
