@@ -385,6 +385,7 @@ export function Artist_Profile() {
   //   ! submit update handler for basic profile
   const basicSubmitHandler = async (event) => {
     event.preventDefault();
+
     const toastId = toast.loading("Loading...");
 
     let address = basicFormData.address;
@@ -899,7 +900,11 @@ export function Artist_Profile() {
   };
 
   // ! award section update
+<<<<<<< HEAD
   const awardSubmitsHandler = async (event) => {
+=======
+  const awardSubmitHandler = async (event) => {
+>>>>>>> 77f3e1b3b71524c33b8e08d1bb9766972570e72a
     event.preventDefault();
     const taostId = toast.loading("Loding...");
     try {
@@ -1312,6 +1317,7 @@ export function Artist_Profile() {
   //   marginTop: "-2vh",
   // };
 
+<<<<<<< HEAD
 
 
 
@@ -1451,6 +1457,8 @@ const awardTableHandle = (e, rowIdx, key) => {
   setAwardData(awardsTable);
 };
 console.log("award Page",awardData);
+=======
+>>>>>>> 77f3e1b3b71524c33b8e08d1bb9766972570e72a
   return (
     <div className="Profile_Page">
       <div
@@ -3352,6 +3360,7 @@ console.log("award Page",awardData);
                   <div className="BasicProfile_inputfield">
                     <label>Total Number of Awards</label>
                     <select
+<<<<<<< HEAD
                       onChange={awardHandle}
                       name="award.name"
                       value={awardData.award}
@@ -3359,6 +3368,15 @@ console.log("award Page",awardData);
                       <option selected hidden>
                       Total Number of Awards  
                     </option>
+=======
+                      onChange={changeHandler}
+                      name="award"
+                      value={numberOfAward}
+                    >
+                      <option selected hidden>
+                        Select State
+                      </option>
+>>>>>>> 77f3e1b3b71524c33b8e08d1bb9766972570e72a
                       <option value="5">1-5</option>
                       <option value="10">5-10</option>
                       <option value="15">10-15</option>
@@ -3369,12 +3387,21 @@ console.log("award Page",awardData);
                   <div className="BasicProfile_inputfield">
                     <label>Highest Level of Awards </label>
                     <select
+<<<<<<< HEAD
                       onChange={awardHandle}
                       name="level.name"
                       value={awardData.level}
                     >
                       <option selected hidden>
                       Highest Level of Awards 
+=======
+                      onChange={changeHandler}
+                      name="hightest"
+                      value={hightLevel}
+                    >
+                      <option selected hidden>
+                        Select State
+>>>>>>> 77f3e1b3b71524c33b8e08d1bb9766972570e72a
                       </option>
                       <option value="International">International</option>
                       <option value="National">National</option>
@@ -3430,9 +3457,15 @@ console.log("award Page",awardData);
                     Highlights of Awards (if any)
                   </label>
                   <textarea
+<<<<<<< HEAD
                     name="highlight.highlight"
                     value={awardData.highlight}
                     onChange={awardHandle}
+=======
+                    name="aboutJourney"
+                    value={basicFormData.aboutJourney}
+                    onChange={changeHandler}
+>>>>>>> 77f3e1b3b71524c33b8e08d1bb9766972570e72a
                     style={{
                       width: "100%",
                       border: "2px solid rgb(0,0,0,0.5)",
