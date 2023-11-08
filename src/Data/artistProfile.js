@@ -45,7 +45,7 @@ export const typeOfArt = ["Classical","folk","fusion"," any other"]
 export const artInfo1=[
   {
     art:"Dance",
-    name:[
+    category:[
       {
         type:"Bharatanatyam"
       },
@@ -141,7 +141,7 @@ export const artInfo1=[
   },
   {
     art:"Song",
-    name:[
+    category:[
       {
         type:"Dhrupad"
       },
@@ -197,7 +197,7 @@ export const artInfo1=[
   },
   {
     art:"Music",
-    name:[
+    category:[
       {
         type:"Bansuri"
       },
@@ -272,7 +272,7 @@ export const artInfo1=[
   },
   {
     art:"Theatre",
-    name:[
+    category:[
       {
         type:"Bhavai"
       },
@@ -322,7 +322,7 @@ export const artInfo1=[
   },
   {
     art:"Any Other",
-    name:[
+    category:[
       {
         type:"Other"
       }

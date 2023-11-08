@@ -511,85 +511,117 @@ export function Artist_Profile() {
       end: "",
     },
   });
+  const [professionalTable,setProfessionalTable] = useState([
+    {
+      nameOfArt:"",
+      nameOfGuru:"",
+      location:"",
+      duration:"",
+      Completion:"",
+      link:""
+    },
+    {
+      nameOfArt:"",
+      nameOfGuru:"",
+      location:"",
+      duration:"",
+      Completion:"",
+      link:""
+    },
+    {
+      nameOfArt:"",
+      nameOfGuru:"",
+      location:"",
+      duration:"",
+      Completion:"",
+      link:""
+    },
+  ])
+  const handlePerformanceTableChanges = (e, rowIdx, key) => {
+    const newData = [...professionalTable];
+    newData[rowIdx][key] = e.target.value;
+    setProfessionalTable(newData);
+  };
   const [artInfoFormData, setArtInfoFormData] = useState({
     artName: "",
     artEducation: "",
     artType: "",
     artCategory: "",
     aboutArt: "",
-  });
-  const [art, setArt] = useState([]);
-  const [artName1, setArtName1] = useState("");
+    nameOfGuru:"",
+    location:"",
+    duration:"",
+    completion:"",
+    link:""
+  })
 
+const [art,setArt] = useState([])
 
   const artChangesHandler = (e) => {
-    const { name, value } = e.target;
-    setArtName1(value);
-    setArt(artInfo1.find((ctr) => ctr.art === value).name);
-    if (name.startsWith("artEduDuration.")) {
-      console.log("hello ", art);
-      setArtInfoFormData((prevData) => ({
-        ...prevData,
-      }));
-    } else if (name.startsWith("artEducations.")) {
-      setArtInfoFormData((prevData) => ({
-        ...prevData,
-        artEducation: value,
-      }));
-    } else if (name.startsWith("artType.")) {
-      setArtInfoFormData((prevData) => ({
-        ...prevData,
-        artType: value,
-      }));
-      
-    }else if (name.startsWith("artName.name")) {
-      setArtInfoFormData((prevData) => ({
-        ...prevData,
-        artName: value,
-      }));
-      
-    } else if (name.startsWith("aboutJourney")) {
-      setArtInfoFormData((prevData) => ({
-        ...prevData,
-        aboutArt: value,
-      }));
-    } else if (name.startsWith("pGuruName")) {
-      setArtInfoFormData((prevData) => ({
-        ...prevData,
-        guruName: value,
-      }));
+    e.preventDefault();
+    const{name,value} = e.target;
+    if(name.startsWith("artCategory")){
+      setArt(artInfo1.find((ctr) => ctr.art === value).category);
+      setArtInfoFormData((prev)=>({
+        ...prev,
+        artCategory: value
+      }))
     }
-    console.log("try",artInfoFormData);
-  };
-  const [artTypeDataState, setArtTypeDataState] = useState("");
-  const artChangeHandler = (event) => {
-    const { name, value } = event.target;
-    setArtTypeDataState(value);
-    if (name.startsWith("artEduDuration.")) {
-      // If the change is related to address, update the nested state
-      setArtInfoFormData((prevData) => ({
-        ...prevData,
-        artEduDuration: {
-          ...prevData.artInfoFormData,
-          [name.split(".")[1]]: value,
-        },
-      }));
-    } else if (name.startsWith("academicQualificationDuration.")) {
-      // If the change is related to address, update the nested state
-      setArtInfoFormData((prevData) => ({
-        ...prevData,
-        academicQualificationDuration: {
-          ...prevData.academicQualificationDuration,
-          [name.split(".")[1]]: value,
-        },
-      }));
-    } else {
-      setArtInfoFormData((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+    else if(name.startsWith("artType")){
+      setArtInfoFormData((prev)=>({
+        ...prev,
+        artType: value
+      }))
     }
-  };
+    else if(name.startsWith("artEducations")){
+      setArtInfoFormData((prev)=>({
+        ...prev,
+        artEducation: value
+      }))
+    }
+    else if(name.startsWith("aboutJourney")){
+      setArtInfoFormData((prev)=>({
+        ...prev,
+        aboutArt: value
+      }))
+    }
+    else if(name.startsWith("abhishek")){
+      setArtInfoFormData((prev)=>({
+        ...prev,
+        artName: value
+      }))
+    }
+};
+console.log("abhishek",art);
+  // const [artTypeDataState, setArtTypeDataState] = useState("");
+  // const artChangeHandler = (event) => {
+  //   const { name, value } = event.target;
+  //   setArtTypeDataState(value);
+  //   if (name.startsWith("artEduDuration.")) {
+  //     // If the change is related to address, update the nested state
+  //     setArtInfoFormData((prevData) => ({
+  //       ...prevData,
+  //       artEduDuration: {
+  //         ...prevData.artInfoFormData,
+  //         [name.split(".")[1]]: value,
+  //       },
+  //     }));
+  //   } else if (name.startsWith("academicQualificationDuration.")) {
+  //     // If the change is related to address, update the nested state
+  //     setArtInfoFormData((prevData) => ({
+  //       ...prevData,
+  //       academicQualificationDuration: {
+  //         ...prevData.academicQualificationDuration,
+  //         [name.split(".")[1]]: value,
+  //       },
+  //     }));
+  //   } else {
+  //     setArtInfoFormData((prevData) => ({
+  //       ...prevData,
+  //       [name]: value,
+  //     }));
+  //   }
+  // };
 
   const artSubmitHandler = async (event) => {
     event.preventDefault();
@@ -598,10 +630,10 @@ export function Artist_Profile() {
     const {
       artEduDuration,
       artForm,
-      artName,
+      // artName,
       performanceType,
       natureOfArt,
-      nameOfGuru,
+      // nameOfGuru,
       yearOfCompletation,
       traditionArtName,
       academicQualification,
@@ -614,13 +646,27 @@ export function Artist_Profile() {
       certificateDuration,
     } = artFormData;
 
-    let artInfo = {
-      artForm,
+    const {
+      aboutArt,
+      artCategory,
+      artEducation,
       artName,
-      perfType: performanceType,
-      artNature: natureOfArt,
-    };
+      artType,
+      nameOfGuru,
+      location,
+      duration,
+      completion,
+      link
+    } = artInfoFormData;
 
+
+    let artInfo = {
+      aboutArt:aboutArt,
+      artCategory:artCategory,
+      artEducation:artEducation,
+      artName:artName,
+      artType:artType,
+    };
     let traditionalInfo = {
       guruName: nameOfGuru,
       completionYear: yearOfCompletation,
@@ -629,11 +675,12 @@ export function Artist_Profile() {
     };
 
     let professionalInfo = {
-      course: course,
-      duration: academicQualificationDuration,
-      institute,
-      specialization,
-      qualification: academicQualification,
+      artName:artName,
+      nameOfGuru:nameOfGuru,
+      location:location,
+      duration:duration,
+      completion:completion,
+      link:link
     };
 
     let certificateInfo = {
@@ -645,7 +692,7 @@ export function Artist_Profile() {
     try {
       const response = await makeAuthenticatedPATCHRequest(
         artistProfilePoints.UPDATE_PROFILE_DATA_API,
-        { artInfo, traditionalInfo, professionalInfo, certificateInfo },
+        { artInfo , professionalInfo },
         accessToken
       );
 
@@ -1102,8 +1149,11 @@ export function Artist_Profile() {
       //chiku art Information
       setArtInfoFormData((prev) => ({
         ...prev,
+        aboutArt:artInfo?.aboutArt,
         artCategory: artInfo?.artCategory,
+        artEducation: artInfo?.artEducation,
         artName: artInfo?.artName,
+        artType: artInfo?.artType,
       }));
 
       setArtFormData((prev) => ({
@@ -2211,10 +2261,10 @@ console.log("award Page",awardData);
                     </label>
 
                     <select
-                      onChange={artChangesHandler}
-                      value={artName1}
-                      name="artEducations.education"
+                      name="artCategory"
                       placeholder="Select nature of art"
+                      onChange={artChangesHandler}
+                      value={artInfoFormData.artCategory}
                     >
                       <option selected hidden>
                         Select nature of art
@@ -2226,17 +2276,27 @@ console.log("award Page",awardData);
                       ))}
                     </select>
                   </div>
+
+
+                  
                   <div className="ArtProfile_inputfield">
                     <label>
                       Name Of Art <span className="red">*</span>
                     </label>
                     <select
-                      onChange={artChangesHandler}
-                      value={art}
-                      name="artName.name"
+                      name="abhishek"
                       placeholder="Select art forms"
+                      value={artInfoFormData.artName}
+
+                      onChange={(e)=>{
+                        setArtInfoFormData((prev)=>({
+                          ...prev,
+                          artName: e.target.value
+                        }))
+
+                      }}
                     >
-                      <option value={""} disabled>
+                      <option selected hidden>
                         Select art form
                       </option>
                       {art.map((option, index) => (
@@ -2249,10 +2309,11 @@ console.log("award Page",awardData);
                   <div className="ArtProfile_inputfield">
                     <label>Type of Art</label>
                     <select
-                      onChange={artChangeHandler}
-                      name="artType.name"
-                      value={artTypeDataState}
+                      onChange={artChangesHandler}
+                      name="artType"
                       placeholder="Select name of the art "
+                      value={artInfoFormData.artType}
+
                     >
                       <option value={""} disabled>
                         Select name of the art
@@ -2264,13 +2325,16 @@ console.log("award Page",awardData);
                       ))}
                     </select>
                   </div>
+
+                  
                   <div className="ArtProfile_inputfield">
                     <label>Art Education</label>
                     <select
-                      onChange={artChangeHandler}
-                      value={artFormData.performanceType}
-                      name="performanceType"
+                      onChange={artChangesHandler}
+                      name="artEducations"
                       placeholder="Select name of the art "
+                      value={artInfoFormData.artEducation}
+
                     >
                       <option value={""} disabled>
                         Select performance type
@@ -2308,7 +2372,7 @@ console.log("award Page",awardData);
                         </tr>
                       </thead>
                       <tbody>
-                        {artTable.map((row, rowIndex) => (
+                        {professionalTable.map((row, rowIndex) => (
                           <tr key={rowIndex}>
                             {Object.keys(row).map((key, colIndex) => (
                               <td key={colIndex}>
@@ -2319,7 +2383,7 @@ console.log("award Page",awardData);
                                     awardData.highlight
                                   }
                                   onChange={(e) =>
-                                    handlePerformanceTableChange(
+                                    handlePerformanceTableChanges(
                                       e,
                                       rowIndex,
                                       key
@@ -2375,8 +2439,9 @@ console.log("award Page",awardData);
                   <label htmlFor="aboutJourney">About The Art</label>
                   <textarea
                     name="aboutJourney"
-                    value={basicFormData.aboutJourney}
-                    onChange={changeHandler}
+                    onChange={artChangesHandler}
+                    value={artInfoFormData.aboutArt}
+
                     style={{
                       width: "100%",
                       border: "2px solid rgb(0,0,0,0.5)",
