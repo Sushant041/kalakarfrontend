@@ -17,9 +17,10 @@ export const specialization =[
 ]
 
 export const performancetype=[
-  "Solo Performance",
-  "Group Performance",
-  "Both"
+  "Both" ,
+"Professional",
+"Traditional"  ,
+"None"
   // "Solo Act", "Band/Group", "Dance Crew", "Theatre/Play", "Comedy", "Magic/Illusion", "Circus/Street Performance", "Visual Arts", "Fire/Danger Acts", "Variety Show", "Interactive/Immersive", "Folk/Cultural", "Digital/Technology", "Poetry/Spoken Word", "Performance Art"
 ]
 
@@ -334,6 +335,7 @@ export const artTypeData = [
  "folk",
  "fusion", 
 "any other"
+
 ]
 
 
