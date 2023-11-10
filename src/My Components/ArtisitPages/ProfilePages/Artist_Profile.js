@@ -511,7 +511,7 @@ export function Artist_Profile() {
       end: "",
     },
   });
-  const [professionalTable,setProfessionalTable] = useState([
+  const [professionalTable , setProfessionalTable] = useState([
     {
       nameOfArt:"",
       nameOfGuru:"",
@@ -554,7 +554,7 @@ export function Artist_Profile() {
     completion:"",
     link:""
   })
-
+console.log("table",professionalTable);
 const [art,setArt] = useState([])
 
   const artChangesHandler = (e) => {
@@ -1099,6 +1099,7 @@ console.log("abhishek",art);
       if (personalInfo.avatar.url) {
         setProfileAvatar(personalInfo.avatar.url);
       }
+ 
 
       setAwardData((prev) => ({
         ...prev,
@@ -1261,6 +1262,12 @@ console.log("abhishek",art);
     setTableData(newData);
   };
 
+  const handleAwardTable = (e, rowIdx, key) => {
+    const newData = [...awardsTable];
+    newData[rowIdx][key] = e.target.value;
+    setAwardTable(newData);
+  };
+
   useEffect(() => {
     fetchProileData();
   }, []);
@@ -1369,6 +1376,8 @@ console.log("abhishek",art);
 
 
 //Art Profile page 
+
+
 const [artTable,setArtTable] = useState([
   {
     art:"",
@@ -1403,6 +1412,39 @@ const [awardData,setAwardData] = useState({
   award:"",
   Awards:[],
 })
+
+
+const handleTraditional = (e, rowIdx, key) => {
+  const newData = [...traditionalTable];
+  newData[rowIdx][key] = e.target.value;
+  setTraditionalTable(newData);
+};
+const [traditionalTable,setTraditionalTable] = useState([
+  {
+    course:"",
+    Specialisation:"",
+    Institute:"",
+    Duration:"",
+    Completion:"",
+    Link:""
+  },
+  {
+    course:"",
+    Specialisation:"",
+    Institute:"",
+    Duration:"",
+    Completion:"",
+    Link:""
+  },
+  {
+    course:"",
+    Specialisation:"",
+    Institute:"",
+    Duration:"",
+    Completion:"",
+    Link:""
+  },
+])
 
 const [awardsTable,setAwardTable] = useState([
   {
@@ -1452,8 +1494,12 @@ const awardHandle = (event) => {
   else if(name.startsWith("highlight.")){
     setAwardData({...awardData,highlight:value})
   }
+  else{
+    setAwardData({...awardData,Awards:value})
+  }
 
 }
+console.log("Award",awardData);
 
 
 const awardSubmitHandler = async(event)=>{
@@ -2410,7 +2456,7 @@ console.log("award Page",awardData);
                         </tr>
                       </thead>
                       <tbody>
-                        {artTable.map((row, rowIndex) => (
+                        {traditionalTable.map((row, rowIndex) => (
                           <tr key={rowIndex}>
                             {Object.keys(row).map((key, colIndex) => (
                               <td key={colIndex}>
@@ -2421,7 +2467,7 @@ console.log("award Page",awardData);
                                     awardData.highlight
                                   }
                                   onChange={(e) =>
-                                    handlePerformanceTableChange(
+                                    handleTraditional(
                                       e,
                                       rowIndex,
                                       key
@@ -3446,13 +3492,7 @@ console.log("award Page",awardData);
                       value={awardData.level}
                     >
                       <option selected hidden>
-                      Highest Level of Awards 
-                      onChange={changeHandler}
-                      name="hightest"
-                      value={hightLevel}
-                    /</option>
-                      <option selected hidden>
-                        Select State
+                      Highest Level of Awards
                       </option>
                       <option value="International">International</option>
                       <option value="National">National</option>
@@ -3488,7 +3528,7 @@ console.log("award Page",awardData);
                                     awardData.highlight
                                   }
                                   onChange={(e) =>
-                                    handlePerformanceTableChange(
+                                    handleAwardTable(
                                       e,
                                       rowIndex,
                                       key
@@ -3509,9 +3549,9 @@ console.log("award Page",awardData);
                   </label>
                   <textarea
                    
-                    value={awardData.highlight}
-                    onChange={awardHandle}
-                    name="aboutJourney"                   
+                   onChange={awardHandle}
+                   value={awardData.highlight}
+                    name="highlight."                   
                     style={{
                       width: "100%",
                       border: "2px solid rgb(0,0,0,0.5)",
