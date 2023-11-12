@@ -347,9 +347,9 @@ export function Artist_Profile() {
     const { name, value } = event.target;
     setNumberOfAward(value);
     sethightLevel(value);
-
     if (name.startsWith("address.")) {
       // If the change is related to address, update the nested state
+      PinFetch(value);
       setBasicFormData((prevData) => ({
         ...prevData,
         address: {
@@ -381,6 +381,42 @@ export function Artist_Profile() {
       }));
     }
   };
+
+  const PinFetch = async (value) => {
+    try{
+      if(value.length === 6){
+        const url = `https://api.postalpincode.in/pincode/`+value
+        const Responce = await fetch(url);
+        const data = await Responce.json();
+        console.log("checkPin",data[0].Status);
+        if(data[0].Status === "Success"){
+          setBasicFormData((prev)=>({
+            ...prev,
+            address:{
+              ...prev.address,
+              state : data[0].PostOffice[0].State,
+              city:data[0].PostOffice[0].District
+            }
+          }))
+        }
+        else{
+          toast.error('PIN Code not found')
+        }
+       }else{
+        setBasicFormData((prev)=>({
+          ...prev,
+          address:{
+            ...prev.address,
+            state :"",
+            city:""
+          }
+        }))
+       }
+    }catch(error){
+      toast.error(error)
+    }
+   
+  }
 
   //   ! submit update handler for basic profile
   const basicSubmitHandler = async (event) => {
@@ -1912,8 +1948,6 @@ console.log("award Page",awardData);
                           <input
                             maxLength={6}
                             pattern="[0-9]{6}"
-                            min="100000"
-                            max="999999"
                             onChange={changeHandler}
                             value={basicFormData.address.pincode}
                             name="address.pincode"
