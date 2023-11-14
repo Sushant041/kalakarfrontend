@@ -271,7 +271,7 @@ export function Artist_OpportunitiesMoreInfo() {
               </p>
             </div>
           </div>
-          <h1>Perks and Benefits</h1>
+          <p>Perks and Benefits</p>
           <div className="OpportunitiesMoreInfoPage_bottombox_PB">
             {jobData?.opportunity?.incentives?.map((data, index) => (
               <p key={index}>{data}</p>
