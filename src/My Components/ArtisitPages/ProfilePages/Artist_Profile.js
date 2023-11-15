@@ -2673,7 +2673,7 @@ console.log("award Page",awardData);
                 <table className="performance_table">
                       <thead>
                       <tr>
-                          <th> Name of art</th>
+                          <th> Name of Course</th>
                           <th> Name of Guru</th>
                           <th> Location </th>
                           <th> Duration (Month)</th>
@@ -2711,7 +2711,7 @@ console.log("award Page",awardData);
                 <table className="performance_table">
                       <thead>
                       <tr>
-                      <th> Name of Course </th>
+                      <th> Name of Art </th>
                         <th> Specialisation</th>
                         <th> Name of Institute </th>
                         <th> Duration (Month)</th>
@@ -3459,29 +3459,22 @@ console.log("award Page",awardData);
                         return <option value={item}>{item}</option>;
                       })}
                     </select> */}
-                    <select
+                <select
   onChange={perforChangeHandler}
   name="totalPerfs"
   value={performanceFormData.totalPerfs}
 >
-  <option value="" disabled selected>
+  <option value="" disabled>
     Select
   </option>
-  {[...Array(251).keys()].map((item, index) => {
-    if (item === 250) {
-      return (
-        <option key={item} value="250+">
-          250+
-        </option>
-      );
-    }
-    return (
-      <option key={item} value={item}>
-        {item}
-      </option>
-    );
-  })}
+  {[...Array(250).keys()].map((item, index) => (
+    <option key={item} value={item + 1}>
+      {item + 1}
+    </option>
+  ))}
+  <option value="250+">250+</option>
 </select>
+
 
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3489,17 +3482,19 @@ console.log("award Page",awardData);
                       No Of Years Of Experience <span className="red">*</span>{" "}
                     </label>
                     <select
-                      onChange={perforChangeHandler}
-                      name="experience"
-                      value={performanceFormData.experience}
-                    >
-                      <option selected>Select</option>
-                      {[
-                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-                      ].map((i) => {
-                        return <option value={i}>{i}</option>;
-                      })}
-                    </select>
+  onChange={perforChangeHandler}
+  name="experience"
+  value={performanceFormData.experience}
+>
+  <option disabled>Select</option>
+  {[...Array(100).keys()].map((i) => (
+    <option key={i + 1} value={i + 1}>
+      {i + 1}
+    </option>
+  ))}
+  <option value="100+">100+</option>
+</select>
+
                   </div>
 
                   <div className="BasicProfile_inputfield">
@@ -3510,10 +3505,12 @@ console.log("award Page",awardData);
                       value={performanceFormData.avgPerfDurationIn}
                     >
                       <option selected>Select</option>
-                      <option value="10min">10 minutes</option>
-                      <option value="10-30min">10-30 minutes</option>
-                      <option value="30-60min">30-60 minutes</option>
-                      <option value="60-120min">60-120 minutes</option>
+                      <option value="<10min">&lt; 10 Minutes</option>
+                      <option value="10min">10 Minutes</option>
+                      <option value="10-30min">10-30 Minutes</option>
+                      <option value="30-60min">30-60 Minutes</option>
+                      <option value="60-120min">60-120 Minutes</option>
+                      <option value=">120min">&gt; 120 Minutes</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3524,9 +3521,12 @@ console.log("award Page",awardData);
                       value={performanceFormData.avgPerfFeeIn}
                     >
                       <option selected>Select</option>
-                      <option value="5000">5000</option>
-                      <option value="5000-10000">5000-10000</option>
-                      <option value="10000-20000">10000-20000</option>
+                      <option value="<5000">&lt; Rs 5000</option>
+  <option value="5000-10000">Rs 5000 - Rs 10000</option>
+  <option value="10000-20000">Rs 10000 - Rs 20000</option>
+  <option value="20000-50000">Rs 20000 - Rs 50000</option>
+  <option value="50000-100000">Rs 50000 - Rs 100000</option>
+  <option value=">100000">&gt; Rs 100000</option>
                     </select>
                   </div>
 
@@ -3540,10 +3540,10 @@ console.log("award Page",awardData);
                       value={performanceFormData.avgPerfDurationInternational}
                     >
                       <option selected>Select</option>
-                      <option value="30min">30 minutes</option>
-                      <option value="30-60min">30-60 minutes</option>
-                      <option value="60-120min">60-120 minutes</option>
-                      <option value="120min">120 minutes</option>
+                      <option value="<30min">&lt; 30 Minutes</option>
+                   <option value="30-60min">30-60 Minutes+K33</option>
+                   <option value="60-120min">60-120 Minutes</option>
+                          <option value=">120min">&gt; 120 Minutes</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3554,9 +3554,11 @@ console.log("award Page",awardData);
                       value={performanceFormData.avgPerfFeeInternational}
                     >
                       <option selected>Select</option>
-                      <option value="25000">25000</option>
-                      <option value="25000-50000">25000-50000</option>
-                      <option value="50000-100000">50000-100000</option>
+                      <option value="<25000">&lt; Rs 25000</option>
+  <option value="25000-50000">Rs 25000 - Rs 50000</option>
+  <option value="50000-100000">Rs 50000 - Rs 100000</option>
+  <option value="100000-250000">Rs 100000 - Rs 250000</option>
+  <option value=">250000">&gt; Rs 250000</option>
                     </select>
                   </div>
 
