@@ -383,40 +383,38 @@ export function Artist_Profile() {
   };
 
   const PinFetch = async (value) => {
-    try{
-      if(value.length === 6){
-        const url = `https://api.postalpincode.in/pincode/`+value
+    try {
+      if (value.length === 6) {
+        const url = `https://api.postalpincode.in/pincode/` + value;
         const Responce = await fetch(url);
         const data = await Responce.json();
-        console.log("checkPin",data[0].Status);
-        if(data[0].Status === "Success"){
-          setBasicFormData((prev)=>({
+        // console.log("checkPin",data[0].Status);
+        if (data[0].Status === "Success") {
+          setBasicFormData((prev) => ({
             ...prev,
-            address:{
+            address: {
               ...prev.address,
-              state : data[0].PostOffice[0].State,
-              city:data[0].PostOffice[0].District
-            }
-          }))
+              state: data[0].PostOffice[0].State,
+              city: data[0].PostOffice[0].District,
+            },
+          }));
+        } else {
+          toast.error("PIN Code not found");
         }
-        else{
-          toast.error('PIN Code not found')
-        }
-       }else{
-        setBasicFormData((prev)=>({
+      } else {
+        setBasicFormData((prev) => ({
           ...prev,
-          address:{
+          address: {
             ...prev.address,
-            state :"",
-            city:""
-          }
-        }))
-       }
-    }catch(error){
-      toast.error(error)
+            state: "",
+            city: "",
+          },
+        }));
+      }
+    } catch (error) {
+      toast.error(error);
     }
-   
-  }
+  };
 
   //   ! submit update handler for basic profile
   const basicSubmitHandler = async (event) => {
@@ -547,88 +545,63 @@ export function Artist_Profile() {
       end: "",
     },
   });
-  const [professionalTable , setProfessionalTable] = useState([
+  const [traditionalTable, setTraditionalTable] = useState([
     {
-      nameOfArt:"",
-      nameOfGuru:"",
-      location:"",
-      duration:"",
-      Completion:"",
-      link:""
+      artName: "",
+      guruName: "",
+      location: "",
+      duration: "",
+      completionYear: 0,
+      link: "",
     },
     {
-      nameOfArt:"",
-      nameOfGuru:"",
-      location:"",
-      duration:"",
-      Completion:"",
-      link:""
+      artName: "",
+      guruName: "",
+      location: "",
+      duration: "",
+      completionYear: 0,
+      link: "",
     },
     {
-      nameOfArt:"",
-      nameOfGuru:"",
-      location:"",
-      duration:"",
-      Completion:"",
-      link:""
+      artName: "",
+      guruName: "",
+      location: "",
+      duration: "",
+      completionYear: 0,
+      link: "",
     },
-  ])
-  const handlePerformanceTableChanges = (e, rowIdx, key) => {
+  ]);
+  const handleArtProfileChanges = (e, rowIdx, key) => {
     const newData = [...professionalTable];
     newData[rowIdx][key] = e.target.value;
     setProfessionalTable(newData);
   };
   const [artInfoFormData, setArtInfoFormData] = useState({
-    artName: "",
-    artEducation: "",
-    artType: "",
-    artCategory: "",
     aboutArt: "",
-    nameOfGuru:"",
-    location:"",
-    duration:"",
-    completion:"",
-    link:""
-  })
-console.log("table",professionalTable);
-const [art,setArt] = useState([])
+    artCategory: [],
+    artEducation: "",
+    artName: [],
+    artType: [],
+  });
+  // console.log("table",professionalTable);
+  const [art, setArt] = useState([]);
 
-  const artChangesHandler = (e) => {
-    e.preventDefault();
-    const{name,value} = e.target;
-    if(name.startsWith("artCategory")){
+  const artChangesHandler = (event) => {
+    const { name, value } = event.target;
+
+    if (name.startsWith("artCategory")) {
       setArt(artInfo1.find((ctr) => ctr.art === value).category);
-      setArtInfoFormData((prev)=>({
+      setArtInfoFormData((prev) => ({
         ...prev,
-        artCategory: value
-      }))
+        artCategory: value,
+      }));
+    } else {
+      setArtInfoFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
     }
-    else if(name.startsWith("artType")){
-      setArtInfoFormData((prev)=>({
-        ...prev,
-        artType: value
-      }))
-    }
-    else if(name.startsWith("artEducations")){
-      setArtInfoFormData((prev)=>({
-        ...prev,
-        artEducation: value
-      }))
-    }
-    else if(name.startsWith("aboutJourney")){
-      setArtInfoFormData((prev)=>({
-        ...prev,
-        aboutArt: value
-      }))
-    }
-    else if(name.startsWith("abhishek")){
-      setArtInfoFormData((prev)=>({
-        ...prev,
-        artName: value
-      }))
-    }
-};
-console.log("abhishek",art);
+  };
   // const [artTypeDataState, setArtTypeDataState] = useState("");
   // const artChangeHandler = (event) => {
   //   const { name, value } = event.target;
@@ -682,57 +655,37 @@ console.log("abhishek",art);
       certificateDuration,
     } = artFormData;
 
-    const {
-      aboutArt,
-      artCategory,
-      artEducation,
-      artName,
-      artType,
-      nameOfGuru,
-      location,
-      duration,
-      completion,
-      link
-    } = artInfoFormData;
-
+    const { aboutArt, artCategory, artEducation, artName, artType } =
+      artInfoFormData;
 
     let artInfo = {
-      aboutArt:aboutArt,
-      artCategory:artCategory,
-      artEducation:artEducation,
-      artName:artName,
-      artType:artType,
+      aboutArt: aboutArt,
+      artCategory: artCategory,
+      artEducation: artEducation,
+      artName: artName,
+      artType: artType,
     };
-    let traditionalInfo = {
-      guruName: nameOfGuru,
-      completionYear: yearOfCompletation,
-      artName: traditionArtName,
-      duration: artEduDuration,
-    };
+    let traditionalInfo = traditionalTable;
 
-    let professionalInfo = {
-      artName:artName,
-      nameOfGuru:nameOfGuru,
-      location:location,
-      duration:duration,
-      completion:completion,
-      link:link
-    };
+    let professionalInfo = professionalTable;
+    // professionalTable
+    // let certificateInfo = {
+    //   course: certificateCourse,
+    //   duration: certificateDuration,
+    //   institute: certificateInstitute,
+    // };
 
-    let certificateInfo = {
-      course: certificateCourse,
-      duration: certificateDuration,
-      institute: certificateInstitute,
-    };
+    console.log(professionalInfo, traditionalInfo);
+    console.log(artInfoFormData);
 
     try {
       const response = await makeAuthenticatedPATCHRequest(
         artistProfilePoints.UPDATE_PROFILE_DATA_API,
-        { artInfo , professionalInfo },
+        { artInfo, professionalInfo, traditionalInfo },
         accessToken
       );
 
-      console.log("artrespone", response);
+      // console.log("artrespone", response);
 
       if (response.status === "success") {
         toast.success("successfuly update", {
@@ -851,92 +804,93 @@ console.log("abhishek",art);
     event.preventDefault();
 
     const toastId = toast.loading("Loading...");
-    try {
-      const {
-        affiliatedToAnyGroup,
-        nameOfArtistGroupOrg,
-        locationOfGroupOrg,
-        contactNoOfGroupOrg,
-        typeOfPerformance,
-        highestLevelOfPerformance,
-        totalPerfs,
-        experience,
-        avgPerfDurationIn,
-        avgPerfFeeIn,
-        avgPerfDurationInternational,
-        avgPerfFeeInternational,
-        aboutJourney,
-        majorPerfCityIndia,
-        majorPerfCountryInternational,
-        performanceImages,
-        performancevideos,
-        // yearOfExperience,
-        // affiliatedToAnyGroup,
-        // nameOfTheAffiliatedGroup,
-        // affiliatedToAnyOrg,
-        // nameOfTheAffiliatedOrg,
-        // totalNoOfPerformance,
-        // highestLevelOfPerformance,
-        // performanceEvents,
-        // thematic,
-        // NoOfPerformanceLastYear,
-        // performanceDuration,
-        // chargesPerPerformance,
-        // averagePerformanceIncome,
-        // performanceType,
-      } = performanceFormData;
 
-      let performanceInfo = {
-        affiliation: {
-          name: nameOfArtistGroupOrg,
-          isAffiliated: affiliatedToAnyGroup,
-          location: locationOfGroupOrg,
-          conactNumber: contactNoOfGroupOrg,
-        },
-        perfDuration: {
-          india: avgPerfDurationIn,
-          international: avgPerfDurationInternational,
-        },
-        perfCharge: {
-          india: avgPerfFeeIn,
-          international: avgPerfFeeInternational,
-        },
-        perfType: typeOfPerformance,
-        experience: experience,
-        highlights: aboutJourney,
-        totalPerfs: totalPerfs,
-        peakPerf: highestLevelOfPerformance,
-        majorPerfCity: majorPerfCityIndia,
-        majorPerfCountry: majorPerfCountryInternational,
-        perfDetails: tableData,
-        perfImgs: performanceImages,
-        perfVideos: performancevideos,
-      };
-      // console.log(performanceFormData);
+    // try {
+    //   const {
+    //     affiliatedToAnyGroup,
+    //     nameOfArtistGroupOrg,
+    //     locationOfGroupOrg,
+    //     contactNoOfGroupOrg,
+    //     typeOfPerformance,
+    //     highestLevelOfPerformance,
+    //     totalPerfs,
+    //     experience,
+    //     avgPerfDurationIn,
+    //     avgPerfFeeIn,
+    //     avgPerfDurationInternational,
+    //     avgPerfFeeInternational,
+    //     aboutJourney,
+    //     majorPerfCityIndia,
+    //     majorPerfCountryInternational,
+    //     performanceImages,
+    //     performancevideos,
+    //     // yearOfExperience,
+    //     // affiliatedToAnyGroup,
+    //     // nameOfTheAffiliatedGroup,
+    //     // affiliatedToAnyOrg,
+    //     // nameOfTheAffiliatedOrg,
+    //     // totalNoOfPerformance,
+    //     // highestLevelOfPerformance,
+    //     // performanceEvents,
+    //     // thematic,
+    //     // NoOfPerformanceLastYear,
+    //     // performanceDuration,
+    //     // chargesPerPerformance,
+    //     // averagePerformanceIncome,
+    //     // performanceType,
+    //   } = performanceFormData;
 
-      const response = await makeAuthenticatedPATCHRequest(
-        artistProfilePoints.UPDATE_PROFILE_DATA_API,
-        { performanceInfo },
-        accessToken
-      );
-      console.log("response ", response);
-      if (response.status === "success") {
-        toast.success("successfully updated ", {
-          position: "top-center",
-        });
-        setActiveSection("award");
-        localStorage.setItem("activeSection", activeSection);
-      } else {
-        toast.error(response.message, {
-          position: "top-center",
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("cannot updated successfully , please try again", {
-        position: "top-center",
-      });
-    }
+    //   let performanceInfo = {
+    //     affiliation: {
+    //       name: nameOfArtistGroupOrg,
+    //       isAffiliated: affiliatedToAnyGroup,
+    //       location: locationOfGroupOrg,
+    //       conactNumber: contactNoOfGroupOrg,
+    //     },
+    //     perfDuration: {
+    //       india: avgPerfDurationIn,
+    //       international: avgPerfDurationInternational,
+    //     },
+    //     perfCharge: {
+    //       india: avgPerfFeeIn,
+    //       international: avgPerfFeeInternational,
+    //     },
+    //     perfType: typeOfPerformance,
+    //     experience: experience,
+    //     highlights: aboutJourney,
+    //     totalPerfs: totalPerfs,
+    //     peakPerf: highestLevelOfPerformance,
+    //     majorPerfCity: majorPerfCityIndia,
+    //     majorPerfCountry: majorPerfCountryInternational,
+    //     perfDetails: tableData,
+    //     perfImgs: performanceImages,
+    //     perfVideos: performancevideos,
+    //   };
+    //   // console.log(performanceFormData);
+
+    //   const response = await makeAuthenticatedPATCHRequest(
+    //     artistProfilePoints.UPDATE_PROFILE_DATA_API,
+    //     { performanceInfo },
+    //     accessToken
+    //   );
+    //   // console.log("response ", response);
+    //   if (response.status === "success") {
+    //     toast.success("successfully updated ", {
+    //       position: "top-center",
+    //     });
+    //     setActiveSection("award");
+    //     localStorage.setItem("activeSection", activeSection);
+    //   } else {
+    //     toast.error(response.message, {
+    //       position: "top-center",
+    //     });
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    //   toast.error("cannot updated successfully , please try again", {
+    //     position: "top-center",
+    //   });
+    // }
 
     toast.dismiss(toastId);
   };
@@ -1012,7 +966,7 @@ console.log("abhishek",art);
         { awardsInfo },
         accessToken
       );
-      console.log("response", response);
+      // console.log("response", response);
       if (response.status === "success") {
         toast.success("successfully update", {
           position: "top-center",
@@ -1115,7 +1069,7 @@ console.log("abhishek",art);
         artistProfilePoints.FETCH_PROFILE_DATA_API,
         accessToken
       );
-      console.log("fetchdata", response);
+      console.log("fetchdata", response.data);
 
       const {
         address,
@@ -1135,13 +1089,35 @@ console.log("abhishek",art);
       if (personalInfo.avatar.url) {
         setProfileAvatar(personalInfo.avatar.url);
       }
- 
+
+      setArtInfoFormData((prev) => ({
+        ...prev,
+        aboutArt: artInfo?.aboutArt,
+        artCategory: artInfo?.artCategory,
+        artEducation: artInfo?.artEducation,
+        artName: artInfo?.artName,
+        artType: artInfo?.artType,
+      }));
+      // console.log("ioioo");
+      // console.log("iiiio", artInfoFormData);
 
       setAwardData((prev) => ({
         ...prev,
-        highlight:awardsInfo?.highlights ,
-        level:awardsInfo?.level,
-        }))
+        highlights: awardsInfo?.highlights,
+        level: awardsInfo?.level,
+        totalAwards: awardsInfo?.totalAwards,
+        awardsDetails: awardsInfo?.awardsDetails,
+      }));
+
+      if (awardsInfo?.awardsDetails.length > 0) {
+        setAwardTable(awardsInfo?.awardsDetails);
+      }
+      if (traditionalInfo?.length > 0) {
+        setTraditionalTable(traditionalInfo);
+      }
+      if (professionalInfo?.length > 0) {
+        setProfessionalTable(professionalInfo);
+      }
 
       setBasicFormData((prev) => ({
         ...prev,
@@ -1178,20 +1154,10 @@ console.log("abhishek",art);
         },
       }));
       setlanguagesoptions(
-        personalInfo.language
-          .split(" ")
+        personalInfo?.language
+          ?.split(" ")
           .map((item) => ({ value: item, label: item }))
       );
-
-      //chiku art Information
-      setArtInfoFormData((prev) => ({
-        ...prev,
-        aboutArt:artInfo?.aboutArt,
-        artCategory: artInfo?.artCategory,
-        artEducation: artInfo?.artEducation,
-        artName: artInfo?.artName,
-        artType: artInfo?.artType,
-      }));
 
       setArtFormData((prev) => ({
         ...prev,
@@ -1239,6 +1205,12 @@ console.log("abhishek",art);
           ...certificateInfo?.duration,
         },
       }));
+
+      // setProfessionalTable(())
+      console.log("->>");
+      console.log("art Imfo ", response.data);
+      console.log("->>");
+
       setPerformanceFormData((prev) => ({
         ...prev,
         experience: performanceInfo?.experience,
@@ -1326,7 +1298,7 @@ console.log("abhishek",art);
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      console.log("sele", selectedFile);
+      // console.log("sele", selectedFile);
       const formData = new FormData();
       formData.append("avatar", selectedFile);
 
@@ -1335,7 +1307,7 @@ console.log("abhishek",art);
         formData,
         accessToken
       );
-      console.log("res", response);
+      // console.log("res", response);
       setProfileAvatar(response?.data?.avatar);
       // const response = await makeAuthenticated_Multi_Patch_REQ(
       //   artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
@@ -1350,9 +1322,9 @@ console.log("abhishek",art);
   const handelMultipleImages = async (e) => {
     // const [selectedImages, setSelectedImages] = useState([]);
 
-    console.log("okko");
+    // console.log("okko");
     const Files = e.target.files;
-    console.log(e.target.files);
+    // console.log(e.target.files);
 
     // Convert the FileList to an array
     const newImages = Array.from(Files);
@@ -1406,184 +1378,168 @@ console.log("abhishek",art);
   //   marginTop: "-2vh",
   // };
 
+  //Art Profile page
 
+  const [artTable, setArtTable] = useState([
+    {
+      art: "",
+      guru: "",
+      Location: "",
+      duration: "",
+      completion: "",
+      link: "",
+    },
+    {
+      art: "",
+      guru: "",
+      Location: "",
+      duration: "",
+      completion: "",
+      link: "",
+    },
+    {
+      art: "",
+      guru: "",
+      Location: "",
+      duration: "",
+      completion: "",
+      link: "",
+    },
+  ]);
 
+  //new Award Page
+  const [awardData, setAwardData] = useState({
+    highlights: "",
+    level: "",
+    totalAwards: "",
+    awardsDetails: [],
+  });
 
+  const handleTraditional = (e, rowIdx, key) => {
+    const newData = [...traditionalTable];
+    newData[rowIdx][key] = e.target.value;
+    setTraditionalTable(newData);
+  };
 
+  const [professionalTable, setProfessionalTable] = useState([
+    {
+      course: "",
+      specialisation: "",
+      institute: "",
+      duration: "",
+      completionYear: 0,
+      link: "",
+    },
+    {
+      course: "",
+      specialisation: "",
+      institute: "",
+      duration: "",
+      completionYear: 0,
+      link: "",
+    },
+    {
+      course: "",
+      specialisation: "",
+      institute: "",
+      duration: "",
+      completionYear: 0,
+      link: "",
+    },
+  ]);
 
-//Art Profile page 
+  const [awardsTable, setAwardTable] = useState([
+    {
+      title: "",
+      awardingBody: "",
+      level: "",
+      location: "",
+      year: "",
+      documentUrl: "",
+    },
+    {
+      title: "",
+      awardingBody: "",
+      level: "",
+      location: "",
+      year: "",
+      documentUrl: "",
+    },
+    {
+      title: "",
+      awardingBody: "",
+      level: "",
+      location: "",
+      year: "",
+      documentUrl: "",
+    },
+    {
+      title: "",
+      awardingBody: "",
+      level: "",
+      location: "",
+      year: "",
+      documentUrl: "",
+    },
+  ]);
 
+  const awardHandle = (event) => {
+    const { name, value } = event.target;
 
-const [artTable,setArtTable] = useState([
-  {
-    art:"",
-    guru:"",
-    Location:"",
-    duration:"",
-    completion:"",
-    link:""
-  },
-  {
-    art:"",
-    guru:"",
-    Location:"",
-    duration:"",
-    completion:"",
-    link:""
-  },
-  {
-    art:"",
-    guru:"",
-    Location:"",
-    duration:"",
-    completion:"",
-    link:""
-  },
-])
+    setAwardData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  // console.log("Award",awardData);
 
-//new Award Page 
-const [awardData,setAwardData] = useState({
-  highlight:"",
-  level:"",
-  award:"",
-  Awards:[],
-})
+  const awardSubmitHandler = async (event) => {
+    event.preventDefault();
+    console.log(awardsTable);
+    const toastId = toast.loading("Loading...");
+    console.log(awardData);
+    try {
+      let awardsInfo = {
+        awardsDetails: awardsTable,
+        level: awardData.level,
+        highlights: awardData.highlights,
+        totalAwards: awardData.totalAwards,
+      };
+      console.log("awaD Ta", awardsInfo);
 
-
-const handleTraditional = (e, rowIdx, key) => {
-  const newData = [...traditionalTable];
-  newData[rowIdx][key] = e.target.value;
-  setTraditionalTable(newData);
-};
-const [traditionalTable,setTraditionalTable] = useState([
-  {
-    course:"",
-    Specialisation:"",
-    Institute:"",
-    Duration:"",
-    Completion:"",
-    Link:""
-  },
-  {
-    course:"",
-    Specialisation:"",
-    Institute:"",
-    Duration:"",
-    Completion:"",
-    Link:""
-  },
-  {
-    course:"",
-    Specialisation:"",
-    Institute:"",
-    Duration:"",
-    Completion:"",
-    Link:""
-  },
-])
-
-const [awardsTable,setAwardTable] = useState([
-  {
-    name:"",
-    body:"",
-    level:"",
-    location:"",
-    year:"",
-    link:""
-  },
-  {
-    name:"",
-    body:"",
-    level:"",
-    location:"",
-    year:"",
-    link:""
-  },
-  {
-    name:"",
-    body:"",
-    level:"",
-    location:"",
-    year:"",
-    link:""
-  },
-  {
-    name:"",
-    body:"",
-    level:"",
-    location:"",
-    year:"",
-    link:""
-  },
-])
-
-
-const awardHandle = (event) => {
-  const {name,value} = event.target;
-
-  if(name.startsWith("award.")){
-    setAwardData({...awardData,award:value})
-  }
-  else if(name.startsWith("level.")){
-    setAwardData({...awardData,level:value})
-  }
-  else if(name.startsWith("highlight.")){
-    setAwardData({...awardData,highlight:value})
-  }
-  else{
-    setAwardData({...awardData,Awards:value})
-  }
-
-}
-console.log("Award",awardData);
-
-
-const awardSubmitHandler = async(event)=>{
-  event.preventDefault();
-  const toastId = toast.loading("Loading...");
-  try{
-    const {award , level , highlight } = awardData
-    const awardDatas = {
-      award : award,
-      level : level,
-      highlight : highlight
-    }
-
-    const response = await makeAuthenticatedPATCHRequest(
-      artistProfilePoints.UPDATE_PROFILE_DATA_API,
-      { awardDatas },
-      accessToken
-    );
-    console.log("response ", response);
-    if (response.status === "success") {
-      toast.success("successfully updated ", {
+      const response = await makeAuthenticatedPATCHRequest(
+        artistProfilePoints.UPDATE_PROFILE_DATA_API,
+        { awardsInfo },
+        accessToken
+      );
+      // console.log("response ", response);
+      if (response.status === "success") {
+        toast.success("successfully updated ", {
+          position: "top-center",
+        });
+        setActiveSection("award");
+        localStorage.setItem("activeSection", activeSection);
+      } else {
+        toast.error(response.message, {
+          position: "top-center",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("cannot updated successfully , please try again", {
         position: "top-center",
       });
-      setActiveSection("award");
-      localStorage.setItem("activeSection", activeSection);
-    } else {
-      toast.error(response.message, {
-        position: "top-center",
-      });
+    } finally {
+      toast.dismiss(toastId);
     }
-  }catch (error) {
-    console.log(error);
-    toast.error("cannot updated successfully , please try again", {
-      position: "top-center",
-    });
-  }finally{
-    toast.dismiss(toastId);
+  };
 
-  }
-
-}
-
-const awardTableHandle = (e, rowIdx, key) => {
-  const newAwardsTable = [...awardsTable];
-  newAwardsTable[rowIdx][key] = e.target.value;
-  setAwardData(awardsTable);
-};
-console.log("award Page",awardData);
+  const awardTableHandle = (e, rowIdx, key) => {
+    const newAwardsTable = [...awardsTable];
+    newAwardsTable[rowIdx][key] = e.target.value;
+    setAwardData(awardsTable);
+  };
+  // console.log("award Page",awardData);
   return (
     <div className="Profile_Page">
       <div
@@ -2344,7 +2300,7 @@ console.log("award Page",awardData);
                       name="artCategory"
                       placeholder="Select nature of art"
                       onChange={artChangesHandler}
-                      value={artInfoFormData.artCategory}
+                      defaultValue={artInfoFormData.artCategory[0]}
                     >
                       <option selected hidden>
                         Select nature of art
@@ -2357,24 +2313,15 @@ console.log("award Page",awardData);
                     </select>
                   </div>
 
-
-                  
                   <div className="ArtProfile_inputfield">
                     <label>
                       Name Of Art <span className="red">*</span>
                     </label>
                     <select
-                      name="abhishek"
                       placeholder="Select art forms"
-                      value={artInfoFormData.artName}
-
-                      onChange={(e)=>{
-                        setArtInfoFormData((prev)=>({
-                          ...prev,
-                          artName: e.target.value
-                        }))
-
-                      }}
+                      name="artName"
+                      defaultValue={artInfoFormData.artName[0]}
+                      onChange={artChangesHandler}
                     >
                       <option selected hidden>
                         Select art form
@@ -2392,8 +2339,7 @@ console.log("award Page",awardData);
                       onChange={artChangesHandler}
                       name="artType"
                       placeholder="Select name of the art "
-                      value={artInfoFormData.artType}
-
+                      value={artInfoFormData.artType[0]}
                     >
                       <option value={""} disabled>
                         Select name of the art
@@ -2406,15 +2352,13 @@ console.log("award Page",awardData);
                     </select>
                   </div>
 
-                  
                   <div className="ArtProfile_inputfield">
                     <label>Art Education</label>
                     <select
                       onChange={artChangesHandler}
-                      name="artEducations"
+                      name="artEducation"
                       placeholder="Select name of the art "
                       value={artInfoFormData.artEducation}
-
                     >
                       <option value={""} disabled>
                         Select performance type
@@ -2439,89 +2383,77 @@ console.log("award Page",awardData);
                 </select>
               </div> */}
                 </div>
-                <h4>Professional Art Education </h4>
-                <table className="performance_table">
-                      <thead>
-                      <tr>
-                          <th> Name of art</th>
-                          <th> Name of Guru</th>
-                          <th> Location </th>
-                          <th> Duration (Month)</th>
-                          <th> Year of Completion </th>
-                          <th>Upload Document </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {professionalTable.map((row, rowIndex) => (
-                          <tr key={rowIndex}>
-                            {Object.keys(row).map((key, colIndex) => (
-                              <td key={colIndex}>
-                                <input
-                                  type="text"
-                                  value={row[key]}
-                                  defaultValue={
-                                    awardData.highlight
-                                  }
-                                  onChange={(e) =>
-                                    handlePerformanceTableChanges(
-                                      e,
-                                      rowIndex,
-                                      key
-                                    )
-                                  }
-                                />
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
                 <h4>Traditional Art Education </h4>
-                <div className="ArtProfile_Traditional">
+
                 <table className="performance_table">
-                      <thead>
-                      <tr>
+                  <thead>
+                    <tr>
                       <th> Name of Course </th>
-                        <th> Specialisation</th>
-                        <th> Name of Institute </th>
+                      <th> Specialisation</th>
+                      <th> Name of Institute </th>
+                      <th> Duration (Month)</th>
+                      <th> Year of Completion </th>
+                      <th>Upload Document </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {professionalTable.map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        {Object.keys(row).map((key, colIndex) => (
+                          <td key={colIndex}>
+                            <input
+                              type="text"
+                              value={row[key]}
+                              // defaultValue={awardData.highlight}
+                              onChange={(e) =>
+                                handleArtProfileChanges(e, rowIndex, key)
+                              }
+                            />
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <h4>Professional Art Education </h4>
+                <div className="ArtProfile_Traditional">
+                  <table className="performance_table">
+                    <thead>
+                      <tr>
+                        <th> Name of art</th>
+                        <th> Name of Guru</th>
+                        <th> Location </th>
                         <th> Duration (Month)</th>
                         <th> Year of Completion </th>
                         <th>Upload Document </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {traditionalTable.map((row, rowIndex) => (
+                        <tr key={rowIndex}>
+                          {Object.keys(row).map((key, colIndex) => (
+                            <td key={colIndex}>
+                              <input
+                                type="text"
+                                value={row[key]}
+                                // defaultValue={awardData.highlight}
+                                onChange={(e) =>
+                                  handleTraditional(e, rowIndex, key)
+                                }
+                              />
+                            </td>
+                          ))}
                         </tr>
-                      </thead>
-                      <tbody>
-                        {traditionalTable.map((row, rowIndex) => (
-                          <tr key={rowIndex}>
-                            {Object.keys(row).map((key, colIndex) => (
-                              <td key={colIndex}>
-                                <input
-                                  type="text"
-                                  value={row[key]}
-                                  defaultValue={
-                                    awardData.highlight
-                                  }
-                                  onChange={(e) =>
-                                    handleTraditional(
-                                      e,
-                                      rowIndex,
-                                      key
-                                    )
-                                  }
-                                />
-                              </td>
-                            ))}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
                 <div style={{ width: "100%", marginTop: "20px" }}>
-                  <label htmlFor="aboutJourney">About The Art</label>
+                  <label htmlFor="aboutArt">About The Art</label>
                   <textarea
-                    name="aboutJourney"
+                    name="aboutArt"
                     onChange={artChangesHandler}
                     value={artInfoFormData.aboutArt}
-
                     style={{
                       width: "100%",
                       border: "2px solid rgb(0,0,0,0.5)",
@@ -3499,17 +3431,11 @@ console.log("award Page",awardData);
                     <label>Total Number of Awards</label>
                     <select
                       onChange={awardHandle}
-                      name="award.name"
-                      value={awardData.award}
+                      name="totalAwards"
+                      value={awardData.totalAwards}
                     >
                       <option selected hidden>
-                      Total Number of Awards  
-                    </option>
-                      onChange={changeHandler}
-                      name="award"
-                      value={numberOfAward}
-                      <option selected hidden>
-                        Select State
+                        Select
                       </option>
                       <option value="5">1-5</option>
                       <option value="10">5-10</option>
@@ -3522,11 +3448,11 @@ console.log("award Page",awardData);
                     <label>Highest Level of Awards </label>
                     <select
                       onChange={awardHandle}
-                      name="level.name"
+                      name="level"
                       value={awardData.level}
                     >
                       <option selected hidden>
-                      Highest Level of Awards
+                        Highest Level of Awards
                       </option>
                       <option value="International">International</option>
                       <option value="National">National</option>
@@ -3539,9 +3465,9 @@ console.log("award Page",awardData);
                   </div>
                   <h4>List Of Top Awards +</h4>
                   <div className="ArtProfile_Traditional">
-                  <table className="performance_table">
+                    <table className="performance_table">
                       <thead>
-                      <tr>
+                        <tr>
                           <th> Name Of The Award </th>
                           <th> Awarding Body</th>
                           <th> Level </th>
@@ -3558,15 +3484,9 @@ console.log("award Page",awardData);
                                 <input
                                   type="text"
                                   value={row[key]}
-                                  defaultValue={
-                                    awardData.highlight
-                                  }
+                                  defaultValue={awardData?.awardsDetails}
                                   onChange={(e) =>
-                                    handleAwardTable(
-                                      e,
-                                      rowIndex,
-                                      key
-                                    )
+                                    handleAwardTable(e, rowIndex, key)
                                   }
                                 />
                               </td>
@@ -3582,10 +3502,9 @@ console.log("award Page",awardData);
                     Highlights of Awards (if any)
                   </label>
                   <textarea
-                   
-                   onChange={awardHandle}
-                   value={awardData.highlight}
-                    name="highlight."                   
+                    onChange={awardHandle}
+                    value={awardData.highlights}
+                    name="highlights"
                     style={{
                       width: "100%",
                       border: "2px solid rgb(0,0,0,0.5)",
