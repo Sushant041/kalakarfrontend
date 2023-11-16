@@ -106,6 +106,13 @@ export default function () {
               className="Accountpopup"
               style={{ display: "flex", flexDirection: "column", background: "white", position: "absolute", width: "297px", marginLeft: "-170px", borderRadius: "10px" }}
             >
+               <Link
+                to={"/ArtistDashboard"}
+                style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}
+              >
+                Dashboard
+              </Link>
+              
               <Link
                 to={"/Artist_Profile"}
                 style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}
@@ -127,12 +134,7 @@ export default function () {
               >
                 Status of Application
               </Link>
-              <Link
-                to={"/ArtistDashboard"}
-                style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}
-              >
-                Dashboard
-              </Link>
+             
               <Link
                 to={"/SkillDevelopment"}
                 style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}

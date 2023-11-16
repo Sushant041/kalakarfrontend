@@ -1,5 +1,7 @@
 
-export const languages=["Hindi", "Bengali", "Telugu", "Marathi", "Tamil", "Urdu", "Gujarati", "Kannada", "Punjabi", "Malayalam", "Odia", "Assamese", "Bhojpuri", "Haryanvi", "Rajasthani", "Sindhi", "Konkani", "Manipuri", "Maithili", "Santali", "Kashmiri", "Nepali", "Dogri", "Kokborok", "Khasi", "Mizo (Lushai)", "Tulu", "Garhwali", "Kumaoni", "Bhili","English", "Spanish", "French", "German", "Italian", "Portuguese", "Chinese" , "Japanese", "Korean", "Russian"]
+// export const languages=["Hindi", "Bengali", "Telugu", "Marathi", "Tamil", "Urdu", "Gujarati", "Kannada", "Punjabi", "Malayalam", "Odia", "Assamese", "Bhojpuri", "Haryanvi", "Rajasthani", "Sindhi", "Konkani", "Manipuri", "Maithili", "Santali", "Kashmiri", "Nepali", "Dogri", "Kokborok", "Khasi", "Mizo (Lushai)", "Tulu", "Garhwali", "Kumaoni", "Bhili","English", "Spanish", "French", "German", "Italian", "Portuguese", "Chinese" , "Japanese", "Korean", "Russian"]
+export const languages = ['Assamese','Bengali','Bhili','Bhojpuri','Dogri','Garhwali','Gujarati','Haryanvi','Hindi','Kannada','Kashmiri','Khasi','Kokborok','Konkani','Kumaoni','Maithili','Malayalam','Manipuri','Marathi','Mizo','Nepali','Odia','Punjabi','Rajasthani','Santali','Sindhi','Tamil','Telugu','Tulu','Urdu','English','Spanish','French','German','Italian','Portuguese','Chinese','Japanese','Korean','Russian'];
+
 
 export const artform =  [
   "Classical",

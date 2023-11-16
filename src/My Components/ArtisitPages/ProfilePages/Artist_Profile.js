@@ -304,7 +304,10 @@ export function Artist_Profile() {
     firstName: "",
     lastName: "",
     email: "",
-    phoneNumber: "",
+    contactNumber: {
+      countryCode: "",
+      number: "",
+    },
     age: "",
     gender: "",
     language: "",
@@ -339,7 +342,7 @@ export function Artist_Profile() {
     upiId: "",
     passportNumber: "",
   });
-
+  console.log(basicFormData.countryCode);
   const [numberOfAward, setNumberOfAward] = useState("");
   const [hightLevel, sethightLevel] = useState("");
   // ! change  handler for basic profile
@@ -362,6 +365,14 @@ export function Artist_Profile() {
         ...prevData,
         handles: {
           ...prevData.handles,
+          [name.split(".")[1]]: value,
+        },
+      }));
+    } else if (name.startsWith("contactNumber.")) {
+      setBasicFormData((prevData) => ({
+        ...prevData,
+        contactNumber: {
+          ...prevData.contactNumber,
           [name.split(".")[1]]: value,
         },
       }));
@@ -430,8 +441,8 @@ export function Artist_Profile() {
       lastName,
       about,
       age,
-      phoneNumber,
       email,
+      contactNumber,
       gender,
       socialCategory,
       monthlyIncome,
@@ -452,18 +463,19 @@ export function Artist_Profile() {
       lastName,
       about,
       age,
-      phoneNumber,
       pwd,
       email,
+      contactNumber,
       gender,
       monthlyIncome,
       socialCategory,
+
       incomeSrc,
     };
 
-    personalInfo.language = languagesoptions
-      .map((option) => option.value)
-      .join(" ");
+    // personalInfo.language = languagesoptions
+    //   .map((option) => option.value)
+    //   .join(" ");
 
     let otherInfo = {
       aadharNumber,
@@ -1125,7 +1137,6 @@ export function Artist_Profile() {
         lastName: personalInfo?.lastName,
         email: personalInfo?.email,
         age: personalInfo?.age,
-        phoneNumber: personalInfo?.contactNumber,
         gender: personalInfo?.gender,
         about: personalInfo?.about,
         language: personalInfo?.language,
@@ -1147,6 +1158,10 @@ export function Artist_Profile() {
         handles: {
           ...prev.handles,
           ...response.data.socialLinks,
+        },
+        contactNumber: {
+          ...prev.contactNumber,
+          ...response.data.personalInfo.contactNumber,
         },
         idProof: {
           ...prev.idProof,
@@ -1629,12 +1644,32 @@ export function Artist_Profile() {
               </svg>{" "}
               Basic Profile
             </button>
-            <button
+            {/* <button
               className={activeSection === "art" ? "active" : ""}
               onClick={() => handleClick("art")}
             >
               <img src={art} /> Art Profile
+            </button> */}
+            <button
+              className={activeSection === "art" ? "active" : ""}
+              onClick={() => handleClick("art")}
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ marginRight: "5px" }} // Adding some margin between the symbol and text
+              >
+                <path
+                  d="M12.516 6.40817L9.45853 3.41073C9.41227 2.76086 9.57065 2.11273 9.91237 1.55351C10.2541 0.994286 10.7628 0.550788 11.37 0.282666C11.9772 0.0145445 12.6538 -0.0653421 13.3088 0.0537512C13.9638 0.172845 14.5659 0.485205 15.0339 0.948823C15.5065 1.40762 15.8246 1.99658 15.9456 2.63693C16.0666 3.27728 15.9847 3.93849 15.7109 4.5321C15.4371 5.12572 14.9845 5.62345 14.4135 5.95871C13.8426 6.29397 13.1806 6.45078 12.516 6.40817ZM1.15268 12.2432L8.67372 4.89746L10.9873 7.15953L3.46622 14.5133L1.16086 12.2432H1.15268ZM0.00817504 14.5053L1.73311 12.8107L2.89397 13.9458L1.16086 15.6403L0 14.5053H0.00817504ZM7.81534 12.0034L9.45035 10.4048V16H7.81534V12.0034Z"
+                  fill="black"
+                />
+              </svg>
+              Art Profile
             </button>
+
             <button
               className={activeSection === "performance" ? "active" : ""}
               onClick={() => handleClick("performance")}
@@ -1648,6 +1683,8 @@ export function Artist_Profile() {
               <img src={star} /> Award Profile
             </button>
           </div>
+
+          {/* profile picture update yash */}
           <div className="BasicProfile_avatar">
             {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
             <div className="profileImg">
@@ -1751,8 +1788,8 @@ export function Artist_Profile() {
                     <div>
                       <select
                         onChange={changeHandler}
-                        name="countryCode"
-                        value={basicFormData.countryCode}
+                        name="contactNumber.countryCode"
+                        value={basicFormData?.contactNumber?.countryCode}
                         style={{
                           width: "15%",
                           marginRight: "4px",
@@ -1760,21 +1797,213 @@ export function Artist_Profile() {
                         }}
                       >
                         <option value="+91">+91</option>
+                        <option value="+355">+355</option>
+                        <option value="+213">+213</option>
+                        <option value="+376">+376</option>
+                        <option value="+244">+244</option>
+                        <option value="+1268">+1268</option>
+                        <option value="+54">+54</option>
+                        <option value="+374">+374</option>
+                        <option value="+61">+61</option>
+                        <option value="+43">+43</option>
+                        <option value="+994">+994</option>
+                        <option value="+1242">+1242</option>
+                        <option value="+973">+973</option>
+                        <option value="+880">+880</option>
+                        <option value="+1246">+1246</option>
+                        <option value="+375">+375</option>
+                        <option value="+32">+32</option>
+                        <option value="+501">+501</option>
+                        <option value="+229">+229</option>
+                        <option value="+975">+975</option>
+                        <option value="+591">+591</option>
+                        <option value="+387">+387</option>
+                        <option value="+267">+267</option>
+                        <option value="+55">+55</option>
+                        <option value="+673">+673</option>
+                        <option value="+359">+359</option>
+                        <option value="+226">+226</option>
+                        <option value="+257">+257</option>
+                        <option value="+855">+855</option>
+                        <option value="+237">+237</option>
                         <option value="+1">+1</option>
+                        <option value="+238">+238</option>
+                        <option value="+236">+236</option>
+                        <option value="+235">+235</option>
+                        <option value="+56">+56</option>
+                        <option value="+86">+86</option>
+                        <option value="+57">+57</option>
+                        <option value="+269">+269</option>
+                        <option value="+242">+242</option>
+                        <option value="+506">+506</option>
+                        <option value="+385">+385</option>
+                        <option value="+53">+53</option>
+                        <option value="+357">+357</option>
+                        <option value="+420">+420</option>
+                        <option value="+45">+45</option>
+                        <option value="+253">+253</option>
+                        <option value="+1767">+1767</option>
+                        <option value="+1809">+1809</option>
+                        <option value="+670">+670</option>
+                        <option value="+593">+593</option>
+                        <option value="+20">+20</option>
+                        <option value="+503">+503</option>
+                        <option value="+240">+240</option>
+                        <option value="+291">+291</option>
+                        <option value="+372">+372</option>
+                        <option value="+251">+251</option>
+                        <option value="+679">+679</option>
+                        <option value="+358">+358</option>
+                        <option value="+33">+33</option>
+                        <option value="+241">+241</option>
+                        <option value="+220">+220</option>
+                        <option value="+995">+995</option>
+                        <option value="+49">+49</option>
+                        <option value="+233">+233</option>
+                        <option value="+30">+30</option>
+                        <option value="+1473">+1473</option>
+                        <option value="+502">+502</option>
+                        <option value="+224">+224</option>
+                        <option value="+245">+245</option>
+                        <option value="+592">+592</option>
+                        <option value="+509">+509</option>
+                        <option value="+504">+504</option>
+                        <option value="+36">+36</option>
+                        <option value="+354">+354</option>
+                        <option value="+91">+91</option>
+                        <option value="+62">+62</option>
+                        <option value="+98">+98</option>
+                        <option value="+964">+964</option>
+                        <option value="+353">+353</option>
+                        <option value="+972">+972</option>
+                        <option value="+39">+39</option>
+                        <option value="+225">+225</option>
+                        <option value="+1876">+1876</option>
+                        <option value="+81">+81</option>
+                        <option value="+962">+962</option>
+                        <option value="+7">+7</option>
+                        <option value="+254">+254</option>
+                        <option value="+686">+686</option>
+                        <option value="+383">+383</option>
+                        <option value="+965">+965</option>
+                        <option value="+996">+996</option>
+                        <option value="+856">+856</option>
+                        <option value="+371">+371</option>
+                        <option value="+961">+961</option>
+                        <option value="+266">+266</option>
+                        <option value="+231">+231</option>
+                        <option value="+218">+218</option>
+                        <option value="+423">+423</option>
+                        <option value="+370">+370</option>
+                        <option value="+352">+352</option>
+                        <option value="+389">+389</option>
+                        <option value="+261">+261</option>
+                        <option value="+265">+265</option>
+                        <option value="+60">+60</option>
+                        <option value="+960">+960</option>
+                        <option value="+223">+223</option>
+                        <option value="+356">+356</option>
+                        <option value="+692">+692</option>
+                        <option value="+222">+222</option>
+                        <option value="+230">+230</option>
+                        <option value="+52">+52</option>
+                        <option value="+691">+691</option>
+                        <option value="+373">+373</option>
+                        <option value="+377">+377</option>
+                        <option value="+976">+976</option>
+                        <option value="+382">+382</option>
+                        <option value="+212">+212</option>
+                        <option value="+258">+258</option>
+                        <option value="+95">+95</option>
+                        <option value="+264">+264</option>
+                        <option value="+674">+674</option>
+                        <option value="+977">+977</option>
+                        <option value="+31">+31</option>
+                        <option value="+64">+64</option>
+                        <option value="+505">+505</option>
+                        <option value="+227">+227</option>
+                        <option value="+234">+234</option>
+                        <option value="+850">+850</option>
+                        <option value="+47">+47</option>
+                        <option value="+968">+968</option>
+                        <option value="+92">+92</option>
+                        <option value="+680">+680</option>
+                        <option value="+507">+507</option>
+                        <option value="+675">+675</option>
+                        <option value="+595">+595</option>
+                        <option value="+51">+51</option>
+                        <option value="+63">+63</option>
+                        <option value="+48">+48</option>
+                        <option value="+351">+351</option>
+                        <option value="+974">+974</option>
+                        <option value="+40">+40</option>
+                        <option value="+7">+7</option>
+                        <option value="+250">+250</option>
+                        <option value="+1869">+1869</option>
+                        <option value="+1758">+1758</option>
+                        <option value="+1784">+1784</option>
+                        <option value="+685">+685</option>
+                        <option value="+378">+378</option>
+                        <option value="+239">+239</option>
+                        <option value="+966">+966</option>
+                        <option value="+221">+221</option>
+                        <option value="+381">+381</option>
+                        <option value="+248">+248</option>
+                        <option value="+232">+232</option>
+                        <option value="+65">+65</option>
+                        <option value="+421">+421</option>
+                        <option value="+386">+386</option>
+                        <option value="+677">+677</option>
+                        <option value="+252">+252</option>
+                        <option value="+27">+27</option>
+                        <option value="+82">+82</option>
+                        <option value="+211">+211</option>
+                        <option value="+34">+34</option>
+                        <option value="+94">+94</option>
+                        <option value="+249">+249</option>
+                        <option value="+597">+597</option>
+                        <option value="+268">+268</option>
+                        <option value="+46">+46</option>
+                        <option value="+41">+41</option>
+                        <option value="+963">+963</option>
+                        <option value="+886">+886</option>
+                        <option value="+992">+992</option>
+                        <option value="+255">+255</option>
+                        <option value="+66">+66</option>
+                        <option value="+228">+228</option>
+                        <option value="+676">+676</option>
+                        <option value="+1868">+1868</option>
+                        <option value="+216">+216</option>
+                        <option value="+90">+90</option>
+                        <option value="+993">+993</option>
+                        <option value="+688">+688</option>
+                        <option value="+256">+256</option>
+                        <option value="+380">+380</option>
+                        <option value="+971">+971</option>
+                        <option value="+44">+44</option>
+                        <option value="+1">+1</option>
+                        <option value="+598">+598</option>
+                        <option value="+998">+998</option>
+                        <option value="+678">+678</option>
+                        <option value="+379">+379</option>
+                        <option value="+58">+58</option>
+                        <option value="+84">+84</option>
+                        <option value="+967">+967</option>
+                        <option value="+260">+260</option>
+                        <option value="+263">+263</option>
                       </select>
                       <input
-                        name="phoneNumber"
+                        name="contactNumber.number"
                         maxLength={10}
                         pattern="[0-9]{10}"
                         onChange={changeHandler}
-                        value={basicFormData.phoneNumber}
+                        value={basicFormData?.contactNumber?.number}
                         placeholder="1234567890"
                         style={{ width: "83%" }}
                         required
                       />
                     </div>
                   </div>
-
                   <div
                     className="BasicProfile_inputfield"
                     style={{ width: "30%" }}
@@ -1789,7 +2018,7 @@ export function Artist_Profile() {
                       value={basicFormData.age}
                       style={{ width: "100%" }}
                     ></input> */}
-                    <select
+                    {/* <select
                       name="age"
                       onChange={changeHandler}
                       value={basicFormData.age}
@@ -1801,6 +2030,20 @@ export function Artist_Profile() {
                           {index + 18}
                         </option>
                       ))}
+                    </select> */}
+                    <select
+                      name="age"
+                      onChange={changeHandler}
+                      value={basicFormData.age}
+                      style={{ width: "100%" }}
+                      required
+                    >
+                      {Array.from({ length: 96 }, (_, index) => (
+                        <option key={index} value={index + 5}>
+                          {index + 5}
+                        </option>
+                      ))}
+                      <option value="100+">100+</option>
                     </select>
                   </div>
 
@@ -2383,7 +2626,7 @@ export function Artist_Profile() {
                 </select>
               </div> */}
                 </div>
-                <h4>Traditional Art Education </h4>
+                <h4>Professional Art Education </h4>
 
                 <table className="performance_table">
                   <thead>
@@ -2415,12 +2658,12 @@ export function Artist_Profile() {
                     ))}
                   </tbody>
                 </table>
-                <h4>Professional Art Education </h4>
+                <h4>Traditional Art Education </h4>
                 <div className="ArtProfile_Traditional">
                   <table className="performance_table">
                     <thead>
                       <tr>
-                        <th> Name of art</th>
+                        <th> Name of Art </th>
                         <th> Name of Guru</th>
                         <th> Location </th>
                         <th> Duration (Month)</th>
@@ -3105,14 +3348,227 @@ export function Artist_Profile() {
                     </select>
                   </div>
                   <div className="PerformanceProfile_inputfield">
-                    <label>Contact Number Of Group/Organisation</label>
-                    <input
-                      type="number"
-                      value={performanceFormData.contactNoOfGroupOrg}
-                      placeholder="+91"
-                      onChange={perforChangeHandler}
-                      name="contactNoOfGroupOrg"
-                    ></input>
+                    <label htmlFor="">
+                      Contact Number <span className="red">*</span>
+                    </label>
+                    <div>
+                      <select
+                        onChange={changeHandler}
+                        name="contactNumber.countryCode"
+                        value={basicFormData?.contactNumber?.countryCode}
+                        style={{
+                          width: "15%",
+                          marginRight: "4px",
+                          paddingRight: "2px",
+                        }}
+                      >
+                        <option value="+91">+91</option>
+                        <option value="+355">+355</option>
+                        <option value="+213">+213</option>
+                        <option value="+376">+376</option>
+                        <option value="+244">+244</option>
+                        <option value="+1268">+1268</option>
+                        <option value="+54">+54</option>
+                        <option value="+374">+374</option>
+                        <option value="+61">+61</option>
+                        <option value="+43">+43</option>
+                        <option value="+994">+994</option>
+                        <option value="+1242">+1242</option>
+                        <option value="+973">+973</option>
+                        <option value="+880">+880</option>
+                        <option value="+1246">+1246</option>
+                        <option value="+375">+375</option>
+                        <option value="+32">+32</option>
+                        <option value="+501">+501</option>
+                        <option value="+229">+229</option>
+                        <option value="+975">+975</option>
+                        <option value="+591">+591</option>
+                        <option value="+387">+387</option>
+                        <option value="+267">+267</option>
+                        <option value="+55">+55</option>
+                        <option value="+673">+673</option>
+                        <option value="+359">+359</option>
+                        <option value="+226">+226</option>
+                        <option value="+257">+257</option>
+                        <option value="+855">+855</option>
+                        <option value="+237">+237</option>
+                        <option value="+1">+1</option>
+                        <option value="+238">+238</option>
+                        <option value="+236">+236</option>
+                        <option value="+235">+235</option>
+                        <option value="+56">+56</option>
+                        <option value="+86">+86</option>
+                        <option value="+57">+57</option>
+                        <option value="+269">+269</option>
+                        <option value="+242">+242</option>
+                        <option value="+506">+506</option>
+                        <option value="+385">+385</option>
+                        <option value="+53">+53</option>
+                        <option value="+357">+357</option>
+                        <option value="+420">+420</option>
+                        <option value="+45">+45</option>
+                        <option value="+253">+253</option>
+                        <option value="+1767">+1767</option>
+                        <option value="+1809">+1809</option>
+                        <option value="+670">+670</option>
+                        <option value="+593">+593</option>
+                        <option value="+20">+20</option>
+                        <option value="+503">+503</option>
+                        <option value="+240">+240</option>
+                        <option value="+291">+291</option>
+                        <option value="+372">+372</option>
+                        <option value="+251">+251</option>
+                        <option value="+679">+679</option>
+                        <option value="+358">+358</option>
+                        <option value="+33">+33</option>
+                        <option value="+241">+241</option>
+                        <option value="+220">+220</option>
+                        <option value="+995">+995</option>
+                        <option value="+49">+49</option>
+                        <option value="+233">+233</option>
+                        <option value="+30">+30</option>
+                        <option value="+1473">+1473</option>
+                        <option value="+502">+502</option>
+                        <option value="+224">+224</option>
+                        <option value="+245">+245</option>
+                        <option value="+592">+592</option>
+                        <option value="+509">+509</option>
+                        <option value="+504">+504</option>
+                        <option value="+36">+36</option>
+                        <option value="+354">+354</option>
+                        <option value="+91">+91</option>
+                        <option value="+62">+62</option>
+                        <option value="+98">+98</option>
+                        <option value="+964">+964</option>
+                        <option value="+353">+353</option>
+                        <option value="+972">+972</option>
+                        <option value="+39">+39</option>
+                        <option value="+225">+225</option>
+                        <option value="+1876">+1876</option>
+                        <option value="+81">+81</option>
+                        <option value="+962">+962</option>
+                        <option value="+7">+7</option>
+                        <option value="+254">+254</option>
+                        <option value="+686">+686</option>
+                        <option value="+383">+383</option>
+                        <option value="+965">+965</option>
+                        <option value="+996">+996</option>
+                        <option value="+856">+856</option>
+                        <option value="+371">+371</option>
+                        <option value="+961">+961</option>
+                        <option value="+266">+266</option>
+                        <option value="+231">+231</option>
+                        <option value="+218">+218</option>
+                        <option value="+423">+423</option>
+                        <option value="+370">+370</option>
+                        <option value="+352">+352</option>
+                        <option value="+389">+389</option>
+                        <option value="+261">+261</option>
+                        <option value="+265">+265</option>
+                        <option value="+60">+60</option>
+                        <option value="+960">+960</option>
+                        <option value="+223">+223</option>
+                        <option value="+356">+356</option>
+                        <option value="+692">+692</option>
+                        <option value="+222">+222</option>
+                        <option value="+230">+230</option>
+                        <option value="+52">+52</option>
+                        <option value="+691">+691</option>
+                        <option value="+373">+373</option>
+                        <option value="+377">+377</option>
+                        <option value="+976">+976</option>
+                        <option value="+382">+382</option>
+                        <option value="+212">+212</option>
+                        <option value="+258">+258</option>
+                        <option value="+95">+95</option>
+                        <option value="+264">+264</option>
+                        <option value="+674">+674</option>
+                        <option value="+977">+977</option>
+                        <option value="+31">+31</option>
+                        <option value="+64">+64</option>
+                        <option value="+505">+505</option>
+                        <option value="+227">+227</option>
+                        <option value="+234">+234</option>
+                        <option value="+850">+850</option>
+                        <option value="+47">+47</option>
+                        <option value="+968">+968</option>
+                        <option value="+92">+92</option>
+                        <option value="+680">+680</option>
+                        <option value="+507">+507</option>
+                        <option value="+675">+675</option>
+                        <option value="+595">+595</option>
+                        <option value="+51">+51</option>
+                        <option value="+63">+63</option>
+                        <option value="+48">+48</option>
+                        <option value="+351">+351</option>
+                        <option value="+974">+974</option>
+                        <option value="+40">+40</option>
+                        <option value="+7">+7</option>
+                        <option value="+250">+250</option>
+                        <option value="+1869">+1869</option>
+                        <option value="+1758">+1758</option>
+                        <option value="+1784">+1784</option>
+                        <option value="+685">+685</option>
+                        <option value="+378">+378</option>
+                        <option value="+239">+239</option>
+                        <option value="+966">+966</option>
+                        <option value="+221">+221</option>
+                        <option value="+381">+381</option>
+                        <option value="+248">+248</option>
+                        <option value="+232">+232</option>
+                        <option value="+65">+65</option>
+                        <option value="+421">+421</option>
+                        <option value="+386">+386</option>
+                        <option value="+677">+677</option>
+                        <option value="+252">+252</option>
+                        <option value="+27">+27</option>
+                        <option value="+82">+82</option>
+                        <option value="+211">+211</option>
+                        <option value="+34">+34</option>
+                        <option value="+94">+94</option>
+                        <option value="+249">+249</option>
+                        <option value="+597">+597</option>
+                        <option value="+268">+268</option>
+                        <option value="+46">+46</option>
+                        <option value="+41">+41</option>
+                        <option value="+963">+963</option>
+                        <option value="+886">+886</option>
+                        <option value="+992">+992</option>
+                        <option value="+255">+255</option>
+                        <option value="+66">+66</option>
+                        <option value="+228">+228</option>
+                        <option value="+676">+676</option>
+                        <option value="+1868">+1868</option>
+                        <option value="+216">+216</option>
+                        <option value="+90">+90</option>
+                        <option value="+993">+993</option>
+                        <option value="+688">+688</option>
+                        <option value="+256">+256</option>
+                        <option value="+380">+380</option>
+                        <option value="+971">+971</option>
+                        <option value="+44">+44</option>
+                        <option value="+1">+1</option>
+                        <option value="+598">+598</option>
+                        <option value="+998">+998</option>
+                        <option value="+678">+678</option>
+                        <option value="+379">+379</option>
+                        <option value="+58">+58</option>
+                        <option value="+84">+84</option>
+                        <option value="+967">+967</option>
+                        <option value="+260">+260</option>
+                        <option value="+263">+263</option>
+                      </select>
+                      <input
+                        name="contactNumber.number"
+                        maxLength={10}
+                        pattern="[0-9]{10}"
+                        onChange={changeHandler}
+                        value={basicFormData?.contactNumber?.number}
+                        placeholder="1234567890"
+                        style={{ width: "83%" }}
+                        required
+                      />
+                    </div>
                   </div>
 
                   <div className="BasicProfile_inputfield">
@@ -3123,9 +3579,9 @@ export function Artist_Profile() {
                       value={performanceFormData.typeOfPerformance}
                     >
                       <option selected>Select</option>
-                      <option value="solo">solo</option>
-                      <option value="group">group</option>
-                      <option value="both">both</option>
+                      <option value="solo">Solo</option>
+                      <option value="group">Group</option>
+                      <option value="both">Both</option>
                     </select>
                   </div>
 
@@ -3148,7 +3604,7 @@ export function Artist_Profile() {
                     <label>
                       Total Number Of Performance <span className="red">*</span>
                     </label>
-                    <select
+                    {/* <select
                       onChange={perforChangeHandler}
                       name="totalPerfs"
                       value={performanceFormData.totalPerfs}
@@ -3156,14 +3612,25 @@ export function Artist_Profile() {
                       <option selected>Select</option>
                       {[
                         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-                        17, 18, 19, 20, 21, 22, 23, 24, 25,
+                        17, 18, 19, 20, 21, 22, 23, 24, 25, 
                       ].map((item, index) => {
                         return <option value={item}>{item}</option>;
                       })}
-
-                      {/* <option value={"1-10"}>1-10</option>
-                      <option value={"10-25"}>10-25</option>
-                      <option value={"25-50"}>25-50</option> */}
+                    </select> */}
+                    <select
+                      onChange={perforChangeHandler}
+                      name="totalPerfs"
+                      value={performanceFormData.totalPerfs}
+                    >
+                      <option value="" disabled>
+                        Select
+                      </option>
+                      {[...Array(250).keys()].map((item, index) => (
+                        <option key={item} value={item + 1}>
+                          {item + 1}
+                        </option>
+                      ))}
+                      <option value="250+">250+</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3175,12 +3642,13 @@ export function Artist_Profile() {
                       name="experience"
                       value={performanceFormData.experience}
                     >
-                      <option selected>Select</option>
-                      {[
-                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-                      ].map((i) => {
-                        return <option value={i}>{i}</option>;
-                      })}
+                      <option disabled>Select</option>
+                      {[...Array(100).keys()].map((i) => (
+                        <option key={i + 1} value={i + 1}>
+                          {i + 1}
+                        </option>
+                      ))}
+                      <option value="100+">100+</option>
                     </select>
                   </div>
 
@@ -3192,10 +3660,12 @@ export function Artist_Profile() {
                       value={performanceFormData.avgPerfDurationIn}
                     >
                       <option selected>Select</option>
-                      <option value="10min">10 minutes</option>
-                      <option value="10-30min">10-30 minutes</option>
-                      <option value="30-60min">30-60 minutes</option>
-                      <option value="60-120min">60-120 minutes</option>
+                      <option value="<10min">&lt; 10 Minutes</option>
+                      <option value="10min">10 Minutes</option>
+                      <option value="10-30min">10-30 Minutes</option>
+                      <option value="30-60min">30-60 Minutes</option>
+                      <option value="60-120min">60-120 Minutes</option>
+                      <option value=">120min">&gt; 120 Minutes</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3206,9 +3676,12 @@ export function Artist_Profile() {
                       value={performanceFormData.avgPerfFeeIn}
                     >
                       <option selected>Select</option>
-                      <option value="5000">5000</option>
-                      <option value="5000-10000">5000-10000</option>
-                      <option value="10000-20000">10000-20000</option>
+                      <option value="<5000">&lt; Rs 5000</option>
+                      <option value="5000-10000">Rs 5000 - Rs 10000</option>
+                      <option value="10000-20000">Rs 10000 - Rs 20000</option>
+                      <option value="20000-50000">Rs 20000 - Rs 50000</option>
+                      <option value="50000-100000">Rs 50000 - Rs 100000</option>
+                      <option value=">100000">&gt; Rs 100000</option>
                     </select>
                   </div>
 
@@ -3222,10 +3695,10 @@ export function Artist_Profile() {
                       value={performanceFormData.avgPerfDurationInternational}
                     >
                       <option selected>Select</option>
-                      <option value="30min">30 minutes</option>
-                      <option value="30-60min">30-60 minutes</option>
-                      <option value="60-120min">60-120 minutes</option>
-                      <option value="120min">120 minutes</option>
+                      <option value="<30min">&lt; 30 Minutes</option>
+                      <option value="30-60min">30-60 Minutes+K33</option>
+                      <option value="60-120min">60-120 Minutes</option>
+                      <option value=">120min">&gt; 120 Minutes</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3236,9 +3709,13 @@ export function Artist_Profile() {
                       value={performanceFormData.avgPerfFeeInternational}
                     >
                       <option selected>Select</option>
-                      <option value="25000">25000</option>
-                      <option value="25000-50000">25000-50000</option>
-                      <option value="50000-100000">50000-100000</option>
+                      <option value="<25000">&lt; Rs 25000</option>
+                      <option value="25000-50000">Rs 25000 - Rs 50000</option>
+                      <option value="50000-100000">Rs 50000 - Rs 100000</option>
+                      <option value="100000-250000">
+                        Rs 100000 - Rs 250000
+                      </option>
+                      <option value=">250000">&gt; Rs 250000</option>
                     </select>
                   </div>
 
@@ -3429,7 +3906,7 @@ export function Artist_Profile() {
                 <div className="AwardProfile_AwardInfo">
                   <div className="BasicProfile_inputfield">
                     <label>Total Number of Awards</label>
-                    <select
+                    {/* <select
                       onChange={awardHandle}
                       name="totalAwards"
                       value={awardData.totalAwards}
@@ -3442,6 +3919,25 @@ export function Artist_Profile() {
                       <option value="15">10-15</option>
                       <option value="20">15-20</option>
                       <option value="more">More</option>
+                    </select> */}
+                    <select
+                      onChange={awardHandle}
+                      name="award.name"
+                      value={awardData.award}
+                    >
+                      <option value="" hidden>
+                        Total Number of Awards
+                      </option>
+                      {[...Array(199).keys()].map((item) => {
+                        const value = item + 1; // Adding 1 to start from 1 instead of 0
+                        return (
+                          <option key={value} value={value}>
+                            {value}
+                          </option>
+                        );
+                      })}
+                      <option value="200">200</option>
+                      <option value="200+">200+</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
