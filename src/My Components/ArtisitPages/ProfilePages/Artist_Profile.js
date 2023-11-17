@@ -512,9 +512,8 @@ export function Artist_Profile() {
       incomeSrc,
     };
 
-    // personalInfo.language = languagesoptions
-    //   .map((option) => option.value)
-    //   .join(" ");
+    personalInfo.languages = languagesoptions
+      .map((option) => option.value);
 
     let otherInfo = {
       aadharNumber,
@@ -1207,8 +1206,7 @@ export function Artist_Profile() {
         },
       }));
       setlanguagesoptions(
-        personalInfo?.language
-          ?.split(" ")
+        personalInfo?.languages
           .map((item) => ({ value: item, label: item }))
       );
 
