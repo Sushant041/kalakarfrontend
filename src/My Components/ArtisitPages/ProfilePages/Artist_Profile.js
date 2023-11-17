@@ -33,6 +33,7 @@ import YouTube from "./assets/YouTube.svg";
 import {
   specialization,
   languages,
+  typeOfArt,
   artform,
   performanceduration,
   artTypeData,
@@ -58,13 +59,37 @@ export function Artist_Profile() {
   const initialActiveSection = "basic";
 
   const [activeSection, setActiveSection] = useState(initialActiveSection);
+  const [art, setArt] = useState([]);
 
-  //multiple select languages
+  //multiple select 
+
+    const [languagesoptions, setlanguagesoptions] = useState(null);
+  const [categoryOption, setCategoryOption] = useState(null);
+  const [artNameOption,setArtNameOption ] = useState(null);
+  const [artOption, setArtOption] = useState(null);
+
   const languageoptions = languages.map((item) => ({
     value: item,
     label: item,
   }));
-  const [languagesoptions, setlanguagesoptions] = useState(null);
+ const categoryOfArt = artInfo1.map((item) => ({
+    value: item.art,
+    label: item.art,
+  }));
+ 
+  const nameOfArt = artInfo1.map((item)=>({
+    value : item.art,
+    label : item.art
+  }));
+
+
+
+
+  const typeOfArts = typeOfArt.map((item)=>({
+    value:item,
+    label:item,
+  }));
+
 
   // ! this is for avatar
   const [profileAvatar, setProfileAvatar] = useState(null);
@@ -310,7 +335,7 @@ export function Artist_Profile() {
     },
     age: "",
     gender: "",
-    language: "",
+    languages: [],
     monthlyIncome: "",
     about: "",
     pwd: "",
@@ -596,11 +621,9 @@ export function Artist_Profile() {
     artType: [],
   });
   // console.log("table",professionalTable);
-  const [art, setArt] = useState([]);
 
   const artChangesHandler = (event) => {
     const { name, value } = event.target;
-
     if (name.startsWith("artCategory")) {
       setArt(artInfo1.find((ctr) => ctr.art === value).category);
       setArtInfoFormData((prev) => ({
@@ -1139,7 +1162,6 @@ export function Artist_Profile() {
         age: personalInfo?.age,
         gender: personalInfo?.gender,
         about: personalInfo?.about,
-        language: personalInfo?.language,
         monthlyIncome: personalInfo?.monthlyIncome,
         socialCategory: personalInfo?.socialCategory,
         pwd: personalInfo?.pwd,
@@ -1151,6 +1173,8 @@ export function Artist_Profile() {
         gstIn: otherInfo?.gstIn,
         numOfperformanceLastYear: otherInfo?.lastYearPerfsCount,
         passportNumber: otherInfo?.passportNumber,
+        languages:personalInfo?.languages,
+
         address: {
           ...prev.address,
           ...response.data.address,
@@ -1174,6 +1198,7 @@ export function Artist_Profile() {
           .map((item) => ({ value: item, label: item }))
       );
 
+
       setArtFormData((prev) => ({
         ...prev,
         natureOfArt: artInfo?.artCategory,
@@ -1185,6 +1210,7 @@ export function Artist_Profile() {
         traditionArtName: traditionalInfo?.artName,
 
         artForm: artInfo?.artForm,
+        
         performanceType: artInfo?.perfType,
         // check
         artEducation: artInfo?.learningSrc,
@@ -1219,11 +1245,22 @@ export function Artist_Profile() {
           // check
           ...certificateInfo?.duration,
         },
+        
       }));
+       setArtOption(
+       artInfo?.perfType
+          ?.split(" ")
+          .map((item) => ({ value: item, label: item }))
+      );
+       setCategoryOption(
+       artInfo?.artCategory
+          ?.split(" ")
+          .map((item) => ({ value: item, label: item }))
+      );
 
       // setProfessionalTable(())
       console.log("->>");
-      console.log("art Imfo ", response.data);
+      console.log("art Info ", response.data);
       console.log("->>");
 
       setPerformanceFormData((prev) => ({
@@ -2538,8 +2575,17 @@ export function Artist_Profile() {
                     <label>
                       Category of Art <span className="red">*</span>
                     </label>
+                      <Select
+                      defaultValue={categoryOption}
+                      value={categoryOption}
+                      isMulti
+                      onChange={setCategoryOption}
+                      options={categoryOfArt}
+                    />
 
-                    <select
+
+
+                    {/* <select
                       name="artCategory"
                       placeholder="Select nature of art"
                       onChange={artChangesHandler}
@@ -2553,14 +2599,22 @@ export function Artist_Profile() {
                           {option.art}
                         </option>
                       ))}
-                    </select>
+                    </select> */}
                   </div>
 
                   <div className="ArtProfile_inputfield">
                     <label>
                       Name Of Art <span className="red">*</span>
                     </label>
-                    <select
+                     <Select
+                      defaultValue={artNameOption}
+                      value={artNameOption}
+                      isMulti
+                      onChange={setArtNameOption}
+                      options={nameOfArt}
+                    />
+
+                    {/* <select
                       placeholder="Select art forms"
                       name="artName"
                       defaultValue={artInfoFormData.artName[0]}
@@ -2574,11 +2628,11 @@ export function Artist_Profile() {
                           {option.type}
                         </option>
                       ))}
-                    </select>
+                    </select> */}
                   </div>
                   <div className="ArtProfile_inputfield">
                     <label>Type of Art</label>
-                    <select
+                    {/* <select
                       onChange={artChangesHandler}
                       name="artType"
                       placeholder="Select name of the art "
@@ -2592,7 +2646,14 @@ export function Artist_Profile() {
                           {option}
                         </option>
                       ))}
-                    </select>
+                    </select> */}
+                      <Select
+                      defaultValue={artOption}
+                      value={artOption}
+                      isMulti
+                      onChange={setArtOption}
+                      options={typeOfArts}
+                    />
                   </div>
 
                   <div className="ArtProfile_inputfield">
@@ -3317,7 +3378,7 @@ export function Artist_Profile() {
                       <option value="false">No</option>
                     </select>
                   </div>
-                  <div className="BasicProfile_inputfield">
+                  <div className="BasicProfile_inputfield " id= {performanceFormData.affiliatedToAnyGroup === "false" ?"hidden":""}>
                     <label>Name Of Artist Group/Organisation </label>
                     <input
                       onChange={(e) =>
@@ -3330,7 +3391,7 @@ export function Artist_Profile() {
                       value={performanceFormData.nameOfArtistGroupOrg}
                     ></input>
                   </div>
-                  <div className="BasicProfile_inputfield">
+                  <div className="BasicProfile_inputfield" id= {performanceFormData.affiliatedToAnyGroup === "false" ?"hidden":""}>
                     <label>Location of Group/Organization</label>
                     <select
                       onChange={perforChangeHandler}
@@ -3347,7 +3408,7 @@ export function Artist_Profile() {
                       })}
                     </select>
                   </div>
-                  <div className="PerformanceProfile_inputfield">
+                  <div className="PerformanceProfile_inputfield" id= {performanceFormData.affiliatedToAnyGroup === "false" ?"hidden":""}>
                     <label htmlFor="">
                       Contact Number <span className="red">*</span>
                     </label>

@@ -4,7 +4,9 @@
 body{
   overflow-x: hidden;
 }
-
+#hidden{
+  display: none;
+}
 .Profile_Page {
   min-height: 100vh;
   margin: 0  ;
