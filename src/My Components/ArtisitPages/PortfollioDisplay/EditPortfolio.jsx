@@ -58,7 +58,7 @@ function EditPortfolio() {
 
 
       setPortfolioData({
-        phoneNumber :personalInfo?.contactNumber , email : personalInfo?.email ,address :address , handles : socialLinks , firstName:personalInfo?.firstName , lastName : personalInfo?.lastName , natureOfArt :artInfo?.artNature  ,  age : personalInfo?.age , chargePerPerformance:performanceInfo?.perfCharge ,experience : performanceInfo?.experience , eventType:performanceInfo?.perfEvent   , minimumBudget : personalInfo?.monthlyIncome , noOfPerformance : performanceInfo?.lastYearPerfs  ,performanceType : performanceInfo?.perfType
+        phoneNumber :personalInfo?.contactNumber.number , email : personalInfo?.email ,address :address , handles : socialLinks , firstName:personalInfo?.firstName , lastName : personalInfo?.lastName , natureOfArt :artInfo?.artNature  ,  age : personalInfo?.age , chargePerPerformance:performanceInfo?.perfCharge ,experience : performanceInfo?.experience , eventType:performanceInfo?.perfEvent   , minimumBudget : personalInfo?.monthlyIncome , noOfPerformance : performanceInfo?.lastYearPerfs  ,performanceType : performanceInfo?.perfType
 
       })
       }else{

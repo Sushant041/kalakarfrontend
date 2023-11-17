@@ -89,7 +89,7 @@ function PortfolioDisplay() {
         // const { length: totalperformances } = perfDetails;
 
         setPortfolioData({
-          phoneNumber: contactNumber,
+          phoneNumber: contactNumber.number,
           email,
           address: response.data?.address,
           handles: response.data?.socialLinks,

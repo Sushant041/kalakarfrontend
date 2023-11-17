@@ -143,7 +143,7 @@ const ArtistDashboard = () => {
                               fontWeight: "600",
                             }}
                           >
-                            {appliedData[index].opportunity.purpose}
+                            {appliedData[index].opportunity?.purpose}
                           </Link>
                         </td>
 

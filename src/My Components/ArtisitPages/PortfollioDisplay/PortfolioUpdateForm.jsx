@@ -24,8 +24,11 @@ function PortfolioUpdateForm() {
     lastName: "",
     category: "",
     natureOfArt: "",
-    contactNumber: "",
-    email: "",
+  contactNumber: {
+      countryCode: "",
+      number: "",
+    },
+        email: "",
     aboutJourney:"",
    
     eventType: "",
@@ -58,7 +61,7 @@ function PortfolioUpdateForm() {
     
 
       setFormData({
-        contactNumber :personalInfo?.contactNumber , email : personalInfo?.email ,address :address , handles : socialLinks , firstName:personalInfo?.firstName , lastName : personalInfo?.lastName , natureOfArt :artInfo?.artNature  ,  age : personalInfo?.age , chargePerPerformance:performanceInfo?.perfCharge ,yearOfExperience : performanceInfo?.experience , eventType:performanceInfo?.perfEvent   , minimumBudget : personalInfo?.monthlyIncome , noOfPerformance : performanceInfo?.lastYearPerfs  ,performanceType : performanceInfo?.perfType , artName : artInfo?.artName , aboutJourney: personalInfo?.about , location: address?.details
+        contactNumber :personalInfo?.contactNumber.number , email : personalInfo?.email ,address :address , handles : socialLinks , firstName:personalInfo?.firstName , lastName : personalInfo?.lastName , natureOfArt :artInfo?.artNature  ,  age : personalInfo?.age , chargePerPerformance:performanceInfo?.perfCharge ,yearOfExperience : performanceInfo?.experience , eventType:performanceInfo?.perfEvent   , minimumBudget : personalInfo?.monthlyIncome , noOfPerformance : performanceInfo?.lastYearPerfs  ,performanceType : performanceInfo?.perfType , artName : artInfo?.artName , aboutJourney: personalInfo?.about , location: address?.details
       });
 
     } catch (error) {
@@ -104,7 +107,7 @@ function PortfolioUpdateForm() {
       }
       let  socialLinks  = handles;
 
-      let  personalInfo ={ firstName , lastName , about:aboutJourney , contactNumber , email , age , monthlyIncome:minimumBudget 
+      let  personalInfo = { firstName , lastName , about:aboutJourney , contactNumber , email , age , monthlyIncome:minimumBudget 
       }
 
       let artInfo ={
@@ -199,7 +202,7 @@ function PortfolioUpdateForm() {
           placeholder="Enter your contact Number"
           required
           name="contactNumber"
-          value={formData.contactNumber}
+          value={formData.contactNumber.number}
           onChange={changeHandler}
           className="single_form_input"
         />

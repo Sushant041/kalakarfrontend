@@ -469,9 +469,7 @@ export function Artist_Profile() {
   //   ! submit update handler for basic profile
   const basicSubmitHandler = async (event) => {
     event.preventDefault();
-
     const toastId = toast.loading("Loading...");
-
     let address = basicFormData.address;
     let idProof = basicFormData.idProof;
 
@@ -508,13 +506,9 @@ export function Artist_Profile() {
       gender,
       monthlyIncome,
       socialCategory,
-
       incomeSrc,
+      languages: languagesoptions.map((option) => option.value),
     };
-
-    // personalInfo.language = languagesoptions
-    //   .map((option) => option.value)
-    //   .join(" ");
 
     let otherInfo = {
       aadharNumber,
@@ -684,7 +678,6 @@ export function Artist_Profile() {
   const artSubmitHandler = async (event) => {
     event.preventDefault();
     const toastId = toast.loading("Loading...");
-
     const {
       artEduDuration,
       artForm,
@@ -709,10 +702,10 @@ export function Artist_Profile() {
 
     let artInfo = {
       aboutArt: aboutArt,
-      artCategory: artCategory,
+      artCategory: categoryOption.map((option) => option.value),
       artEducation: artEducation,
-      artName: artName,
-      artType: artType,
+      artName: artNameOption?.map((e) => e.value),
+      artType: artOption?.map((e) => e.value),
     };
     let traditionalInfo = traditionalTable;
 
@@ -756,9 +749,10 @@ export function Artist_Profile() {
 
     toast.dismiss(toastId);
   };
-
-  //  ! for performance profile section
-
+console.log("==>");
+        console.log("Check By Chiku",languageoptions.map((e)=>e.value));
+       
+        console.log("==>");
   const [tableData, setTableData] = useState([
     // Initial data with column headings
     {
@@ -1187,8 +1181,11 @@ export function Artist_Profile() {
         gstIn: otherInfo?.gstIn,
         numOfperformanceLastYear: otherInfo?.lastYearPerfsCount,
         passportNumber: otherInfo?.passportNumber,
-        languages:personalInfo?.languages,
-
+        languages:[
+          ...prev.languages,
+          ...response.data.personalInfo.languages
+        ],
+        
         address: {
           ...prev.address,
           ...response.data.address,
@@ -1207,11 +1204,12 @@ export function Artist_Profile() {
         },
       }));
       setlanguagesoptions(
-        personalInfo?.language
+        personalInfo?.languages
           ?.split(" ")
           .map((item) => ({ value: item, label: item }))
       );
 
+      
 
       setArtFormData((prev) => ({
         ...prev,
