@@ -266,6 +266,11 @@ export function Artist_Profile() {
     },
   ];
 
+  const completionYearTableData = [
+    2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
+    2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2022, 2023,
+  ];
+
   const MajorInternationalCities = [
     "United States",
     "China",
@@ -564,7 +569,7 @@ export function Artist_Profile() {
       location: "",
       duration: "",
       completionYear: 0,
-      link: "",
+      documentUrl: "",
     },
     {
       artName: "",
@@ -572,7 +577,7 @@ export function Artist_Profile() {
       location: "",
       duration: "",
       completionYear: 0,
-      link: "",
+      documentUrl: "",
     },
     {
       artName: "",
@@ -580,7 +585,7 @@ export function Artist_Profile() {
       location: "",
       duration: "",
       completionYear: 0,
-      link: "",
+      documentUrl: "",
     },
   ]);
   const handleArtProfileChanges = (e, rowIdx, key) => {
@@ -688,7 +693,7 @@ export function Artist_Profile() {
     // };
 
     console.log(professionalInfo, traditionalInfo);
-    console.log(artInfoFormData);
+    // console.log(artInfoFormData);
 
     try {
       const response = await makeAuthenticatedPATCHRequest(
@@ -1439,27 +1444,27 @@ export function Artist_Profile() {
   const [professionalTable, setProfessionalTable] = useState([
     {
       course: "",
-      specialisation: "",
+      specialization: "",
       institute: "",
       duration: "",
       completionYear: 0,
-      link: "",
+      documentUrl: "",
     },
     {
       course: "",
-      specialisation: "",
+      specialization: "",
       institute: "",
       duration: "",
       completionYear: 0,
-      link: "",
+      documentUrl: "",
     },
     {
       course: "",
-      specialisation: "",
+      specialization: "",
       institute: "",
       duration: "",
       completionYear: 0,
-      link: "",
+      documentUrl: "",
     },
   ]);
 
@@ -2642,18 +2647,92 @@ export function Artist_Profile() {
                   <tbody>
                     {professionalTable.map((row, rowIndex) => (
                       <tr key={rowIndex}>
-                        {Object.keys(row).map((key, colIndex) => (
-                          <td key={colIndex}>
-                            <input
-                              type="text"
-                              value={row[key]}
-                              // defaultValue={awardData.highlight}
-                              onChange={(e) =>
-                                handleArtProfileChanges(e, rowIndex, key)
-                              }
-                            />
-                          </td>
-                        ))}
+                        {Object.keys(row).map((key, colIndex) => {
+                          console.log(key);
+                          return (
+                            <td key={colIndex}>
+                              {key == "documentUrl" && (
+                                <input
+                                  type="file"
+                                  value={row[key]}
+                                  // defaultValue={awardData.highlight}
+                                  onChange={(e) =>
+                                    handleArtProfileChanges(e, rowIndex, key)
+                                  }
+                                />
+                              )}
+
+                              {key == "completionYear" && (
+                                <select
+                                  style={{
+                                    maxWidth: "150px",
+                                    padding: "1px",
+                                    borderRadius: "0px",
+                                    // height: "40px",
+                                    border: "none",
+                                  }}
+                                  className="table-select"
+                                  defaultValue={row[key]}
+                                  // defaultValue={awardData.highlight}
+                                  onChange={(e) =>
+                                    handleArtProfileChanges(e, rowIndex, key)
+                                  }
+                                >
+                                  <option selected hidden>
+                                    Select
+                                  </option>
+                                  {completionYearTableData.map((item) => (
+                                    <option value={item} key={item}>
+                                      {item}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
+                              {key == "duration" && (
+                                <select
+                                  style={{
+                                    maxWidth: "150px",
+                                    padding: "1px",
+                                    borderRadius: "0px",
+                                    // height: "40px",
+                                    border: "none",
+                                  }}
+                                  className="table-select"
+                                  defaultValue={row[key]}
+                                  // defaultValue={awardData.highlight}
+                                  onChange={(e) =>
+                                    handleArtProfileChanges(e, rowIndex, key)
+                                  }
+                                >
+                                  <option selected hidden>
+                                    Select
+                                  </option>
+                                  {[
+                                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                                    14, 15,
+                                  ].map((item) => (
+                                    <option key={item} value={item}>
+                                      {item}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
+
+                              {(key == "course" ||
+                                key == "institute" ||
+                                key == "specialization") && (
+                                <input
+                                  type="text"
+                                  value={row[key]}
+                                  // defaultValue={awardData.highlight}
+                                  onChange={(e) =>
+                                    handleArtProfileChanges(e, rowIndex, key)
+                                  }
+                                />
+                              )}
+                            </td>
+                          );
+                        })}
                       </tr>
                     ))}
                   </tbody>
@@ -2674,18 +2753,116 @@ export function Artist_Profile() {
                     <tbody>
                       {traditionalTable.map((row, rowIndex) => (
                         <tr key={rowIndex}>
-                          {Object.keys(row).map((key, colIndex) => (
-                            <td key={colIndex}>
-                              <input
-                                type="text"
-                                value={row[key]}
-                                // defaultValue={awardData.highlight}
-                                onChange={(e) =>
-                                  handleTraditional(e, rowIndex, key)
-                                }
-                              />
-                            </td>
-                          ))}
+                          {Object.keys(row).map((key, colIndex) => {
+                            console.log(" row -key", row[key]);
+                            return (
+                              <td key={colIndex}>
+                                {key == "documentUrl" && (
+                                  <input
+                                    type="file"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleTraditional(e, rowIndex, key)
+                                    }
+                                  />
+                                )}
+                                {key == "location" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      padding: "1px",
+                                      borderRadius: "0px",
+                                      // height: "40px",
+                                      border: "none",
+                                    }}
+                                    className="table-select"
+                                    defaultValue={row[key]}
+                                    // value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleTraditional(e, rowIndex, key)
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {MajorIndianCities.map((item, index) => (
+                                      <option value={item.city} key={index}>
+                                        {item.city}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
+                                {key == "completionYear" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      padding: "1px",
+                                      borderRadius: "0px",
+                                      // height: "40px",
+                                      border: "none",
+                                    }}
+                                    className="table-select"
+                                    defaultValue={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleTraditional(e, rowIndex, key)
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {completionYearTableData.map((item) => (
+                                      <option value={item} key={item}>
+                                        {item}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
+                                {key == "duration" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      padding: "1px",
+                                      borderRadius: "0px",
+                                      // height: "40px",
+                                      border: "none",
+                                    }}
+                                    className="table-select"
+                                    defaultValue={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleTraditional(e, rowIndex, key)
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {[
+                                      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                                      14, 15,
+                                    ].map((item) => (
+                                      <option key={item} value={item}>
+                                        {item}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
+
+                                {(key == "guruName" || key == "artName") && (
+                                  <input
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleTraditional(e, rowIndex, key)
+                                    }
+                                  />
+                                )}
+                              </td>
+                            );
+                          })}
                         </tr>
                       ))}
                     </tbody>

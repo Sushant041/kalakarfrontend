@@ -1483,3 +1483,10 @@ table{
 .css-1u9des2-indicatorSeparator{
   height: 44px;
 }
+
+
+td input {
+  padding: none;
+  height: 100%;
+  border: none;
+}
