@@ -61,12 +61,81 @@ export function Artist_Profile() {
   const [activeSection, setActiveSection] = useState(initialActiveSection);
   const [art, setArt] = useState([]);
 
+  const MajorIndianCities = [
+    {
+      city: "Mumbai",
+      state: "Maharashtra",
+    },
+    {
+      city: "Delhi",
+      state: "Delhi",
+    },
+    {
+      city: "Bangalore",
+      state: "Karnataka",
+    },
+    {
+      city: "Kolkata",
+      state: "West Bengal",
+    },
+    {
+      city: "Chennai",
+      state: "Tamil Nadu",
+    },
+    {
+      city: "Hyderabad",
+      state: "Telangana",
+    },
+    {
+      city: "Pune",
+      state: "Maharashtra",
+    },
+    {
+      city: "Ahmedabad",
+      state: "Gujarat",
+    },
+    {
+      city: "Jaipur",
+      state: "Rajasthan",
+    },
+    {
+      city: "Lucknow",
+      state: "Uttar Pradesh",
+    },
+  ];
+  const MajorInternationalCities = [
+    "United States",
+    "China",
+    "India",
+    "Indonesia",
+    "Pakistan",
+    "Brazil",
+    "Nigeria",
+    "Bangladesh",
+    "Russia",
+    "Mexico",
+    "Japan",
+    "Ethiopia",
+    "Philippines",
+    "Egypt",
+    "Vietnam",
+    "DR Congo",
+    "Turkey",
+    "Iran",
+    "Germany",
+    "Thailand",
+    "United Kingdom",
+    "France",
+    "Italy",
+    "South Africa",
+    "Myanmar",
+    "South Korea",
+    "Colombia",
+    "Spain",
+    "Ukraine",
+    "Tanzania",
+  ];
   //multiple select 
-
-    const [languagesoptions, setlanguagesoptions] = useState(null);
-  const [categoryOption, setCategoryOption] = useState(null);
-  const [artNameOption,setArtNameOption ] = useState(null);
-  const [artOption, setArtOption] = useState(null);
 
   const languageoptions = languages.map((item) => ({
     value: item,
@@ -81,7 +150,24 @@ export function Artist_Profile() {
     value : item.art,
     label : item.art
   }));
+   
+  const majorCities = MajorIndianCities.map((item)=>({
+    value : item.city,
+    label : item.city
+  }));
 
+    const majorContry = MajorInternationalCities.map((item)=>({
+    value : item,
+    label : item
+  }));
+
+
+  const [languagesoptions, setlanguagesoptions] = useState(null);
+  const [categoryOption, setCategoryOption] = useState(null);
+  const [artNameOption,setArtNameOption ] = useState(null);
+  const [artOption, setArtOption] = useState(null);
+  const [cities,setCities] = useState(null);
+  const [contry,setContry] = useState(null);
 
 
 
@@ -248,81 +334,9 @@ export function Artist_Profile() {
     },
   ];
 
-  const MajorIndianCities = [
-    {
-      city: "Mumbai",
-      state: "Maharashtra",
-    },
-    {
-      city: "Delhi",
-      state: "Delhi",
-    },
-    {
-      city: "Bangalore",
-      state: "Karnataka",
-    },
-    {
-      city: "Kolkata",
-      state: "West Bengal",
-    },
-    {
-      city: "Chennai",
-      state: "Tamil Nadu",
-    },
-    {
-      city: "Hyderabad",
-      state: "Telangana",
-    },
-    {
-      city: "Pune",
-      state: "Maharashtra",
-    },
-    {
-      city: "Ahmedabad",
-      state: "Gujarat",
-    },
-    {
-      city: "Jaipur",
-      state: "Rajasthan",
-    },
-    {
-      city: "Lucknow",
-      state: "Uttar Pradesh",
-    },
-  ];
 
-  const MajorInternationalCities = [
-    "United States",
-    "China",
-    "India",
-    "Indonesia",
-    "Pakistan",
-    "Brazil",
-    "Nigeria",
-    "Bangladesh",
-    "Russia",
-    "Mexico",
-    "Japan",
-    "Ethiopia",
-    "Philippines",
-    "Egypt",
-    "Vietnam",
-    "DR Congo",
-    "Turkey",
-    "Iran",
-    "Germany",
-    "Thailand",
-    "United Kingdom",
-    "France",
-    "Italy",
-    "South Africa",
-    "Myanmar",
-    "South Korea",
-    "Colombia",
-    "Spain",
-    "Ukraine",
-    "Tanzania",
-  ];
+
+
 
   // !  for basic proile
   const [basicFormData, setBasicFormData] = useState({
@@ -3782,7 +3796,14 @@ export function Artist_Profile() {
 
                   <div className="BasicProfile_inputfield">
                     <label>Major Performance Cities (India)</label>
-                    <select
+                     <Select
+                      defaultValue={cities}
+                      value={cities}
+                      isMulti
+                      onChange={setCities}
+                      options={majorCities}
+                    />
+                    {/* <select
                       onChange={perforChangeHandler}
                       name="majorPerfCityIndia"
                       value={performanceFormData.majorPerfCityIndia}
@@ -3795,11 +3816,18 @@ export function Artist_Profile() {
                           </option>
                         );
                       })}
-                    </select>
+                    </select> */}
                   </div>
                   <div className="BasicProfile_inputfield">
                     <label>Major Countries for Performance International</label>
-                    <select
+                     <Select
+                      defaultValue={contry}
+                      value={contry}
+                      isMulti
+                      onChange={setContry}
+                      options={majorContry}
+                    />
+                    {/* <select
                       onChange={perforChangeHandler}
                       name="majorPerfCountryInternational"
                       value={performanceFormData.majorPerfCountryInternational}
@@ -3812,7 +3840,7 @@ export function Artist_Profile() {
                           </option>
                         );
                       })}
-                    </select>
+                    </select> */}
                   </div>
                   <div className="ArtProfile_Traditional">
                     <label>Major Performances/ Events (max. 5)</label>
