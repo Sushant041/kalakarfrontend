@@ -510,6 +510,9 @@ export function Artist_Profile() {
       languages: languagesoptions.map((option) => option.value),
     };
 
+    personalInfo.languages = languagesoptions
+      .map((option) => option.value);
+
     let otherInfo = {
       aadharNumber,
       panNumber,
@@ -1204,8 +1207,7 @@ console.log("==>");
         },
       }));
       setlanguagesoptions(
-        personalInfo?.languages
-          ?.split(" ")
+        personalInfo?.languages          ?.split(" ")
           .map((item) => ({ value: item, label: item }))
       );
 
