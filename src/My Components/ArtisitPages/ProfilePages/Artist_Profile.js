@@ -4,6 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "../../FrontPage/Navbar.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import {
   makeAuthenticatedGETRequest,
   makeAuthenticatedPATCHRequest,
@@ -135,32 +138,31 @@ export function Artist_Profile() {
     "Ukraine",
     "Tanzania",
   ];
-  //multiple select 
+  //multiple select
 
   const languageoptions = languages.map((item) => ({
     value: item,
     label: item,
   }));
- const categoryOfArt = artInfo1.map((item) => ({
+  const categoryOfArt = artInfo1.map((item) => ({
     value: item.art,
     label: item.art,
   }));
- 
-  const nameOfArt = artInfo1.map((item)=>({
-    value : item.art,
-    label : item.art
-  }));
-   
-  const majorCities = MajorIndianCities.map((item)=>({
-    value : item.city,
-    label : item.city
+
+  const nameOfArt = artInfo1.map((item) => ({
+    value: item.art,
+    label: item.art,
   }));
 
-    const majorContry = MajorInternationalCities.map((item)=>({
-    value : item,
-    label : item
+  const majorCities = MajorIndianCities.map((item) => ({
+    value: item.city,
+    label: item.city,
   }));
 
+  const majorContry = MajorInternationalCities.map((item) => ({
+    value: item,
+    label: item,
+  }));
 
   const [languagesoptions, setlanguagesoptions] = useState(null);
   const [categoryOption, setCategoryOption] = useState(null);
@@ -168,13 +170,11 @@ export function Artist_Profile() {
   const [artOption, setArtOption] = useState(null); // Type Of Art
   const [cities,setCities] = useState(null);
   const [contry,setContry] = useState(null);
-
-
-
-  const typeOfArts = typeOfArt.map((item)=>({
-    value:item,
-    label:item,
+  const typeOfArts = typeOfArt.map((item) => ({
+    value: item,
+    label: item,
   }));
+
 
 
   // ! this is for avatar
@@ -334,20 +334,19 @@ export function Artist_Profile() {
     },
   ];
 
-
-
-
-
+  const completionYearData = [
+    2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
+    2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
+  ];
   // !  for basic proile
   const [basicFormData, setBasicFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    contactNumber: {
-      countryCode: "",
-      number: "",
-    },
-    age: "",
+ contactNumber:{
+      countryCode:"",
+      number:""
+   },    age: "",
     gender: "",
     languages: [],
     monthlyIncome: "",
@@ -379,9 +378,9 @@ export function Artist_Profile() {
     aadharNumber: "",
     panNumber: "",
     upiId: "",
-    passportNumber: "",
+    passportNumber:"",
   });
-  console.log(basicFormData.countryCode);
+
   const [numberOfAward, setNumberOfAward] = useState("");
   const [hightLevel, sethightLevel] = useState("");
   // ! change  handler for basic profile
@@ -407,7 +406,7 @@ export function Artist_Profile() {
           [name.split(".")[1]]: value,
         },
       }));
-    } else if (name.startsWith("contactNumber.")) {
+    }  else if (name.startsWith("contactNumber.")) {
       setBasicFormData((prevData) => ({
         ...prevData,
         contactNumber: {
@@ -415,14 +414,21 @@ export function Artist_Profile() {
           [name.split(".")[1]]: value,
         },
       }));
-    } else if (name.startsWith("idProof.")) {
+    }  
+    
+    else if (name.startsWith("idProof.")) {
       setBasicFormData((prevData) => ({
         ...prevData,
         idProof: {
           ...prevData.idProof,
           [name.split(".")[1]]: value,
         },
-      }));
+      })); 
+    // }else if (name.startsWith("Date")) {
+    //   setBasicFormData((prevData) => ({
+    //     ...prevData,
+    //     passportNumber:event.getFullYear()
+    //   }));
     } else {
       // Otherwise, update the top-level state
       setBasicFormData((prevData) => ({
@@ -431,6 +437,7 @@ export function Artist_Profile() {
       }));
     }
   };
+
 
   const PinFetch = async (value) => {
     try {
@@ -480,8 +487,8 @@ export function Artist_Profile() {
       lastName,
       about,
       age,
+contactNumber,
       email,
-      contactNumber,
       gender,
       socialCategory,
       monthlyIncome,
@@ -489,7 +496,6 @@ export function Artist_Profile() {
       panNumber,
       upiId,
       anunalIncomeByPerf,
-      passportNumber,
       numOfperformanceLastYear,
       handles,
       pwd,
@@ -502,29 +508,28 @@ export function Artist_Profile() {
       lastName,
       about,
       age,
+contactNumber,
       pwd,
       email,
-      contactNumber,
       gender,
       monthlyIncome,
       socialCategory,
-
       incomeSrc,
     };
 
-    personalInfo.languages = languagesoptions
-      .map((option) => option.value);
+    personalInfo.languages = languagesoptions.map((option) => option.value);
 
     let otherInfo = {
       aadharNumber,
       panNumber,
       upiId,
-      passportNumber,
       numOfperformanceLastYear,
       idProof,
       gstIn,
       anunalIncomeByPerf,
     };
+
+    otherInfo.passportNumber = startDate;
 
     let socialLinks = handles;
 
@@ -602,7 +607,7 @@ export function Artist_Profile() {
       location: "",
       duration: "",
       completionYear: 0,
-      link: "",
+      documentUrl: "",
     },
     {
       artName: "",
@@ -610,7 +615,7 @@ export function Artist_Profile() {
       location: "",
       duration: "",
       completionYear: 0,
-      link: "",
+      documentUrl: "",
     },
     {
       artName: "",
@@ -618,7 +623,7 @@ export function Artist_Profile() {
       location: "",
       duration: "",
       completionYear: 0,
-      link: "",
+      documentUrl: "",
     },
   ]);
   const handleArtProfileChanges = (e, rowIdx, key) => {
@@ -859,96 +864,99 @@ export function Artist_Profile() {
 
     const toastId = toast.loading("Loading...");
 
-    // try {
-    //   const {
-    //     affiliatedToAnyGroup,
-    //     nameOfArtistGroupOrg,
-    //     locationOfGroupOrg,
-    //     contactNoOfGroupOrg,
-    //     typeOfPerformance,
-    //     highestLevelOfPerformance,
-    //     totalPerfs,
-    //     experience,
-    //     avgPerfDurationIn,
-    //     avgPerfFeeIn,
-    //     avgPerfDurationInternational,
-    //     avgPerfFeeInternational,
-    //     aboutJourney,
-    //     majorPerfCityIndia,
-    //     majorPerfCountryInternational,
-    //     performanceImages,
-    //     performancevideos,
-    //     // yearOfExperience,
-    //     // affiliatedToAnyGroup,
-    //     // nameOfTheAffiliatedGroup,
-    //     // affiliatedToAnyOrg,
-    //     // nameOfTheAffiliatedOrg,
-    //     // totalNoOfPerformance,
-    //     // highestLevelOfPerformance,
-    //     // performanceEvents,
-    //     // thematic,
-    //     // NoOfPerformanceLastYear,
-    //     // performanceDuration,
-    //     // chargesPerPerformance,
-    //     // averagePerformanceIncome,
-    //     // performanceType,
-    //   } = performanceFormData;
+    try {
+      const {
+        affiliatedToAnyGroup,
+        nameOfArtistGroupOrg,
+        locationOfGroupOrg,
+        contactNoOfGroupOrg,
+        typeOfPerformance,
+        highestLevelOfPerformance,
+        totalPerfs,
+        experience,
+        avgPerfDurationIn,
+        avgPerfFeeIn,
+        avgPerfDurationInternational,
+        avgPerfFeeInternational,
+        aboutJourney,
+   
+        majorPerfCountryInternational,
+        performanceImages,
+        performancevideos,
+        // yearOfExperience,
+        // affiliatedToAnyGroup,
+        // nameOfTheAffiliatedGroup,
+        // affiliatedToAnyOrg,
+        // nameOfTheAffiliatedOrg,
+        // totalNoOfPerformance,
+        // highestLevelOfPerformance,
+        // performanceEvents,
+        // thematic,
+        // NoOfPerformanceLastYear,
+        // performanceDuration,
+        // chargesPerPerformance,
+        // averagePerformanceIncome,
+        // performanceType,
+      } = performanceFormData;
 
-    //   let performanceInfo = {
-    //     affiliation: {
-    //       name: nameOfArtistGroupOrg,
-    //       isAffiliated: affiliatedToAnyGroup,
-    //       location: locationOfGroupOrg,
-    //       conactNumber: contactNoOfGroupOrg,
-    //     },
-    //     perfDuration: {
-    //       india: avgPerfDurationIn,
-    //       international: avgPerfDurationInternational,
-    //     },
-    //     perfCharge: {
-    //       india: avgPerfFeeIn,
-    //       international: avgPerfFeeInternational,
-    //     },
-    //     perfType: typeOfPerformance,
-    //     experience: experience,
-    //     highlights: aboutJourney,
-    //     totalPerfs: totalPerfs,
-    //     peakPerf: highestLevelOfPerformance,
-    //     majorPerfCity: majorPerfCityIndia,
-    //     majorPerfCountry: majorPerfCountryInternational,
-    //     perfDetails: tableData,
-    //     perfImgs: performanceImages,
-    //     perfVideos: performancevideos,
-    //   };
-    //   // console.log(performanceFormData);
+      let performanceInfo = {
+        affiliation: {
+          name: nameOfArtistGroupOrg,
+          isAffiliated: affiliatedToAnyGroup,
+          location: locationOfGroupOrg,
+          conactNumber: contactNoOfGroupOrg,
+        },
+        perfDuration: {
+          india: avgPerfDurationIn,
+          international: avgPerfDurationInternational,
+        },
+        perfCharge: {
+          india: avgPerfFeeIn,
+          international: avgPerfFeeInternational,
+        },
+        perfType: typeOfPerformance,
+        experience: experience,
+        highlights: aboutJourney,
+        totalPerfs: totalPerfs,
+        peakPerf: highestLevelOfPerformance,
+        majorPerfCountry: majorPerfCountryInternational,
+        perfDetails: tableData,
+        perfImgs: performanceImages,
+        perfVideos: performancevideos,
+      };
+              // majorPerfCity: majorPerfCityIndia,
+      performanceInfo.majorPerfCityIndia = cities.map((option)=>option.map);
 
-    //   const response = await makeAuthenticatedPATCHRequest(
-    //     artistProfilePoints.UPDATE_PROFILE_DATA_API,
-    //     { performanceInfo },
-    //     accessToken
-    //   );
-    //   // console.log("response ", response);
-    //   if (response.status === "success") {
-    //     toast.success("successfully updated ", {
-    //       position: "top-center",
-    //     });
-    //     setActiveSection("award");
-    //     localStorage.setItem("activeSection", activeSection);
-    //   } else {
-    //     toast.error(response.message, {
-    //       position: "top-center",
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    //   toast.error("cannot updated successfully , please try again", {
-    //     position: "top-center",
-    //   });
-    // }
+      // console.log(performanceFormData);
+
+      const response = await makeAuthenticatedPATCHRequest(
+        artistProfilePoints.UPDATE_PROFILE_DATA_API,
+        { performanceInfo },
+        accessToken
+      );
+      // console.log("response ", response);
+      if (response.status === "success") {
+        toast.success("successfully updated ", {
+          position: "top-center",
+        });
+        setActiveSection("award");
+        localStorage.setItem("activeSection", activeSection);
+      } else {
+        toast.error(response.message, {
+          position: "top-center",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("cannot updated successfully , please try again", {
+        position: "top-center",
+      });
+    }
 
     toast.dismiss(toastId);
   };
 
+   const [startDate, setStartDate] = useState(new Date());
   // ! for award profile
   const [awardFormData, setAwardFormData] = useState({
     totalAwards: "",
@@ -1200,7 +1208,11 @@ export function Artist_Profile() {
         gstIn: otherInfo?.gstIn,
         numOfperformanceLastYear: otherInfo?.lastYearPerfsCount,
         passportNumber: otherInfo?.passportNumber,
-        languages:personalInfo?.languages,
+        languages: personalInfo?.languages,
+           contactNumber:{
+          ...prev.contactNumber,
+          ...response.data.personalInfo.contactNumber,
+        },
 
         address: {
           ...prev.address,
@@ -1210,20 +1222,14 @@ export function Artist_Profile() {
           ...prev.handles,
           ...response.data.socialLinks,
         },
-        contactNumber: {
-          ...prev.contactNumber,
-          ...response.data.personalInfo.contactNumber,
-        },
         idProof: {
           ...prev.idProof,
           ...response.data.otherInfo.idProof,
         },
       }));
       setlanguagesoptions(
-        personalInfo?.languages
-          .map((item) => ({ value: item, label: item }))
+        personalInfo?.languages.map((item) => ({ value: item, label: item }))
       );
-
 
       setArtFormData((prev) => ({
         ...prev,
@@ -1236,7 +1242,7 @@ export function Artist_Profile() {
         traditionArtName: traditionalInfo?.artName,
 
         artForm: artInfo?.artForm,
-        
+
         performanceType: artInfo?.perfType,
         // check
         artEducation: artInfo?.learningSrc,
@@ -1273,7 +1279,16 @@ export function Artist_Profile() {
         }
         
       }));
-~
+      setArtOption(
+        artInfo?.perfType
+          ?.split(" ")
+          .map((item) => ({ value: item, label: item }))
+      );
+      setCategoryOption(
+        artInfo?.artCategory
+          ?.split(" ")
+          .map((item) => ({ value: item, label: item }))
+      );
 
       // setProfessionalTable(())
       console.log("->>");
@@ -1497,7 +1512,7 @@ export function Artist_Profile() {
   const [professionalTable, setProfessionalTable] = useState([
     {
       course: "",
-      specialisation: "",
+      specialization: "",
       institute: "",
       duration: "",
       completionYear: 0,
@@ -1505,7 +1520,7 @@ export function Artist_Profile() {
     },
     {
       course: "",
-      specialisation: "",
+      specialization: "",
       institute: "",
       duration: "",
       completionYear: 0,
@@ -1513,7 +1528,7 @@ export function Artist_Profile() {
     },
     {
       course: "",
-      specialisation: "",
+      specialization: "",
       institute: "",
       duration: "",
       completionYear: 0,
@@ -1612,6 +1627,10 @@ export function Artist_Profile() {
     newAwardsTable[rowIdx][key] = e.target.value;
     setAwardData(awardsTable);
   };
+  
+    console.log("==>");
+    console.log("Check By Chiku => ",basicFormData.passportNumber);
+    console.log("==>");
   // console.log("award Page",awardData);
   return (
     <div className="Profile_Page">
@@ -1702,32 +1721,12 @@ export function Artist_Profile() {
               </svg>{" "}
               Basic Profile
             </button>
-            {/* <button
-              className={activeSection === "art" ? "active" : ""}
-              onClick={() => handleClick("art")}
-            >
-              <img src={art} /> Art Profile
-            </button> */}
             <button
               className={activeSection === "art" ? "active" : ""}
               onClick={() => handleClick("art")}
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                style={{ marginRight: "5px" }} // Adding some margin between the symbol and text
-              >
-                <path
-                  d="M12.516 6.40817L9.45853 3.41073C9.41227 2.76086 9.57065 2.11273 9.91237 1.55351C10.2541 0.994286 10.7628 0.550788 11.37 0.282666C11.9772 0.0145445 12.6538 -0.0653421 13.3088 0.0537512C13.9638 0.172845 14.5659 0.485205 15.0339 0.948823C15.5065 1.40762 15.8246 1.99658 15.9456 2.63693C16.0666 3.27728 15.9847 3.93849 15.7109 4.5321C15.4371 5.12572 14.9845 5.62345 14.4135 5.95871C13.8426 6.29397 13.1806 6.45078 12.516 6.40817ZM1.15268 12.2432L8.67372 4.89746L10.9873 7.15953L3.46622 14.5133L1.16086 12.2432H1.15268ZM0.00817504 14.5053L1.73311 12.8107L2.89397 13.9458L1.16086 15.6403L0 14.5053H0.00817504ZM7.81534 12.0034L9.45035 10.4048V16H7.81534V12.0034Z"
-                  fill="black"
-                />
-              </svg>
-              Art Profile
+              <img src={art} /> Art Profile
             </button>
-
             <button
               className={activeSection === "performance" ? "active" : ""}
               onClick={() => handleClick("performance")}
@@ -1741,8 +1740,6 @@ export function Artist_Profile() {
               <img src={star} /> Award Profile
             </button>
           </div>
-
-          {/* profile picture update yash */}
           <div className="BasicProfile_avatar">
             {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
             <div className="profileImg">
@@ -1846,7 +1843,7 @@ export function Artist_Profile() {
                     <div>
                       <select
                         onChange={changeHandler}
-                        name="contactNumber.countryCode"
+                       name="contactNumber.countryCode"
                         value={basicFormData?.contactNumber?.countryCode}
                         style={{
                           width: "15%",
@@ -1855,200 +1852,7 @@ export function Artist_Profile() {
                         }}
                       >
                         <option value="+91">+91</option>
-                        <option value="+355">+355</option>
-                        <option value="+213">+213</option>
-                        <option value="+376">+376</option>
-                        <option value="+244">+244</option>
-                        <option value="+1268">+1268</option>
-                        <option value="+54">+54</option>
-                        <option value="+374">+374</option>
-                        <option value="+61">+61</option>
-                        <option value="+43">+43</option>
-                        <option value="+994">+994</option>
-                        <option value="+1242">+1242</option>
-                        <option value="+973">+973</option>
-                        <option value="+880">+880</option>
-                        <option value="+1246">+1246</option>
-                        <option value="+375">+375</option>
-                        <option value="+32">+32</option>
-                        <option value="+501">+501</option>
-                        <option value="+229">+229</option>
-                        <option value="+975">+975</option>
-                        <option value="+591">+591</option>
-                        <option value="+387">+387</option>
-                        <option value="+267">+267</option>
-                        <option value="+55">+55</option>
-                        <option value="+673">+673</option>
-                        <option value="+359">+359</option>
-                        <option value="+226">+226</option>
-                        <option value="+257">+257</option>
-                        <option value="+855">+855</option>
-                        <option value="+237">+237</option>
                         <option value="+1">+1</option>
-                        <option value="+238">+238</option>
-                        <option value="+236">+236</option>
-                        <option value="+235">+235</option>
-                        <option value="+56">+56</option>
-                        <option value="+86">+86</option>
-                        <option value="+57">+57</option>
-                        <option value="+269">+269</option>
-                        <option value="+242">+242</option>
-                        <option value="+506">+506</option>
-                        <option value="+385">+385</option>
-                        <option value="+53">+53</option>
-                        <option value="+357">+357</option>
-                        <option value="+420">+420</option>
-                        <option value="+45">+45</option>
-                        <option value="+253">+253</option>
-                        <option value="+1767">+1767</option>
-                        <option value="+1809">+1809</option>
-                        <option value="+670">+670</option>
-                        <option value="+593">+593</option>
-                        <option value="+20">+20</option>
-                        <option value="+503">+503</option>
-                        <option value="+240">+240</option>
-                        <option value="+291">+291</option>
-                        <option value="+372">+372</option>
-                        <option value="+251">+251</option>
-                        <option value="+679">+679</option>
-                        <option value="+358">+358</option>
-                        <option value="+33">+33</option>
-                        <option value="+241">+241</option>
-                        <option value="+220">+220</option>
-                        <option value="+995">+995</option>
-                        <option value="+49">+49</option>
-                        <option value="+233">+233</option>
-                        <option value="+30">+30</option>
-                        <option value="+1473">+1473</option>
-                        <option value="+502">+502</option>
-                        <option value="+224">+224</option>
-                        <option value="+245">+245</option>
-                        <option value="+592">+592</option>
-                        <option value="+509">+509</option>
-                        <option value="+504">+504</option>
-                        <option value="+36">+36</option>
-                        <option value="+354">+354</option>
-                        <option value="+91">+91</option>
-                        <option value="+62">+62</option>
-                        <option value="+98">+98</option>
-                        <option value="+964">+964</option>
-                        <option value="+353">+353</option>
-                        <option value="+972">+972</option>
-                        <option value="+39">+39</option>
-                        <option value="+225">+225</option>
-                        <option value="+1876">+1876</option>
-                        <option value="+81">+81</option>
-                        <option value="+962">+962</option>
-                        <option value="+7">+7</option>
-                        <option value="+254">+254</option>
-                        <option value="+686">+686</option>
-                        <option value="+383">+383</option>
-                        <option value="+965">+965</option>
-                        <option value="+996">+996</option>
-                        <option value="+856">+856</option>
-                        <option value="+371">+371</option>
-                        <option value="+961">+961</option>
-                        <option value="+266">+266</option>
-                        <option value="+231">+231</option>
-                        <option value="+218">+218</option>
-                        <option value="+423">+423</option>
-                        <option value="+370">+370</option>
-                        <option value="+352">+352</option>
-                        <option value="+389">+389</option>
-                        <option value="+261">+261</option>
-                        <option value="+265">+265</option>
-                        <option value="+60">+60</option>
-                        <option value="+960">+960</option>
-                        <option value="+223">+223</option>
-                        <option value="+356">+356</option>
-                        <option value="+692">+692</option>
-                        <option value="+222">+222</option>
-                        <option value="+230">+230</option>
-                        <option value="+52">+52</option>
-                        <option value="+691">+691</option>
-                        <option value="+373">+373</option>
-                        <option value="+377">+377</option>
-                        <option value="+976">+976</option>
-                        <option value="+382">+382</option>
-                        <option value="+212">+212</option>
-                        <option value="+258">+258</option>
-                        <option value="+95">+95</option>
-                        <option value="+264">+264</option>
-                        <option value="+674">+674</option>
-                        <option value="+977">+977</option>
-                        <option value="+31">+31</option>
-                        <option value="+64">+64</option>
-                        <option value="+505">+505</option>
-                        <option value="+227">+227</option>
-                        <option value="+234">+234</option>
-                        <option value="+850">+850</option>
-                        <option value="+47">+47</option>
-                        <option value="+968">+968</option>
-                        <option value="+92">+92</option>
-                        <option value="+680">+680</option>
-                        <option value="+507">+507</option>
-                        <option value="+675">+675</option>
-                        <option value="+595">+595</option>
-                        <option value="+51">+51</option>
-                        <option value="+63">+63</option>
-                        <option value="+48">+48</option>
-                        <option value="+351">+351</option>
-                        <option value="+974">+974</option>
-                        <option value="+40">+40</option>
-                        <option value="+7">+7</option>
-                        <option value="+250">+250</option>
-                        <option value="+1869">+1869</option>
-                        <option value="+1758">+1758</option>
-                        <option value="+1784">+1784</option>
-                        <option value="+685">+685</option>
-                        <option value="+378">+378</option>
-                        <option value="+239">+239</option>
-                        <option value="+966">+966</option>
-                        <option value="+221">+221</option>
-                        <option value="+381">+381</option>
-                        <option value="+248">+248</option>
-                        <option value="+232">+232</option>
-                        <option value="+65">+65</option>
-                        <option value="+421">+421</option>
-                        <option value="+386">+386</option>
-                        <option value="+677">+677</option>
-                        <option value="+252">+252</option>
-                        <option value="+27">+27</option>
-                        <option value="+82">+82</option>
-                        <option value="+211">+211</option>
-                        <option value="+34">+34</option>
-                        <option value="+94">+94</option>
-                        <option value="+249">+249</option>
-                        <option value="+597">+597</option>
-                        <option value="+268">+268</option>
-                        <option value="+46">+46</option>
-                        <option value="+41">+41</option>
-                        <option value="+963">+963</option>
-                        <option value="+886">+886</option>
-                        <option value="+992">+992</option>
-                        <option value="+255">+255</option>
-                        <option value="+66">+66</option>
-                        <option value="+228">+228</option>
-                        <option value="+676">+676</option>
-                        <option value="+1868">+1868</option>
-                        <option value="+216">+216</option>
-                        <option value="+90">+90</option>
-                        <option value="+993">+993</option>
-                        <option value="+688">+688</option>
-                        <option value="+256">+256</option>
-                        <option value="+380">+380</option>
-                        <option value="+971">+971</option>
-                        <option value="+44">+44</option>
-                        <option value="+1">+1</option>
-                        <option value="+598">+598</option>
-                        <option value="+998">+998</option>
-                        <option value="+678">+678</option>
-                        <option value="+379">+379</option>
-                        <option value="+58">+58</option>
-                        <option value="+84">+84</option>
-                        <option value="+967">+967</option>
-                        <option value="+260">+260</option>
-                        <option value="+263">+263</option>
                       </select>
                       <input
                         name="contactNumber.number"
@@ -2056,12 +1860,13 @@ export function Artist_Profile() {
                         pattern="[0-9]{10}"
                         onChange={changeHandler}
                         value={basicFormData?.contactNumber?.number}
-                        placeholder="1234567890"
+                         placeholder="1234567890"
                         style={{ width: "83%" }}
                         required
                       />
                     </div>
                   </div>
+
                   <div
                     className="BasicProfile_inputfield"
                     style={{ width: "30%" }}
@@ -2076,7 +1881,7 @@ export function Artist_Profile() {
                       value={basicFormData.age}
                       style={{ width: "100%" }}
                     ></input> */}
-                    {/* <select
+                    <select
                       name="age"
                       onChange={changeHandler}
                       value={basicFormData.age}
@@ -2088,20 +1893,6 @@ export function Artist_Profile() {
                           {index + 18}
                         </option>
                       ))}
-                    </select> */}
-                    <select
-                      name="age"
-                      onChange={changeHandler}
-                      value={basicFormData.age}
-                      style={{ width: "100%" }}
-                      required
-                    >
-                      {Array.from({ length: 96 }, (_, index) => (
-                        <option key={index} value={index + 5}>
-                          {index + 5}
-                        </option>
-                      ))}
-                      <option value="100+">100+</option>
                     </select>
                   </div>
 
@@ -2435,13 +2226,19 @@ export function Artist_Profile() {
                       </div>
                       <div className="BasicProfile_inputfield">
                         <label>Valid Passport</label>
-                        <input
+                        <DatePicker id="date"
+                        name="Date"
+                        selected={startDate}
+                        onChange={(date) => setStartDate(date)}
+                        dateFormat="MM/yyyy"
+                        showMonthYearPicker
+                          />                        {/* <input
                           onChange={changeHandler}
                           value={basicFormData.passportNumber}
                           placeholder="No/MM-YYYY"
                           name="passportNumber"
                           type="text"
-                        />
+                        /> */}
                       </div>
                       <div className="BasicProfile_inputfield">
                         <label>UPI Id (Optional)</label>
@@ -2596,15 +2393,13 @@ export function Artist_Profile() {
                     <label>
                       Category of Art <span className="red">*</span>
                     </label>
-                      <Select
+                    <Select
                       defaultValue={categoryOption}
                       value={categoryOption}
                       isMulti
                       onChange={setCategoryOption}
                       options={categoryOfArt}
                     />
-
-
 
                     {/* <select
                       name="artCategory"
@@ -2627,7 +2422,7 @@ export function Artist_Profile() {
                     <label>
                       Name Of Art <span className="red">*</span>
                     </label>
-                     <Select
+                    <Select
                       defaultValue={artNameOption}
                       value={artNameOption}
                       isMulti
@@ -2668,7 +2463,7 @@ export function Artist_Profile() {
                         </option>
                       ))}
                     </select> */}
-                      <Select
+                    <Select
                       defaultValue={artOption}
                       value={artOption}
                       isMulti
@@ -2695,6 +2490,8 @@ export function Artist_Profile() {
                       ))}
                     </select>
                   </div>
+
+               
                   {/* <div className="ArtProfile_inputfield">
                 <label>Genre</label>
                 <input onChange={artChangeHandler} value={artFormData.genre} name="genre" type="text"></input>
@@ -2708,9 +2505,11 @@ export function Artist_Profile() {
                 </select>
               </div> */}
                 </div>
-                <h4>Professional Art Education </h4>
-
-                <table className="performance_table">
+                {artInfoFormData.artEducation === "Both" || artInfoFormData.artEducation === "Traditional"?
+                <>
+                
+                                <h4>Traditional Art Education </h4>
+ <table className="performance_table">
                   <thead>
                     <tr>
                       <th> Name of Course </th>
@@ -2726,26 +2525,99 @@ export function Artist_Profile() {
                       <tr key={rowIndex}>
                         {Object.keys(row).map((key, colIndex) => (
                           <td key={colIndex}>
-                            <input
-                              type="text"
-                              value={row[key]}
-                              // defaultValue={awardData.highlight}
-                              onChange={(e) =>
-                                handleArtProfileChanges(e, rowIndex, key)
-                              }
-                            />
+                            {key == "documentUrl" && (
+                              <input
+                                type="file"
+                                // value={row[key]}
+                                // defaultValue={awardData.highlight}
+                                onChange={(e) =>
+                                  handleArtProfileChanges(e, rowIndex, key)
+                                }
+                              />
+                            )}
+                            {(key == "course" ||
+                              key == "institute" ||
+                              key == "specialization") && (
+                              <input
+                                type="text"
+                                value={row[key]}
+                                // defaultValue={awardData.highlight}
+                                onChange={(e) =>
+                                  handleArtProfileChanges(e, rowIndex, key)
+                                }
+                              />
+                            )}
+
+                            {key == "completionYear" && (
+                              <select
+                                style={{
+                                  maxWidth: "150px",
+                                  border: "none",
+                                  padding: 0,
+                                }}
+                                type="text"
+                                value={row[key]}
+                                // defaultValue={awardData.highlight}
+                                onChange={(e) =>
+                                  handleArtProfileChanges(e, rowIndex, key)
+                                }
+                              >
+                                <option selected hidden>
+                                  Select
+                                </option>
+                                {completionYearData.map((item) => (
+                                  <option key={item} value={item}>
+                                    {item}
+                                  </option>
+                                ))}
+                              </select>
+                            )}
+                            {key == "duration" && (
+                              <select
+                                style={{
+                                  maxWidth: "150px",
+                                  border: "none",
+                                  padding: 0,
+                                }}
+                                type="text"
+                                value={row[key]}
+                                // defaultValue={awardData.highlight}
+                                onChange={(e) =>
+                                  handleArtProfileChanges(e, rowIndex, key)
+                                }
+                              >
+                                <option selected hidden>
+                                  Select
+                                </option>
+                                {[
+                                  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+                                  15,
+                                ].map((item) => (
+                                  <option key={item} value={item}>
+                                    {item}
+                                  </option>
+                                ))}
+                              </select>
+                            )}
                           </td>
                         ))}
                       </tr>
                     ))}
                   </tbody>
                 </table>
-                <h4>Traditional Art Education </h4>
+                </>:""
+                }
+
+              
+               
                 <div className="ArtProfile_Traditional">
-                  <table className="performance_table">
+                {artInfoFormData.artEducation === "Both" || artInfoFormData.artEducation === "Professional"?
+              <>
+                              <h4>Professional Art Education </h4>
+ <table className="performance_table">
                     <thead>
                       <tr>
-                        <th> Name of Art </th>
+                        <th> Name of art</th>
                         <th> Name of Guru</th>
                         <th> Location </th>
                         <th> Duration (Month)</th>
@@ -2758,20 +2630,110 @@ export function Artist_Profile() {
                         <tr key={rowIndex}>
                           {Object.keys(row).map((key, colIndex) => (
                             <td key={colIndex}>
-                              <input
-                                type="text"
-                                value={row[key]}
-                                // defaultValue={awardData.highlight}
-                                onChange={(e) =>
-                                  handleTraditional(e, rowIndex, key)
-                                }
-                              />
+                              {key == "documentUrl" && (
+                                <input
+                                  type="file"
+                                  // value={row[key]}
+                                  // defaultValue={awardData.highlight}
+                                  onChange={(e) =>
+                                    handleTraditional(e, rowIndex, key)
+                                  }
+                                />
+                              )}
+                              {(key == "artName" || key == "guruName") && (
+                                <input
+                                  type="text"
+                                  value={row[key]}
+                                  // defaultValue={awardData.highlight}
+                                  onChange={(e) =>
+                                    handleTraditional(e, rowIndex, key)
+                                  }
+                                />
+                              )}
+                              {key == "location" && (
+                                <select
+                                  style={{
+                                    maxWidth: "150px",
+                                    border: "none",
+                                    padding: 0,
+                                  }}
+                                  type="text"
+                                  value={row[key]}
+                                  // defaultValue={awardData.highlight}
+                                  onChange={(e) =>
+                                    handleTraditional(e, rowIndex, key)
+                                  }
+                                >
+                                  <option selected hidden>
+                                    Select
+                                  </option>
+                                  {MajorIndianCities.map((item, index) => (
+                                    <option key={index} value={item.city}>
+                                      {item.city}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
+                              {key == "completionYear" && (
+                                <select
+                                  style={{
+                                    maxWidth: "150px",
+                                    border: "none",
+                                    padding: 0,
+                                  }}
+                                  type="text"
+                                  value={row[key]}
+                                  // defaultValue={awardData.highlight}
+                                  onChange={(e) =>
+                                    handleTraditional(e, rowIndex, key)
+                                  }
+                                >
+                                  <option selected hidden>
+                                    Select
+                                  </option>
+                                  {completionYearData.map((item) => (
+                                    <option key={item} value={item}>
+                                      {item}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
+                              {key == "duration" && (
+                                <select
+                                  style={{
+                                    maxWidth: "150px",
+                                    border: "none",
+                                    padding: 0,
+                                  }}
+                                  type="text"
+                                  value={row[key]}
+                                  // defaultValue={awardData.highlight}
+                                  onChange={(e) =>
+                                    handleTraditional(e, rowIndex, key)
+                                  }
+                                >
+                                  <option selected hidden>
+                                    Select
+                                  </option>
+                                  {[
+                                    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                                    14, 15,
+                                  ].map((item) => (
+                                    <option key={item} value={item}>
+                                      {item}
+                                    </option>
+                                  ))}
+                                </select>
+                              )}
                             </td>
                           ))}
                         </tr>
                       ))}
                     </tbody>
                   </table>
+              </>:""  
+              }
+                 
                 </div>
                 <div style={{ width: "100%", marginTop: "20px" }}>
                   <label htmlFor="aboutArt">About The Art</label>
@@ -3399,7 +3361,14 @@ export function Artist_Profile() {
                       <option value="false">No</option>
                     </select>
                   </div>
-                  <div className="BasicProfile_inputfield " id= {performanceFormData.affiliatedToAnyGroup === "false" ?"hidden":""}>
+                  <div
+                    className="BasicProfile_inputfield "
+                    id={
+                      performanceFormData.affiliatedToAnyGroup === "false"
+                        ? "hidden"
+                        : ""
+                    }
+                  >
                     <label>Name Of Artist Group/Organisation </label>
                     <input
                       onChange={(e) =>
@@ -3412,7 +3381,14 @@ export function Artist_Profile() {
                       value={performanceFormData.nameOfArtistGroupOrg}
                     ></input>
                   </div>
-                  <div className="BasicProfile_inputfield" id= {performanceFormData.affiliatedToAnyGroup === "false" ?"hidden":""}>
+                  <div
+                    className="BasicProfile_inputfield"
+                    id={
+                      performanceFormData.affiliatedToAnyGroup === "false"
+                        ? "hidden"
+                        : ""
+                    }
+                  >
                     <label>Location of Group/Organization</label>
                     <select
                       onChange={perforChangeHandler}
@@ -3429,7 +3405,14 @@ export function Artist_Profile() {
                       })}
                     </select>
                   </div>
-                  <div className="PerformanceProfile_inputfield" id= {performanceFormData.affiliatedToAnyGroup === "false" ?"hidden":""}>
+                  <div
+                    className="PerformanceProfile_inputfield"
+                    id={
+                      performanceFormData.affiliatedToAnyGroup === "false"
+                        ? "hidden"
+                        : ""
+                    }
+                  >
                     <label htmlFor="">
                       Contact Number <span className="red">*</span>
                     </label>
@@ -3661,9 +3644,9 @@ export function Artist_Profile() {
                       value={performanceFormData.typeOfPerformance}
                     >
                       <option selected>Select</option>
-                      <option value="solo">Solo</option>
-                      <option value="group">Group</option>
-                      <option value="both">Both</option>
+                      <option value="solo">solo</option>
+                      <option value="group">group</option>
+                      <option value="both">both</option>
                     </select>
                   </div>
 
@@ -3686,7 +3669,7 @@ export function Artist_Profile() {
                     <label>
                       Total Number Of Performance <span className="red">*</span>
                     </label>
-                    {/* <select
+                    <select
                       onChange={perforChangeHandler}
                       name="totalPerfs"
                       value={performanceFormData.totalPerfs}
@@ -3694,25 +3677,14 @@ export function Artist_Profile() {
                       <option selected>Select</option>
                       {[
                         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
-                        17, 18, 19, 20, 21, 22, 23, 24, 25, 
+                        17, 18, 19, 20, 21, 22, 23, 24, 25,
                       ].map((item, index) => {
                         return <option value={item}>{item}</option>;
                       })}
-                    </select> */}
-                    <select
-                      onChange={perforChangeHandler}
-                      name="totalPerfs"
-                      value={performanceFormData.totalPerfs}
-                    >
-                      <option value="" disabled>
-                        Select
-                      </option>
-                      {[...Array(250).keys()].map((item, index) => (
-                        <option key={item} value={item + 1}>
-                          {item + 1}
-                        </option>
-                      ))}
-                      <option value="250+">250+</option>
+
+                      {/* <option value={"1-10"}>1-10</option>
+                      <option value={"10-25"}>10-25</option>
+                      <option value={"25-50"}>25-50</option> */}
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3724,13 +3696,12 @@ export function Artist_Profile() {
                       name="experience"
                       value={performanceFormData.experience}
                     >
-                      <option disabled>Select</option>
-                      {[...Array(100).keys()].map((i) => (
-                        <option key={i + 1} value={i + 1}>
-                          {i + 1}
-                        </option>
-                      ))}
-                      <option value="100+">100+</option>
+                      <option selected>Select</option>
+                      {[
+                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+                      ].map((i) => {
+                        return <option value={i}>{i}</option>;
+                      })}
                     </select>
                   </div>
 
@@ -3742,12 +3713,10 @@ export function Artist_Profile() {
                       value={performanceFormData.avgPerfDurationIn}
                     >
                       <option selected>Select</option>
-                      <option value="<10min">&lt; 10 Minutes</option>
-                      <option value="10min">10 Minutes</option>
-                      <option value="10-30min">10-30 Minutes</option>
-                      <option value="30-60min">30-60 Minutes</option>
-                      <option value="60-120min">60-120 Minutes</option>
-                      <option value=">120min">&gt; 120 Minutes</option>
+                      <option value="10min">10 minutes</option>
+                      <option value="10-30min">10-30 minutes</option>
+                      <option value="30-60min">30-60 minutes</option>
+                      <option value="60-120min">60-120 minutes</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3758,12 +3727,9 @@ export function Artist_Profile() {
                       value={performanceFormData.avgPerfFeeIn}
                     >
                       <option selected>Select</option>
-                      <option value="<5000">&lt; Rs 5000</option>
-                      <option value="5000-10000">Rs 5000 - Rs 10000</option>
-                      <option value="10000-20000">Rs 10000 - Rs 20000</option>
-                      <option value="20000-50000">Rs 20000 - Rs 50000</option>
-                      <option value="50000-100000">Rs 50000 - Rs 100000</option>
-                      <option value=">100000">&gt; Rs 100000</option>
+                      <option value="5000">5000</option>
+                      <option value="5000-10000">5000-10000</option>
+                      <option value="10000-20000">10000-20000</option>
                     </select>
                   </div>
 
@@ -3777,10 +3743,10 @@ export function Artist_Profile() {
                       value={performanceFormData.avgPerfDurationInternational}
                     >
                       <option selected>Select</option>
-                      <option value="<30min">&lt; 30 Minutes</option>
-                      <option value="30-60min">30-60 Minutes+K33</option>
-                      <option value="60-120min">60-120 Minutes</option>
-                      <option value=">120min">&gt; 120 Minutes</option>
+                      <option value="30min">30 minutes</option>
+                      <option value="30-60min">30-60 minutes</option>
+                      <option value="60-120min">60-120 minutes</option>
+                      <option value="120min">120 minutes</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -3791,19 +3757,15 @@ export function Artist_Profile() {
                       value={performanceFormData.avgPerfFeeInternational}
                     >
                       <option selected>Select</option>
-                      <option value="<25000">&lt; Rs 25000</option>
-                      <option value="25000-50000">Rs 25000 - Rs 50000</option>
-                      <option value="50000-100000">Rs 50000 - Rs 100000</option>
-                      <option value="100000-250000">
-                        Rs 100000 - Rs 250000
-                      </option>
-                      <option value=">250000">&gt; Rs 250000</option>
+                      <option value="25000">25000</option>
+                      <option value="25000-50000">25000-50000</option>
+                      <option value="50000-100000">50000-100000</option>
                     </select>
                   </div>
 
                   <div className="BasicProfile_inputfield">
                     <label>Major Performance Cities (India)</label>
-                     <Select
+                    <Select
                       defaultValue={cities}
                       value={cities}
                       isMulti
@@ -3827,7 +3789,7 @@ export function Artist_Profile() {
                   </div>
                   <div className="BasicProfile_inputfield">
                     <label>Major Countries for Performance International</label>
-                     <Select
+                    <Select
                       defaultValue={contry}
                       value={contry}
                       isMulti
@@ -3867,20 +3829,129 @@ export function Artist_Profile() {
                           <tr key={rowIndex}>
                             {Object.keys(row).map((key, colIndex) => (
                               <td key={colIndex}>
-                                <input
-                                  type="text"
-                                  value={row[key]}
-                                  defaultValue={
-                                    performanceFormData.highestLevelOfPerformance
-                                  }
-                                  onChange={(e) =>
-                                    handlePerformanceTableChange(
-                                      e,
-                                      rowIndex,
-                                      key
-                                    )
-                                  }
-                                />
+                                {key == "link" && (
+                                  <input
+                                    type="file"
+                                    // value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handlePerformanceTableChange(
+                                        e,
+                                        rowIndex,
+                                        key
+                                      )
+                                    }
+                                  />
+                                )}
+                                {(key == "collaborator" ||
+                                  key == "eventName") && (
+                                  <input
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handlePerformanceTableChange(
+                                        e,
+                                        rowIndex,
+                                        key
+                                      )
+                                    }
+                                  />
+                                )}
+
+                                {key == "level" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      border: "none",
+                                      padding: 0,
+                                    }}
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handlePerformanceTableChange(
+                                        e,
+                                        rowIndex,
+                                        key
+                                      )
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {[
+                                      "International",
+                                      "National",
+                                      "State",
+                                      "District",
+                                      "Local",
+                                    ].map((item) => (
+                                      <option key={item} value={item}>
+                                        {item}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
+                                {key == "duration" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      border: "none",
+                                      padding: 0,
+                                    }}
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handlePerformanceTableChange(
+                                        e,
+                                        rowIndex,
+                                        key
+                                      )
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {[
+                                      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                                      14, 15,
+                                    ].map((item) => (
+                                      <option key={item} value={item}>
+                                        {item}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
+                                {key == "location" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      border: "none",
+                                      padding: 0,
+                                    }}
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handlePerformanceTableChange(
+                                        e,
+                                        rowIndex,
+                                        key
+                                      )
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {MajorIndianCities.map((item, index) => (
+                                      <option key={index} value={item.city}>
+                                        {item.city}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
                               </td>
                             ))}
                           </tr>
@@ -4002,7 +4073,7 @@ export function Artist_Profile() {
                 <div className="AwardProfile_AwardInfo">
                   <div className="BasicProfile_inputfield">
                     <label>Total Number of Awards</label>
-                    {/* <select
+                    <select
                       onChange={awardHandle}
                       name="totalAwards"
                       value={awardData.totalAwards}
@@ -4015,25 +4086,6 @@ export function Artist_Profile() {
                       <option value="15">10-15</option>
                       <option value="20">15-20</option>
                       <option value="more">More</option>
-                    </select> */}
-                    <select
-                      onChange={awardHandle}
-                      name="award.name"
-                      value={awardData.award}
-                    >
-                      <option value="" hidden>
-                        Total Number of Awards
-                      </option>
-                      {[...Array(199).keys()].map((item) => {
-                        const value = item + 1; // Adding 1 to start from 1 instead of 0
-                        return (
-                          <option key={value} value={value}>
-                            {value}
-                          </option>
-                        );
-                      })}
-                      <option value="200">200</option>
-                      <option value="200+">200+</option>
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -4072,15 +4124,142 @@ export function Artist_Profile() {
                         {awardsTable.map((row, rowIndex) => (
                           <tr key={rowIndex}>
                             {Object.keys(row).map((key, colIndex) => (
+                              // <td key={colIndex}>
+                              //   <input
+                              //     type="text"
+                              //     value={row[key]}
+                              //     defaultValue={awardData?.awardsDetails}
+                              //     onChange={(e) =>
+                              //       handleAwardTable(e, rowIndex, key)
+                              //     }
+                              //   />
+                              // </td>
                               <td key={colIndex}>
-                                <input
-                                  type="text"
-                                  value={row[key]}
-                                  defaultValue={awardData?.awardsDetails}
-                                  onChange={(e) =>
-                                    handleAwardTable(e, rowIndex, key)
-                                  }
-                                />
+                                {key == "level" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      border: "none",
+                                      padding: 0,
+                                    }}
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleAwardTable(e, rowIndex, key)
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {[
+                                      "International",
+                                      "National",
+                                      "State",
+                                      "District",
+                                      "Local",
+                                    ].map((item) => (
+                                      <option key={item} value={item}>
+                                        {item}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
+                                {key == "documentUrl" && (
+                                  <input
+                                    type="file"
+                                    // value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleAwardTable(e, rowIndex, key)
+                                    }
+                                  />
+                                )}
+                                {(key == "awardingBody" || key == "title") && (
+                                  <input
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleAwardTable(e, rowIndex, key)
+                                    }
+                                  />
+                                )}
+                                {key == "location" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      border: "none",
+                                      padding: 0,
+                                    }}
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleAwardTable(e, rowIndex, key)
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {MajorIndianCities.map((item, index) => (
+                                      <option key={index} value={item.city}>
+                                        {item.city}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
+                                {key == "year" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      border: "none",
+                                      padding: 0,
+                                    }}
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleAwardTable(e, rowIndex, key)
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {completionYearData.map((item) => (
+                                      <option key={item} value={item}>
+                                        {item}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
+                                {key == "duration" && (
+                                  <select
+                                    style={{
+                                      maxWidth: "150px",
+                                      border: "none",
+                                      padding: 0,
+                                    }}
+                                    type="text"
+                                    value={row[key]}
+                                    // defaultValue={awardData.highlight}
+                                    onChange={(e) =>
+                                      handleAwardTable(e, rowIndex, key)
+                                    }
+                                  >
+                                    <option selected hidden>
+                                      Select
+                                    </option>
+                                    {[
+                                      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                                      14, 15,
+                                    ].map((item) => (
+                                      <option key={item} value={item}>
+                                        {item}
+                                      </option>
+                                    ))}
+                                  </select>
+                                )}
                               </td>
                             ))}
                           </tr>

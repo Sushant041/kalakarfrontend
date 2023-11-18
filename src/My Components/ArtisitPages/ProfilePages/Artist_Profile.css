@@ -7,6 +7,9 @@ body{
 #hidden{
   display: none;
 }
+#date{
+  width: 238%;
+}
 .Profile_Page {
   min-height: 100vh;
   margin: 0  ;
@@ -1484,4 +1487,11 @@ table{
 
 .css-1u9des2-indicatorSeparator{
   height: 44px;
+}
+
+
+td input {
+  padding: none;
+  height: 100%;
+  border: none;
 }
