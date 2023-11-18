@@ -925,7 +925,7 @@ contactNumber,
         perfVideos: performancevideos,
       };
               // majorPerfCity: majorPerfCityIndia,
-      performanceInfo.majorPerfCityIndia = cities.map((option)=>option.map);
+      performanceInfo.majorPerfCities = cities.map((option)=>option.map);
 
       // console.log(performanceFormData);
 
@@ -1279,16 +1279,7 @@ contactNumber,
         }
         
       }));
-      setArtOption(
-        artInfo?.perfType
-          ?.split(" ")
-          .map((item) => ({ value: item, label: item }))
-      );
-      setCategoryOption(
-        artInfo?.artCategory
-          ?.split(" ")
-          .map((item) => ({ value: item, label: item }))
-      );
+     
 
       // setProfessionalTable(())
       console.log("->>");
