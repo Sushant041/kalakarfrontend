@@ -208,3 +208,28 @@ input::placeholder {
   z-index: 2;
   color: black;
 }
+
+
+
+/* Your existing CSS */
+
+/* Styling for the wrapper div */
+.contactNumberWrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Styling for the select element */
+.contactNumberWrapper select {
+  width: 15%;
+  margin-right: 4px;
+  padding-right: 2px;
+  /* Additional styles */
+}
+
+/* Styling for the input element */
+.contactNumberWrapper input {
+  width: 100%;
+  /* Additional styles */
+}

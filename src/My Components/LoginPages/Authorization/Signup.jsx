@@ -191,11 +191,12 @@ console.log(formData.contactNumber.number.length);
             />
           </label>
         </div>
-        <label htmlFor="">
+        {/* <label htmlFor="">
                       Contact Number <span className="red">*</span>
-                    </label>
-                    <div>
-                      <select
+                    </label> */}
+                    
+                    <div className="contactNumberWrapper">
+                      {/* <select
                         onChange={changeHandler}
                         name="contactNumber.countryCode"
                         value={formData?.contactNumber?.countryCode}
@@ -204,7 +205,13 @@ console.log(formData.contactNumber.number.length);
                           marginRight: "4px",
                           paddingRight: "2px",
                         }}
-                      >
+                      > */}
+                      <select
+    onChange={changeHandler}
+    name="contactNumber.countryCode"
+    value={formData?.contactNumber?.countryCode}
+  >
+
                         <option value="+91">+91</option>
   <option value="+355">+355</option>
   <option value="+213">+213</option>
@@ -401,7 +408,7 @@ console.log(formData.contactNumber.number.length);
   <option value="+260">+260</option>
   <option value="+263">+263</option>
                       </select>
-                      <input
+                      {/* <input
                         name="contactNumber.number"
                         maxLength={10}
                         pattern="[0-9]{10}"
@@ -410,7 +417,16 @@ console.log(formData.contactNumber.number.length);
                         placeholder="1234567890"
                         style={{ width: "83%" }}
                         required
-                      />
+                      /> */}
+                       <input
+    name="contactNumber.number"
+    maxLength={10}
+    pattern="[0-9]{10}"
+    onChange={changeHandler}
+    value={formData?.contactNumber?.number}
+    placeholder="1234567890"
+    required
+  />
                     </div>
 
         <label htmlFor="email" className="signupFormLabel">
