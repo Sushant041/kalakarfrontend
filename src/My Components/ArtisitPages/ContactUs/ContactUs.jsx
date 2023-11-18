@@ -31,11 +31,7 @@ const formDetail = [
         type:'number' , 
         name:"phoneNumber"
     },
-    {
-        placeholder:"Enter subject",
-        type:"text",
-        name:"subject"
-    },
+  
 
 
 ]
@@ -173,8 +169,10 @@ function ContactUs() {
            {/* form */}
            <form onSubmit={submitHandler} className="form_container" >
                {formDetail.map((detail , index)=>(
-                <input required key={index} name={detail.name} value={formData[detail.name]} onChange={changeHandler} type={detail.type} placeholder={detail.placeholder} className="contactUs_input" />
+                <input  required key={index} name={detail.name} value={formData[detail.name]} onChange={changeHandler} type={detail.type} placeholder={detail.placeholder} id="hidden" className="contactUs_input" />
                ))}
+              <input name="subject" value={formData["subject"]} onChange={changeHandler} type="text" placeholder="Enter subject" className="contactUs_input" />
+
 
                <textarea required rows={9} name="message" value={formData.message} onChange={changeHandler} placeholder="Your message" className="contactUs_textarea" />
 

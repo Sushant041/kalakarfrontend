@@ -164,8 +164,8 @@ export function Artist_Profile() {
 
   const [languagesoptions, setlanguagesoptions] = useState(null);
   const [categoryOption, setCategoryOption] = useState(null);
-  const [artNameOption,setArtNameOption ] = useState(null);
-  const [artOption, setArtOption] = useState(null);
+  const [artNameOption,setArtNameOption ] = useState(null); // Name OF Art
+  const [artOption, setArtOption] = useState(null); // Type Of Art
   const [cities,setCities] = useState(null);
   const [contry,setContry] = useState(null);
 
@@ -469,7 +469,9 @@ export function Artist_Profile() {
   //   ! submit update handler for basic profile
   const basicSubmitHandler = async (event) => {
     event.preventDefault();
+
     const toastId = toast.loading("Loading...");
+
     let address = basicFormData.address;
     let idProof = basicFormData.idProof;
 
@@ -506,8 +508,8 @@ export function Artist_Profile() {
       gender,
       monthlyIncome,
       socialCategory,
+
       incomeSrc,
-      languages: languagesoptions.map((option) => option.value),
     };
 
     personalInfo.languages = languagesoptions
@@ -681,6 +683,7 @@ export function Artist_Profile() {
   const artSubmitHandler = async (event) => {
     event.preventDefault();
     const toastId = toast.loading("Loading...");
+
     const {
       artEduDuration,
       artForm,
@@ -705,11 +708,17 @@ export function Artist_Profile() {
 
     let artInfo = {
       aboutArt: aboutArt,
-      artCategory: categoryOption.map((option) => option.value),
+      // artCategory: artCategory,
       artEducation: artEducation,
-      artName: artNameOption?.map((e) => e.value),
-      artType: artOption?.map((e) => e.value),
+      artName: artName,
+      // artType: artType,
     };
+      artInfo.artCategory = categoryOption
+      .map((option) => option.value);
+
+       artInfo.artType = artOption
+      .map((option) => option.value);
+
     let traditionalInfo = traditionalTable;
 
     let professionalInfo = professionalTable;
@@ -752,10 +761,9 @@ export function Artist_Profile() {
 
     toast.dismiss(toastId);
   };
-console.log("==>");
-        console.log("Check By Chiku",languageoptions.map((e)=>e.value));
-       
-        console.log("==>");
+
+  //  ! for performance profile section
+
   const [tableData, setTableData] = useState([
     // Initial data with column headings
     {
@@ -1144,6 +1152,14 @@ console.log("==>");
         artName: artInfo?.artName,
         artType: artInfo?.artType,
       }));
+        setCategoryOption(
+        artInfo?.artCategory
+          .map((item) => ({ value: item, label: item }))
+      );
+       setArtOption(
+        artInfo?.artType
+          .map((item) => ({ value: item, label: item }))
+      );
       // console.log("ioioo");
       // console.log("iiiio", artInfoFormData);
 
@@ -1184,11 +1200,8 @@ console.log("==>");
         gstIn: otherInfo?.gstIn,
         numOfperformanceLastYear: otherInfo?.lastYearPerfsCount,
         passportNumber: otherInfo?.passportNumber,
-        languages:[
-          ...prev.languages,
-          ...response.data.personalInfo.languages
-        ],
-        
+        languages:personalInfo?.languages,
+
         address: {
           ...prev.address,
           ...response.data.address,
@@ -1207,11 +1220,10 @@ console.log("==>");
         },
       }));
       setlanguagesoptions(
-        personalInfo?.languages          ?.split(" ")
+        personalInfo?.languages
           .map((item) => ({ value: item, label: item }))
       );
 
-      
 
       setArtFormData((prev) => ({
         ...prev,
@@ -1258,19 +1270,10 @@ console.log("==>");
           ...prev.certificateDuration,
           // check
           ...certificateInfo?.duration,
-        },
+        }
         
       }));
-       setArtOption(
-       artInfo?.perfType
-          ?.split(" ")
-          .map((item) => ({ value: item, label: item }))
-      );
-       setCategoryOption(
-       artInfo?.artCategory
-          ?.split(" ")
-          .map((item) => ({ value: item, label: item }))
-      );
+~
 
       // setProfessionalTable(())
       console.log("->>");
@@ -1299,6 +1302,10 @@ console.log("==>");
         performanceImages: performanceInfo?.perfImgs,
         performancevideos: performanceInfo?.perfVideos,
       }));
+      setCities(
+        performanceInfo?.majorPerfCity
+          .map((item) => ({ value: item, label: item }))
+      );
       if (performanceInfo?.perfDetails.length > 0) {
         setTableData(performanceInfo?.perfDetails);
       }
