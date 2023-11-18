@@ -191,11 +191,12 @@ console.log(formData.contactNumber.number.length);
             />
           </label>
         </div>
-        {/* <label htmlFor="">
+         <label htmlFor="">
                       Contact Number <span className="red">*</span>
-                    </label> */}
-                    
+                    </label> 
+                     
                     <div className="contactNumberWrapper">
+                    
                       {/* <select
                         onChange={changeHandler}
                         name="contactNumber.countryCode"
