@@ -27,20 +27,30 @@ export default function Artist_limited_Profile() {
 
   const Song = ["Dhrupad", "Khayal", "Thumri", "Tappa", "Ghazal", "Qawwali", "Kriti", "Varnam", "Tillana", "Ragamalika", "Javali", "Swarajati", "Bhajans", "Kirtan", "Sufi Music", "Abhangas", "Shabad Kirtan (Sikh)"]
 
-  const Theator=["Bhavai", "Bhand Pather", "Jatra", "Koodiyattam", "Mudiyettu", "Nautanki", "Pandavani", "Pothu Koothu", "Ramlila", "Ram Lila", "Ras Leela", "Sattriya", "Tamaasha", "Therukoothu", "Yakshagana"]
+  const Theatre=["Bhavai", "Bhand Pather", "Jatra", "Koodiyattam", "Mudiyettu", "Nautanki", "Pandavani", "Pothu Koothu", "Ramlila", "Ram Lila", "Ras Leela", "Sattriya", "Tamaasha", "Therukoothu", "Yakshagana"]
 
   const Music=["Bansuri", "Dilruba", "Dholak", "Ektara", "Esraj", "Flute (Bansuri)", "Ghatam", "Harmonium", "Jal Tarang", "Mridangam", "Nadaswaram", "Pakhawaj", "Ravanahatha", "Sarangi", "Sarod", "Santoor", "Shehnai", "Sitar", "Tabla", "Tanpura", "Tumbi", "Veena"]
+
+
+  const artdata={
+    "Dance":Dance,
+    "Song":Song,
+    "Theatre":Theatre,
+    "Music":Music
+
+  }
 
   // avialable options
   const artCategoryoptions = CategoryArt.map((item) => ({ value: item, label: item }));
   const languageoptions=languages.map((item) => ({ value: item, label: item }));
-  const artnatureoptions=[...Dance, ...Song, ...Theator, ...Music].map((item) => ({ value: item, label: item }));
+  // const artnatureoptions=[...Dance, ...Song, ...Theator, ...Music].map((item) => ({ value: item, label: item }));
+  const [artnatureoptions,setartnatureoptions]=useState([])
 
   const [basicFormData, setBasicFormData] = useState({
     personalInfo: {
       age: "",
       gender: "Male",
-      language: languages[0],
+      languages: languages[0],
     },
     address: {
       state: "Andhra Pradesh",
@@ -60,9 +70,9 @@ export default function Artist_limited_Profile() {
   const [go, setgo] = useState(false)
 
   //selected options
-  const [Categoryartoptions, setCategoryartoptions] = useState(null);
-  const [languagesoptions,setlanguagesoptions]=useState(null)
-  const [natureOfArtoptions,setnatureOfArtoptions]=useState(null)
+  const [Categoryartoptions, setCategoryartoptions] = useState([]);
+  const [languagesoptions,setlanguagesoptions]=useState([])
+  const [natureOfArtoptions,setnatureOfArtoptions]=useState([])
 
   const changeHandler = (event) => {
     const { name, value } = event.target;
@@ -117,7 +127,7 @@ export default function Artist_limited_Profile() {
       console.log("ress", response);
 
       if (response.status === "success") {
-        const { age, language, gender } = response.data.personalInfo;
+        const { age, languages, gender } = response.data.personalInfo;
         const { artCategory, artName } = response.data.artInfo;
         const { pincode, state, city } = response.data.address;
         const { experience,totalPerfs } = response.data.performanceInfo;
@@ -126,7 +136,7 @@ export default function Artist_limited_Profile() {
           personalInfo: {
             age: age,
             gender: gender,
-            language: language,
+            languages: languages,
           },
           address: {
             state: state,
@@ -142,11 +152,17 @@ export default function Artist_limited_Profile() {
             totalPerfs:totalPerfs
           },
         });
-        // console.log(basicFormData);
+        console.log(basicFormData);
         setgo(true);
-        setCategoryartoptions(artCategory.split(" ").map((item) => ({ value: item, label: item })))
-        setlanguagesoptions(language.split(" ").map((item) => ({ value: item, label: item })))
-        setnatureOfArtoptions(artName.split(" ").map((item) => ({ value: item, label: item })))
+        if (artCategory.length!==0) {
+          setCategoryartoptions(artCategory.map((item) => ({ value: item, label: item })))
+        }
+        if (artName.length!==0) {
+          setnatureOfArtoptions(artName.map((item) => ({ value: item, label: item })))
+        }
+        if (languages.length !== 0){
+        setlanguagesoptions(languages.map((item) => ({ value: item, label: item })))
+        }
         // console.log(Categoryartoptions)
       } else {
         toast.error("something went wrong , please refresh the page", {
@@ -162,6 +178,20 @@ export default function Artist_limited_Profile() {
     fetchUserData();
   }, []);
 
+  useEffect(() => {
+    console.log("Categoryartoptions",Categoryartoptions)
+    if (Categoryartoptions === null || Categoryartoptions.length === 0){
+      setartnatureoptions([]);
+      return;
+    }
+    const dataart=Categoryartoptions.map(option => option.value)
+    const newOptions = dataart.flatMap(item =>
+      artdata[item].map(subItem => ({ value: subItem, label: subItem }))
+    );
+  
+    setartnatureoptions(newOptions);
+    console.log("artnatureoptions",artnatureoptions)
+  }, [Categoryartoptions]);
 
   useEffect(()=>{
     if (
@@ -178,7 +208,7 @@ export default function Artist_limited_Profile() {
     ) {
       // console.log(basicFormData);
       // console.log("00000");
-      navigate("/artist_profile");
+      // navigate("/artist_profile");
     }
     // console.log(basicFormData);
     // console.log("11111")
@@ -196,9 +226,9 @@ export default function Artist_limited_Profile() {
     let personalInfo = basicFormData.personalInfo;
     let performanceInfo = basicFormData.performanceInfo;
     let artInfo = basicFormData.artinfo;
-    artInfo.artCategory=Categoryartoptions.map(option => option.value).join(" ")
-    personalInfo.language=languagesoptions.map(option => option.value).join(" ")
-    artInfo.artName=natureOfArtoptions.map(option => option.value).join(" ")
+    artInfo.artCategory=Categoryartoptions.map(option => option.value)
+    personalInfo.languages=languagesoptions.map(option => option.value)
+    artInfo.artName=natureOfArtoptions.map(option => option.value)
     try {
       const response = await makeAuthenticatedPATCHRequest(
         artistProfilePoints.UPDATE_PROFILE_DATA_API,
@@ -330,6 +360,7 @@ export default function Artist_limited_Profile() {
                   isMulti
                   onChange={setlanguagesoptions}
                   options={languageoptions}
+                  required
                 />
             </div>
           </div>
@@ -442,6 +473,7 @@ export default function Artist_limited_Profile() {
                   isMulti
                   onChange={setCategoryartoptions}
                   options={artCategoryoptions}
+                  required
                 />
               </div>
               <div className="BasicProfile_inputfield">
@@ -465,6 +497,7 @@ export default function Artist_limited_Profile() {
                   isMulti
                   onChange={setnatureOfArtoptions}
                   options={artnatureoptions}
+                  required
                 />
               </div>
               <div className="BasicProfile_inputfield">

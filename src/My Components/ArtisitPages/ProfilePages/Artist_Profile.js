@@ -146,10 +146,10 @@ export function Artist_Profile() {
     label: item.art,
   }));
 
-  const nameOfArt = artInfo1.map((item) => ({
-    value: item.art,
-    label: item.art,
-  }));
+  // const nameOfArt = artInfo1.map((item) => ({
+  //   value: item.art,
+  //   label: item.art,
+  // }));
 
   const majorCities = MajorIndianCities.map((item) => ({
     value: item.city,
@@ -161,12 +161,44 @@ export function Artist_Profile() {
     label: item,
   }));
 
-  const [languagesoptions, setlanguagesoptions] = useState(null);
-  const [categoryOption, setCategoryOption] = useState(null);
-  const [artNameOption, setArtNameOption] = useState(null);
-  const [artOption, setArtOption] = useState(null);
-  const [cities, setCities] = useState(null);
-  const [contry, setContry] = useState(null);
+  //multiple select for art profile
+  const Dance=["Bharatanatyam", "Bihu", "Chhau", "Dandiya Raas", "Dollu Kunitha", "Dumhal", "Garba", "Gaur Dance", "Giddha", "Gotipua", "Jhumar", "Kacchi Ghodi", "Kalbelia", "Karakattam", "Kathak", "Kathakali", "Kathakar", "Koli", "Kuchipudi", "Lavani", "Manipuri", "Mayurbhanj Chhau", "Mohiniyattam", "Odissi", "Raas Leela", "Sattriya", "Tamasha", "Tera Tali", "Thang-Ta", "Yakshagana"]
+
+  const Song = ["Dhrupad", "Khayal", "Thumri", "Tappa", "Ghazal", "Qawwali", "Kriti", "Varnam", "Tillana", "Ragamalika", "Javali", "Swarajati", "Bhajans", "Kirtan", "Sufi Music", "Abhangas", "Shabad Kirtan (Sikh)"]
+
+  const Theatre=["Bhavai", "Bhand Pather", "Jatra", "Koodiyattam", "Mudiyettu", "Nautanki", "Pandavani", "Pothu Koothu", "Ramlila", "Ram Lila", "Ras Leela", "Sattriya", "Tamaasha", "Therukoothu", "Yakshagana"]
+
+  const Music=["Bansuri", "Dilruba", "Dholak", "Ektara", "Esraj", "Flute (Bansuri)", "Ghatam", "Harmonium", "Jal Tarang", "Mridangam", "Nadaswaram", "Pakhawaj", "Ravanahatha", "Sarangi", "Sarod", "Santoor", "Shehnai", "Sitar", "Tabla", "Tanpura", "Tumbi", "Veena"]
+
+   const artdata={
+    "Dance":Dance,
+    "Song":Song,
+    "Theatre":Theatre,
+    "Music":Music
+   }
+
+   
+   const [languagesoptions, setlanguagesoptions] = useState(null);
+   const [categoryOption, setCategoryOption] = useState([]);
+   const [artNameOption, setArtNameOption] = useState([]);
+   const [artOption, setArtOption] = useState([]);
+   const [cities, setCities] = useState(null);
+   const [contry, setContry] = useState(null);
+   const [nameOfArt, setnameOfArt] = useState([]);
+   
+   useEffect(() => {
+    if (categoryOption === null || categoryOption.length === 0){
+      setnameOfArt([]);
+      return;
+    }
+    const dataart=categoryOption.map(option => option.value)
+    const newOptions = dataart.flatMap(item =>
+      artdata[item].map(subItem => ({ value: subItem, label: subItem }))
+    );
+  
+    setnameOfArt(newOptions);
+  }, [categoryOption]);
+
 
   const typeOfArts = typeOfArt.map((item) => ({
     value: item,
@@ -466,6 +498,7 @@ export function Artist_Profile() {
       about,
       age,
       phoneNumber,
+      countryCode,
       email,
       gender,
       socialCategory,
@@ -487,7 +520,10 @@ export function Artist_Profile() {
       lastName,
       about,
       age,
-      phoneNumber,
+      contactNumber: {
+        number: phoneNumber,
+        countryCode: countryCode,
+      },
       pwd,
       email,
       gender,
@@ -691,10 +727,10 @@ export function Artist_Profile() {
 
     let artInfo = {
       aboutArt: aboutArt,
-      artCategory: artCategory,
+      artCategory: categoryOption.map((option) => option.value),
       artEducation: artEducation,
-      artName: artName,
-      artType: artType,
+      artName: artNameOption.map((option) => option.value),
+      artType: artOption.map((option) => option.value),
     };
     let traditionalInfo = traditionalTable;
 
@@ -1156,7 +1192,8 @@ export function Artist_Profile() {
         lastName: personalInfo?.lastName,
         email: personalInfo?.email,
         age: personalInfo?.age,
-        phoneNumber: personalInfo?.contactNumber,
+        phoneNumber: personalInfo?.contactNumber?.number,
+        countryCode: personalInfo?.contactNumber?.countryCode,
         gender: personalInfo?.gender,
         about: personalInfo?.about,
         monthlyIncome: personalInfo?.monthlyIncome,
@@ -1237,14 +1274,14 @@ export function Artist_Profile() {
         },
       }));
       setArtOption(
-        artInfo?.perfType
-          ?.split(" ")
-          .map((item) => ({ value: item, label: item }))
+        artInfo?.artType.map((item) => ({ value: item, label: item }))
       );
       setCategoryOption(
-        artInfo?.artCategory
-          ?.split(" ")
-          .map((item) => ({ value: item, label: item }))
+        artInfo?.artCategory.map((item) => ({ value: item, label: item }))
+      );
+
+      setArtNameOption(
+        artInfo?.artName.map((item) => ({ value: item, label: item }))
       );
 
       // setProfessionalTable(())
