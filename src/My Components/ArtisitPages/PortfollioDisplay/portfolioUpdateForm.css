@@ -1,9 +1,12 @@
-
+select{
+    background-color: white;
+    color: black;
+}
 .edit_portfolio_form_wrapper{
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 670px;
+    width: 65%;
 }
 
 .sinle_form_title{
@@ -14,8 +17,11 @@
 }
 .single_form_label{
     display: flex;
-    gap: 2px;
+    gap: 15px;
     flex-direction: column;
+    width: 100%;
+    color: black;
+    font-weight: 500;
 
     /* background-color: aqua; */
 }
@@ -26,8 +32,9 @@
     font-family: Poppins;
     border-radius: 10px;
     border: 1px solid black;
-    margin-top: -10px;
+    /* margin-top: -10px; */
     padding-left: 10px;
+
     
 }
 .single_form_input::placeholder{
@@ -44,6 +51,17 @@
     font-family: Poppins;
 }
 
+.portfolio_row{
+    display: flex;
+    gap: 10%;
+    width: 100%;
+}
+.portfolio_subrow{
+    display: flex;
+    gap: 5%;
+    width: 50%;
+}
+
 .edit_portfolio_updateButton{
     margin: 0 auto;
 }
@@ -56,6 +74,10 @@
     font-family: Poppins;
     background-color: white;
     cursor: pointer;
+}
+.form_title{
+    color: #AD2F3B;
+    font-weight: 600;
 }
 
 @media (max-width:700px) {
