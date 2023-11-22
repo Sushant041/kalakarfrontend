@@ -2827,7 +2827,7 @@ export function Artist_Profile() {
               </div> */}
                 </div>
                 {artInfoFormData.artEducation === "Both" ||
-                artInfoFormData.artEducation === "Traditional" ? (
+                artInfoFormData.artEducation === "Professional" ? (
                   <>
                     <h4>Professional Art Education </h4>
                     <table className="performance_table">
@@ -2933,7 +2933,7 @@ export function Artist_Profile() {
 
                 <div className="ArtProfile_Traditional">
                   {artInfoFormData.artEducation === "Both" ||
-                  artInfoFormData.artEducation === "Professional" ? (
+                  artInfoFormData.artEducation === "Traditional" ? (
                     <>
                       <h4>Traditional Art Education </h4>
                       <table className="performance_table">
