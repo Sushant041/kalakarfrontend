@@ -54,7 +54,7 @@ import Select from "react-select";
 
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
-  const defaultPic =
+  let defaultPic =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   // const defaultPic =
   //   "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
@@ -295,9 +295,8 @@ export function Artist_Profile() {
   }));
 
   // ! this is for avatar
-  const [profileAvatar, setProfileAvatar] = useState(null);
+  const [profileAvatar, setProfileAvatar] = useState(defaultPic);
   // ! this is for avatar
-  // const [profileAvatar, setProfileAvatar] = useState(null);
 
   const handleClick = (section) => {
     setActiveSection(section);
@@ -1270,8 +1269,8 @@ export function Artist_Profile() {
         traditionalInfo,
       } = response.data;
 
-      if (personalInfo.avatar.url) {
-        setProfileAvatar(personalInfo.avatar.url);
+      if (personalInfo?.avatar?.url) {
+        setProfileAvatar(personalInfo?.avatar?.url);
       }
 
       setArtInfoFormData((prev) => ({
@@ -1505,23 +1504,40 @@ export function Artist_Profile() {
     fileInput.onchange = handleFileChange;
     fileInput.click();
   };
+  const [profileLoading, setProfileLoading] = useState(false);
 
   // ! this is to add the avatar
   // ! this is to add the avatar
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
+    console.log("Selcted  -  >", selectedFile);
+
     if (selectedFile) {
-      // console.log("sele", selectedFile);
+      let fileSizeKiloBytes = selectedFile.size / 1024;
+
+      if (fileSizeKiloBytes >= 1024) {
+        return toast.error("Image should be be less than 1mb");
+      }
       const formData = new FormData();
       formData.append("avatar", selectedFile);
-
-      const response = await makeAuthenticated_Multi_Patch_REQ(
-        artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
-        formData,
-        accessToken
-      );
-      // console.log("res", response);
-      setProfileAvatar(response?.data?.avatar);
+      setProfileLoading(true);
+      const toastId = toast.loading("Updating");
+      try {
+        const response = await makeAuthenticated_Multi_Patch_REQ(
+          artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+          formData,
+          accessToken
+        );
+        console.log("res", response);
+        setProfileAvatar(response?.data?.avatar?.url);
+        toast.dismiss(toastId);
+        toast.success("Avatar Updated");
+        setProfileLoading(false);
+      } catch (error) {
+        console.log(error);
+        setProfileLoading(false);
+        // toast.success(res)
+      }
       // const response = await makeAuthenticated_Multi_Patch_REQ(
       //   artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
       //   formData,
@@ -1753,9 +1769,9 @@ export function Artist_Profile() {
     setAwardData(awardsTable);
   };
 
-  console.log("==>");
-  console.log("Check By Chiku => ", basicFormData.passportNumber);
-  console.log("==>");
+  // console.log("==>");
+  // console.log("Check By Chiku => ", basicFormData.passportNumber);
+  // console.log("==>");
   // console.log("award Page",awardData);
   return (
     <div className="Profile_Page">
@@ -1868,7 +1884,7 @@ export function Artist_Profile() {
           <div className="BasicProfile_avatar">
             {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
             <div className="profileImg">
-              <img loading="lazy" src={defaultPic} />
+              <img loading="lazy" src={profileAvatar} />
               <div className="progressBar">25%</div>
             </div>
             <p style={{ fontWeight: "500", fontSize: "30px" }}>
