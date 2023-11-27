@@ -11,6 +11,7 @@ const Categories = () =>{
         })
         setData(UpdateItem);
     }
+    console.log("=>",data);
     return(
        <>
         <div id="categories-header-section">

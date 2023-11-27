@@ -522,9 +522,10 @@ export function Artist_Profile() {
       lastName,
       about,
       age,
-contactNumber,
-      phoneNumber,
+     contactNumber:{
       countryCode,
+      number
+   }, 
       email,
       gender,
       socialCategory,
@@ -545,10 +546,8 @@ contactNumber,
       lastName,
       about,
       age,
-
-
       contactNumber: {
-        number: phoneNumber,
+        number: number,
         countryCode: countryCode,
       },
       pwd,
@@ -1679,8 +1678,8 @@ contactNumber,
   };
   
     console.log("==>");
-    console.log("Check By Chiku => ",basicFormData.passportNumber);
-    console.log("==>");
+    console.log("Check By Chiku =>" ,new Date(basicFormData.passportNumber));
+    console.log("==>"); 
   // console.log("award Page",awardData);
   return (
     <div className="Profile_Page">

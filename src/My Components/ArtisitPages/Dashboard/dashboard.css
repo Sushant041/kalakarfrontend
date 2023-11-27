@@ -78,3 +78,58 @@ margin: 0 auto;
     border: 2px solid black;
     color: black;
 }
+
+.dasboard_Card_group{
+    width: 100vw;
+    height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      flex-direction: row;
+      gap:5rem;
+      flex-wrap: wrap;
+    
+}
+.box1{
+    width: 280px;
+    height:200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    color: #fff;
+    font-weight: bold;
+    font-size:25px;
+    text-transform: capitalize;
+    background-color: aqua;
+    border-radius: 10px;
+    flex-direction: column;
+}
+.box1 p:nth-child(2){
+    font-size:85px;
+    margin-top: -10px;
+}
+.box1:nth-child(1){
+    background-color: #15D155;
+}
+.box1:nth-child(2) {
+    background-color: #00C4FF;
+}
+.box1:nth-child(3) {
+    background-color: #FA8107;
+}
+.box1:nth-child(4) {
+    background-color: #FF004A;
+}
+.card_section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+flex-direction: column;
+}
+.card_section h2{
+    font-size: 45px;
+    font-weight: bold;
+    text-transform: capitalize;
+    color:#000;
+}
