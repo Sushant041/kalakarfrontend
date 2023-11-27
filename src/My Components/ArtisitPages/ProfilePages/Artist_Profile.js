@@ -54,7 +54,8 @@ import Select from "react-select";
 
 export function Artist_Profile() {
   const { accessToken } = useSelector((state) => state.auth);
-  const defaultPic =
+  // const defaultPic =
+  let defaultPic =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   // const defaultPic =
   //   "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
@@ -213,7 +214,8 @@ export function Artist_Profile() {
 
 
   // ! this is for avatar
-  const [profileAvatar, setProfileAvatar] = useState(null);
+  // const [profileAvatar, setProfileAvatar] = useState(null);
+  const [profileAvatar, setProfileAvatar] = useState(defaultPic);
   // ! this is for avatar
   // const [profileAvatar, setProfileAvatar] = useState(null);
 
@@ -370,8 +372,11 @@ export function Artist_Profile() {
   ];
 
   const completionYearData = [
-    2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011,
-    2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022,
+    1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961, 1962, 1963, 1964, 1965, 1966, 1967, 1968,
+    1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 1986, 1987,
+    1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
+    2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
+    2026, 2027, 2028, 2029, 2030
   ];
   // !  for basic proile
   const [basicFormData, setBasicFormData] = useState({
@@ -1193,8 +1198,8 @@ export function Artist_Profile() {
         traditionalInfo,
       } = response.data;
 
-      if (personalInfo.avatar.url) {
-        setProfileAvatar(personalInfo.avatar.url);
+      if (personalInfo?.avatar?.url) {
+        setProfileAvatar(personalInfo?.avatar?.url);
       }
 
       setArtInfoFormData((prev) => ({
@@ -1429,23 +1434,49 @@ export function Artist_Profile() {
     fileInput.onchange = handleFileChange;
     fileInput.click();
   };
+  const [profileLoading,setProfileLoading] = useState(false);
 
   // ! this is to add the avatar
   // ! this is to add the avatar
   const handleFileChange = async (event) => {
     const selectedFile = event.target.files[0];
+    console.log("🚀 ~ file: Artist_Profile.js:1444 ~ handleFileChange ~ selectedFile:", selectedFile)
+    
     if (selectedFile) {
       // console.log("sele", selectedFile);
+      let fileSizeKiloBytes = selectedFile.size / 1024;
+
+      if (fileSizeKiloBytes >= 1024) {
+        return toast.error("Image should be be less than 1mb");
+      }
       const formData = new FormData();
       formData.append("avatar", selectedFile);
 
-      const response = await makeAuthenticated_Multi_Patch_REQ(
-        artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
-        formData,
-        accessToken
-      );
-      // console.log("res", response);
-      setProfileAvatar(response?.data?.avatar);
+      // const response = await makeAuthenticated_Multi_Patch_REQ(
+      //   artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+      //   formData,
+      //   accessToken
+      // );
+      // // console.log("res", response);
+      // setProfileAvatar(response?.data?.avatar);
+      setProfileLoading(true);
+      const toastId = toast.loading("Updating");
+      try {
+        const response = await makeAuthenticated_Multi_Patch_REQ(
+          artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+          formData,
+          accessToken
+        );
+        console.log("res", response);
+        setProfileAvatar(response?.data?.avatar?.url);
+        toast.dismiss(toastId);
+        toast.success("Avatar Updated");
+        setProfileLoading(false);
+      } catch (error) {
+        console.log(error);
+        setProfileLoading(false);
+        // toast.success(res)
+      }
       // const response = await makeAuthenticated_Multi_Patch_REQ(
       //   artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
       //   formData,
@@ -1680,6 +1711,11 @@ export function Artist_Profile() {
     console.log("==>");
     console.log("Check By Chiku =>" ,new Date(basicFormData.passportNumber));
     console.log("==>"); 
+    // console.log("==>");
+    // console.log("Check By Chiku => ",basicFormData.passportNumber);
+    // console.log("==>");
+    
+
   // console.log("award Page",awardData);
   return (
     <div className="Profile_Page">
@@ -1792,7 +1828,8 @@ export function Artist_Profile() {
           <div className="BasicProfile_avatar">
             {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
             <div className="profileImg">
-              <img loading="lazy" src={defaultPic} />
+              {/* <img loading="lazy" src={defaultPic} /> */}
+              <img loading="lazy" src={profileAvatar} />
               <div className="progressBar">25%</div>
             </div>
             <p style={{ fontWeight: "500", fontSize: "30px" }}>
@@ -2404,20 +2441,20 @@ export function Artist_Profile() {
                           <option selected hidden>
                             Select Income
                           </option>
-                          <option value="<5000">below ₹5,000</option>
-                          <option value="5000-10000">₹5,000 - ₹10,000</option>
-                          <option value="10000-20000">₹10,000 - ₹20,000</option>
-                          <option value="20000-50000">₹20,000 - ₹50,000</option>
+                          <option value="<5000">Below Rs 5,000</option>
+                          <option value="5000-10000">Rs 5,000 - Rs 10,000</option>
+                          <option value="10000-20000">Rs 10,000 - Rs 20,000</option>
+                          <option value="20000-50000">Rs 20,000 - Rs 50,000</option>
                           <option value="50000-100000">
-                            ₹50,000 - ₹100,000
+                            Rs 50,000 - Rs 100,000
                           </option>
                           <option value="100000-250000">
-                            ₹100,000 - ₹250,000
+                            Rs 100,000 - Rs 250,000
                           </option>
                           <option value="250000-500000">
-                            ₹250,000 - ₹500,000
+                            Rs 250,000 - Rs 500,000
                           </option>
-                          <option value=">500000">above ₹500,000</option>
+                          <option value=">500000">Above Rs 500,000</option>
                         </select>
                       </div>
 
@@ -2632,7 +2669,7 @@ export function Artist_Profile() {
               className="ArtProfile_Infoform"
             >
               <form onSubmit={artSubmitHandler}>
-                <h4>ART INFORMATION</h4>
+                <h4>ART PROFILE</h4>
                 <div className="ArtProfile_ArtInfo">
                   <div className="ArtProfile_inputfield">
                     <label>
@@ -2757,121 +2794,16 @@ export function Artist_Profile() {
  <table className="performance_table">
                   <thead>
                     <tr>
-                      <th> Name of Course </th>
-                      <th> Specialisation</th>
-                      <th> Name of Institute </th>
+                      <th> Name of Art </th>
+                      <th> Name of Guru</th>
+                      <th> Location</th>
                       <th> Duration (Month)</th>
                       <th> Year of Completion </th>
                       <th>Upload Document </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {professionalTable.map((row, rowIndex) => (
-                      <tr key={rowIndex}>
-                        {Object.keys(row).map((key, colIndex) => (
-                          <td key={colIndex}>
-                            {key == "documentUrl" && (
-                              <input
-                                type="file"
-                                // value={row[key]}
-                                // defaultValue={awardData.highlight}
-                                onChange={(e) =>
-                                  handleArtProfileChanges(e, rowIndex, key)
-                                }
-                              />
-                            )}
-                            {(key == "course" ||
-                              key == "institute" ||
-                              key == "specialization") && (
-                              <input
-                                type="text"
-                                value={row[key]}
-                                // defaultValue={awardData.highlight}
-                                onChange={(e) =>
-                                  handleArtProfileChanges(e, rowIndex, key)
-                                }
-                              />
-                            )}
-
-                            {key == "completionYear" && (
-                              <select
-                                style={{
-                                  maxWidth: "150px",
-                                  border: "none",
-                                  padding: 0,
-                                }}
-                                type="text"
-                                value={row[key]}
-                                // defaultValue={awardData.highlight}
-                                onChange={(e) =>
-                                  handleArtProfileChanges(e, rowIndex, key)
-                                }
-                              >
-                                <option selected hidden>
-                                  Select
-                                </option>
-                                {completionYearData.map((item) => (
-                                  <option key={item} value={item}>
-                                    {item}
-                                  </option>
-                                ))}
-                              </select>
-                            )}
-                            {key == "duration" && (
-                              <select
-                                style={{
-                                  maxWidth: "150px",
-                                  border: "none",
-                                  padding: 0,
-                                }}
-                                type="text"
-                                value={row[key]}
-                                // defaultValue={awardData.highlight}
-                                onChange={(e) =>
-                                  handleArtProfileChanges(e, rowIndex, key)
-                                }
-                              >
-                                <option selected hidden>
-                                  Select
-                                </option>
-                                {[
-                                  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
-                                  15,
-                                ].map((item) => (
-                                  <option key={item} value={item}>
-                                    {item}
-                                  </option>
-                                ))}
-                              </select>
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                </>:""
-                }
-
-              
-               
-                <div className="ArtProfile_Traditional">
-                {artInfoFormData.artEducation === "Both" || artInfoFormData.artEducation === "Professional"?
-              <>
-                              <h4>Professional Art Education </h4>
- <table className="performance_table">
-                    <thead>
-                      <tr>
-                        <th> Name of art</th>
-                        <th> Name of Guru</th>
-                        <th> Location </th>
-                        <th> Duration (Month)</th>
-                        <th> Year of Completion </th>
-                        <th>Upload Document </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {traditionalTable.map((row, rowIndex) => (
+                  {traditionalTable.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                           {Object.keys(row).map((key, colIndex) => (
                             <td key={colIndex}>
@@ -2974,6 +2906,115 @@ export function Artist_Profile() {
                           ))}
                         </tr>
                       ))}
+                  </tbody>
+                </table>
+                </>:""
+                }
+
+              
+               
+                <div className="ArtProfile_Traditional">
+                {artInfoFormData.artEducation === "Both" || artInfoFormData.artEducation === "Professional"?
+              <>
+                              <h4>Professional Art Education </h4>
+ <table className="performance_table">
+                    <thead>
+                      <tr>
+                        <th> Name of Course</th>
+                        <th> Specialisation</th>
+                        <th> Name of Institute</th>
+                        <th> Duration (Month)</th>
+                        <th> Year of Completion </th>
+                        <th>Upload Document </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {professionalTable.map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        {Object.keys(row).map((key, colIndex) => (
+                          <td key={colIndex}>
+                            {key == "documentUrl" && (
+                              <input
+                                type="file"
+                                // value={row[key]}
+                                // defaultValue={awardData.highlight}
+                                onChange={(e) =>
+                                  handleArtProfileChanges(e, rowIndex, key)
+                                }
+                              />
+                            )}
+                            {(key == "course" ||
+                              key == "institute" ||
+                              key == "specialization") && (
+                              <input
+                                type="text"
+                                value={row[key]}
+                                // defaultValue={awardData.highlight}
+                                onChange={(e) =>
+                                  handleArtProfileChanges(e, rowIndex, key)
+                                }
+                              />
+                            )}
+
+                            {key == "completionYear" && (
+                              <select
+                                style={{
+                                  maxWidth: "150px",
+                                  border: "none",
+                                  padding: 0,
+                                }}
+                                type="text"
+                                value={row[key]}
+                                // defaultValue={awardData.highlight}
+                                onChange={(e) =>
+                                  handleArtProfileChanges(e, rowIndex, key)
+                                }
+                              >
+                                <option selected hidden>
+                                  Select
+                                </option>
+                                {completionYearData.map((item) => (
+                                  <option key={item} value={item}>
+                                    {item}
+                                  </option>
+                                ))}
+                              </select>
+                            )}
+                            {key == "duration" && (
+                              <select
+                                style={{
+                                  maxWidth: "150px",
+                                  border: "none",
+                                  padding: 0,
+                                }}
+                                type="text"
+                                value={row[key]}
+                                // defaultValue={awardData.highlight}
+                                onChange={(e) =>
+                                  handleArtProfileChanges(e, rowIndex, key)
+                                }
+                              >
+                                <option selected hidden>
+                                  Select
+                                </option>
+                                {[
+                                  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+                                  15,
+                                ].map((item) => (
+                                  <option key={item} value={item}>
+                                    {item}
+                                  </option>
+                                ))}
+                              </select>
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+
+
+
+                     
                     </tbody>
                   </table>
               </>:""  
@@ -3577,7 +3618,7 @@ export function Artist_Profile() {
               className="PerformanceProfile_Infoform"
             >
               <form onSubmit={perforSubmitHandler}>
-                <h4>PERFORMANCE INFORMATION</h4>
+                <h4>PERFORMANCE PROFILE</h4>
 
                 <div className="PerformanceProfile_PerformInfo">
                   {/* <div className="PerformanceProfile_inputfield">
@@ -3882,7 +3923,7 @@ export function Artist_Profile() {
                   </div>
 
                   <div className="BasicProfile_inputfield">
-                    <label>Type Of Performance (Solo,Group,Both)</label>
+                    <label>Type Of Performance</label>
                     <select
                       onChange={perforChangeHandler}
                       name="typeOfPerformance"
@@ -4073,7 +4114,7 @@ export function Artist_Profile() {
                     </select> */}
                   </div>
                   <div className="ArtProfile_Traditional">
-                  <label style={{ display: 'block', marginTop: '40px' }}>Major Performances/ Events (max. 5)</label>
+                  <label style={{ display: 'block', marginTop: '40px' }}>Major Performances/ Events (Max. 5)</label>
 
 
                     {/* <label>Major Performances/ Events (max. 5)</label> */}
@@ -4333,7 +4374,7 @@ export function Artist_Profile() {
               className="AwardProfile_Infoform"
             >
               <form onSubmit={awardSubmitHandler}>
-                <h4>AWARDS</h4>
+                <h4>AWARD PROFILE</h4>
                 <div className="AwardProfile_AwardInfo">
                   <div className="BasicProfile_inputfield">
                     <label>Total Number of Awards</label>
@@ -4377,7 +4418,7 @@ export function Artist_Profile() {
                       <option value="Others">Others</option>
                     </select>
                   </div>
-                  <h4>List Of Top Awards +</h4>
+                  <h4>Major Awards</h4>
                   <div className="ArtProfile_Traditional">
                     <table className="performance_table">
                       <thead>

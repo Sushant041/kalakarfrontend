@@ -98,7 +98,7 @@ const [news,setNews] = useState([]);
           <div className="box1"><p>section 1</p><p>0</p></div>
         </div>
         <div className="card_section">
-          <h2>SkillDevelopment - eKalakaar</h2>
+          <h2>Skill Development - eKalakaar</h2>
           <Skill_Card />
         </div>
         <div className="card_section">
