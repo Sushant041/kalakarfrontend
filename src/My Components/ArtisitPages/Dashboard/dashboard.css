@@ -133,3 +133,19 @@ flex-direction: column;
     text-transform: capitalize;
     color:#000;
 }
+
+.opportunity_wrapper{
+    border: 1px solid black;
+    border-radius: 8px;
+    width: 80vw;
+    padding: 10px;
+}
+@media screen and (min-width: 480px) {
+    .opportunity_wrapper{
+        width: 90vw;
+    }
+  }
+/* .opportunity_container{
+    width: 50vw;
+    height: 50%;
+} */

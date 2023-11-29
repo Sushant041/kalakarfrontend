@@ -52,7 +52,7 @@ export function Artist_Opportunities() {
 
   const [filterData ,setFilterData] = useState([]);
 
-  console.log('jobda' , jobData);
+  // console.log('jobda' , jobData);
 
   const applySubmitHandler = async (event) => {
 
@@ -671,42 +671,6 @@ export function Artist_Opportunities() {
                           </p>
                         </div>
                       </div>
-                      {/* <h1>Description</h1>
-                      <p>{job.description}</p>
-                      <div className="Opportunityapplynowpopup_contentone">
-                        <h1>Other Details</h1>
-                        <a href="#" style={{ color: "#AD2F3B" }}>
-                          View all info
-                        </a>
-                      </div>
-                      <div className="OpportunitiesPage_displayonejob_contentdetailsone">
-                        <p>
-                          Nature Of Art : {" "}
-                          <span>{job.artNature}</span>
-                        </p>
-                        <p>
-                          Expertise :&emsp;&emsp;<span>{job.expertise}</span>
-                        </p>
-                        <p>
-                          Location :&emsp;&emsp; <span>{job.location}</span>
-                        </p>
-                        <p>
-                          Language : &emsp;{" "}
-                          <span>
-                            {job.languages?.map((lag, index) => (
-                              <span key={index}>{lag} </span>
-                            ))}
-                            {job.languages}
-                          </span>
-                        </p>
-                        <p>
-                          Amount : &emsp; &emsp;<span>{job.budget}</span>
-                        </p>
-                        <p>
-                          {" "}
-                          Opening :&emsp;&emsp; <span>{job.requiredArtists}</span>
-                        </p>
-                      </div> */}
                       <div className="Opportunityapplynowpopup_contentform">
                         <form onSubmit={applySubmitHandler}>
                         <div style={{display:"flex"}}>
