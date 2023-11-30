@@ -29,7 +29,7 @@ const Skill_Card = () => {
 			<div class="cast">
 				<h3>Cast</h3>
                 	<p class="desc">{ `${course[0].price}`}</p>
-					<a class="desc" target="_block" href={course[0].course_link}>Explore The Course</a>
+					<a class="desc" target="_block" href={course[0].course_link} style={{ textDecoration: "none" }}>Explore The Course</a>
 
 				{/* <ul>
 					<li><img src="https://i.postimg.cc/jqgkqhSb/cast-11.jpg" alt="Marco Andrews" title="Marco Andrews" /></li>
@@ -68,7 +68,7 @@ const Skill_Card = () => {
 					<li><img src="https://i.postimg.cc/8P7X7r7r/cast-12.jpg" alt="Rebecca Floyd" title="Rebecca Floyd" /></li>
 					<li><img src="https://i.postimg.cc/2SvHwRFk/cast-13.jpg" alt="Antonio Herrera" title="Antonio Herrera" /></li>
 				</ul> */}
-				<a class="desc" target="_block" href={course[4].course_link}>Explore The Course</a>
+				<a class="desc" target="_block" href={course[4].course_link} style={{ textDecoration: "none" }}>Explore The Course</a>
 
 
 			</div>
@@ -98,7 +98,7 @@ const Skill_Card = () => {
 			<div class="cast">
 				<h3>Cast</h3>
                 	<p class="desc">{ `${course[2].price}`}</p>
-					<a class="desc" target="_block" href={course[2].course_link}>Explore The Course</a>
+					<a class="desc" target="_block" href={course[2].course_link} style={{ textDecoration: "none" }}>Explore The Course</a>
 
 				{/* <ul>
 					<li><img src="https://i.postimg.cc/jqgkqhSb/cast-11.jpg" alt="Marco Andrews" title="Marco Andrews" /></li>

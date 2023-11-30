@@ -107,7 +107,7 @@ const ArtistDashboard = () => {
   };
   const slicedJobData = jobData.slice(0, 3);
 
-  console.log(slicedJobData)
+  console.log(slicedJobData);
 
   const handleStatusChange = (e) => {
     setStatusFilter(e.target.value);
@@ -170,26 +170,33 @@ const ArtistDashboard = () => {
           <div className="dasboard_Card_group">
             <div className="box1">
               <p>All</p>
-              <p>{jobData.length}</p>
+              <div className="sub-box">
+                <p>{jobData.length}</p>
+              </div>
             </div>
             <div className="box1">
               <p>Applied</p>
-              <p>{appliedData.length}</p>
+              <div className="sub-box">
+                <p>{appliedData.length}</p>
+              </div>
             </div>
             <div className="box1">
               <p>Performance</p>
-              <p>0</p>
+              <div className="sub-box">
+                <p>0</p>
+              </div>
             </div>
             <div className="box1">
               <p>Amount</p>
-              <p>0</p>
+              <div className="sub-box">
+                <p>0</p>
+              </div>
             </div>
           </div>
           <div className="card_section">
             <h2>Explore Opportunities</h2>
             <div className="opportunity_wrapper">
               {slicedJobData.map((job, index) => (
-                
                 <div key={index} class="card">
                   <div class="poster">
                     <img src={dance} alt="Location Unknown" />
@@ -213,17 +220,20 @@ const ArtistDashboard = () => {
                     <p class="desc">{}</p>
                     <div class="cast">
                       <h3>Details</h3>
+                      <p>Budget : {job.budget}</p>
                       <p>
-                        Budget : {job.budget}
-                      </p>
-                      <p>
-                        Event Date :  
+                        Event Date :
                         {new Date(job.performanceDate).toLocaleDateString(
                           "en-US",
                           { day: "numeric", month: "short", year: "numeric" }
                         )}
                       </p>
-                      <a class="desc" target="_block" href="/Artist_Opportunities" style={{textDecoration: "none"}}>
+                      <a
+                        class="desc"
+                        target="_block"
+                        href="/Artist_Opportunities"
+                        style={{ textDecoration: "none" }}
+                      >
                         Explore The Opportunities
                       </a>
                     </div>
