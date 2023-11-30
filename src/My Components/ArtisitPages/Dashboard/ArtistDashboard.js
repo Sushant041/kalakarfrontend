@@ -20,6 +20,7 @@ import natureOfArt from "../ProfilePages/assets/natureOfArt.svg";
 import category from "../ProfilePages/assets/category.svg";
 import language from "../ProfilePages/assets/language.svg";
 import dance from "./assets/dance.png";
+import newsImg from "./assets/news.png";
 
 //news section
 const API_KEY = "a508cd51cc1c4e68b737330667020e05";
@@ -249,52 +250,45 @@ const ArtistDashboard = () => {
           <div className="card_section">
             <h2>News - eKalakaar</h2>
 
-            <div>
-              {/* {slicedLatestNews?.map((data, index) => (
-                <div key={index}>
-                  {data.title}
-                </div>
-              ))} */}
-            </div>
-
-            {/* <Dashboard_Card/> */}
-            {/* <div className="latest_news_container">
-              {newsId.map((data, index) => (
-                <div key={index} className="single_latest_news_wrapper">
-                  <div className="single_latest_news">
-                    <img
-                      className="latest_news_img"
-                      onClick={() =>
-                        (window.location.href = imageNews[data].url)
-                      }
-                      src={imageNews[data].urlToImage}
-                      alt=""
-                    />
-                    <div className="latest_news_title">
-                      {imageNews[data]?.title
-                        ?.split(" ")
-                        .slice(0, 15)
-                        .join(" ")}
-                      ...
-                    </div>
+            <div className="opportunity_wrapper">
+              {slicedLatestNews?.map((data, index) => (
+                <div key={index} class="card">
+                  <div class="poster">
+                    <img src={data.urlToImage || newsImg} alt="Location Unknown" />
                   </div>
-                  <div className="single_news_details">
-                    {imageNews[data]?.author && (
-                      <div className="NewsletterPage_Article_Content_Profile">
-                        <img src="../assets/Newsletter/Profile.png"></img>
-                        <p className="single_news_author">
-                          {imageNews[data]?.author}{" "}
-                        </p>
-                      </div>
-                    )}
-
-                    <p className="single_news_name">
-                      {imageNews[data]?.source?.name}{" "}
-                    </p>
+                  <div class="details">
+                    <h1>{data.title.slice(0,30)}...</h1>
+                    {/* <h2>2021 • PG • 1hr 38min</h2> */}
+                    
+                    <div class="tags">
+                      <span class="tag">{}</span>
+                    </div>
+                    <p class="desc">{`Posted by: ${data.author}`}</p>
+                    <div class="cast">
+                      <h3>Description</h3>
+                      <p>{data?.description?.slice(0,40)}</p>
+                      <p>
+                        Published At : {new Date(data.publishedAt).toLocaleDateString(
+                          "en-US",
+                          { day: "numeric", month: "short", year: "numeric" }
+                        )}
+                        
+                      </p>
+                      <a
+                        class="desc"
+                        target="_block"
+                        href="/Artist_Opportunities"
+                        style={{ textDecoration: "none" }}
+                      >
+                        Explore The Opportunities
+                      </a>
+                    </div>
                   </div>
                 </div>
               ))}
-            </div> */}
+            </div>
+
+            
           </div>
         </section>
       </div>
