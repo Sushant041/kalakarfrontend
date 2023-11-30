@@ -277,10 +277,10 @@ const ArtistDashboard = () => {
                       <a
                         class="desc"
                         target="_block"
-                        href="/Artist_Opportunities"
+                        href="/latestNews"
                         style={{ textDecoration: "none" }}
                       >
-                        Explore The Opportunities
+                        Explore Latest News
                       </a>
                     </div>
                   </div>
