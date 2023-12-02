@@ -109,11 +109,11 @@ function StatusOfApplication() {
 
           {/* second navbar heading */}
           <div className="appli_heading_icon_wrapper">
-            <p className="appli_info_headline">APPLICATION INFORMATIONS</p>
+            <p className="appli_info_headline">APPLICATION STATUS</p>
           </div>
           {/* second navbar */}
           <nav className="appli_info_nav">
-            <p className="appli_info_title">APPLICATION INFORMATIONS</p>
+            <p className="appli_info_title">APPLICATION STATUS</p>
             <div className="appli_nav_items">
               {navItems.map((item, index) => (
                 <span
