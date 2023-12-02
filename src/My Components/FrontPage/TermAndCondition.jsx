@@ -216,6 +216,4 @@ function TermAndCondition(){
       </div>
     )
   }
-
-
 export default TermAndCondition

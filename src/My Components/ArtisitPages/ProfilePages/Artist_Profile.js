@@ -1861,6 +1861,8 @@ export function Artist_Profile() {
             </button>
             {/* <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button> */}
           </div>
+
+          
         </div>
 
         {/* this is for basic  */}
@@ -2917,7 +2919,7 @@ export function Artist_Profile() {
                 {artInfoFormData.artEducation === "Both" || artInfoFormData.artEducation === "Professional"?
               <>
                               <h4>Professional Art Education </h4>
- <table className="performance_table">
+                              <table className="performance_table">
                     <thead>
                       <tr>
                         <th> Name of Course</th>

@@ -8,6 +8,8 @@ import { artistProfilePoints } from "../../../services/apis";
 import {
   makeAuthenticatedGETRequest,
   makeAuthenticatedPATCHRequest,
+  makeAuthenticatedPOSTRequest,
+  makeAuthenticated_Multi_Patch_REQ,
 } from "../../../services/serverHelper";
 import { useNavigate } from "react-router-dom";
 import Select from 'react-select';
@@ -22,7 +24,6 @@ export default function Artist_limited_Profile() {
 
   const experience = ["0", "1-10", "10-25", "25-50", "50-100", "100-250", "250 above"];
 
-
   const Dance=["Bharatanatyam", "Bihu", "Chhau", "Dandiya Raas", "Dollu Kunitha", "Dumhal", "Garba", "Gaur Dance", "Giddha", "Gotipua", "Jhumar", "Kacchi Ghodi", "Kalbelia", "Karakattam", "Kathak", "Kathakali", "Kathakar", "Koli", "Kuchipudi", "Lavani", "Manipuri", "Mayurbhanj Chhau", "Mohiniyattam", "Odissi", "Raas Leela", "Sattriya", "Tamasha", "Tera Tali", "Thang-Ta", "Yakshagana"]
 
   const Song = ["Dhrupad", "Khayal", "Thumri", "Tappa", "Ghazal", "Qawwali", "Kriti", "Varnam", "Tillana", "Ragamalika", "Javali", "Swarajati", "Bhajans", "Kirtan", "Sufi Music", "Abhangas", "Shabad Kirtan (Sikh)"]
@@ -30,6 +31,9 @@ export default function Artist_limited_Profile() {
   const Theatre=["Bhavai", "Bhand Pather", "Jatra", "Koodiyattam", "Mudiyettu", "Nautanki", "Pandavani", "Pothu Koothu", "Ramlila", "Ram Lila", "Ras Leela", "Sattriya", "Tamaasha", "Therukoothu", "Yakshagana"]
 
   const Music=["Bansuri", "Dilruba", "Dholak", "Ektara", "Esraj", "Flute (Bansuri)", "Ghatam", "Harmonium", "Jal Tarang", "Mridangam", "Nadaswaram", "Pakhawaj", "Ravanahatha", "Sarangi", "Sarod", "Santoor", "Shehnai", "Sitar", "Tabla", "Tanpura", "Tumbi", "Veena"]
+    let defaultPic =
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+  const [profileAvatar, setProfileAvatar] = useState(defaultPic);
 
 
   const artdata={
@@ -40,6 +44,69 @@ export default function Artist_limited_Profile() {
 
   }
 
+    const handleButtonClick = () => {
+    // const fileInput = document.createElement("input");
+    // fileInput.type = "file";
+    // fileInput.accept = ".jpg, .jpeg, .png";
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".jpg, .jpeg, .png";
+    fileInput.onchange = handleFileChange;
+    fileInput.click();
+  };
+    const [profileLoading,setProfileLoading] = useState(false);
+
+  // ! this is to add the avatar
+  // ! this is to add the avatar
+  const handleFileChange = async (event) => {
+    const selectedFile = event.target.files[0];
+    console.log("🚀 ~ file: Artist_Profile.js:1444 ~ handleFileChange ~ selectedFile:", selectedFile)
+    
+    if (selectedFile) {
+      // console.log("sele", selectedFile);
+      let fileSizeKiloBytes = selectedFile.size / 1024;
+
+      if (fileSizeKiloBytes >= 1024) {
+        return toast.error("Image should be be less than 1mb");
+      }
+      const formData = new FormData();
+      formData.append("avatar", selectedFile);
+
+      // const response = await makeAuthenticated_Multi_Patch_REQ(
+      //   artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+      //   formData,
+      //   accessToken
+      // );
+      // // console.log("res", response);
+      // setProfileAvatar(response?.data?.avatar);
+      setProfileLoading(true);
+      const toastId = toast.loading("Updating");
+      try {
+        const response = await makeAuthenticated_Multi_Patch_REQ(
+          artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+          formData,
+          accessToken
+        );
+        console.log("res", response);
+        setProfileAvatar(response?.data?.avatar?.url);
+        toast.dismiss(toastId);
+        toast.success("Avatar Updated");
+        setProfileLoading(false);
+      } catch (error) {
+        console.log(error);
+        setProfileLoading(false);
+        // toast.success(res)
+      }
+      // const response = await makeAuthenticated_Multi_Patch_REQ(
+      //   artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
+      //   formData,
+      //   accessToken
+      // );
+      // console.log("res", response);
+      // setProfileAvatar(response?.data?.avatar);
+    }
+  };
+
   // avialable options
   const artCategoryoptions = CategoryArt.map((item) => ({ value: item, label: item }));
   const languageoptions=languages.map((item) => ({ value: item, label: item }));
@@ -48,10 +115,17 @@ export default function Artist_limited_Profile() {
 
   const [basicFormData, setBasicFormData] = useState({
     personalInfo: {
+      firstName:"",
+      lastName:"",
+      email:"",
       age: "",
       gender: "Male",
       languages: languages[0],
     },
+     contactNumber:{
+      countryCode:"",
+      number:""
+   }, 
     address: {
       state: "Andhra Pradesh",
       city: "",
@@ -126,14 +200,22 @@ export default function Artist_limited_Profile() {
       );
       console.log("ress", response);
 
+      const {personalInfo} = response.data;
+      if (personalInfo?.avatar?.url) {
+        setProfileAvatar(personalInfo?.avatar?.url);
+      }
+
       if (response.status === "success") {
-        const { age, languages, gender } = response.data.personalInfo;
+        const { firstName , lastName , email, age, languages, gender } = response.data.personalInfo;
         const { artCategory, artName } = response.data.artInfo;
         const { pincode, state, city } = response.data.address;
         const { experience,totalPerfs } = response.data.performanceInfo;
 
         setBasicFormData({
           personalInfo: {
+            firstName:firstName,
+            lastName:lastName,
+            email:email,
             age: age,
             gender: gender,
             languages: languages,
@@ -196,6 +278,9 @@ export default function Artist_limited_Profile() {
   useEffect(()=>{
     if (
       basicFormData.personalInfo.age !== "" &&
+      basicFormData.personalInfo.firstName !== "" &&
+      basicFormData.personalInfo.lastName !== "" &&
+      basicFormData.personalInfo.email !== "" &&
       basicFormData.personalInfo.gender !== "" &&
       basicFormData.personalInfo.language !== "" &&
       basicFormData.address.pincode !== "" &&
@@ -222,6 +307,7 @@ export default function Artist_limited_Profile() {
 
     const toastId = toast.loading("Loading...");
 
+    let firstName = basicFormData.firstName;
     let address = basicFormData.address;
     let personalInfo = basicFormData.personalInfo;
     let performanceInfo = basicFormData.performanceInfo;
@@ -268,20 +354,83 @@ export default function Artist_limited_Profile() {
         style={{ fontFamily: "Poppins", width: "90%" }}
         className="BasicProfile_Infoform"
       >
+
+
         <form onSubmit={basicSubmitHandler}>
+
+            <div className="BasicProfile_avatar" style={{marginTop:"50px"}}>
+            {/* <img loading="lazy" src={(profileAvatar === undefined || profileAvatar === null) ?(`https://ui-avatars.com/api/?name=${basicFormData.firstName}+${basicFormData.lastName}`):(`https://api.ekalakaar.com/uploads/avatars/${profileAvatar}`)} /> */}
+            <div className="profileImg">
+              {/* <img loading="lazy" src={defaultPic} /> */}
+              <img loading="lazy" src={profileAvatar} />
+              <div className="progressBar">25%</div>
+            </div>
+            <p style={{ fontWeight: "500", fontSize: "30px" }}>
+              {" "}
+              {basicFormData.personalInfo.firstName.toUpperCase()}{" "}
+              {basicFormData.personalInfo.lastName.toUpperCase()}(eK ID: 12334)
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="35"
+                height="35"
+                viewBox="0 0 50 50"
+                fill="none"
+              >
+                <circle cx="25" cy="25" r="25" fill="#61C6FF" />
+                <path
+                  d="M14 26.7143L19.4935 32.2791C19.885 32.6757 20.5252 32.6757 20.9168 32.2791L36 17"
+                  stroke="white"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              <b></b>
+            </p>
+            <button
+              onClick={handleButtonClick}
+              className="BasicProfile_editavatar"
+            >
+              Upload/Edit Profile Picture
+            </button>
+            {/* <button onClick={handleRemoveAvatar} className="BasicProfile_removeavatar">Remove Avatar</button> */}
+          </div>
+
+        <div className="BasicProfile_PersonalINfo">
+            <div className="BasicProfile_inputfield" style={{ width: "30%" }}>
+            <label htmlFor="firstName">First Name</label>
+                    <input
+                      onChange={changeHandler}
+                      name="firstName"
+                      value={basicFormData.personalInfo.firstName}
+                      type="text"
+                    ></input>
+            </div>
+             <div className="BasicProfile_inputfield" style={{ width: "30%" }}>
+            <label htmlFor="firstName">Last Name</label>
+                    <input
+                      onChange={changeHandler}
+                      name="firstName"
+                      value={basicFormData.personalInfo.lastName}
+                      type="text"
+                    ></input>
+            </div>
+              <div className="BasicProfile_inputfield" style={{ width: "30%" }}>
+            <label htmlFor="firstName">Email</label>
+                    <input
+                      onChange={changeHandler}
+                      name="firstName"
+                      value={basicFormData.personalInfo.email}
+                      type="text"
+                    ></input>
+            </div>
+        </div>
+
           <div className="BasicProfile_PersonalINfo">
             <div className="BasicProfile_inputfield" style={{ width: "30%" }}>
               <label htmlFor="age">
                 Age <span className="red">*</span>
               </label>
-              {/* <input
-                type="number"
-                name="personalInfo.age"
-                onChange={changeHandler}
-                value={basicFormData.personalInfo.age}
-                style={{ width: "100%" }}
-                required
-              ></input> */}
+             
               <select name="personalInfo.age"
                 onChange={changeHandler}
                 value={basicFormData.personalInfo.age}
@@ -293,7 +442,10 @@ export default function Artist_limited_Profile() {
                   </option>
                 ))}
               </select>
+
             </div>
+
+            {/* abhishek */}
 
             <div
               className="BasicProfile_inputfield gender"
@@ -328,6 +480,7 @@ export default function Artist_limited_Profile() {
                 </select>
               </div>
             </div>
+
             <div className="BasicProfile_inputfield" style={{ width: "30%" }}>
               <label htmlFor="age">
                 Language  <span className="red">*</span>
@@ -363,7 +516,9 @@ export default function Artist_limited_Profile() {
                   required
                 />
             </div>
+
           </div>
+
           <div className="BasicProfile_Address">
             <div className="BasicProfile_Addressshort">
               <div className="BasicProfile_inputfield" style={{ width: "30%" }}>
@@ -450,6 +605,7 @@ export default function Artist_limited_Profile() {
               </div>
             </div>
           </div>
+
           <div className="BasicProfile_PersonalINfo">
             <div className="BasicProfile_OtherDetails">
               <div className="BasicProfile_inputfield">
@@ -534,6 +690,7 @@ export default function Artist_limited_Profile() {
               </div>
             </div>
           </div>
+
           <button className="updateBtn">Submit</button>
         </form>
       </div>
