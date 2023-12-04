@@ -67,7 +67,7 @@ export function LoginPage() {
 
         if (role === "Artist") {
           // navigate("/artist_profile");
-          navigate("/Artist_limited_Profile")
+          navigate("/Artist_limited_Profile");
         } else {
           navigate("/Patron_Profile");
         }
@@ -81,17 +81,17 @@ export function LoginPage() {
 
     toast.dismiss(toastId);
   };
-
   const googleLogin = async () => {
-    try {
-      const response = await makeUnauthenticatedGETRequest(
-        artistProfilePoints.LOGIN_WITH_GOOGLE_API
-      );
-      console.log("googleRes", response);
-    } catch (error) {
-      toast.error("Something went wrong , please try again");
-      console.log(error);
-    }
+    navigate("https://api.ekalakaar.com/api/v1/auth/google/");
+    // try {
+    //   const response = await makeUnauthenticatedGETRequest(
+    //     artistProfilePoints.LOGIN_WITH_GOOGLE_API
+    //   );
+    //   console.log("googleRes", response);
+    // } catch (error) {
+    //   toast.error("Something went wrong , please try again");
+    //   console.log(error);
+    // }
   };
 
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -126,17 +126,17 @@ export function LoginPage() {
             required
             onChange={changeHandler}
             value={formData.password}
-            type={passwordVisible ? 'text' : 'password'}
+            type={passwordVisible ? "text" : "password"}
             name="password"
             className="loginFormInput"
             placeholder="Enter your password"
           />
           <span
-        onClick={togglePasswordVisibility}
-        className={`fa fa-fw field-icon toggle-password ${
-          passwordVisible ? 'fa-eye-slash' : 'fa-eye'
-        }`}
-      ></span>
+            onClick={togglePasswordVisibility}
+            className={`fa fa-fw field-icon toggle-password ${
+              passwordVisible ? "fa-eye-slash" : "fa-eye"
+            }`}
+          ></span>
         </label>
 
         <div className="checkbox_forgetPassword_container">
@@ -161,12 +161,14 @@ export function LoginPage() {
 
         {/* google and facebook button */}
         <div className="googleFacebookButton">
-          <img
-            onClick={googleLogin}
-            src={google}
-            alt=""
-            className="loginImage"
-          />
+          <a href="https://api.ekalakaar.com/api/v1/auth/google">
+            <img
+              onClick={googleLogin}
+              src={google}
+              alt=""
+              className="loginImage"
+            />
+          </a>
 
           <img src={facebook} alt="" className="loginImage" />
         </div>
