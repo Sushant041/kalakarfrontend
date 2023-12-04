@@ -106,7 +106,6 @@ function StatusOfApplication() {
       <div className="appli_Info_Wrapper">
         <div className="appli_Info_Container">
           {/* navbar  */}
-
           {/* second navbar heading */}
           <div className="appli_heading_icon_wrapper">
             <p className="appli_info_headline">APPLICATION STATUS</p>

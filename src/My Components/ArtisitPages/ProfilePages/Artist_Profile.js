@@ -64,10 +64,9 @@ export function Artist_Profile() {
 
   const [activeSection, setActiveSection] = useState(initialActiveSection);
   const [art, setArt] = useState([]);
+  const [artName, setArtName] = useState("");
   const numbersArray = Array.from({ length: 250 }, (_, index) => index + 1);
-  console.log("==>");
-  console.log("Check By Chiku", numbersArray);
-  console.log("==>");
+
   const MajorIndianCities = [
     {
       city: "Mumbai",
@@ -301,6 +300,12 @@ export function Artist_Profile() {
     label: item,
   }));
 
+  console.log("==>");
+  console.log(
+    "Check By Chiku ==>",
+    artNameOption.find((e) => e.value === "Any Other") !== undefined
+  );
+  console.log("==>");
   // ! this is for avatar
   // const [profileAvatar, setProfileAvatar] = useState(null);
   const [profileAvatar, setProfileAvatar] = useState(defaultPic);
@@ -2722,6 +2727,38 @@ export function Artist_Profile() {
                       ))}
                     </select> */}
                   </div>
+                  {artNameOption.find((e) => e.value === "Any Other") !==
+                  undefined ? (
+                    <>
+                      <div className="BasicProfile_inputfield">
+                        <label htmlFor="firstName">Art Name</label>
+                        <input
+                          onChange={(e) => setArtName(e.target.value)}
+                          name="firstName"
+                          value={artName}
+                          type="text"
+                        ></input>
+                        <button
+                          onClick={artNameHandler}
+                          style={{
+                            background: "red",
+                            marginTop: "10px",
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "50%",
+                            border: "none",
+                            fontSize: "25px",
+                            color: "#fff",
+                          }}
+                        >
+                          +
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
                   <div className="ArtProfile_inputfield">
                     <label>Type of Art</label>
                     {/* <select
