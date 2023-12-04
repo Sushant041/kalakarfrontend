@@ -1,0 +1,519 @@
+[33mcommit 986f05ad5fc4ec28f4f895b652a29f6876c827a3[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Sun Dec 3 00:33:24 2023 +0530
+
+    change all are done that suggested
+
+[33mcommit 8f056c9a85141ab4a313f950121ab7ebe9bea87b[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Sat Dec 2 19:57:09 2023 +0530
+
+    Modify the Artist_limited_Profile page
+
+[33mcommit 324459c9adf1cd3fd0e71d5e67b6e8639082129a[m
+Merge: 694bd3fd b9a5cb01
+Author: Dibyendu Das <77797415+dibyendu02@users.noreply.github.com>
+Date:   Thu Nov 30 18:23:17 2023 +0530
+
+    Merge pull request #14 from dibyendu02/main
+    
+    news card modified
+
+[33mcommit b9a5cb015aa314dcc3f3b04918b9bd722a31a65d[m
+Merge: 9b7c39b3 694bd3fd
+Author: Dibyendu Das <77797415+dibyendu02@users.noreply.github.com>
+Date:   Thu Nov 30 18:22:39 2023 +0530
+
+    Merge branch 'eKalakaar-India:main' into main
+
+[33mcommit 9b7c39b37c42cc136d1fc6b383faff20fa6030ca[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Thu Nov 30 18:22:22 2023 +0530
+
+    news card changes
+
+[33mcommit 694bd3fdf43cba50dc1a2482f7cee7ce856dc09a[m
+Merge: a73b27d6 3e8dac6b
+Author: Dibyendu Das <77797415+dibyendu02@users.noreply.github.com>
+Date:   Thu Nov 30 18:19:13 2023 +0530
+
+    Merge pull request #13 from dibyendu02/main
+    
+    Dashboard modified (news card, opportunity card)
+
+[33mcommit 3e8dac6b3f30423d5e284cfc62ceeb80c6786661[m
+Merge: 25d5ce4b a73b27d6
+Author: Dibyendu Das <77797415+dibyendu02@users.noreply.github.com>
+Date:   Thu Nov 30 18:17:43 2023 +0530
+
+    Merge branch 'eKalakaar-India:main' into main
+
+[33mcommit 25d5ce4b16cdad25be52e38966f1dbdb2e57588e[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Thu Nov 30 18:15:57 2023 +0530
+
+    news card fixed
+
+[33mcommit 11f3d1c4297a108913cfa456569d5a75d386e90d[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Thu Nov 30 17:57:00 2023 +0530
+
+    dashboard card fixed
+
+[33mcommit 5cd533052802bfee8524db463e46f49ea2b7709f[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Thu Nov 30 17:39:46 2023 +0530
+
+    dashboard opp card fixed
+
+[33mcommit a73b27d68e0a20ad983e29e781aff45413ea4ced[m
+Merge: 9849a8bd a4c5beb8
+Author: Dibyendu Das <77797415+dibyendu02@users.noreply.github.com>
+Date:   Wed Nov 29 18:47:16 2023 +0530
+
+    Merge pull request #12 from dibyendu02/main
+    
+    artist dashboard modified
+
+[33mcommit a4c5beb848b9c150f880d021ddcacef8600ce561[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Wed Nov 29 18:46:33 2023 +0530
+
+    artist dashboard modified
+
+[33mcommit 9849a8bdf1169230758cb52f8af63f968176b34c[m
+Merge: 3f8499dd 9befaf97
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Mon Nov 27 23:25:22 2023 +0530
+
+    Solve the Profile pic uploading problem
+
+[33mcommit 3f8499ddde1366c0ba2a8cc87981e019f7580882[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Mon Nov 27 23:01:03 2023 +0530
+
+    Add section in Dasboard
+
+[33mcommit 9befaf97a41f5c4566a51c2ccec6d1482955dcd0[m
+Merge: 2603bb75 e1622587
+Author: YashJadhav-89 <jadhavyash030@gmail.com>
+Date:   Fri Nov 24 15:58:39 2023 +0530
+
+    Dropdown changes
+
+[33mcommit 2603bb75bbd334b98ae321c01ff654d9b60edbfa[m
+Author: YashJadhav-89 <jadhavyash030@gmail.com>
+Date:   Fri Nov 24 15:49:39 2023 +0530
+
+    Dropdown changes
+
+[33mcommit e162258793923cc506e9d683c8fd1b8bd7b4bc8c[m
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Thu Nov 23 10:11:06 2023 +0530
+
+    Profile-Avatar-Integrated
+
+[33mcommit 516d4bef0a83809a931e1b29657b6f17a76d9532[m
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Wed Nov 22 19:27:53 2023 +0530
+
+    changede
+
+[33mcommit 2eab71ffa7ed28b131b15719c6c3ea5dc5ec06ad[m
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Wed Nov 22 19:26:02 2023 +0530
+
+    dddd
+
+[33mcommit 6961ca4fd46d0406acfeb09571d8dcc2ba73e25a[m
+Merge: c8b72738 b11e44a5
+Author: Dibyendu Das <77797415+dibyendu02@users.noreply.github.com>
+Date:   Sun Nov 19 17:31:19 2023 +0530
+
+    Merge pull request #11 from dibyendu02/main
+    
+     basic profile added in edit portfolio
+
+[33mcommit b11e44a56d9a32eb3879a933056f8163df147614[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Sun Nov 19 17:29:01 2023 +0530
+
+     basic profile added in edit portfolio
+
+[33mcommit c8b72738cfbb82d1cc79a9f0ba0123ffd264d249[m
+Author: YashJadhav-89 <jadhavyash030@gmail.com>
+Date:   Sat Nov 18 18:12:29 2023 +0530
+
+    Registration Pages styling
+
+[33mcommit 443ed81a5cf8efeae1ac99b57598970e4cb44a01[m
+Merge: 7b9a1508 c7ad4bad
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Sat Nov 18 16:13:25 2023 +0530
+
+    Modify the Artist Profile Page
+
+[33mcommit 7b9a15085d89a339b75b616b3bc8daa1dd5af5be[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Sat Nov 18 16:06:43 2023 +0530
+
+    Add Calender and Change UI
+
+[33mcommit c7ad4bad4a44792ed9c55c3a9cbfbd4d13b2e6c9[m
+Merge: e4a1bba0 7a79218d
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Sat Nov 18 16:00:32 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit e4a1bba06480c310765166eec68451bd9ae5ac8d[m
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Sat Nov 18 16:00:21 2023 +0530
+
+    Fix multiple select bug in Artist_Profile.js for art profile
+
+[33mcommit 7a79218d0ac99d2fb35eb22d2d618ca6e65304f2[m
+Author: YashJadhav-89 <jadhavyash030@gmail.com>
+Date:   Sat Nov 18 15:55:44 2023 +0530
+
+    initial commit
+
+[33mcommit 4647b8e665541f769fdea0adfc4d9f5c6e2d40c7[m
+Merge: 8553e549 a5837a23
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Sat Nov 18 15:22:32 2023 +0530
+
+    add Calender
+
+[33mcommit 8553e54925b47ee2d18c594f24753ea51b127877[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Sat Nov 18 12:14:28 2023 +0530
+
+    ignore this commit
+
+[33mcommit a5837a23efe72b08757fd719f5fd5b03518ab6fa[m
+Merge: c4b40273 5b5a14b3
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Sat Nov 18 12:09:44 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit c4b402739bf6ca1c8111164592278f9b573a8769[m
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Sat Nov 18 12:04:43 2023 +0530
+
+    dropdown-fixed
+
+[33mcommit 547997b136c39decbf712735f3208380df014c9d[m
+Merge: 2534f224 5b5a14b3
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Fri Nov 17 23:01:21 2023 +0530
+
+    ignore this Commit because there is a problem to pull
+
+[33mcommit 2534f224ac257d5050c320ecf1053ce432399241[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Fri Nov 17 22:55:21 2023 +0530
+
+    ignore this commit
+
+[33mcommit 5b5a14b335daf48a0f867d5a1785ac75ac3e4e9c[m
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Fri Nov 17 22:47:33 2023 +0530
+
+    language multiple updated
+
+[33mcommit 8f63c76e77af66300923f877b202e51c2dcf97bf[m
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Fri Nov 17 20:44:17 2023 +0530
+
+    art-profile-tab;e-dropdown-add
+
+[33mcommit c278575c1b6b99a487381fe189b882960e9d3a62[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Fri Nov 17 16:24:30 2023 +0530
+
+    Replace all the single Selection into Multiple Selection
+
+[33mcommit d9048a31e14d1af4656c53e40d9871e80b55ecbd[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Fri Nov 17 14:06:09 2023 +0530
+
+    add Multi Selection Fields in artish Profile section
+
+[33mcommit dd5486dbed4b26495f328ef66703124a29f62fcf[m
+Merge: f3601af4 f38abb22
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Thu Nov 16 18:20:13 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit f3601af4b7a8b56e24ce7691ffbe555b81e34f9d[m
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Thu Nov 16 18:11:52 2023 +0530
+
+    art-award-performance-fixed
+
+[33mcommit f38abb22d22b0e3cb4ac0688a59aed3338304af6[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Thu Nov 16 15:55:09 2023 +0530
+
+    Basic Profile integration
+
+[33mcommit c37572270b57624f37f43d0b63ce8a0901463cfd[m
+Author: YashJadhav-89 <jadhavyash030@gmail.com>
+Date:   Wed Nov 15 19:24:17 2023 +0530
+
+    Dropdown changes
+
+[33mcommit 821fe3c2ca302037f76bcdc143172505d538d400[m
+Author: YashJadhav-89 <jadhavyash030@gmail.com>
+Date:   Tue Nov 14 19:05:22 2023 +0530
+
+    Dropdowns Updated
+
+[33mcommit cadcce90a152846edfc49145fa208eab9e64ecb9[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Sun Nov 12 13:28:16 2023 +0530
+
+    PinCode Functionality Now Working
+
+[33mcommit 1bb5386d5d5f1cb91e5519ebce936fd280094782[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Fri Nov 10 16:14:07 2023 +0530
+
+    Art Profile Page
+
+[33mcommit 16b50e2a304012c49ae6bb82bc9d74836120bb81[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Thu Nov 9 00:48:57 2023 +0530
+
+    Add Intregration in Art Profile
+
+[33mcommit 471a69aabc2a2076bc362fcb8e7912fb01111be8[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Wed Nov 8 19:01:43 2023 +0530
+
+    Ignore This commit nothing to be change
+
+[33mcommit 4cbe79a41deecf1b18687e1a8dc86c82f6136b7d[m
+Merge: d274293f 77f3e1b3
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Wed Nov 8 18:50:09 2023 +0530
+
+    add Table in art profile
+
+[33mcommit d274293f8c59dc9f91876657eaaa8bf88345551a[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Wed Nov 8 18:49:05 2023 +0530
+
+    Add Table in art Profile
+
+[33mcommit 77f3e1b3b71524c33b8e08d1bb9766972570e72a[m
+Author: Sushant Kumar <115036214+sushant010@users.noreply.github.com>
+Date:   Wed Nov 8 01:54:31 2023 +0530
+
+    Revert "Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend"
+    
+    This reverts commit 79820d194fd7a2826ffc52588e614cad55cf391c, reversing
+    changes made to b4ac40391582d54e92fb05d314ec5071322787c5.
+
+[33mcommit 79820d194fd7a2826ffc52588e614cad55cf391c[m
+Merge: b4ac4039 f3b4b8f7
+Author: Sushant Kumar <115036214+sushant010@users.noreply.github.com>
+Date:   Wed Nov 8 01:42:53 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit b4ac40391582d54e92fb05d314ec5071322787c5[m
+Author: Sushant Kumar <115036214+sushant010@users.noreply.github.com>
+Date:   Wed Nov 8 01:42:34 2023 +0530
+
+    Opportunity basics fixed
+
+[33mcommit f3b4b8f7372aca6bda27113fdbf11d43246448c4[m
+Merge: 27f2d67e 6371fa95
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Wed Nov 8 01:28:45 2023 +0530
+
+    Award profile is ready
+
+[33mcommit 27f2d67eeae28057909e5f9b8977f7523fb0e08f[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Wed Nov 8 01:19:33 2023 +0530
+
+    half change done  in Award Profile
+
+[33mcommit 6371fa954e284b7ec2e58d19ba1693d3d09f270b[m
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Wed Nov 8 00:34:36 2023 +0530
+
+    Artist-Performamce-Profile-Fixed-Akash
+
+[33mcommit 0a2edff1a85461afff280db4783bfea931afe416[m
+Author: Akash Shukla <shuklaakash663@gmail.com>
+Date:   Tue Nov 7 23:09:14 2023 +0530
+
+    fixed Patron Portfolio
+
+[33mcommit 977e0dba4f7e9393bfb8371b63a172615b3607ce[m
+Merge: 4249692a ab08ae23
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Mon Nov 6 22:10:40 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit 4249692a6c97a22cf901452471c1a8c3f2a8c6bc[m
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Mon Nov 6 22:10:29 2023 +0530
+
+    application updates in patron updated
+
+[33mcommit ab08ae237720c03a399f37471efe4ea2f070f12f[m
+Merge: e89d6f21 8014aa26
+Author: Sushant Kumar <115036214+sushant010@users.noreply.github.com>
+Date:   Mon Nov 6 19:22:19 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit e89d6f21879bab547c800a2d5feb4e2e7ca3e8de[m
+Author: Sushant Kumar <115036214+sushant010@users.noreply.github.com>
+Date:   Mon Nov 6 19:19:43 2023 +0530
+
+    updated purpose fields
+
+[33mcommit 8014aa268e4af0cb7532674516120ead52c774ac[m
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Mon Nov 6 19:18:20 2023 +0530
+
+    artist apply popup updated
+
+[33mcommit eeda68865c2f39f1001fcbfa9b27b8c3dff4671f[m
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Sun Nov 5 14:14:00 2023 +0530
+
+    Artist Bugs Updated
+
+[33mcommit f2503ffa3a9fb794f17dfa916089081c3987c8b2[m
+Merge: 2561dc44 3693b7f6
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Sun Nov 5 01:00:23 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit 2561dc447b9eb0c6ba782a6dc71e7ed8f67c73e3[m
+Author: abhishek kumar majumdar <pk006604@gmail.com>
+Date:   Sun Nov 5 00:59:27 2023 +0530
+
+    add + button in Art Profile
+
+[33mcommit 3693b7f6d3452ef04b143397f17f38ac45bacf18[m
+Merge: 84f86b4c bdbe84fa
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Sat Nov 4 21:08:22 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit 84f86b4cc01ce7c48aa36cdee80883707034acf8[m
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Sat Nov 4 21:08:05 2023 +0530
+
+    Basic profile updated
+
+[33mcommit bdbe84faea0ade2f4b228e47a40021fe5be4a764[m
+Merge: 0ad70381 fe69ecda
+Author: Dibyendu Das <77797415+dibyendu02@users.noreply.github.com>
+Date:   Sat Nov 4 15:00:49 2023 +0530
+
+    Merge pull request #10 from dibyendu02/main
+    
+    Artist Dashboard router and Application fixed
+
+[33mcommit fe69ecdaccac46805be47ade5177c57c048984e2[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Sat Nov 4 14:59:03 2023 +0530
+
+    artist dashboard router fixed
+
+[33mcommit ba0f8983c08f020a7b1f9b0d5734698684903fa4[m
+Merge: 2645f80d 0ad70381
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Fri Nov 3 21:11:00 2023 +0530
+
+    Merge branch 'main' of https://github.com/dibyendu02/ekalakaar-frontend
+
+[33mcommit 2645f80df0745be896e9b4a466b80a58b8f743d6[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Fri Nov 3 21:04:12 2023 +0530
+
+    opportunity moreinfo application language change
+
+[33mcommit 0ad703816745491d52100e348c10a562fef2d037[m
+Merge: f10123d0 d1a6fe0b
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Fri Nov 3 11:33:44 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit f10123d0ac65f3e235a5e9c480960e76a358f361[m
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Fri Nov 3 11:33:20 2023 +0530
+
+    Application status updated and eye button
+
+[33mcommit d1a6fe0b541c57c169eb894fe69a1ffc8db0d236[m
+Author: Sushant Kumar <115036214+sushant010@users.noreply.github.com>
+Date:   Thu Nov 2 20:32:30 2023 +0530
+
+    Router page updated
+
+[33mcommit ea81955f2c7299c792c1c97c91c636169a0edbe7[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Thu Nov 2 20:24:03 2023 +0530
+
+    Dashboard changes
+
+[33mcommit 33247dc5e18179963b4cc6cba7b192a0f8ffc82d[m
+Author: Sushant Kumar <115036214+sushant010@users.noreply.github.com>
+Date:   Thu Nov 2 01:07:30 2023 +0530
+
+    Toaster added in dashboard
+
+[33mcommit 68a5768518abbd8fad8b8963e0d1cb7c6d8766d8[m
+Merge: a1c720fa d8c4a323
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Wed Nov 1 23:14:09 2023 +0530
+
+    Merge branch 'main' of https://github.com/dibyendu02/ekalakaar-frontend
+
+[33mcommit a1c720fa1ece5cc49812ffd6f094ae3ca43e170f[m
+Author: Dibyendu Das <get2dibyendu@gmail.com>
+Date:   Wed Nov 1 23:14:01 2023 +0530
+
+    changes in dashboard
+
+[33mcommit d8c4a3230086a11d98eafbc7865f0e0f7302519c[m
+Merge: 48f63b8f 9dd8ee19
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Tue Oct 31 21:25:57 2023 +0530
+
+    Merge branch 'main' of https://github.com/eKalakaar-India/ekalakaar-frontend
+
+[33mcommit 48f63b8f0ac751b8f6efabec5d97bb4d65150e0e[m
+Author: Santhu <purisanthosh2002@gmail.com>
+Date:   Tue Oct 31 21:24:05 2023 +0530
+
+    small changes are done
+
+[33mcommit 9dd8ee19f140c24c21e12f9f4b8f7993049b8635[m
+Merge: 77b9b4c2 0493d2d8
+Author: Dibyendu Das <77797415+dibyendu02@users.noreply.github.com>
+Date:   Tue Oct 31 20:52:36 2023 +0530
+
+    Merge pull request #9 from dibyendu02/main
+    
+    Dashboard added and saved card changed
+
+[33mcommit 0493d2d8910180d8c3f6dc74c73c34351087aac7[m
+Merge: 2171b84c 77b9b4c2
+Author: Dibyendu Das <get2dibyendu@gmail.com>

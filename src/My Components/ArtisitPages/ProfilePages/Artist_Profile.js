@@ -64,10 +64,9 @@ export function Artist_Profile() {
 
   const [activeSection, setActiveSection] = useState(initialActiveSection);
   const [art, setArt] = useState([]);
+  const [artName,setArtName] = useState("");
 const numbersArray = Array.from({ length: 250 }, (_, index) => index + 1);
-console.log("==>");
-  console.log("Check By Chiku",numbersArray);
-  console.log("==>");
+
   const MajorIndianCities = [
     {
       city: "Mumbai",
@@ -171,7 +170,7 @@ console.log("==>");
 
 
   //multiple select for art profile
-  const Dance=["Bharatanatyam", "Bihu", "Chhau", "Dandiya Raas", "Dollu Kunitha", "Dumhal", "Garba", "Gaur Dance", "Giddha", "Gotipua", "Jhumar", "Kacchi Ghodi", "Kalbelia", "Karakattam", "Kathak", "Kathakali", "Kathakar", "Koli", "Kuchipudi", "Lavani", "Manipuri", "Mayurbhanj Chhau", "Mohiniyattam", "Odissi", "Raas Leela", "Sattriya", "Tamasha", "Tera Tali", "Thang-Ta", "Yakshagana", "Any Other"]
+  const Dance=["Bharatanatyam", "Bihu", "Chhau", "Dandiya Raas", "Dollu Kunitha", "Dumhal", "Garba", "Gaur Dance", "Giddha", "Gotipua", "Jhumar", "Kacchi Ghodi", "Kalbelia", "Karakattam", "Kathak", "Kathakali", "Kathakar", "Koli", "Kuchipudi", "Lavani", "Manipuri", "Mayurbhanj Chhau", "Mohiniyattam", "Odissi", "Raas Leela", "Sattriya", "Tamasha", "Tera Tali", "Thang-Ta", "Yakshagana",]
   const Song = ["Dhrupad", "Khayal", "Thumri", "Tappa", "Ghazal", "Qawwali", "Kriti", "Varnam", "Tillana", "Ragamalika", "Javali", "Swarajati", "Bhajans", "Kirtan", "Sufi Music", "Abhangas", "Shabad Kirtan (Sikh)", "Any Other"]
   const Theatre=["Bhavai", "Bhand Pather", "Jatra", "Koodiyattam", "Mudiyettu", "Nautanki", "Pandavani", "Pothu Koothu", "Ramlila", "Ram Lila", "Ras Leela", "Sattriya", "Tamaasha", "Therukoothu", "Yakshagana" , "Any Other"]
   const Music=["Bansuri", "Dilruba", "Dholak", "Ektara", "Esraj", "Flute (Bansuri)", "Ghatam", "Harmonium", "Jal Tarang", "Mridangam", "Nadaswaram", "Pakhawaj", "Ravanahatha", "Sarangi", "Sarod", "Santoor", "Shehnai", "Sitar", "Tabla", "Tanpura", "Tumbi", "Veena", "Any Other"]
@@ -182,10 +181,7 @@ console.log("==>");
     "Music":Music,
     
    }
-   console.log("==>");
-     console.log("Check By Chiku",artdata);
-     console.log("==>");
-
+  
    
    const [languagesoptions, setlanguagesoptions] = useState(null);
    const [categoryOption, setCategoryOption] = useState([]);
@@ -194,8 +190,14 @@ console.log("==>");
    const [cities, setCities] = useState(null);
    const [contry, setContry] = useState(null);
    const [nameOfArt, setnameOfArt] = useState([]);
-   
+   const [toggle,setToggle] = useState(false);
+
+
+
    useEffect(() => {
+     if(artNameOption.find(e=>e.value === "Any Other") !== undefined){
+    setToggle(true);
+ }
     if (categoryOption === null || categoryOption.length === 0){
       setnameOfArt([]);
       return;
@@ -208,14 +210,15 @@ console.log("==>");
     setnameOfArt(newOptions);
   }, [categoryOption]);
 
-
   const typeOfArts = typeOfArt.map((item) => ({
     value: item,
     label: item,
   }));
 
 
-
+console.log("==>");
+  console.log("Check By Chiku ==>",artNameOption.find(e=>e.value === "Any Other") !== undefined);
+  console.log("==>");
   // ! this is for avatar
   // const [profileAvatar, setProfileAvatar] = useState(null);
   const [profileAvatar, setProfileAvatar] = useState(defaultPic);
@@ -1718,6 +1721,11 @@ console.log("==>");
     // console.log("Check By Chiku => ",basicFormData.passportNumber);
     // console.log("==>");
     
+ const artNameHandler = (e) => {
+   artNameOption.push({value:artName, label:artName});
+   toast.success("Name of Art  has been  Added");
+  //  setArtNameOption(...artNameOption,{value:artName, label:artName})
+ }
 
   // console.log("award Page",awardData);
   return (
@@ -2540,7 +2548,24 @@ console.log("==>");
                         </option>
                       ))}
                     </select> */}
+                    
                   </div>
+                  {artNameOption.find(e=>e.value === "Any Other") !== undefined ?<>
+                  <div className="BasicProfile_inputfield">
+                    <label htmlFor="firstName">
+                      Art Name
+                    </label>
+                    <input
+                      onChange={(e)=>setArtName(e.target.value)}
+                      name="firstName"
+                      value={artName}
+                      type="text"
+                    ></input>
+                    <button onClick={artNameHandler} style={{background:"red",marginTop:"10px",width:"40px",height:"40px",borderRadius:"50%" ,border:"none", fontSize:"25px",color:"#fff"}}>+</button>
+                  </div>
+                  </>:<></>}
+                  
+                 
                   <div className="ArtProfile_inputfield">
                     <label>Type of Art</label>
                     {/* <select
