@@ -1,6 +1,6 @@
 
 // export const languages=["Hindi", "Bengali", "Telugu", "Marathi", "Tamil", "Urdu", "Gujarati", "Kannada", "Punjabi", "Malayalam", "Odia", "Assamese", "Bhojpuri", "Haryanvi", "Rajasthani", "Sindhi", "Konkani", "Manipuri", "Maithili", "Santali", "Kashmiri", "Nepali", "Dogri", "Kokborok", "Khasi", "Mizo (Lushai)", "Tulu", "Garhwali", "Kumaoni", "Bhili","English", "Spanish", "French", "German", "Italian", "Portuguese", "Chinese" , "Japanese", "Korean", "Russian"]
-export const languages = ['Assamese','Bengali','Bhili','Bhojpuri','Dogri','Garhwali','Gujarati','Haryanvi','Hindi','Kannada','Kashmiri','Khasi','Kokborok','Konkani','Kumaoni','Maithili','Malayalam','Manipuri','Marathi','Mizo','Nepali','Odia','Punjabi','Rajasthani','Santali','Sindhi','Tamil','Telugu','Tulu','Urdu','English','Spanish','French','German','Italian','Portuguese','Chinese','Japanese','Korean','Russian'];
+export const languages = ['Assamese','Bengali','Bhili','Bhojpuri','Dogri','Garhwali','Gujarati','Haryanvi','Hindi','Kannada','Kashmiri','Khasi','Kokborok','Konkani','Kumaoni','Maithili','Malayalam','Manipuri','Marathi','Mizo','Nepali','Odia','Punjabi','Rajasthani','Santali','Sindhi','Tamil','Telugu','Tulu','Urdu','English','Spanish','French','German','Italian','Portuguese','Chinese','Japanese','Korean','Russian','Any Other'];
 
 
 export const artform =  [
@@ -42,7 +42,7 @@ export const performanceduration=[
 
 export const ChargesPerPerformance=["5000", "10000", "15000", "20000", "25000", "30000", "35000", "40000", "45000", "50000"]
 
-export const typeOfArt = ["Classical","Folk","Fusion"," Any Other"]
+export const typeOfArt = ["Classical","Folk","Fusion","Any Other"]
 
 export const artInfo1=[
   {
@@ -326,7 +326,7 @@ export const artInfo1=[
     art:"Any Other",
     category:[
       {
-        type:"Other"
+        type:"Any Other"
       }
     ]
   }
