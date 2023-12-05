@@ -1011,6 +1011,21 @@ export function Artist_Profile() {
     event.preventDefault();
 
     const toastId = toast.loading("Loading...");
+    // uploading Videos
+    const VideosLinks = perfVideo.trim();
+    console.log(VideosLinks);
+    const formData = new FormData();
+    formData.append("videoUrls", VideosLinks);
+    try {
+      const videoApiResponse = await makeAuthenticated_Multi_Patch_REQ(
+        artistProfilePoints.UPLOAD_PERF_VIDEOS,
+        formData,
+        accessToken
+      );
+      console.log("Upload Video Response", videoApiResponse);
+    } catch (error) {
+      console.log("Upload Video Error", error);
+    }
 
     try {
       const {
@@ -1553,13 +1568,6 @@ export function Artist_Profile() {
       const formData = new FormData();
       formData.append("avatar", selectedFile);
 
-      // const response = await makeAuthenticated_Multi_Patch_REQ(
-      //   artistProfilePoints.UPDATE_ARTIST_AVATAR_API,
-      //   formData,
-      //   accessToken
-      // );
-      // // console.log("res", response);
-      // setProfileAvatar(response?.data?.avatar);
       setProfileLoading(true);
       const toastId = toast.loading("Updating");
       try {
@@ -1588,20 +1596,41 @@ export function Artist_Profile() {
     }
   };
 
+  const [perfVideo, setPerfVideo] = useState("");
+
   const handelMultipleImages = async (e) => {
     // const [selectedImages, setSelectedImages] = useState([]);
 
     // console.log("okko");
     const Files = e.target.files;
-    // console.log(e.target.files);
+    console.log(Files);
 
     // Convert the FileList to an array
     const newImages = Array.from(Files);
+    console.log("new Images", newImages);
 
     setPerformanceFormData({
       ...performanceFormData,
       performanceImages: [...newImages],
     });
+
+    const formData = new FormData();
+    formData.append("images", Files[0]);
+    const toastId = toast.loading("Uploading...");
+    try {
+      const response = await makeAuthenticated_Multi_Patch_REQ(
+        artistProfilePoints.UPLOAD_PERF_IMAGES,
+        formData,
+        accessToken
+      );
+
+      console.log("Images Reponse -> ", response);
+      toast.dismiss(toastId);
+      toast.success("Performance Images Uploaded");
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error);
+    }
   };
 
   //! this is for remove avatart
@@ -1809,14 +1838,6 @@ export function Artist_Profile() {
     setAwardData(awardsTable);
   };
 
-  console.log("==>");
-  console.log("Check By Chiku =>", new Date(basicFormData.passportNumber));
-  console.log("==>");
-  // console.log("==>");
-  // console.log("Check By Chiku => ",basicFormData.passportNumber);
-  // console.log("==>");
-
-  // console.log("award Page",awardData);
   return (
     <div className="Profile_Page">
       <div
@@ -4153,7 +4174,7 @@ export function Artist_Profile() {
                       </tbody>
                     </table>
                   </div>
-                  <div className="BasicProfile_inputfield position-relative">
+                  <div className="BasicProfile_inputfield position-relative ">
                     <label
                       htmlFor="performanceImages"
                       className="custom-file-input"
@@ -4162,57 +4183,35 @@ export function Artist_Profile() {
                     </label>
                     <input
                       style={{ color: "white" }}
-                      // onChange={handelMultipleImages}
+                      onChange={handelMultipleImages}
                       type="file"
                       accept="image/*"
                       multiple
                       name="performanceImages"
                     />
+
                     <svg
-                      className="position-absolute bottom-0 end-0 mb-2 mx-2"
+                      className="possso"
                       xmlns="http://www.w3.org/2000/svg"
-                      width="30"
-                      height="30"
-                      viewBox="0 0 24 24"
-                      fill="none"
+                      height="16"
+                      width="14"
+                      viewBox="0 0 448 512"
                     >
-                      <path
-                        d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
-                        fill="black"
-                        fill-opacity="0.54"
-                      />
+                      <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
                     </svg>
                     {/* <div className="input position-absolute bottom-0">
                       
                     </div> */}
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Performance Video(Max. 3)</label>
+                    <label htmlFor="perfVideo">Performance Video(Max. 3)</label>
                     <input
-                      style={{ display: "none" }}
-                      onChange={perforChangeHandler}
-                      id="fileID"
-                      placeholder="Enter UPI Id"
-                      name="upiId"
-                      type="file"
+                      onChange={(e) => setPerfVideo(e.target.value)}
+                      id="perfVideo "
+                      placeholder="Enter Video links"
+                      name="perfVideo"
+                      type="text"
                     />
-                    <div className="input">
-                      <label id="upload" htmlFor="fileID">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="30"
-                          height="30"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                        >
-                          <path
-                            d="M16 6V17.5C16 19.71 14.21 21.5 12 21.5C9.79 21.5 8 19.71 8 17.5L8 5C8 3.62 9.12 2.5 10.5 2.5C11.88 2.5 13 3.62 13 5V15.5C13 16.05 12.55 16.5 12 16.5C11.45 16.5 11 16.05 11 15.5V6H9.5V15.5C9.5 16.88 10.62 18 12 18C13.38 18 14.5 16.88 14.5 15.5L14.5 5C14.5 2.79 12.71 1 10.5 1C8.29 1 6.5 2.79 6.5 5L6.5 17.5C6.5 20.54 8.96 23 12 23C15.04 23 17.5 20.54 17.5 17.5V6H16Z"
-                            fill="black"
-                            fill-opacity="0.54"
-                          />
-                        </svg>
-                      </label>
-                    </div>
                   </div>
                   {/* <div className="PerformanceProfile_inputfield">
                 <label>Income for Performing Art*</label>
