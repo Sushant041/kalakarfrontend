@@ -242,14 +242,17 @@ const ArtistDashboard = () => {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="card_section">
-            <h2>Skill Development - eKalakaar</h2>
-            <Skill_Card />
-          </div>
-          <div className="card_section">
-            <h2>News - eKalakaar</h2>
+                        <a className="a" href="/Artist_Opportunities">View More </a>
 
+          </div>
+          <div className="card_section">
+            <h2>Skill Development </h2>
+            <Skill_Card />
+                        <a className="a" href="/SkillDevelopment">View More </a>
+
+          </div>
+          <div className="card_section">
+            <h2>News</h2>
             <div className="opportunity_wrapper">
               {slicedLatestNews?.map((data, index) => (
                 <div key={index} class="card">
@@ -287,8 +290,7 @@ const ArtistDashboard = () => {
                 </div>
               ))}
             </div>
-
-            
+            <a className="a" href="/latestNews">View More </a>            
           </div>
         </section>
       </div>

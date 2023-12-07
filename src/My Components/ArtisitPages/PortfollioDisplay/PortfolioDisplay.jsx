@@ -56,7 +56,8 @@ function PortfolioDisplay() {
     firstName: "",
     lastName: "",
   });
-
+  const [avatar,setAvatar] = useState("");
+  const [galleryPic,setGalleryPic] = useState("");
   const fetchUserData = async () => {
     try {
       const response = await makeAuthenticatedGETRequest(
@@ -82,12 +83,14 @@ function PortfolioDisplay() {
         const { artCategory, artName } = response.data.artInfo;
         const { aboutArt } = response.data.artInfo;
         const { pincode, state, city } = response.data.address;
+        const {perfImgs} = response.data.performanceInfo;
 
         const { perfType, perfEvent, experience, totalPerfs } =
           response.data.performanceInfo;
         const { perfCharge } = response.data.performanceInfo.perfCharge.india;
         // const { length: totalperformances } = perfDetails;
-
+        setAvatar(avatar.url);
+        setGalleryPic(perfImgs);
         setPortfolioData({
           phoneNumber: contactNumber.number,
           email,
@@ -123,7 +126,6 @@ function PortfolioDisplay() {
       console.log(error);
     }
   };
-
   useEffect(() => {
     fetchUserData();
   }, []);
@@ -173,6 +175,7 @@ function PortfolioDisplay() {
           socalMedia={socalMedia}
           userDetails={userDetails}
           userName={userName}
+          avatar={avatar}
         />
 
         {/* two buttons */}
@@ -325,7 +328,8 @@ function PortfolioDisplay() {
           </div>
           <div className="photos">
             <h1 className="about_me_text">Videos</h1>
-            <PortfolioPhotoSection />
+            <PortfolioPhotoSection gallery={galleryPic[0]}
+ />
           </div>
         </section>
 

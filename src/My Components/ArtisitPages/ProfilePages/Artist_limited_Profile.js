@@ -167,6 +167,7 @@ export default function Artist_limited_Profile() {
     "Tanpura",
     "Tumbi",
     "Veena",
+    "Any Other",
   ];
   let defaultPic =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
@@ -384,7 +385,7 @@ export default function Artist_limited_Profile() {
         }
         if (languages.length !== 0) {
           setlanguagesoptions(
-            languages.map((item) => ({ value: item, label: item }))
+            languages?.map((item) => ({ value: item, label: item }))
           );
         }
         // console.log(Categoryartoptions)
@@ -408,9 +409,9 @@ export default function Artist_limited_Profile() {
       setartnatureoptions([]);
       return;
     }
-    const dataart = Categoryartoptions.map((option) => option.value);
+    const dataart = Categoryartoptions?.map((option) => option.value);
     const newOptions = dataart.flatMap((item) =>
-      artdata[item].map((subItem) => ({ value: subItem, label: subItem }))
+      artdata[item]?.map((subItem) => ({ value: subItem, label: subItem }))
     );
 
     setartnatureoptions(newOptions);
@@ -451,27 +452,9 @@ export default function Artist_limited_Profile() {
     let personalInfo = basicFormData.personalInfo;
     let performanceInfo = basicFormData.performanceInfo;
     let artInfo = basicFormData.artinfo;
-    artInfo.artCategory = Categoryartoptions.map((option) => option.value);
-    personalInfo.languages = languagesoptions.map((option) => option.value);
-    artInfo.artName = natureOfArtoptions.map((option) => option.value);
-
-    if (perfVideo !== "") {
-      const VideosLinks = perfVideo.trim();
-      console.log(VideosLinks);
-      const formData = new FormData();
-      formData.append("videoUrls", VideosLinks);
-      try {
-        const videoApiResponse = await makeAuthenticated_Multi_Patch_REQ(
-          artistProfilePoints.UPLOAD_PERF_VIDEOS,
-          formData,
-          accessToken
-        );
-        console.log("Upload Video Response", videoApiResponse);
-      } catch (error) {
-        console.log("Upload Video Error", error);
-      }
-    }
-
+    artInfo.artCategory = Categoryartoptions?.map((option) => option.value);
+    personalInfo.languages = languagesoptions?.map((option) => option.value);
+    artInfo.artName = natureOfArtoptions?.map((option) => option.value);
     try {
       const response = await makeAuthenticatedPATCHRequest(
         artistProfilePoints.UPDATE_PROFILE_DATA_API,
@@ -504,47 +487,27 @@ export default function Artist_limited_Profile() {
     }
     toast.dismiss(toastId);
   };
-
-  const handelMultipleImages = async (e) => {
-    // const [selectedImages, setSelectedImages] = useState([]);
-
-    // console.log("okko");
-    const Files = e.target.files;
-    console.log(Files);
-
-    // Convert the FileList to an array
-    const newImages = Array.from(Files);
-    console.log("new Images", newImages);
-
-    let sizeCounter = 0;
-    newImages.forEach((image) => {
-      sizeCounter = sizeCounter + image.size;
-    });
-    sizeCounter = sizeCounter / 1024;
-
-    if (sizeCounter >= 16384) {
-      return toast.error("Image Size exceeds");
+  const [anyLanguage, setAnyLanguage] = useState("");
+  const [artName, setArtName] = useState("");
+  const [newCategory, setNewCategory] = useState("");
+  const multiSectionHandle = (e) => {
+    const { name } = e.target;
+    if (name === "Category") {
+      Categoryartoptions.push({ value: newCategory, label: newCategory });
+      const NewCategoryOption = Categoryartoptions.filter(
+        (item) => item.value !== "Any Other"
+      );
+      setCategoryartoptions(NewCategoryOption);
+      setNewCategory("");
     }
 
-    let formData = new FormData();
-
-    newImages.forEach((image) => {
-      formData.append(`images`, image);
-    });
-    const toastId = toast.loading("Uploading...");
-    try {
-      const response = await makeAuthenticated_Multi_Patch_REQ(
-        artistProfilePoints.UPLOAD_PERF_IMAGES,
-        formData,
-        accessToken
+    if (name === "Language") {
+      languagesoptions.push({ value: anyLanguage, label: anyLanguage });
+      const NewLanguageOption = languagesoptions?.filter(
+        (item) => item.value !== "Any Other"
       );
-
-      console.log("Images Reponse -> ", response);
-      toast.dismiss(toastId);
-      toast.success("Performance Images Uploaded");
-    } catch (error) {
-      toast.error(error.message);
-      console.log(error);
+      setlanguagesoptions(NewLanguageOption);
+      setAnyLanguage("");
     }
   };
 
@@ -702,7 +665,7 @@ export default function Artist_limited_Profile() {
                 <option value="" selected defaultChecked>
                   You can select languages
                 </option>
-                {languages.map((option) => (
+                {languages?.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
               </select> */}
@@ -711,10 +674,42 @@ export default function Artist_limited_Profile() {
                 value={languagesoptions}
                 isMulti
                 onChange={setlanguagesoptions}
-                options={languageoptions}
+                options={languageOptions}
                 required
               />
             </div>
+            {languagesoptions?.find((e) => e.value === "Any Other") !==
+            undefined ? (
+              <>
+                <div className="BasicProfile_inputfield">
+                  <label htmlFor="firstName">Enter Your Language</label>
+                  <input
+                    onChange={(e) => setAnyLanguage(e.target.value)}
+                    name="firstName"
+                    value={anyLanguage}
+                    type="text"
+                  ></input>
+                  <button
+                    name="Language"
+                    onClick={multiSectionHandle}
+                    style={{
+                      background: "red",
+                      marginTop: "10px",
+                      width: "40px",
+                      height: "40px",
+                      borderRadius: "50%",
+                      border: "none",
+                      fontSize: "25px",
+                      color: "#fff",
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className="BasicProfile_Address">
@@ -817,7 +812,7 @@ export default function Artist_limited_Profile() {
                   <option selected hidden>
                     Select Category of Art
                   </option>
-                  {natureofArt.map((option) => (
+                  {natureofArt?.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
                 </select> */}
@@ -830,6 +825,37 @@ export default function Artist_limited_Profile() {
                   required
                 />
               </div>
+              {Categoryartoptions.find((e) => e.value === "Any Other") !==
+              undefined ? (
+                <>
+                  <div className="BasicProfile_inputfield">
+                    <label htmlFor="firstName">Enter Your Art Category</label>
+                    <input
+                      onChange={(e) => setNewCategory(e.target.value)}
+                      value={newCategory}
+                      type="text"
+                    ></input>
+                    <button
+                      name="Category"
+                      onClick={multiSectionHandle}
+                      style={{
+                        background: "red",
+                        marginTop: "10px",
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        border: "none",
+                        fontSize: "25px",
+                        color: "#fff",
+                      }}
+                    >
+                      +
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <></>
+              )}
               <div className="BasicProfile_inputfield">
                 <label>Name of Art* </label>
                 {/* <select
@@ -841,7 +867,7 @@ export default function Artist_limited_Profile() {
                   <option selected hidden>
                     Select Name of Art
                   </option>
-                  {nameofart.map((option) => (
+                  {nameofart?.map((option) => (
                   <option value={option}>{option}</option>
                 ))}
                 </select> */}
@@ -854,6 +880,7 @@ export default function Artist_limited_Profile() {
                   required
                 />
               </div>
+
               <div className="BasicProfile_inputfield">
                 <label>Experience* </label>
                 {/* <input
@@ -869,7 +896,7 @@ export default function Artist_limited_Profile() {
                   name="performanceInfo.experience"
                   value={basicFormData.performanceInfo.experience}
                 >
-                  {[...Array(101).keys()].map((i) => (
+                  {[...Array(101).keys()]?.map((i) => (
                     <option key={i} value={i}>
                       {i}
                     </option>
@@ -891,7 +918,7 @@ export default function Artist_limited_Profile() {
                   onChange={changeHandler}
                   required
                 >
-                  {experience.map((option) => (
+                  {experience?.map((option) => (
                     <option value={option}>{option}</option>
                   ))}
                 </select>
