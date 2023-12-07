@@ -296,7 +296,7 @@ export function Artist_Profile() {
       return;
     }
    const dataart = categoryOption?.map((option) => option.value);
-const newOptions = dataart?.flatMap((item) =>
+  const newOptions = dataart?.flatMap((item) =>
   artdata[item]?.map((subItem) => ({ value: subItem, label: subItem }))
 );
     setnameOfArt(newOptions);
@@ -1824,22 +1824,16 @@ console.log("==>");
 
   // console.log("award Page",awardData);
   const artNameHandler = (e) => {
-        // artNameOption.push({value:artName, label:artName});
-        // const NewArtNameOption = artNameOption?.filter(item => item.value !== 'Any Other');
-        // setArtNameOption(NewArtNameOption);
-        // setArtName("");
-        alert("ok")
+        artNameOption.push({value:artName, label:artName});
+        const NewArtNameOption = artNameOption.filter(item => item.value !== 'Any Other');
+        setArtNameOption(NewArtNameOption);
+        setArtName("");
   }
 
-    const languageHandle = (e) => {
-      languagesoptions.push({value:anyLanguage, label:anyLanguage});
-      const NewLanguageOption = languagesoptions?.filter(item => item.value !== 'Any Other');
-      setlanguagesoptions(NewLanguageOption);
-  }
-      const multiSectionHandle = (e) => {
 
+    const multiSectionHandle = (e) => {
       const {name} = e.target;
-      if(name==="Category")
+      if(name ==="Category")
       {
           categoryOption.push({value:newCategory, label:newCategory});
           const NewCategoryOption = categoryOption.filter(item => item.value !== 'Any Other');
@@ -1852,6 +1846,14 @@ console.log("==>");
           const newTypeOption = artOption.filter(item => item.value !== 'Any Other');
           setArtOption(newTypeOption);
           setArtTypes("");
+      }
+      if(name === "Language")
+      {
+         languagesoptions.push({value:anyLanguage, label:anyLanguage});
+         const NewLanguageOption = languagesoptions?.filter(item => item.value !== 'Any Other');
+         setlanguagesoptions(NewLanguageOption);
+         setAnyLanguage("")
+
       }
       
   
@@ -2231,7 +2233,8 @@ console.log("==>");
                           type="text"
                         ></input>
                         <button
-                          onClick={languageHandle}
+                        name="Language"
+                          onClick={multiSectionHandle}
                           style={{
                             background: "red",
                             marginTop: "10px",
@@ -2777,37 +2780,6 @@ console.log("==>");
                       ))}
                     </select> */}
                   </div>
-                  {categoryOption.find((e) => e.value === "Any Other") !==
-                  undefined ? (
-                    <>
-                      <div className="BasicProfile_inputfield">
-                        <label htmlFor="firstName">Enter Your Art Category</label>
-                        <input
-                          onChange={(e) => setNewCategory(e.target.value)}
-                          value={newCategory}
-                          type="text"
-                        ></input>
-                        <button
-                        name="Category"
-                          onClick={multiSectionHandle}
-                          style={{
-                            background: "red",
-                            marginTop: "10px",
-                            width: "40px",
-                            height: "40px",
-                            borderRadius: "50%",
-                            border: "none",
-                            fontSize: "25px",
-                            color: "#fff",
-                          }}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </>
-                  ) : (
-                    <></>
-                  )}
                    
                   <div className="ArtProfile_inputfield">
                     <label>

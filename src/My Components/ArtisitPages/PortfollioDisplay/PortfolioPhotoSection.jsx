@@ -20,11 +20,13 @@ class PortfolioPhotoSection extends React.Component {
     const container = this.containerRef.current;
     container.scrollBy({ left: -container.clientWidth, behavior: 'smooth' });
   };
-
   render() {
+    const { gallery } = this.props;
+    console.log("===1==>",gallery);
+
     return (
       <div className="container" ref={this.containerRef}>
-        <img src={images} className="box" alt="img" />
+        <img src={gallery} className="box" alt="img" />
         {/* <div className="box">second</div> */}
         <img src={images} className="box" alt="img" />
         <img src={images} className="box" alt="img" />

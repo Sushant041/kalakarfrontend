@@ -14,7 +14,11 @@ function PortfolioDisplayTemplate({
   portfolioData,
   editCard = false,
   viewAsAdmin = false,
+  avatar,
+
 }) {
+
+  console.log(avatar);
   return (
     <section className="portfolio_card">
       {/* left part */}
@@ -102,7 +106,7 @@ function PortfolioDisplayTemplate({
           <div className="user_photo user_profile">Your Photo Here</div>
         ) : (
           //  <img src={`https://api.ekalakaar.com/uploads/avatars/${portfolioData?.avatar}`} alt="" className="user_profile" />
-          <img src={profileImg} alt="" />
+          <img src={avatar} alt="" />
         )}
         <h1 className="card_userName">
           {portfolioData?.firstName} {portfolioData?.lastName}

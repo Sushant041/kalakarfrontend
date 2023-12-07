@@ -322,14 +322,7 @@ export const artInfo1=[
       }
     ]
   },
-  {
-    art:"Any Other",
-    category:[
-      {
-        type:"Any Other"
-      }
-    ]
-  }
+  
 ]
 
 export const artTypeData = [

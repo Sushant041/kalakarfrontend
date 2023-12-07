@@ -122,6 +122,22 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-bottom: 50px;
+  position: relative;
+}
+.card_section .a{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  padding: 3px 10px;
+  background: #AD2F3B;
+  text-decoration: none;
+  border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+      color: #fff;
+  
 }
 .card_section h2 {
   font-size: 45px;
