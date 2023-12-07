@@ -323,14 +323,14 @@ color:#fff;
 }
 
 .BasicProfile_inputfield{
-  width: 47%;
+  width: min(300px,100%);
   position: relative;
 }
 .BasicProfile_inputfield select {
   padding: 10px;
   background-color: white;
   color: black;
-  width: 100%;
+  max-width: 100%;
   height: 60px;
   border-radius: 10px;
   border: 1px solid rgba(0, 0, 0, 0.4);
@@ -367,6 +367,11 @@ color:#fff;
 .BasicProfile_Address {
   display: flex;
   flex-direction: column;
+}
+.possso{
+  position: absolute;
+  top: 60%;
+  right: 10px;
 }
 
 .BasicProfile_Addressshort {

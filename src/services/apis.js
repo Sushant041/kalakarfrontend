@@ -13,6 +13,8 @@ export const artistProfilePoints = {
   UPDATE_PROFILE_DATA_API: BASE_URL + "/artists/profile",
   UPDATE_ARTIST_AVATAR_API: BASE_URL + "/artists/profile/avatar",
   LOGIN_WITH_GOOGLE_API: BASE_URL + "/auth/google",
+  UPLOAD_PERF_IMAGES: BASE_URL + "/artists/profile/perf-images",
+  UPLOAD_PERF_VIDEOS: BASE_URL + "/artists/profile/perf-videos",
 };
 
 export const artistOpportunityPoints = {
