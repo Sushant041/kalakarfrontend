@@ -295,17 +295,10 @@ export function Artist_Profile() {
       setnameOfArt([]);
       return;
     }
-<<<<<<< HEAD
-   const dataart = categoryOption?.map((option) => option.value);
-  const newOptions = dataart?.flatMap((item) =>
-  artdata[item]?.map((subItem) => ({ value: subItem, label: subItem }))
-);
-=======
     const dataart = categoryOption?.map((option) => option.value);
     const newOptions = dataart?.flatMap((item) =>
       artdata[item]?.map((subItem) => ({ value: subItem, label: subItem }))
     );
->>>>>>> 5b3a01d4bf88359a83f1e061f18080e9b930b69a
     setnameOfArt(newOptions);
   }, [categoryOption]);
 
@@ -1902,44 +1895,6 @@ export function Artist_Profile() {
 
   // console.log("award Page",awardData);
   const artNameHandler = (e) => {
-<<<<<<< HEAD
-        artNameOption.push({value:artName, label:artName});
-        const NewArtNameOption = artNameOption.filter(item => item.value !== 'Any Other');
-        setArtNameOption(NewArtNameOption);
-        setArtName("");
-  }
-
-
-    const multiSectionHandle = (e) => {
-      const {name} = e.target;
-      if(name ==="Category")
-      {
-          categoryOption.push({value:newCategory, label:newCategory});
-          const NewCategoryOption = categoryOption.filter(item => item.value !== 'Any Other');
-          setCategoryOption(NewCategoryOption);
-          setNewCategory("");
-      }
-      if(name === "Type")
-      {
-          artOption.push({value:artTypes, label:artTypes});
-          const newTypeOption = artOption.filter(item => item.value !== 'Any Other');
-          setArtOption(newTypeOption);
-          setArtTypes("");
-      }
-      if(name === "Language")
-      {
-         languagesoptions.push({value:anyLanguage, label:anyLanguage});
-         const NewLanguageOption = languagesoptions?.filter(item => item.value !== 'Any Other');
-         setlanguagesoptions(NewLanguageOption);
-         setAnyLanguage("")
-
-      }
-      
-  
-  }
-
-  
-=======
     // artNameOption.push({value:artName, label:artName});
     // const NewArtNameOption = artNameOption?.filter(item => item.value !== 'Any Other');
     // setArtNameOption(NewArtNameOption);
@@ -1973,7 +1928,6 @@ export function Artist_Profile() {
       setArtTypes("");
     }
   };
->>>>>>> 5b3a01d4bf88359a83f1e061f18080e9b930b69a
 
   console.log("==>");
   console.log("Check By Chiku 5445546456", artOption);
@@ -2351,7 +2305,7 @@ export function Artist_Profile() {
                           type="text"
                         ></input>
                         <button
-                        name="Language"
+                          name="Language"
                           onClick={multiSectionHandle}
                           style={{
                             background: "red",
@@ -2897,9 +2851,6 @@ export function Artist_Profile() {
                       ))}
                     </select> */}
                   </div>
-<<<<<<< HEAD
-                   
-=======
                   {categoryOption.find((e) => e.value === "Any Other") !==
                   undefined ? (
                     <>
@@ -2934,7 +2885,6 @@ export function Artist_Profile() {
                     <></>
                   )}
 
->>>>>>> 5b3a01d4bf88359a83f1e061f18080e9b930b69a
                   <div className="ArtProfile_inputfield">
                     <label>
                       Name Of Art <span className="red">*</span>
