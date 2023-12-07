@@ -950,7 +950,7 @@ export function Artist_Profile() {
   const [performanceFormData, setPerformanceFormData] = useState({
     totalNoOfArtist: "",
     artName: "",
-    affiliatedToAnyGroup: "",
+    affiliatedToAnyGroup: false,
     nameOfArtistGroupOrg: "",
     locationOfGroupOrg: "",
     contactNoOfGroupOrg: "",
@@ -982,6 +982,24 @@ export function Artist_Profile() {
     // averagePerformanceIncome: "",
     // aboutJourney: "",
   });
+  const [perfInfoData, setPerfInfoData] = useState({
+    nameOfArts: "",
+    totalNoOfArtists: 0,
+    existingProductions: 0,
+    nameOfProductions: "",
+    briefOfPerformance: "",
+    approxBudget: 0,
+    sample: [],
+  });
+
+  const performanceInfohandler = (event) => {
+    const { name, value } = event.target;
+
+    setPerfInfoData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const perforChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -1014,22 +1032,26 @@ export function Artist_Profile() {
 
   const perforSubmitHandler = async (event) => {
     event.preventDefault();
+    // console.log("PERF INFO - >", perfInfoData);
 
     const toastId = toast.loading("Loading...");
+
     // uploading Videos
-    const VideosLinks = perfVideo.trim();
-    console.log(VideosLinks);
-    const formData = new FormData();
-    formData.append("videoUrls", VideosLinks);
-    try {
-      const videoApiResponse = await makeAuthenticated_Multi_Patch_REQ(
-        artistProfilePoints.UPLOAD_PERF_VIDEOS,
-        formData,
-        accessToken
-      );
-      console.log("Upload Video Response", videoApiResponse);
-    } catch (error) {
-      console.log("Upload Video Error", error);
+    if (perfVideo !== "") {
+      const VideosLinks = perfVideo.trim();
+      console.log(VideosLinks);
+      const formData = new FormData();
+      formData.append("videoUrls", VideosLinks);
+      try {
+        const videoApiResponse = await makeAuthenticated_Multi_Patch_REQ(
+          artistProfilePoints.UPLOAD_PERF_VIDEOS,
+          formData,
+          accessToken
+        );
+        console.log("Upload Video Response", videoApiResponse);
+      } catch (error) {
+        console.log("Upload Video Error", error);
+      }
     }
 
     try {
@@ -1052,20 +1074,6 @@ export function Artist_Profile() {
         majorPerfCountryInternational,
         performanceImages,
         performancevideos,
-        // yearOfExperience,
-        // affiliatedToAnyGroup,
-        // nameOfTheAffiliatedGroup,
-        // affiliatedToAnyOrg,
-        // nameOfTheAffiliatedOrg,
-        // totalNoOfPerformance,
-        // highestLevelOfPerformance,
-        // performanceEvents,
-        // thematic,
-        // NoOfPerformanceLastYear,
-        // performanceDuration,
-        // chargesPerPerformance,
-        // averagePerformanceIncome,
-        // performanceType,
       } = performanceFormData;
 
       let performanceInfo = {
@@ -1092,9 +1100,21 @@ export function Artist_Profile() {
         perfDetails: tableData,
         perfImgs: performanceImages,
         perfVideos: performancevideos,
+        performances: [
+          {
+            nameOfArts: perfInfoData.nameOfArts,
+            totalNoOfArtists: perfInfoData.totalNoOfArtists,
+            existingProductions: perfInfoData.existingProductions,
+            nameOfProductions: perfInfoData.nameOfProductions,
+            briefOfPerformance: perfInfoData.briefOfPerformance,
+            approxBudget: perfInfoData.approxBudget,
+            sample: perfInfoData.sample,
+          },
+        ],
       };
+      console.log("--------------->", performanceInfo);
       // majorPerfCity: majorPerfCityIndia,
-      performanceInfo.majorPerfCities = cities.map((option) => option.map);
+      // performanceInfo.majorPerfCities = cities.map((option) => option.map);
 
       // console.log(performanceFormData);
 
@@ -1103,7 +1123,7 @@ export function Artist_Profile() {
         { performanceInfo },
         accessToken
       );
-      // console.log("response ", response);
+      console.log("response ", response);
       if (response.status === "success") {
         toast.success("successfully updated ", {
           position: "top-center",
@@ -1320,6 +1340,15 @@ export function Artist_Profile() {
       if (personalInfo?.avatar?.url) {
         setProfileAvatar(personalInfo?.avatar?.url);
       }
+      setPerfInfoData((prev) => ({
+        ...prev,
+        nameOfArts: "",
+        totalNoOfArtists: 0,
+        existingProductions: "",
+        nameOfProductions: "",
+        briefOfPerformance: "",
+        approxBudget: "",
+      }));
 
       setArtInfoFormData((prev) => ({
         ...prev,
@@ -1614,13 +1643,25 @@ export function Artist_Profile() {
     const newImages = Array.from(Files);
     console.log("new Images", newImages);
 
-    setPerformanceFormData({
-      ...performanceFormData,
-      performanceImages: [...newImages],
-    });
+    // setPerformanceFormData({
+    //   ...performanceFormData,
+    //   performanceImages: [...newImages],
+    // });
 
-    const formData = new FormData();
-    formData.append("images", Files[0]);
+    let formData = new FormData();
+    let sizeCounter = 0;
+    newImages.forEach((image) => {
+      sizeCounter = sizeCounter + image.size;
+    });
+    sizeCounter = sizeCounter / 1024;
+
+    if (sizeCounter >= 16384) {
+      return toast.error("Image Size exceeds");
+    }
+
+    newImages.forEach((image) => {
+      formData.append(`images`, image);
+    });
     const toastId = toast.loading("Uploading...");
     try {
       const response = await makeAuthenticated_Multi_Patch_REQ(
@@ -1631,7 +1672,9 @@ export function Artist_Profile() {
 
       console.log("Images Reponse -> ", response);
       toast.dismiss(toastId);
-      toast.success("Performance Images Uploaded");
+      if (response.status !== "error") {
+        toast.success("Performance Images Uploaded");
+      }
     } catch (error) {
       toast.error(error.message);
       console.log(error);
@@ -1889,6 +1932,10 @@ export function Artist_Profile() {
   console.log("==>");
   console.log("Check By Chiku 5445546456", artOption);
   console.log("==>");
+
+  const [togglePerfAfflication, settogglePerfAfflication] = useState(
+    performanceFormData.affiliatedToAnyGroup
+  );
 
   return (
     <div className="Profile_Page">
@@ -3857,17 +3904,17 @@ export function Artist_Profile() {
                     >
                       <option selected>Select</option>
 
-                      <option value="true">Yes</option>
-                      <option value="false">No</option>
+                      <option value={true}>Yes</option>
+                      <option value={false}>No</option>
                     </select>
                   </div>
+
                   <div
-                    className="BasicProfile_inputfield "
-                    id={
-                      performanceFormData.affiliatedToAnyGroup === "false"
-                        ? "hidden"
-                        : ""
-                    }
+                    className={`${
+                      performanceFormData.affiliatedToAnyGroup
+                        ? "BasicProfile_inputfield"
+                        : "BasicProfile_inputfield iqooo"
+                    }`}
                   >
                     <label>Name Of Artist Group/Organisation </label>
                     <input
@@ -3881,13 +3928,13 @@ export function Artist_Profile() {
                       value={performanceFormData.nameOfArtistGroupOrg}
                     ></input>
                   </div>
+
                   <div
-                    className="BasicProfile_inputfield"
-                    id={
-                      performanceFormData.affiliatedToAnyGroup === "false"
-                        ? "hidden"
-                        : ""
-                    }
+                    className={`${
+                      performanceFormData.affiliatedToAnyGroup
+                        ? "BasicProfile_inputfield"
+                        : "BasicProfile_inputfield iqooo"
+                    }`}
                   >
                     <label>Location of Group/Organization</label>
                     <select
@@ -3906,12 +3953,11 @@ export function Artist_Profile() {
                     </select>
                   </div>
                   <div
-                    className="PerformanceProfile_inputfield"
-                    id={
-                      performanceFormData.affiliatedToAnyGroup === "false"
-                        ? "hidden"
-                        : ""
-                    }
+                    className={`${
+                      performanceFormData.affiliatedToAnyGroup
+                        ? "BasicProfile_inputfield"
+                        : "BasicProfile_inputfield iqooo"
+                    }`}
                   >
                     <label htmlFor="">
                       Contact Number <span className="red">*</span>
@@ -3949,9 +3995,9 @@ export function Artist_Profile() {
                   <div className="BasicProfile_inputfield">
                     <label>Name Of Arts</label>
                     <select
-                      onChange={perforChangeHandler}
-                      name="typeOfPerformance"
-                      defaultValue={performanceFormData.artName}
+                      onChange={performanceInfohandler}
+                      name="nameOfArts"
+                      defaultValue={setPerfInfoData.nameOfArts}
                     >
                       <option selected>Select</option>
                       <option value="solo">Solo</option>
@@ -3960,11 +4006,11 @@ export function Artist_Profile() {
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Toatal No. Of Artist</label>
+                    <label>Total No. Of Artist</label>
                     <select
-                      onChange={perforChangeHandler}
-                      name="typeOfPerformance"
-                      defaultValue={performanceFormData.totalNoOfArtist}
+                      onChange={performanceInfohandler}
+                      name="totalNoOfArtists"
+                      value={setPerfInfoData.totalNoOfArtists}
                     >
                       <option selected>Select</option>
                       {[
@@ -4323,13 +4369,17 @@ export function Artist_Profile() {
                       </tbody>
                     </table>
                   </div>
-                  <div className="BasicProfile_inputfield position-relative ">
+                  <div
+                    className="BasicProfile_inputfield "
+                    style={{ position: "relative" }}
+                  >
                     <label
                       htmlFor="performanceImages"
                       className="custom-file-input"
                     >
-                      Performance Photograph(Max. 5)
+                      Performance Photograph
                     </label>
+
                     <input
                       style={{ color: "white" }}
                       onChange={handelMultipleImages}
@@ -4348,10 +4398,8 @@ export function Artist_Profile() {
                     >
                       <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
                     </svg>
-                    {/* <div className="input position-absolute bottom-0">
-                      
-                    </div> */}
                   </div>
+
                   <div className="BasicProfile_inputfield">
                     <label htmlFor="perfVideo">Performance Video(Max. 3)</label>
                     <input
@@ -4375,6 +4423,11 @@ export function Artist_Profile() {
         ))}
                 </select>
               </div> */}
+                  <div className="thumbnail-cc">
+                    {performanceFormData?.performanceImages?.map((item) => {
+                      return <img src={item} className="thumbnail-cc-img" />;
+                    })}
+                  </div>
                   <div style={{ width: "100%", marginTop: "20px" }}>
                     <label htmlFor="aboutJourney">
                       Highlights of your performance
@@ -4404,9 +4457,9 @@ export function Artist_Profile() {
                   <div className="BasicProfile_inputfield">
                     <label>Existing Productions</label>
                     <select
-                      onChange={perforChangeHandler}
+                      onChange={performanceInfohandler}
                       name={"existingProductions"}
-                      value={performanceFormData.existingProductions}
+                      value={perfInfoData.existingProductions}
                     >
                       <option selected>Select</option>
 
@@ -4415,11 +4468,11 @@ export function Artist_Profile() {
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Existing Productions</label>
+                    <label>Name of Productions</label>
                     <input
-                      onChange={perforChangeHandler}
+                      onChange={performanceInfohandler}
                       name={"nameOfProductions"}
-                      value={performanceFormData.nameOfProductions}
+                      value={perfInfoData.nameOfProductions}
                       type="text"
                     ></input>
                   </div>
@@ -4428,14 +4481,9 @@ export function Artist_Profile() {
                       Brief Of Your Performance
                     </label>
                     <textarea
-                      name="briefOfYourPerformance"
-                      value={performanceFormData.briefOfYourPerformance}
-                      // onChange={(e) =>
-                      //   setPerformanceFormData({
-                      //     ...performanceFormData,
-                      //     briefOfYourPerformance: e.target.value,
-                      //   })
-                      // }
+                      name="briefOfPerformance"
+                      defaultValue={perfInfoData.briefOfPerformance}
+                      onchange={performanceInfohandler}
                       style={{
                         width: "100%",
                         border: "2px solid rgb(0,0,0,0.5)",
@@ -4449,18 +4497,18 @@ export function Artist_Profile() {
                   <div className="BasicProfile_inputfield">
                     <label>Approx Budget</label>
                     <input
-                      onChange={perforChangeHandler}
+                      onChange={performanceInfohandler}
                       name={"approxBudget"}
-                      value={performanceFormData.approxBudget}
+                      value={perfInfoData.approxBudget}
                       type="text"
                     ></input>
                   </div>
                   <div className="BasicProfile_inputfield">
                     <label>upload Sample</label>
                     <input
-                      onChange={perforChangeHandler}
+                      onChange={performanceInfohandler}
                       name={"sample"}
-                      value={performanceFormData.sample}
+                      value={perfInfoData.sample}
                       type="text"
                     ></input>
                   </div>
