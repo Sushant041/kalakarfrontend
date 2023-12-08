@@ -191,6 +191,62 @@ export default function Artist_limited_Profile() {
     fileInput.onchange = handleFileChange;
     fileInput.click();
   };
+
+  const handelMultipleImages = async (e) => {
+    const Files = e.target.files;
+    // console.log(Files);
+
+    const newImages = Array.from(Files);
+    // console.log("new Images", newImages);
+
+    let formData = new FormData();
+    let sizeCounter = 0;
+    let EachImageSize = true;
+
+    newImages.forEach((image) => {
+      let size = image.size / 1024;
+      if (size >= 1024) {
+        EachImageSize = false;
+      }
+      sizeCounter = sizeCounter + size;
+    });
+
+    if (!EachImageSize || sizeCounter >= 16384) {
+      return toast.error(
+        "Image Size exceeds, Single Image Should Not be more than 1 mb"
+      );
+    }
+
+    newImages.forEach((image) => {
+      formData.append(`images`, image);
+    });
+    const toastId = toast.loading("Uploading...");
+    try {
+      const response = await makeAuthenticated_Multi_Patch_REQ(
+        artistProfilePoints.UPLOAD_PERF_IMAGES,
+        formData,
+        accessToken
+      );
+
+      console.log("Images Reponse -> ", response);
+      toast.dismiss(toastId);
+
+      if (response.status !== "error") {
+        setBasicFormData({
+          ...basicFormData,
+          performanceInfo: {
+            ...basicFormData.performanceInfo,
+            perfImgs: response.data.performanceInfo.perfImgs,
+          },
+        });
+        return toast.success("Performance Images Uploaded");
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.log(error);
+    }
+  };
+
   const [profileLoading, setProfileLoading] = useState(false);
 
   // ! this is to add the avatar
@@ -674,7 +730,7 @@ export default function Artist_limited_Profile() {
                 value={languagesoptions}
                 isMulti
                 onChange={setlanguagesoptions}
-                options={languageOptions}
+                options={languagesoptions}
                 required
               />
             </div>

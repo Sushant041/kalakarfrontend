@@ -989,7 +989,7 @@ export function Artist_Profile() {
     nameOfProductions: "",
     briefOfPerformance: "",
     approxBudget: 0,
-    sample: [],
+    samples: [],
   });
 
   const performanceInfohandler = (event) => {
@@ -1069,8 +1069,6 @@ export function Artist_Profile() {
         avgPerfDurationInternational,
         avgPerfFeeInternational,
         aboutJourney,
-        totalNoOfArtist,
-        artName,
         majorPerfCountryInternational,
         performanceImages,
         performancevideos,
@@ -1340,15 +1338,21 @@ export function Artist_Profile() {
       if (personalInfo?.avatar?.url) {
         setProfileAvatar(personalInfo?.avatar?.url);
       }
-      setPerfInfoData((prev) => ({
-        ...prev,
-        nameOfArts: "",
-        totalNoOfArtists: 0,
-        existingProductions: "",
-        nameOfProductions: "",
-        briefOfPerformance: "",
-        approxBudget: "",
-      }));
+      console.log(
+        performanceInfo.performances[0],
+        setPerfInfoData((prev) => ({
+          ...prev,
+          nameOfArts: performanceInfo.performances[0].nameOfArts,
+          totalNoOfArtists: performanceInfo.performances[0].totalNoOfArtists,
+          existingProductions:
+            performanceInfo.performances[0].existingProductions,
+          nameOfProductions: performanceInfo.performances[0].nameOfProductions,
+          briefOfPerformance:
+            performanceInfo.performances[0].briefOfPerformance,
+          approxBudget: performanceInfo.performances[0].approxBudget,
+          sample: performanceInfo.performances[0].samples,
+        }))
+      );
 
       setArtInfoFormData((prev) => ({
         ...prev,
@@ -1643,20 +1647,22 @@ export function Artist_Profile() {
     const newImages = Array.from(Files);
     console.log("new Images", newImages);
 
-    // setPerformanceFormData({
-    //   ...performanceFormData,
-    //   performanceImages: [...newImages],
-    // });
-
     let formData = new FormData();
     let sizeCounter = 0;
-    newImages.forEach((image) => {
-      sizeCounter = sizeCounter + image.size;
-    });
-    sizeCounter = sizeCounter / 1024;
+    let EachImageSize = true;
 
-    if (sizeCounter >= 16384) {
-      return toast.error("Image Size exceeds");
+    newImages.forEach((image) => {
+      let size = image.size / 1024;
+      if (size >= 1024) {
+        EachImageSize = false;
+      }
+      sizeCounter = sizeCounter + size;
+    });
+
+    if (!EachImageSize || sizeCounter >= 16384) {
+      return toast.error(
+        "Image Size exceeds, Single Image Should Not be more than 1 mb"
+      );
     }
 
     newImages.forEach((image) => {
@@ -1673,7 +1679,11 @@ export function Artist_Profile() {
       console.log("Images Reponse -> ", response);
       toast.dismiss(toastId);
       if (response.status !== "error") {
-        toast.success("Performance Images Uploaded");
+        setPerformanceFormData({
+          ...performanceFormData,
+          performanceImages: response?.data?.performanceInfo?.perfImgs,
+        });
+        return toast.success("Performance Images Uploaded");
       }
     } catch (error) {
       toast.error(error.message);
@@ -3998,7 +4008,7 @@ export function Artist_Profile() {
                     <select
                       onChange={performanceInfohandler}
                       name="nameOfArts"
-                      defaultValue={setPerfInfoData.nameOfArts}
+                      value={setPerfInfoData.nameOfArts}
                     >
                       <option selected>Select</option>
                       <option value="solo">Solo</option>
@@ -4011,7 +4021,7 @@ export function Artist_Profile() {
                     <select
                       onChange={performanceInfohandler}
                       name="totalNoOfArtists"
-                      value={setPerfInfoData.totalNoOfArtists}
+                      value={setPerfInfoData?.totalNoOfArtists}
                     >
                       <option selected>Select</option>
                       {[
@@ -4458,7 +4468,7 @@ export function Artist_Profile() {
                   <div className="BasicProfile_inputfield">
                     <label>Existing Productions</label>
                     <select
-                      onChange={performanceInfohandler}
+                      // onChange={performanceInfohandler}
                       name={"existingProductions"}
                       value={perfInfoData.existingProductions}
                     >
@@ -4478,13 +4488,18 @@ export function Artist_Profile() {
                     ></input>
                   </div>
                   <div style={{ width: "100%", marginTop: "20px" }}>
-                    <label htmlFor="aboutJourney">
+                    <label htmlFor="briefOfPerformance">
                       Brief Of Your Performance
                     </label>
                     <textarea
                       name="briefOfPerformance"
-                      defaultValue={perfInfoData.briefOfPerformance}
-                      onchange={performanceInfohandler}
+                      value={perfInfoData?.briefOfPerformance}
+                      onchange={(e) =>
+                        setPerfInfoData((prev) => ({
+                          ...prev,
+                          briefOfPerformance: e.target.value,
+                        }))
+                      }
                       style={{
                         width: "100%",
                         border: "2px solid rgb(0,0,0,0.5)",
@@ -4501,7 +4516,7 @@ export function Artist_Profile() {
                       onChange={performanceInfohandler}
                       name={"approxBudget"}
                       value={perfInfoData.approxBudget}
-                      type="text"
+                      type="number"
                     ></input>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -4509,7 +4524,7 @@ export function Artist_Profile() {
                     <input
                       onChange={performanceInfohandler}
                       name={"sample"}
-                      value={perfInfoData.sample}
+                      value={perfInfoData.samples}
                       type="text"
                     ></input>
                   </div>
