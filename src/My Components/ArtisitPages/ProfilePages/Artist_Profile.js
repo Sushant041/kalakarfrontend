@@ -311,6 +311,39 @@ export function Artist_Profile() {
     label: item,
   }));
 
+  const perfArtName = [
+    "Bharatanatyam",
+    "Bihu",
+    "Chhau",
+    "Dandiya Raas",
+    "Dollu Kunitha",
+    "Dumhal",
+    "Garba",
+    "Gaur Dance",
+    "Giddha",
+    "Gotipua",
+    "Jhumar",
+    "Kacchi Ghodi",
+    "Kalbelia",
+    "Karakattam",
+    "Kathak",
+    "Kathakali",
+    "Kathakar",
+    "Koli",
+    "Kuchipudi",
+    "Lavani",
+    "Manipuri",
+    "Mayurbhanj Chhau",
+    "Mohiniyattam",
+    "Odissi",
+    "Raas Leela",
+    "Sattriya",
+    "Tamasha",
+    "Tera Tali",
+    "Thang-Ta",
+    "Yakshagana",
+  ];
+
   // ! this is for avatar
   // const [profileAvatar, setProfileAvatar] = useState(null);
   const [profileAvatar, setProfileAvatar] = useState(defaultPic);
@@ -4011,9 +4044,9 @@ export function Artist_Profile() {
                       value={setPerfInfoData.nameOfArts}
                     >
                       <option selected>Select</option>
-                      <option value="solo">Solo</option>
-                      <option value="group">Group</option>
-                      <option value="both">Both</option>
+                      {perfArtName.map((item, index) => {
+                        return <option value={item}>{item}</option>;
+                      })}
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
