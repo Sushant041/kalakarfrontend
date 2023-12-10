@@ -60,6 +60,7 @@ export default function Artist_limited_Profile() {
     "Korean",
     "Russian",
   ];
+  
 
   const CategoryArt = ["Dance", "Music", "Song", "Theator", "Any Other"];
 

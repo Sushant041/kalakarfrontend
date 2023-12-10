@@ -4645,7 +4645,7 @@ export function Artist_Profile() {
                               //   />
                               // </td>
                               <td key={colIndex}>
-                                {key == "level" && (
+                                {key === "level" && (
                                   <select
                                     style={{
                                       maxWidth: "150px",
