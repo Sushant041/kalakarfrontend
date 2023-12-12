@@ -70,6 +70,59 @@ export function Artist_Profile() {
   const [anyLanguage, setAnyLanguage] = useState("");
 
   const numbersArray = Array.from({ length: 250 }, (_, index) => index + 1);
+  const years = Array.from({ length: 2030 - 1950 + 1 }, (_, index) => index + 1950);
+  const months = Array.from({ length: 120 }, (_, index) => index + 1); 
+  
+
+  const  documentList = [
+  "Aadhar Card (India)",
+  "Bank Statement (with matching address)",
+  "Birth Certificate",
+  "Driver's License",
+  "National ID Card",
+  "PAN Card (India)",
+  "Passport",
+  "Social Security Card"
+];
+const indianStates = [
+  "Andaman and Nicobar Islands",
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chandigarh",
+  "Chhattisgarh",
+  "Dadra and Nagar Haveli",
+  "Daman and Diu",
+  "Delhi",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu and Kashmir",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Lakshadweep",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Puducherry",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal"
+];
+
 
   const [toggle, setToggle] = useState([
     { name: "Language", isActive: false },
@@ -303,7 +356,7 @@ export function Artist_Profile() {
   }, [categoryOption]);
 
   console.log("==>");
-  console.log("Check By Chiku12121", categoryOption);
+  console.log("Check By Chiku12121", months);
   console.log("==>");
 
   const typeOfArts = typeOfArt.map((item) => ({
@@ -1371,21 +1424,7 @@ export function Artist_Profile() {
       if (personalInfo?.avatar?.url) {
         setProfileAvatar(personalInfo?.avatar?.url);
       }
-      console.log(
-        performanceInfo.performances[0],
-        setPerfInfoData((prev) => ({
-          ...prev,
-          nameOfArts: performanceInfo.performances[0].nameOfArts,
-          totalNoOfArtists: performanceInfo.performances[0].totalNoOfArtists,
-          existingProductions:
-            performanceInfo.performances[0].existingProductions,
-          nameOfProductions: performanceInfo.performances[0].nameOfProductions,
-          briefOfPerformance:
-            performanceInfo.performances[0].briefOfPerformance,
-          approxBudget: performanceInfo.performances[0].approxBudget,
-          sample: performanceInfo.performances[0].samples,
-        }))
-      );
+
 
       setArtInfoFormData((prev) => ({
         ...prev,
@@ -1938,11 +1977,10 @@ export function Artist_Profile() {
 
   // console.log("award Page",awardData);
   const artNameHandler = (e) => {
-    // artNameOption.push({value:artName, label:artName});
-    // const NewArtNameOption = artNameOption?.filter(item => item.value !== 'Any Other');
-    // setArtNameOption(NewArtNameOption);
-    // setArtName("");
-    alert("ok");
+    artNameOption.push({value:artName, label:artName});
+    const NewArtNameOption = artNameOption?.filter(item => item.value !== 'Any Other');
+    setArtNameOption(NewArtNameOption);
+    setArtName("");
   };
 
   const languageHandle = (e) => {
@@ -2337,7 +2375,7 @@ export function Artist_Profile() {
                     />
                   </div>
                   {languagesoptions?.find((e) => e.value === "Any Other") !==
-                  undefined ? (
+                    undefined ? (
                     <>
                       <div className="BasicProfile_inputfield">
                         <label htmlFor="firstName">Enter Your Language</label>
@@ -2498,13 +2536,27 @@ export function Artist_Profile() {
                           <option selected hidden>
                             Select
                           </option>
-                          <option value="10">High School</option>
-                          <option value="12">Intermediate</option>
-                          <option value="Bacelor">Bacelor Degree</option>
-                          <option value="Mater">Master Degree</option>
+                          <option value="Illterate">Illterate</option>
+                          <option value="below_10">Below Class 10</option>
+                          <option value="10">10th Pass </option>
+                          <option value="Mater">Under Graduate</option>
+                          <option value="Graduate">Graduate</option>
+
                           <option value="Post Gradutaion">
                             Post Gradutaion Degree
                           </option>
+                          <option value="phd">PhD </option>
+                          <option value="Professional">Professional Education  </option>
+                          <option value="Any_Other">Any Other  </option>
+                           
+
+
+
+
+Post Graduate
+
+
+Any other
                         </select>
                       </div>
                       <div className="BasicProfile_inputfield">
@@ -2517,11 +2569,7 @@ export function Artist_Profile() {
                           <option selected hidden>
                             Select
                           </option>
-                          {[
-                            2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007,
-                            2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015,
-                            2016, 2017, 2018, 2019, 2020, 2021, 2022,
-                          ].map((item) => {
+                         { years.map((item) => {
                             return <option value={item}>{item}</option>;
                           })}
                         </select>
@@ -2618,25 +2666,9 @@ export function Artist_Profile() {
                           name="idProof.name"
                           value={basicFormData.idProof.name}
                         >
-                          <option selected hidden>
-                            Select ID Proof
-                          </option>
-                          <option value="Aadhar Card">Aadhar Card</option>
-                          <option value="Bank Statement">Bank Statement</option>
-                          <option value="Birth Certificate">
-                            Birth Certificate
-                          </option>
-                          <option value="Driver's License">
-                            Driver's License
-                          </option>
-                          <option value="National ID Card">
-                            National ID Card
-                          </option>
-                          <option value="PAN Card">PAN Card</option>
-                          <option value="Passport">Passport</option>
-                          <option value="Social Security Card">
-                            Social Security Card
-                          </option>
+                         {documentList.map(e =>(
+                          <option value={e}>{e}</option>
+                         ))}
                         </select>
                       </div>
                       <div className="BasicProfile_inputfield">
@@ -2895,7 +2927,7 @@ export function Artist_Profile() {
                     </select> */}
                   </div>
                   {categoryOption.find((e) => e.value === "Any Other") !==
-                  undefined ? (
+                    undefined ? (
                     <>
                       <div className="BasicProfile_inputfield">
                         <label htmlFor="firstName">
@@ -2939,25 +2971,9 @@ export function Artist_Profile() {
                       onChange={setArtNameOption}
                       options={nameOfArt}
                     />
-
-                    {/* <select
-                      placeholder="Select art forms"
-                      name="artName"
-                      defaultValue={artInfoFormData.artName[0]}
-                      onChange={artChangesHandler}
-                    >
-                      <option selected hidden>
-                        Select art form
-                      </option>
-                      {art.map((option, index) => (
-                        <option key={index} value={option.type}>
-                          {option.type}
-                        </option>
-                      ))}
-                    </select> */}
                   </div>
                   {artNameOption.find((e) => e.value === "Any Other") !==
-                  undefined ? (
+                    undefined ? (
                     <>
                       <div className="BasicProfile_inputfield">
                         <label htmlFor="firstName">Art Name</label>
@@ -3015,7 +3031,7 @@ export function Artist_Profile() {
                     />
                   </div>
                   {artOption.find((e) => e.value === "Any Other") !==
-                  undefined ? (
+                    undefined ? (
                     <>
                       <div className="BasicProfile_inputfield">
                         <label htmlFor="firstName">Enter Type Of Art </label>
@@ -3079,7 +3095,7 @@ export function Artist_Profile() {
               </div> */}
                 </div>
                 {artInfoFormData.artEducation === "Both" ||
-                artInfoFormData.artEducation === "Traditional" ? (
+                  artInfoFormData.artEducation === "Traditional" ? (
                   <>
                     <h4>Traditional Art Education </h4>
                     <table className="performance_table">
@@ -3087,8 +3103,8 @@ export function Artist_Profile() {
                         <tr>
                           <th> Name of Art </th>
                           <th> Name of Guru</th>
-                          <th> Location</th>
-                          <th> Duration (Month)</th>
+                          <th> Location (City/District)</th>
+                          <th> Duration (Months)</th>
                           <th> Year of Completion </th>
                           <th>Upload Document </th>
                         </tr>
@@ -3118,7 +3134,7 @@ export function Artist_Profile() {
                                     }
                                   />
                                 )}
-                                {key == "location" && (
+                                {key === "location" && (
                                   <select
                                     style={{
                                       maxWidth: "150px",
@@ -3135,9 +3151,9 @@ export function Artist_Profile() {
                                     <option selected hidden>
                                       Select
                                     </option>
-                                    {MajorIndianCities.map((item, index) => (
-                                      <option key={index} value={item.city}>
-                                        {item.city}
+                                    {months.map((item, index) => (
+                                      <option key={index} value={item}>
+                                        {item}
                                       </option>
                                     ))}
                                   </select>
@@ -3159,7 +3175,7 @@ export function Artist_Profile() {
                                     <option selected hidden>
                                       Select
                                     </option>
-                                    {completionYearData.map((item) => (
+                                    {years.map((item) => (
                                       <option key={item} value={item}>
                                         {item}
                                       </option>
@@ -3206,7 +3222,7 @@ export function Artist_Profile() {
 
                 <div className="ArtProfile_Traditional">
                   {artInfoFormData.artEducation === "Both" ||
-                  artInfoFormData.artEducation === "Professional" ? (
+                    artInfoFormData.artEducation === "Professional" ? (
                     <>
                       <h4>Professional Art Education </h4>
                       <table className="performance_table">
@@ -3215,7 +3231,7 @@ export function Artist_Profile() {
                             <th> Name of Course</th>
                             <th> Specialisation</th>
                             <th> Name of Institute</th>
-                            <th> Duration (Month)</th>
+                            <th> Duration (Months)</th>
                             <th> Year of Completion </th>
                             <th>Upload Document </th>
                           </tr>
@@ -3242,19 +3258,19 @@ export function Artist_Profile() {
                                   {(key == "course" ||
                                     key == "institute" ||
                                     key == "specialization") && (
-                                    <input
-                                      type="text"
-                                      value={row[key]}
-                                      // defaultValue={awardData.highlight}
-                                      onChange={(e) =>
-                                        handleArtProfileChanges(
-                                          e,
-                                          rowIndex,
-                                          key
-                                        )
-                                      }
-                                    />
-                                  )}
+                                      <input
+                                        type="text"
+                                        value={row[key]}
+                                        // defaultValue={awardData.highlight}
+                                        onChange={(e) =>
+                                          handleArtProfileChanges(
+                                            e,
+                                            rowIndex,
+                                            key
+                                          )
+                                        }
+                                      />
+                                    )}
 
                                   {key == "completionYear" && (
                                     <select
@@ -3277,7 +3293,7 @@ export function Artist_Profile() {
                                       <option selected hidden>
                                         Select
                                       </option>
-                                      {completionYearData.map((item) => (
+                                      {years.map((item) => (
                                         <option key={item} value={item}>
                                           {item}
                                         </option>
@@ -3305,10 +3321,7 @@ export function Artist_Profile() {
                                       <option selected hidden>
                                         Select
                                       </option>
-                                      {[
-                                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-                                        13, 14, 15,
-                                      ].map((item) => (
+                                      {months.map((item) => (
                                         <option key={item} value={item}>
                                           {item}
                                         </option>
@@ -3954,11 +3967,10 @@ export function Artist_Profile() {
                   </div>
 
                   <div
-                    className={`${
-                      performanceFormData.affiliatedToAnyGroup
+                    className={`${performanceFormData.affiliatedToAnyGroup
                         ? "BasicProfile_inputfield"
                         : "BasicProfile_inputfield iqooo"
-                    }`}
+                      }`}
                   >
                     <label>Name Of Artist Group/Organisation </label>
                     <input
@@ -3974,11 +3986,10 @@ export function Artist_Profile() {
                   </div>
 
                   <div
-                    className={`${
-                      performanceFormData.affiliatedToAnyGroup
+                    className={`${performanceFormData.affiliatedToAnyGroup
                         ? "BasicProfile_inputfield"
                         : "BasicProfile_inputfield iqooo"
-                    }`}
+                      }`}
                   >
                     <label>Location of Group/Organization</label>
                     <select
@@ -3997,11 +4008,10 @@ export function Artist_Profile() {
                     </select>
                   </div>
                   <div
-                    className={`${
-                      performanceFormData.affiliatedToAnyGroup
+                    className={`${performanceFormData.affiliatedToAnyGroup
                         ? "BasicProfile_inputfield"
                         : "BasicProfile_inputfield iqooo"
-                    }`}
+                      }`}
                   >
                     <label htmlFor="">
                       Contact Number <span className="red">*</span>
@@ -4299,19 +4309,19 @@ export function Artist_Profile() {
                                 )}
                                 {(key == "collaborator" ||
                                   key == "eventName") && (
-                                  <input
-                                    type="text"
-                                    value={row[key]}
-                                    // defaultValue={awardData.highlight}
-                                    onChange={(e) =>
-                                      handlePerformanceTableChange(
-                                        e,
-                                        rowIndex,
-                                        key
-                                      )
-                                    }
-                                  />
-                                )}
+                                    <input
+                                      type="text"
+                                      value={row[key]}
+                                      // defaultValue={awardData.highlight}
+                                      onChange={(e) =>
+                                        handlePerformanceTableChange(
+                                          e,
+                                          rowIndex,
+                                          key
+                                        )
+                                      }
+                                    />
+                                  )}
 
                                 {key == "level" && (
                                   <select
