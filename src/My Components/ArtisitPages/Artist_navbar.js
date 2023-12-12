@@ -136,7 +136,7 @@ export default function () {
               </Link>
              
               <Link
-                to={"/SkillDevelopment"}
+                to={"/CourseCategories"}
                 style={{ height: "48px", boxShadow: " 0px 1px 10px 2px rgba(0, 0, 0, 0.12)", textDecoration: "none", color: "black", display: "flex", alignItems: "center", padding: "20px" }}
               >
                 Skill Development

@@ -248,7 +248,7 @@ const ArtistDashboard = () => {
           <div className="card_section">
             <h2>Skill Development </h2>
             <Skill_Card />
-                        <a className="a" href="/SkillDevelopment">View More </a>
+                        <a className="a" href="/CourseCategories">View More </a>
 
           </div>
           <div className="card_section">
