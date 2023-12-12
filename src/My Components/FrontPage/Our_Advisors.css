@@ -78,6 +78,9 @@
   opacity: 0;
   background-color: black;
 }
+.OurAdvisors_hover p{
+  margin-top: 20px;
+}
 .OurAdvisors_Media_Items:hover .OurAdvisors_hover {
   top: -106.5%;
   padding: 1.5rem;
