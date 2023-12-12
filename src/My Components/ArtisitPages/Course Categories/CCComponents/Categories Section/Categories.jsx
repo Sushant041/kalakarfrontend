@@ -16,7 +16,7 @@ const Categories = () =>{
        <>
         <div id="categories-header-section">
             <div id="categories-header-bg"></div>
-            <div id="couse-categories-text">Course Categories</div>
+            <div id="couse-categories-text">Skill Development</div>
 
             {/* all categories names */}
             <div id="all-categories-scroll-section">
