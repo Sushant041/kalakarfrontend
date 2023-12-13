@@ -21,18 +21,17 @@ class PortfolioPhotoSection extends React.Component {
     container.scrollBy({ left: -container.clientWidth, behavior: 'smooth' });
   };
   render() {
-    const { gallery } = this.props;
-    console.log("===1==>",gallery);
+    const { pic1,pic2,pic3,pic4,pic5 } = this.props;
 
     return (
       <div className="container" ref={this.containerRef}>
-        <img src={gallery} className="box" alt="img" />
+        <img src={pic1} className="box" alt="img" />
         {/* <div className="box">second</div> */}
-        <img src={images} className="box" alt="img" />
-        <img src={images} className="box" alt="img" />
-        <img src={images} className="box" alt="img" />
+        <img src={pic2} className="box" alt="img" />
+        <img src={pic3} className="box" alt="img" />
+        <img src={pic4} className="box" alt="img" />
         {/* <div className="box">third</div> */}
-        <img src={images} className="box" alt="img" />
+        <img src={pic5} className="box" alt="img" />
         <img src={images} className="box" alt="img" />
         {/* <div className="box">fourth</div>
         <div className="box">fifth</div>

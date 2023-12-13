@@ -70,6 +70,60 @@ export function Artist_Profile() {
   const [anyLanguage, setAnyLanguage] = useState("");
 
   const numbersArray = Array.from({ length: 250 }, (_, index) => index + 1);
+  const years = Array.from(
+    { length: 2030 - 1950 + 1 },
+    (_, index) => index + 1950
+  );
+  const months = Array.from({ length: 120 }, (_, index) => index + 1);
+
+  const documentList = [
+    "Aadhar Card (India)",
+    "Bank Statement (with matching address)",
+    "Birth Certificate",
+    "Driver's License",
+    "National ID Card",
+    "PAN Card (India)",
+    "Passport",
+    "Social Security Card",
+  ];
+  const indianStates = [
+    "Andaman and Nicobar Islands",
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chandigarh",
+    "Chhattisgarh",
+    "Dadra and Nagar Haveli",
+    "Daman and Diu",
+    "Delhi",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jammu and Kashmir",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Lakshadweep",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Puducherry",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+  ];
 
   const [toggle, setToggle] = useState([
     { name: "Language", isActive: false },
@@ -302,9 +356,9 @@ export function Artist_Profile() {
     setnameOfArt(newOptions);
   }, [categoryOption]);
 
-  // console.log("==>");
-  // console.log("Check By Chiku12121", categoryOption);
-  // console.log("==>");
+  console.log("==>");
+  console.log("Check By Chiku12121", months);
+  console.log("==>");
 
   const typeOfArts = typeOfArt.map((item) => ({
     value: item,
@@ -1934,11 +1988,12 @@ export function Artist_Profile() {
 
   // console.log("award Page",awardData);
   const artNameHandler = (e) => {
-    // artNameOption.push({value:artName, label:artName});
-    // const NewArtNameOption = artNameOption?.filter(item => item.value !== 'Any Other');
-    // setArtNameOption(NewArtNameOption);
-    // setArtName("");
-    alert("ok");
+    artNameOption.push({ value: artName, label: artName });
+    const NewArtNameOption = artNameOption?.filter(
+      (item) => item.value !== "Any Other"
+    );
+    setArtNameOption(NewArtNameOption);
+    setArtName("");
   };
 
   const languageHandle = (e) => {
@@ -2494,13 +2549,20 @@ export function Artist_Profile() {
                           <option selected hidden>
                             Select
                           </option>
-                          <option value="10">High School</option>
-                          <option value="12">Intermediate</option>
-                          <option value="Bacelor">Bacelor Degree</option>
-                          <option value="Mater">Master Degree</option>
+                          <option value="Illterate">Illterate</option>
+                          <option value="below_10">Below Class 10</option>
+                          <option value="10">10th Pass </option>
+                          <option value="Mater">Under Graduate</option>
+                          <option value="Graduate">Graduate</option>
                           <option value="Post Gradutaion">
                             Post Gradutaion Degree
                           </option>
+                          <option value="phd">PhD </option>
+                          <option value="Professional">
+                            Professional Education{" "}
+                          </option>
+                          <option value="Any_Other">Any Other </option>
+                          Post Graduate Any other
                         </select>
                       </div>
                       <div className="BasicProfile_inputfield">
@@ -2513,11 +2575,7 @@ export function Artist_Profile() {
                           <option selected hidden>
                             Select
                           </option>
-                          {[
-                            2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007,
-                            2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015,
-                            2016, 2017, 2018, 2019, 2020, 2021, 2022,
-                          ].map((item) => {
+                          {years.map((item) => {
                             return <option value={item}>{item}</option>;
                           })}
                         </select>
@@ -2614,25 +2672,9 @@ export function Artist_Profile() {
                           name="idProof.name"
                           value={basicFormData.idProof.name}
                         >
-                          <option selected hidden>
-                            Select ID Proof
-                          </option>
-                          <option value="Aadhar Card">Aadhar Card</option>
-                          <option value="Bank Statement">Bank Statement</option>
-                          <option value="Birth Certificate">
-                            Birth Certificate
-                          </option>
-                          <option value="Driver's License">
-                            Driver's License
-                          </option>
-                          <option value="National ID Card">
-                            National ID Card
-                          </option>
-                          <option value="PAN Card">PAN Card</option>
-                          <option value="Passport">Passport</option>
-                          <option value="Social Security Card">
-                            Social Security Card
-                          </option>
+                          {documentList.map((e) => (
+                            <option value={e}>{e}</option>
+                          ))}
                         </select>
                       </div>
                       <div className="BasicProfile_inputfield">
@@ -2935,22 +2977,6 @@ export function Artist_Profile() {
                       onChange={setArtNameOption}
                       options={nameOfArt}
                     />
-
-                    {/* <select
-                      placeholder="Select art forms"
-                      name="artName"
-                      defaultValue={artInfoFormData.artName[0]}
-                      onChange={artChangesHandler}
-                    >
-                      <option selected hidden>
-                        Select art form
-                      </option>
-                      {art.map((option, index) => (
-                        <option key={index} value={option.type}>
-                          {option.type}
-                        </option>
-                      ))}
-                    </select> */}
                   </div>
                   {artNameOption.find((e) => e.value === "Any Other") !==
                   undefined ? (
@@ -3083,8 +3109,8 @@ export function Artist_Profile() {
                         <tr>
                           <th> Name of Art </th>
                           <th> Name of Guru</th>
-                          <th> Location</th>
-                          <th> Duration (Month)</th>
+                          <th> Location (City/District)</th>
+                          <th> Duration (Months)</th>
                           <th> Year of Completion </th>
                           <th>Upload Document </th>
                         </tr>
@@ -3114,7 +3140,7 @@ export function Artist_Profile() {
                                     }
                                   />
                                 )}
-                                {key == "location" && (
+                                {key === "location" && (
                                   <select
                                     style={{
                                       maxWidth: "150px",
@@ -3131,9 +3157,9 @@ export function Artist_Profile() {
                                     <option selected hidden>
                                       Select
                                     </option>
-                                    {MajorIndianCities.map((item, index) => (
-                                      <option key={index} value={item.city}>
-                                        {item.city}
+                                    {months.map((item, index) => (
+                                      <option key={index} value={item}>
+                                        {item}
                                       </option>
                                     ))}
                                   </select>
@@ -3155,7 +3181,7 @@ export function Artist_Profile() {
                                     <option selected hidden>
                                       Select
                                     </option>
-                                    {completionYearData.map((item) => (
+                                    {years.map((item) => (
                                       <option key={item} value={item}>
                                         {item}
                                       </option>
@@ -3211,7 +3237,7 @@ export function Artist_Profile() {
                             <th> Name of Course</th>
                             <th> Specialisation</th>
                             <th> Name of Institute</th>
-                            <th> Duration (Month)</th>
+                            <th> Duration (Months)</th>
                             <th> Year of Completion </th>
                             <th>Upload Document </th>
                           </tr>
@@ -3273,7 +3299,7 @@ export function Artist_Profile() {
                                       <option selected hidden>
                                         Select
                                       </option>
-                                      {completionYearData.map((item) => (
+                                      {years.map((item) => (
                                         <option key={item} value={item}>
                                           {item}
                                         </option>
@@ -3301,10 +3327,7 @@ export function Artist_Profile() {
                                       <option selected hidden>
                                         Select
                                       </option>
-                                      {[
-                                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
-                                        13, 14, 15,
-                                      ].map((item) => (
+                                      {months.map((item) => (
                                         <option key={item} value={item}>
                                           {item}
                                         </option>

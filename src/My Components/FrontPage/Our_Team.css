@@ -35,7 +35,7 @@
 
 .OurTeam_Media_Items {
   width: 295px;
-  height: 410px;
+  height: 460px;
   margin: 10px;
   border-radius: 10px;
   color: white;
@@ -78,7 +78,10 @@
   height: 88%;
   opacity: 0;
   background-color: black;
-  
+ 
+}
+.OurTeam_hover p{
+  margin-top: 35px;
 }
 .OurTeam_Media_Items:hover .OurTeam_hover {
   top: -106.5%;

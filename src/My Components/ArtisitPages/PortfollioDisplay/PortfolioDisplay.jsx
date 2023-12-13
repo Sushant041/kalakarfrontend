@@ -58,6 +58,7 @@ function PortfolioDisplay() {
   });
   const [avatar,setAvatar] = useState("");
   const [galleryPic,setGalleryPic] = useState("");
+  const [video,setVideo] = useState("");
   const fetchUserData = async () => {
     try {
       const response = await makeAuthenticatedGETRequest(
@@ -84,6 +85,7 @@ function PortfolioDisplay() {
         const { aboutArt } = response.data.artInfo;
         const { pincode, state, city } = response.data.address;
         const {perfImgs} = response.data.performanceInfo;
+        const {perfVideos} = response.data.performanceInfo;
 
         const { perfType, perfEvent, experience, totalPerfs } =
           response.data.performanceInfo;
@@ -91,6 +93,7 @@ function PortfolioDisplay() {
         // const { length: totalperformances } = perfDetails;
         setAvatar(avatar.url);
         setGalleryPic(perfImgs);
+        setVideo(perfVideos);
         setPortfolioData({
           phoneNumber: contactNumber.number,
           email,
@@ -129,7 +132,7 @@ function PortfolioDisplay() {
   useEffect(() => {
     fetchUserData();
   }, []);
-
+console.log("test",galleryPic)
   return (
     <>
       <Artist_navbar />
@@ -324,17 +327,15 @@ function PortfolioDisplay() {
           </div>
           <div className="photos">
             <h1 className="about_me_text">Photos</h1>
-            <PortfolioPhotoSection />
+            <PortfolioPhotoSection  pic1={galleryPic[0]}  pic2={galleryPic[1]}  pic3={galleryPic[2]}  pic4={galleryPic[3]}  pic5={galleryPic[4]}/>
           </div>
           <div className="photos">
             <h1 className="about_me_text">Videos</h1>
-            <PortfolioPhotoSection gallery={galleryPic[0]}
+            <PortfolioVideoSection
+            v1={video[0]} v2={video[1]} v3={video[2]}
  />
           </div>
         </section>
-
-        <PortfolioVideoSection />
-
         <ApplicationButton
           onclick={() => navigate("/editPortfolio")}
           text={"Edit Portfolio"}

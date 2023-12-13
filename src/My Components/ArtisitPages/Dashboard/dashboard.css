@@ -127,9 +127,9 @@
 }
 .card_section .a{
   position: absolute;
-  bottom: 10px;
-  right: 10px;
-  padding: 3px 10px;
+  bottom: 0px;
+  right: 50%;
+  padding: 10px 40px;
   background: #AD2F3B;
   text-decoration: none;
   border-radius: 5px;

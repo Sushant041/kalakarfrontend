@@ -35,7 +35,7 @@
 
 .OurAdvisors_Media_Items {
   width: 295px;
-  height: 410px;
+  height: 440px;
   margin: 10px;
   border-radius: 10px;
   color: white;
@@ -77,6 +77,9 @@
   height: 88%;
   opacity: 0;
   background-color: black;
+}
+.OurAdvisors_hover p{
+  margin-top: 20px;
 }
 .OurAdvisors_Media_Items:hover .OurAdvisors_hover {
   top: -106.5%;
