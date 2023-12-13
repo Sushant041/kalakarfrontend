@@ -212,38 +212,95 @@ input::placeholder {
 }
 
 
-
-/* Your existing CSS */
-
-/* Styling for the wrapper div */
 .contactNumberWrapper {
+  /*
+    Display the contact number wrapper as a flexbox container
+    with center alignment.
+  */
+  
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
-  
+  gap: 10px;
 }
 
-/* Styling for the select element */
+/*
+  Style the contact number select element.
+*/
 .contactNumberWrapper select {
- 
+  /*
+    Set the width of the select element.
+  */
   width: 20%;
-    margin-right: 5px;
-    padding-right: 2px;
-    margin-top: 0px;
-    background-color: white;
-    color: black;
-    border: 2px solid black;
-  
 
-  /* Additional styles */
+  /*
+    Add a margin to the right of the select element.
+  */
+  margin-right: 5px;
+
+  /*
+    Add a padding to the right of the select element.
+  */
+  padding-right: 2px;
+
+  /*
+    Add a margin to the top of the select element.
+  */
+  margin-top: 0px;
+
+  /*
+    Set the background color of the select element.
+  */
+  background-color: white;
+
+  /*
+    Set the text color of the select element.
+  */
+  color: black;
+
+  /*
+    Add a border to the select element.
+  */
+  border: 2px solid black;
+
+  /*
+    Additional styles.
+  */
 }
 
-/* Styling for the input element */
+/*
+  Style the contact number input element.
+*/
 .contactNumberWrapper input {
-  
+  /*
+    Set the width of the input element.
+  */
   width: 73%;
+
+  /*
+    Set the border radius of the input element.
+  */
   border-radius: 7px;
+
+  /*
+    Add padding to the input element.
+  */
   padding: 15px 120px 11px 6px;
-  margin: -10px 0px 0px;
-  /* Additional styles */
+
+  /*
+    Add a margin to the input element.
+  */
+  margin: -10px 0px 0px;
+
+  /*
+    Additional styles.
+  */
+}
+
+.contactNumberWrapper .field-icon {
+  float: right;
+  margin-left: 350px;
+  margin-top: -27px;
+  position: relative;
+  z-index: 2;
+  color: black;
 }

@@ -37,18 +37,18 @@ function Signup() {
     email: "",
     password: "",
     passwordConfirm: "",
-    contactNumber:{
+    phoneNumber:{
          countryCode:"",
         number:""
    },  });
-console.log(formData.contactNumber.number.length);
+console.log(formData.phoneNumber.number.length);
   function changeHandler(event) {
         const { name, value } = event.target;
-    if (name.startsWith("contactNumber.")) {
+    if (name.startsWith("phoneNumber.")) {
       setFormData((prev) => ({
         ...prev,
-        contactNumber: {
-          ...prev.contactNumber,
+        phoneNumber: {
+          ...prev.phoneNumber,
           [name.split(".")[1]]: value,
         },
       }));
@@ -74,7 +74,7 @@ console.log(formData.contactNumber.number.length);
       });
     }
 
-      if (formData.contactNumber.number.length !== 10) {
+      if (formData.phoneNumber.number.length !== 10) {
         return toast.error("please provide a valid phone number" , {
           position:"top-center"
         });
@@ -198,14 +198,14 @@ console.log(formData.contactNumber.number.length);
                       Contact Number <span className="red">*</span>
                     </label> 
                      
-                    <div className="contactNumberWrapper">
+                    <div className="phoneNumberWrapper">
                     
                    
                   <div>
                       <select
                         onChange={changeHandler}
-                        name="contactNumber.countryCode"
-                        value={formData?.contactNumber?.countryCode}
+                        name="phoneNumber.countryCode"
+                        value={formData?.phoneNumber?.countryCode}
                         style={{
                           width: "15%",
                           marginRight: "4px",
@@ -220,11 +220,11 @@ console.log(formData.contactNumber.number.length);
                         ))}
                       </select>
                       <input
-                        name="contactNumber.number"
+                        name="phoneNumber.number"
                         maxLength={10}
                         pattern="[0-9]{10}"
                         onChange={changeHandler}
-                        value={formData?.contactNumber?.number}
+                        value={formData?.phoneNumber?.number}
                         placeholder="1234567890"
                         style={{ width: "83%" }}
                         required
