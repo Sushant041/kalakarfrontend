@@ -302,9 +302,9 @@ export function Artist_Profile() {
     setnameOfArt(newOptions);
   }, [categoryOption]);
 
-  console.log("==>");
-  console.log("Check By Chiku12121", categoryOption);
-  console.log("==>");
+  // console.log("==>");
+  // console.log("Check By Chiku12121", categoryOption);
+  // console.log("==>");
 
   const typeOfArts = typeOfArt.map((item) => ({
     value: item,
@@ -503,13 +503,10 @@ export function Artist_Profile() {
   ];
 
   const completionYearData = [
-    1950, 1951, 1952, 1953, 1954, 1955, 1956, 1957, 1958, 1959, 1960, 1961,
-    1962, 1963, 1964, 1965, 1966, 1967, 1968, 1969, 1970, 1971, 1972, 1973,
-    1974, 1975, 1976, 1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985,
-    1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
-    1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009,
-    2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021,
-    2022, 2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030,
+    1981, 1982, 1983, 1984, 1985, 1986, 1987, 1988, 1989, 1990, 1991, 1992,
+    1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
+    2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016,
+    2017, 2018, 2019, 2020, 2021, 2022, 2023,
   ];
   // !  for basic proile
   const [basicFormData, setBasicFormData] = useState({
@@ -983,10 +980,11 @@ export function Artist_Profile() {
   const [performanceFormData, setPerformanceFormData] = useState({
     totalNoOfArtist: "",
     artName: "",
-    affiliatedToAnyGroup: false,
+    affiliatedToAnyGroup: Boolean,
     nameOfArtistGroupOrg: "",
     locationOfGroupOrg: "",
-    contactNoOfGroupOrg: "",
+    contactNumber: "",
+    countryCode: "",
     typeOfPerformance: "",
     highestLevelOfPerformance: "",
     totalPerfs: "",
@@ -1001,19 +999,6 @@ export function Artist_Profile() {
     topFivePerformance: [],
     performanceImages: [],
     performancevideos: [],
-
-    // nameOfTheAffiliatedGroup: "",
-    // affiliatedToAnyOrg: "",
-    // nameOfTheAffiliatedOrg: "",
-    // totalNoOfPerformance: "",
-    // performanceEvents: "",
-    // thematic: "",
-    // NoOfPerformanceLastYear: "",
-    // performanceDuration: "",
-    // performanceType: "",
-    // chargesPerPerformance: "",
-    // averagePerformanceIncome: "",
-    // aboutJourney: "",
   });
   const [perfInfoData, setPerfInfoData] = useState({
     nameOfArts: "",
@@ -1064,6 +1049,7 @@ export function Artist_Profile() {
   };
 
   const perforSubmitHandler = async (event) => {
+    console.log("clicked");
     event.preventDefault();
     // console.log("PERF INFO - >", perfInfoData);
 
@@ -1092,7 +1078,8 @@ export function Artist_Profile() {
         affiliatedToAnyGroup,
         nameOfArtistGroupOrg,
         locationOfGroupOrg,
-        contactNoOfGroupOrg,
+        contactNumber,
+        countryCode,
         typeOfPerformance,
         highestLevelOfPerformance,
         totalPerfs,
@@ -1104,15 +1091,20 @@ export function Artist_Profile() {
         aboutJourney,
         majorPerfCountryInternational,
         performanceImages,
-        performancevideos,
+        // performancevideos,
       } = performanceFormData;
+
+      console.log(countryCode, contactNumber);
 
       let performanceInfo = {
         affiliation: {
           name: nameOfArtistGroupOrg,
           isAffiliated: affiliatedToAnyGroup,
           location: locationOfGroupOrg,
-          conactNumber: contactNoOfGroupOrg,
+          contactNumber: {
+            countryCode: countryCode,
+            number: contactNumber,
+          },
         },
         perfDuration: {
           india: avgPerfDurationIn,
@@ -1130,7 +1122,7 @@ export function Artist_Profile() {
         majorPerfCountry: majorPerfCountryInternational,
         perfDetails: tableData,
         perfImgs: performanceImages,
-        perfVideos: performancevideos,
+        // perfVideos: performancevideos,
         performances: [
           {
             nameOfArts: perfInfoData.nameOfArts,
@@ -1371,6 +1363,10 @@ export function Artist_Profile() {
       if (personalInfo?.avatar?.url) {
         setProfileAvatar(personalInfo?.avatar?.url);
       }
+
+      if (performanceInfo.perfDetails?.length > 0) {
+        setTableData(performanceInfo?.perfDetails);
+      }
       console.log(
         performanceInfo.performances[0],
         setPerfInfoData((prev) => ({
@@ -1527,9 +1523,9 @@ export function Artist_Profile() {
       );
 
       // setProfessionalTable(())
-      console.log("->>");
-      console.log("art Info ", response.data);
-      console.log("->>");
+      // console.log("->>");
+      // console.log("art Info ", response.data);
+      // console.log("->>");
 
       setPerformanceFormData((prev) => ({
         ...prev,
@@ -1541,7 +1537,8 @@ export function Artist_Profile() {
         highestLevelOfPerformance: performanceInfo?.peakPerf,
         topFivePerformance: performanceInfo?.perfDetails,
         locationOfGroupOrg: performanceInfo?.affiliation?.location,
-        contactNoOfGroupOrg: performanceInfo?.affiliation?.contactNumber,
+        contactNumber: performanceInfo?.affiliation?.contactNumber.number,
+        countryCode: performanceInfo?.affiliation?.contactNumber?.countryCode,
         avgPerfDurationIn: performanceInfo?.perfDuration?.india,
         avgPerfFeeIn: performanceInfo?.perfCharge?.india,
         avgPerfDurationInternational:
@@ -1559,9 +1556,6 @@ export function Artist_Profile() {
           label: item,
         }))
       );
-      if (performanceInfo?.perfDetails.length > 0) {
-        setTableData(performanceInfo?.perfDetails);
-      }
 
       // setAwardFormData((prev) => ({
       //   ...prev,
@@ -1683,6 +1677,8 @@ export function Artist_Profile() {
     let formData = new FormData();
     let sizeCounter = 0;
     let EachImageSize = true;
+    if (newImages.length > 6)
+      return toast.error("More than 6 Images are not allowed");
 
     newImages.forEach((image) => {
       let size = image.size / 1024;
@@ -3953,95 +3949,96 @@ export function Artist_Profile() {
                     </select>
                   </div>
 
-                  <div
-                    className={`${
-                      performanceFormData.affiliatedToAnyGroup
-                        ? "BasicProfile_inputfield"
-                        : "BasicProfile_inputfield iqooo"
-                    }`}
-                  >
-                    <label>Name Of Artist Group/Organisation </label>
-                    <input
-                      onChange={(e) =>
-                        setPerformanceFormData({
-                          ...performanceFormData,
-                          nameOfArtistGroupOrg: e.target.value,
-                        })
-                      }
-                      name="nameOfArtistGroupOrg"
-                      value={performanceFormData.nameOfArtistGroupOrg}
-                    ></input>
-                  </div>
+                  {(performanceFormData?.affiliatedToAnyGroup == "true" ||
+                    performanceFormData?.affiliatedToAnyGroup == true) && (
+                    <>
+                      <div className="BasicProfile_inputfield">
+                        <label>Name Of Artist Group/Organisation </label>
+                        <input
+                          onChange={(e) =>
+                            setPerformanceFormData({
+                              ...performanceFormData,
+                              nameOfArtistGroupOrg: e.target.value,
+                            })
+                          }
+                          name="nameOfArtistGroupOrg"
+                          value={performanceFormData.nameOfArtistGroupOrg}
+                        ></input>
+                      </div>
 
-                  <div
-                    className={`${
-                      performanceFormData.affiliatedToAnyGroup
-                        ? "BasicProfile_inputfield"
-                        : "BasicProfile_inputfield iqooo"
-                    }`}
-                  >
-                    <label>Location of Group/Organization</label>
-                    <select
-                      onChange={perforChangeHandler}
-                      name="locationOfGroupOrg"
-                      value={performanceFormData.locationOfGroupOrg}
-                    >
-                      <option selected>Select</option>
-                      {MajorIndianCities.map((i, index) => {
-                        return (
-                          <option key={index} value={i.city}>
-                            {i.city}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                  <div
-                    className={`${
-                      performanceFormData.affiliatedToAnyGroup
-                        ? "BasicProfile_inputfield"
-                        : "BasicProfile_inputfield iqooo"
-                    }`}
-                  >
-                    <label htmlFor="">
-                      Contact Number <span className="red">*</span>
-                    </label>
-                    <div>
-                      <select
-                        onChange={changeHandler}
-                        name="contactNumber.countryCode"
-                        value={basicFormData?.contactNumber?.countryCode}
-                        style={{
-                          width: "15%",
-                          marginRight: "4px",
-                          paddingRight: "2px",
-                        }}
-                      >
-                        {numbersArray.map((number) => (
-                          <option
-                            key={number}
-                            value={`+${number}`}
-                          >{`+${number}`}</option>
-                        ))}
-                      </select>
-                      <input
-                        name="contactNumber.number"
-                        maxLength={10}
-                        pattern="[0-9]{10}"
-                        onChange={changeHandler}
-                        value={basicFormData?.contactNumber?.number}
-                        placeholder="1234567890"
-                        style={{ width: "83%" }}
-                        required
-                      />
-                    </div>
-                  </div>
+                      <div className="BasicProfile_inputfield">
+                        <label>Location of Group/Organization</label>
+                        <select
+                          onChange={perforChangeHandler}
+                          name="locationOfGroupOrg"
+                          value={performanceFormData.locationOfGroupOrg}
+                        >
+                          <option selected>Select</option>
+                          {MajorIndianCities.map((i, index) => {
+                            return (
+                              <option key={index} value={i.city}>
+                                {i.city}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                      <div className="BasicProfile_inputfield">
+                        <label htmlFor="">
+                          Contact Number <span className="red">*</span>
+                        </label>
+                        <div style={{ display: "flex" }}>
+                          <select
+                            onChange={(e) => {
+                              setPerformanceFormData((prev) => {
+                                return {
+                                  ...prev,
+                                  countryCode: e.target.value,
+                                };
+                              });
+                            }}
+                            name="countryCode"
+                            value={performanceFormData?.countryCode}
+                            style={{
+                              width: "25%",
+                              marginRight: "4px",
+                              paddingRight: "2px",
+                            }}
+                          >
+                            {numbersArray.map((number) => (
+                              <option
+                                key={number}
+                                value={`+${number}`}
+                              >{`+${number}`}</option>
+                            ))}
+                          </select>
+                          <input
+                            name="contactNumber"
+                            maxLength={10}
+                            pattern="[0-9]{10}"
+                            onChange={(e) => {
+                              setPerformanceFormData((prev) => {
+                                return {
+                                  ...prev,
+                                  contactNumber: e.target.value,
+                                };
+                              });
+                            }}
+                            value={performanceFormData?.contactNumber}
+                            placeholder="1234567890"
+                            style={{ width: "83%" }}
+                            required
+                          />
+                        </div>
+                      </div>
+                    </>
+                  )}
                   <div className="BasicProfile_inputfield">
-                    <label>Name Of Arts</label>
+                    <label>Name of Arts</label>
                     <select
                       onChange={performanceInfohandler}
                       name="nameOfArts"
-                      value={setPerfInfoData.nameOfArts}
+                      value={perfInfoData.nameOfArts}
                     >
                       <option selected>Select</option>
                       {perfArtName.map((item, index) => {
@@ -4050,11 +4047,11 @@ export function Artist_Profile() {
                     </select>
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Total No. Of Artist</label>
+                    <label>Total no. of Artist</label>
                     <select
                       onChange={performanceInfohandler}
                       name="totalNoOfArtists"
-                      value={setPerfInfoData?.totalNoOfArtists}
+                      value={perfInfoData?.totalNoOfArtists}
                     >
                       <option selected>Select</option>
                       {[
@@ -4071,7 +4068,7 @@ export function Artist_Profile() {
                   </div>
 
                   <div className="BasicProfile_inputfield">
-                    <label>Type Of Performance</label>
+                    <label>Type of Performance</label>
                     <select
                       onChange={perforChangeHandler}
                       name="typeOfPerformance"
@@ -4085,7 +4082,7 @@ export function Artist_Profile() {
                   </div>
 
                   <div className="BasicProfile_inputfield">
-                    <label>Highest Level Of Performance</label>
+                    <label>Highest Level of Performance</label>
                     <select
                       onChange={perforChangeHandler}
                       name="highestLevelOfPerformance"
@@ -4101,7 +4098,7 @@ export function Artist_Profile() {
 
                   <div className="BasicProfile_inputfield">
                     <label>
-                      Total Number Of Performance <span className="red">*</span>
+                      Total Number of Performance <span className="red">*</span>
                     </label>
                     <select
                       onChange={perforChangeHandler}
@@ -4129,7 +4126,7 @@ export function Artist_Profile() {
                   </div>
                   <div className="BasicProfile_inputfield">
                     <label>
-                      No Of Years Of Experience <span className="red">*</span>{" "}
+                      No. of Years Of Experience <span className="red">*</span>{" "}
                     </label>
                     <select
                       onChange={perforChangeHandler}
@@ -4147,7 +4144,7 @@ export function Artist_Profile() {
                   </div>
 
                   <div className="BasicProfile_inputfield">
-                    <label>Average Duration Of Performance (India)</label>
+                    <label>Average Duration of Performance (India)</label>
                     <select
                       onChange={perforChangeHandler}
                       name="avgPerfDurationIn"
@@ -4181,7 +4178,7 @@ export function Artist_Profile() {
 
                   <div className="BasicProfile_inputfield">
                     <label>
-                      Average Duration Of Performance (International)
+                      Average Duration of Performance (International)
                     </label>
                     <select
                       onChange={perforChangeHandler}
@@ -4238,7 +4235,9 @@ export function Artist_Profile() {
                     </select> */}
                   </div>
                   <div className="BasicProfile_inputfield">
-                    <label>Major Countries for Performance International</label>
+                    <label>
+                      Major Countries for Performance (International)
+                    </label>
                     <Select
                       defaultValue={contry}
                       value={contry}
@@ -4283,22 +4282,9 @@ export function Artist_Profile() {
                           <tr key={rowIndex}>
                             {Object.keys(row).map((key, colIndex) => (
                               <td key={colIndex}>
-                                {key == "link" && (
-                                  <input
-                                    type="file"
-                                    // value={row[key]}
-                                    // defaultValue={awardData.highlight}
-                                    onChange={(e) =>
-                                      handlePerformanceTableChange(
-                                        e,
-                                        rowIndex,
-                                        key
-                                      )
-                                    }
-                                  />
-                                )}
                                 {(key == "collaborator" ||
-                                  key == "eventName") && (
+                                  key == "eventName" ||
+                                  key == "link") && (
                                   <input
                                     type="text"
                                     value={row[key]}
@@ -4369,8 +4355,7 @@ export function Artist_Profile() {
                                       Select
                                     </option>
                                     {[
-                                      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
-                                      14, 15,
+                                      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
                                     ].map((item) => (
                                       <option key={item} value={item}>
                                         {item}
@@ -4421,7 +4406,7 @@ export function Artist_Profile() {
                       htmlFor="performanceImages"
                       className="custom-file-input"
                     >
-                      Performance Photograph
+                      Performance Photograph (Max 6)
                     </label>
 
                     <input
@@ -4442,16 +4427,20 @@ export function Artist_Profile() {
                     >
                       <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
                     </svg>
+                    <p style={{ fontSize: "10px", color: "red" }}>
+                      Each Image should be less than 1mb
+                    </p>
                   </div>
 
-                  <div className="BasicProfile_inputfield">
+                  <div className="BasicProfile_inputfield iiooo">
                     <label htmlFor="perfVideo">Performance Video(Max. 3)</label>
                     <input
                       onChange={(e) => setPerfVideo(e.target.value)}
-                      id="perfVideo "
+                      id="perfVideo"
                       placeholder="Enter Video links"
                       name="perfVideo"
                       type="text"
+                      className="perfino"
                     />
                   </div>
                   {/* <div className="PerformanceProfile_inputfield">
@@ -4499,11 +4488,11 @@ export function Artist_Profile() {
                 <h4>Current Production - Performances</h4>
                 <div className="PerformanceProfile_PerformInfo">
                   <div className="BasicProfile_inputfield">
-                    <label>Existing Productions</label>
+                    <label>Existing Production</label>
                     <select
-                      // onChange={performanceInfohandler}
+                      onChange={performanceInfohandler}
                       name={"existingProductions"}
-                      value={perfInfoData.existingProductions}
+                      value={perfInfoData?.existingProductions}
                     >
                       <option selected>Select</option>
 
@@ -4511,56 +4500,61 @@ export function Artist_Profile() {
                       <option value="false">No</option>
                     </select>
                   </div>
-                  <div className="BasicProfile_inputfield">
-                    <label>Name of Productions</label>
-                    <input
-                      onChange={performanceInfohandler}
-                      name={"nameOfProductions"}
-                      value={perfInfoData.nameOfProductions}
-                      type="text"
-                    ></input>
-                  </div>
-                  <div style={{ width: "100%", marginTop: "20px" }}>
-                    <label htmlFor="briefOfPerformance">
-                      Brief Of Your Performance
-                    </label>
-                    <textarea
-                      name="briefOfPerformance"
-                      value={perfInfoData?.briefOfPerformance}
-                      onchange={(e) =>
-                        setPerfInfoData((prev) => ({
-                          ...prev,
-                          briefOfPerformance: e.target.value,
-                        }))
-                      }
-                      style={{
-                        width: "100%",
-                        border: "2px solid rgb(0,0,0,0.5)",
-                        padding: "10px",
-                        borderRadius: "10px",
-                        resize: "none",
-                        height: "80px",
-                      }}
-                    />
-                  </div>
-                  <div className="BasicProfile_inputfield">
-                    <label>Approx Budget</label>
-                    <input
-                      onChange={performanceInfohandler}
-                      name={"approxBudget"}
-                      value={perfInfoData.approxBudget}
-                      type="number"
-                    ></input>
-                  </div>
-                  <div className="BasicProfile_inputfield">
-                    <label>upload Sample</label>
-                    <input
-                      onChange={performanceInfohandler}
-                      name={"sample"}
-                      value={perfInfoData.samples}
-                      type="text"
-                    ></input>
-                  </div>
+                  {(perfInfoData?.existingProductions == "true" ||
+                    perfInfoData?.existingProductions == true) && (
+                    <>
+                      <div className="BasicProfile_inputfield">
+                        <label>Name of Existing Production</label>
+                        <input
+                          onChange={performanceInfohandler}
+                          name={"nameOfProductions"}
+                          value={perfInfoData.nameOfProductions}
+                          type="text"
+                        ></input>
+                      </div>
+                      <div style={{ width: "100%", marginTop: "20px" }}>
+                        <label htmlFor="briefOfPerformance">
+                          Brief Of Your Performance
+                        </label>
+                        <textarea
+                          name="briefOfPerformance"
+                          value={perfInfoData?.briefOfPerformance}
+                          onchange={(e) =>
+                            setPerfInfoData((prev) => ({
+                              ...prev,
+                              briefOfPerformance: e.target.value,
+                            }))
+                          }
+                          style={{
+                            width: "100%",
+                            border: "2px solid rgb(0,0,0,0.5)",
+                            padding: "10px",
+                            borderRadius: "10px",
+                            resize: "none",
+                            height: "80px",
+                          }}
+                        />
+                      </div>
+                      <div className="BasicProfile_inputfield">
+                        <label>Approx Budget</label>
+                        <input
+                          onChange={performanceInfohandler}
+                          name={"approxBudget"}
+                          value={perfInfoData.approxBudget}
+                          type="number"
+                        ></input>
+                      </div>
+                      <div className="BasicProfile_inputfield">
+                        <label>Upload Sample</label>
+                        <input
+                          onChange={performanceInfohandler}
+                          name={"sample"}
+                          value={perfInfoData.samples}
+                          type="text"
+                        ></input>
+                      </div>
+                    </>
+                  )}
                 </div>
                 <button className="updateBtn">Update</button>
               </form>
@@ -4581,7 +4575,7 @@ export function Artist_Profile() {
                     <select
                       onChange={awardHandle}
                       name="award.name"
-                      value={awardData.award}
+                      value={awardData.totalAwards}
                     >
                       <option value="" hidden>
                         Total Number of Awards
@@ -4622,7 +4616,7 @@ export function Artist_Profile() {
                     <table className="performance_table">
                       <thead>
                         <tr>
-                          <th> Name Of The Award </th>
+                          <th> Name of The Award </th>
                           <th> Awarding Body</th>
                           <th> Level </th>
                           <th> Location</th>
@@ -4633,49 +4627,40 @@ export function Artist_Profile() {
                       <tbody>
                         {awardsTable.map((row, rowIndex) => (
                           <tr key={rowIndex}>
-                            {Object.keys(row).map((key, colIndex) => (
-                              // <td key={colIndex}>
-                              //   <input
-                              //     type="text"
-                              //     value={row[key]}
-                              //     defaultValue={awardData?.awardsDetails}
-                              //     onChange={(e) =>
-                              //       handleAwardTable(e, rowIndex, key)
-                              //     }
-                              //   />
-                              // </td>
-                              <td key={colIndex}>
-                                {key == "level" && (
-                                  <select
-                                    style={{
-                                      maxWidth: "150px",
-                                      border: "none",
-                                      padding: 0,
-                                    }}
-                                    type="text"
-                                    value={row[key]}
-                                    // defaultValue={awardData.highlight}
-                                    onChange={(e) =>
-                                      handleAwardTable(e, rowIndex, key)
-                                    }
-                                  >
-                                    <option selected hidden>
-                                      Select
-                                    </option>
-                                    {[
-                                      "International",
-                                      "National",
-                                      "State",
-                                      "District",
-                                      "Local",
-                                    ].map((item) => (
-                                      <option key={item} value={item}>
-                                        {item}
+                            {Object.keys(row).map((key, colIndex) => {
+                              return (
+                                <td key={colIndex}>
+                                  {key == "level" && (
+                                    <select
+                                      style={{
+                                        maxWidth: "150px",
+                                        border: "none",
+                                        padding: 0,
+                                      }}
+                                      type="text"
+                                      value={row[key]}
+                                      // defaultValue={awardData.highlight}
+                                      onChange={(e) =>
+                                        handleAwardTable(e, rowIndex, key)
+                                      }
+                                    >
+                                      <option selected hidden>
+                                        Select
                                       </option>
-                                    ))}
-                                  </select>
-                                )}
-                                {key == "documentUrl" && (
+                                      {[
+                                        "International",
+                                        "National",
+                                        "State",
+                                        "District",
+                                        "Local",
+                                      ].map((item) => (
+                                        <option key={item} value={item}>
+                                          {item}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  )}
+                                  {/* {key == "documentUrl" && (
                                   <input
                                     type="file"
                                     // value={row[key]}
@@ -4684,94 +4669,109 @@ export function Artist_Profile() {
                                       handleAwardTable(e, rowIndex, key)
                                     }
                                   />
-                                )}
-                                {(key == "awardingBody" || key == "title") && (
-                                  <input
-                                    type="text"
-                                    value={row[key]}
-                                    // defaultValue={awardData.highlight}
-                                    onChange={(e) =>
-                                      handleAwardTable(e, rowIndex, key)
-                                    }
-                                  />
-                                )}
-                                {key == "location" && (
-                                  <select
-                                    style={{
-                                      maxWidth: "150px",
-                                      border: "none",
-                                      padding: 0,
-                                    }}
-                                    type="text"
-                                    value={row[key]}
-                                    // defaultValue={awardData.highlight}
-                                    onChange={(e) =>
-                                      handleAwardTable(e, rowIndex, key)
-                                    }
-                                  >
-                                    <option selected hidden>
-                                      Select
-                                    </option>
-                                    {MajorIndianCities.map((item, index) => (
-                                      <option key={index} value={item.city}>
-                                        {item.city}
+                                )} */}
+                                  {(key == "awardingBody" ||
+                                    key == "title" ||
+                                    key == "documentUrl") && (
+                                    <input
+                                      type="text"
+                                      value={row[key]}
+                                      // defaultValue={awardData.highlight}
+                                      onChange={(e) =>
+                                        handleAwardTable(e, rowIndex, key)
+                                      }
+                                    />
+                                  )}
+                                  {key == "location" && (
+                                    <select
+                                      style={{
+                                        maxWidth: "150px",
+                                        border: "none",
+                                        padding: 0,
+                                      }}
+                                      type="text"
+                                      value={row[key]}
+                                      // defaultValue={awardData.highlight}
+                                      onChange={(e) =>
+                                        handleAwardTable(e, rowIndex, key)
+                                      }
+                                    >
+                                      <option selected hidden>
+                                        Select
                                       </option>
-                                    ))}
-                                  </select>
-                                )}
-                                {key == "year" && (
-                                  <select
-                                    style={{
-                                      maxWidth: "150px",
-                                      border: "none",
-                                      padding: 0,
-                                    }}
-                                    type="text"
-                                    value={row[key]}
-                                    // defaultValue={awardData.highlight}
-                                    onChange={(e) =>
-                                      handleAwardTable(e, rowIndex, key)
-                                    }
-                                  >
-                                    <option selected hidden>
-                                      Select
-                                    </option>
-                                    {completionYearData.map((item) => (
-                                      <option key={item} value={item}>
-                                        {item}
+                                      {row.level == "International"
+                                        ? MajorInternationalCities.map(
+                                            (item, index) => (
+                                              <option key={index} value={item}>
+                                                {item}
+                                              </option>
+                                            )
+                                          )
+                                        : MajorIndianCities.map(
+                                            (item, index) => (
+                                              <option
+                                                key={index}
+                                                value={item.city}
+                                              >
+                                                {item.city}
+                                              </option>
+                                            )
+                                          )}
+                                    </select>
+                                  )}
+                                  {key == "year" && (
+                                    <select
+                                      style={{
+                                        maxWidth: "150px",
+                                        border: "none",
+                                        padding: 0,
+                                      }}
+                                      type="text"
+                                      value={row[key]}
+                                      // defaultValue={awardData.highlight}
+                                      onChange={(e) =>
+                                        handleAwardTable(e, rowIndex, key)
+                                      }
+                                    >
+                                      <option selected hidden>
+                                        Select
                                       </option>
-                                    ))}
-                                  </select>
-                                )}
-                                {key == "duration" && (
-                                  <select
-                                    style={{
-                                      maxWidth: "150px",
-                                      border: "none",
-                                      padding: 0,
-                                    }}
-                                    type="text"
-                                    value={row[key]}
-                                    // defaultValue={awardData.highlight}
-                                    onChange={(e) =>
-                                      handleAwardTable(e, rowIndex, key)
-                                    }
-                                  >
-                                    <option selected hidden>
-                                      Select
-                                    </option>
-                                    {[
-                                      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
-                                      14, 15,
-                                    ].map((item) => (
-                                      <option key={item} value={item}>
-                                        {item}
+                                      {completionYearData.map((item) => (
+                                        <option key={item} value={item}>
+                                          {item}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  )}
+                                  {key == "duration" && (
+                                    <select
+                                      style={{
+                                        maxWidth: "150px",
+                                        border: "none",
+                                        padding: 0,
+                                      }}
+                                      type="text"
+                                      value={row[key]}
+                                      // defaultValue={awardData.highlight}
+                                      onChange={(e) =>
+                                        handleAwardTable(e, rowIndex, key)
+                                      }
+                                    >
+                                      <option selected hidden>
+                                        Select
                                       </option>
-                                    ))}
-                                  </select>
-                                )}
-                              </td>
-                            ))}
+                                      {[
+                                        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+                                      ].map((item) => (
+                                        <option key={item} value={item}>
+                                          {item}
+                                        </option>
+                                      ))}
+                                    </select>
+                                  )}
+                                </td>
+                              );
+                            })}
                           </tr>
                         ))}
                       </tbody>
