@@ -20,7 +20,8 @@ body{
 .Profile_navbarbutton {
   visibility: hidden;
 }
-
+.overflowMultiSelection{
+}
 .profileImg{
 position: relative;
 padding: 0;
