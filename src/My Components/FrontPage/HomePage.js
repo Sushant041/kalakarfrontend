@@ -349,13 +349,15 @@ function ReadMore({ children }) {
 
 function ResponsiveCarousel({ children }) {
   const [showCarousel, setShowCarousel] = useState(false);
-
+  const [responsive, setResponsive] = useState(false);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 500) {
         setShowCarousel(true);
+        setResponsive(true);
       } else {
         setShowCarousel(false);
+        setResponsive(false);
       }
     };
 

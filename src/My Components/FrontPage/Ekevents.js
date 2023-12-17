@@ -1,8 +1,40 @@
 import React from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-
+import { useState,useEffect } from 'react';
 import './Ekevents.css';
+
+
+function ResponsiveCarousel({ children }) {
+  const [showCarousel, setShowCarousel] = useState(false);
+  const [responsive, setResponsive] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 500) {
+        setShowCarousel(true);
+        setResponsive(true);
+      } else {
+        setShowCarousel(false);
+        setResponsive(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return showCarousel ? (
+    <Carousel>{children}</Carousel>
+  ) : (
+    <div className="Benefits_Media">
+      {React.Children.map(children, (child) => (
+        <div>{child.props.children}</div>
+      ))}
+    </div>
+  );
+}
 export function Ekevents() {
   return (
     <div className='Ekevents_Page'>
