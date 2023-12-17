@@ -2365,12 +2365,12 @@ const indianStates = [
                       Language Known <span className="red">*</span>
                     </label>
                     <Select
+                      styles={{overflowY:"auto",height:"50px"}}
                       defaultValue={languagesoptions}
                       value={languagesoptions}
                       isMulti
                       onChange={setlanguagesoptions}
                       options={languageOptions}
-                      className="overflowMultiSelection"
                     />
                   </div>
                   {languagesoptions?.find((e) => e.value === "Any Other") !==

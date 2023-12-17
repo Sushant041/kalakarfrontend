@@ -439,32 +439,7 @@ export function Artist_Opportunities() {
               <div className="OppotunitiesPage_allfilters_form_inputfield">
                 <label>Amount</label>
                 <div className="minmaxamount">
-                  <label>Min</label>
-                  <input
-                    className="minAmount"
-                    style={{ outline: "none" }}
-                    value={filterOption.minAmount}
-                    name="minAmount"
-                    onChange={filterChangeHandler}
-                    type="number"
-                  />
-
-                  <label>Max</label>
-                  <input
-                    style={
-                      amountCondition
-                        ? {
-                            border: "1px solid red",
-                            outline: "red",
-                            color: "red",
-                          }
-                        : { outline: "none" }
-                    }
-                    value={filterOption.maxAmount}
-                    name="maxAmount"
-                    onChange={filterChangeHandler}
-                    type="number"
-                  />
+                 
                 </div>
                 <div className="minmaxamountradio">
                   {filterAmount.map((data, index) => (
