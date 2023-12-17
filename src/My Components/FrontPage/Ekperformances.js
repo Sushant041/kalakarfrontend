@@ -62,6 +62,7 @@ export function Ekperformances() {
             </p>
           </Carousel.Caption>
         </Carousel.Item>
+       
       </Carousel>
     </div>
   );

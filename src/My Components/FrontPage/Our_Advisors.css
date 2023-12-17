@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@300;500&display=swap");
 
 .OurAdvisors_Page {
-  background: #ad2f3b;
+  background: #fbdfaf;
   min-height: 90vh;
   justify-content: center;
   align-items: center;
@@ -17,7 +17,7 @@
 }
 
 .OurAdvisors_Page h1 {
-  color: #fff;
+  color: #000;
   text-align: center;
   font-family: Plus Jakarta Sans;
   font-size: 40px;
@@ -49,8 +49,8 @@
   flex-shrink: 0;
   width: 295px;
   height: 49px;
-  background: #ad2f3b;
-  color: #fff;
+  /* background: #ad2f3b; */
+  color: #000;
   text-align: center;
   text-shadow: 8px 4px 7px 0px rgba(0, 0, 0, 0.25);
   font-family: Poppins;

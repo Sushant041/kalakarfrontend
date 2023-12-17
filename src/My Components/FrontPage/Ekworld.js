@@ -35,7 +35,7 @@ export function Ekworld() {
 
         <a href='#Mediagallery'>
           <div className="Ekworld_Media_Items">
-            <img src="assets/Ekworld/image 49.png" className="Ekworld_Media_Item" alt="Song" />
+            <img src="assets/Ekworld/image49.png" className="Ekworld_Media_Item" alt="Song" />
             <h3>
               Song
             </h3>
@@ -44,7 +44,7 @@ export function Ekworld() {
           </div></a>
         <a href='#Mediagallery'>
           <div className="Ekworld_Media_Items">
-            <img src="assets/Ekworld/Rectangle 205.png" alt="Music" className="Ekworld_Media_Item" />
+            <img src="assets/Ekworld/MUSIC.jpg" alt="Music" className="Ekworld_Media_Item" />
             <h3>
               Music
             </h3>

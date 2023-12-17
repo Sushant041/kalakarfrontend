@@ -3,8 +3,8 @@
 @import "//netdna.bootstrapcdn.com/font-awesome/3.0/css/font-awesome.css";
 
 .MediaGallery_page {
-  background: #fbdfaf;
-  min-height: 100vh;
+  background: #ad2f3b;
+  min-height: 70vh;
   justify-content: center;
   align-items: center;
   padding-bottom: 10vh;
@@ -25,7 +25,7 @@
 }
 
 .MediaGallery_page h1 {
-  color: #000;
+  color: #fff;
   text-align: center;
   font-family: Plus Jakarta Sans;
   font-size: 40px;
@@ -56,7 +56,7 @@
   height: 36px;
   line-height: 36px;
   border-radius: 15px;
-  background: #ad2f3b;
+  background: #fbdfaf;
   color: #fff;
   text-align: center;
   font-family: Plus Jakarta Sans;
@@ -147,10 +147,10 @@
   flex-shrink: 0;
   width: 270px;
   height: 49px;
-  background: #ad2f3b;
+  background: #fbdfaf;
   border-bottom-left-radius: 18px;
   border-bottom-right-radius: 18px;
-  color: #fff;
+  color: #000;
   text-align: center;
   text-shadow: 8px 4px 7px 0px rgba(0, 0, 0, 0.25);
   font-family: Poppins;

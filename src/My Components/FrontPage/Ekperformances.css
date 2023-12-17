@@ -22,7 +22,7 @@
   background-color: #ad2f3b;
   width: 100%;
   padding: 1vh 0px;
-  min-height: 104vh;
+  min-height: 110vh;
 }
 
 .Ekperformance_page .carousel-indicators button {
@@ -78,6 +78,10 @@
   line-height: 189%;
   letter-spacing: 5.7px;
   text-transform: uppercase;
+}
+.performance_image{
+  width: 50vw;
+  height: 55vh;
 }
 
 .Ekperformance_p {
@@ -137,5 +141,9 @@
   }
   .Ekperformance_page{
     min-height: 80vh;
+  }
+  .performance_image{
+    width: 100%;
+    height: 30vh;
   }
 }
