@@ -1629,7 +1629,19 @@ export function HomePage() {
             </Link>
           </div>
         </div>
-       
+        {/* <div className="MediaGallery_Upcoming">
+          <h4>eK Update</h4>
+          <Carousel className="MediaGallery_Carousel">
+            <Carousel.Item>
+              Traditional Art Performance on Climate Change is Scheduled in
+              Bhubhneshwar on 8-10 Aug 2023
+            </Carousel.Item>
+            <Carousel.Item>
+              Traditional Art performance on Handloom will be held in Delhi on 8
+              September 2023
+            </Carousel.Item>
+          </Carousel>
+        </div> */}
       </div>
 
       {/*OurAdvisors*/}
