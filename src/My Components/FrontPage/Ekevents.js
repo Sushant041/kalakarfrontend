@@ -1,8 +1,13 @@
 import React from "react";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+// import Carousel from "react-multi-carousel";
+// import "react-multi-carousel/lib/styles.css";
 import { useState, useEffect } from "react";
 import "./Ekevents.css";
+import './MediaGallery.css';
+
+import Carousel from "react-bootstrap/Carousel";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 // function ResponsiveCarousel({ children }) {
 //   const [showCarousel, setShowCarousel] = useState(false);
@@ -83,6 +88,25 @@ export function Ekevents() {
           </Carousel.Item>
         </ResponsiveCarousel>
       </div> */}
+
+           <div className='MediaGallery_Upcoming'>
+                <h4>Upcoming Events</h4>
+                <Carousel className='MediaGallery_Carousel'>
+                    <Carousel.Item>
+                    Traditional Art Performance on Climate Change is scheduled in
+              Bhubaneswar on 8-10 Aug 2023
+                    </Carousel.Item>
+                    <Carousel.Item>
+                    Traditional Art Performance on Handloom will be held in Delhi on 8
+              September 2023
+                    </Carousel.Item>
+                    {/* <Carousel.Item>
+                        Hey
+                    </Carousel.Item> */}
+                </Carousel>
+            </div>
+
+
       <div className="Ekevents_events">
         <ul>
           <span>
