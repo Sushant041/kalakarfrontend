@@ -547,7 +547,7 @@ export function HomePage() {
                 </Nav>
               </div>
 
-              {/* <div className="navbar-nav ms-auto" style={back}>
+              <div className="navbar-nav ms-auto" style={back}>
                 <button
                   className="nav-item nav-link language"
                   style={{
@@ -585,7 +585,7 @@ export function HomePage() {
                     Go To Profile
                   </Link>
                 )}
-              </div> */}
+              </div>
             </Navbar.Collapse>
             {/* </Container> */}
           </div>
