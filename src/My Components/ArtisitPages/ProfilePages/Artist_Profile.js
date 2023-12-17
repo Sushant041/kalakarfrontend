@@ -75,7 +75,6 @@ export function Artist_Profile() {
     (_, index) => index + 1950
   );
   const months = Array.from({ length: 120 }, (_, index) => index + 1);
-
   const documentList = [
     "Aadhar Card (India)",
     "Bank Statement (with matching address)",
@@ -619,6 +618,12 @@ export function Artist_Profile() {
   // ! change  handler for basic profile
   const changeHandler = (event) => {
     const { name, value } = event.target;
+    const filledFields = Object.values(basicFormData).filter(field => field).length;
+    const tryy = Object.values(basicFormData).sort().reverse().slice(0, 5);
+    console.log("==>");
+      console.log("Check By", tryy)
+      console.log("==>");
+   
     setNumberOfAward(value);
     sethightLevel(value);
     if (name.startsWith("address.")) {
@@ -982,7 +987,7 @@ export function Artist_Profile() {
       // console.log("artrespone", response);
 
       if (response.status === "success") {
-        toast.success("successfuly update", {
+        toast.success("Successfully Updated", {
           position: "top-center",
         });
         setActiveSection("performance");
@@ -1512,10 +1517,16 @@ export function Artist_Profile() {
           ...prev.idProof,
           ...response.data.otherInfo.idProof,
         },
+        
       }));
+         console.log("==>");
+        console.log("Check By Chiku000",response.data.personalInfo.languages);
+        console.log("==>");
+    
       setlanguagesoptions(
         personalInfo?.languages.map((item) => ({ value: item, label: item }))
       );
+    
 
       setArtFormData((prev) => ({
         ...prev,
@@ -1633,6 +1644,12 @@ export function Artist_Profile() {
       //         ]
       //       : awardsInfo?.awardsDetails,
       // }));
+
+
+      // PrograssBar 
+   
+
+      
     } catch (error) {
       console.log(error);
     }
@@ -1979,9 +1996,6 @@ export function Artist_Profile() {
     setAwardData(awardsTable);
   };
 
-  console.log("==>");
-  console.log("Check By Chiku =>", new Date(basicFormData.passportNumber));
-  console.log("==>");
   // console.log("==>");
   // console.log("Check By Chiku => ",basicFormData.passportNumber);
   // console.log("==>");
@@ -2023,14 +2037,13 @@ export function Artist_Profile() {
     }
   };
 
-  console.log("==>");
-  console.log("Check By Chiku 5445546456", artOption);
-  console.log("==>");
-
   const [togglePerfAfflication, settogglePerfAfflication] = useState(
     performanceFormData.affiliatedToAnyGroup
   );
 
+
+
+ 
   return (
     <div className="Profile_Page">
       <div
@@ -2144,7 +2157,7 @@ export function Artist_Profile() {
             <div className="profileImg">
               {/* <img loading="lazy" src={defaultPic} /> */}
               <img loading="lazy" src={profileAvatar} />
-              <div className="progressBar">25%</div>
+              <div className="progressBar">%</div>
             </div>
             <p style={{ fontWeight: "500", fontSize: "30px" }}>
               {" "}
@@ -2358,28 +2371,8 @@ export function Artist_Profile() {
                     <label>
                       Language Known <span className="red">*</span>
                     </label>
-                    {/* <select
-                      onChange={changeHandler}
-                      style={{
-                        fontFamily: "Poppins",
-                        background: "transparent",
-                        color: "black",
-                        height: "60px",
-                        width: "100%",
-                        border: "1px solid black",
-                      }}
-                      value={basicFormData?.language}
-                      name=""
-                      id=""
-                    >
-                      <option value="" selected defaultChecked>
-                        You can select multiple languages
-                      </option>
-                      {languages.map((option) => (
-                        <option value={option}>{option}</option>
-                      ))}
-                    </select> */}
                     <Select
+                      styles={{overflowY:"auto",height:"50px"}}
                       defaultValue={languagesoptions}
                       value={languagesoptions}
                       isMulti
@@ -3157,7 +3150,7 @@ export function Artist_Profile() {
                                     <option selected hidden>
                                       Select
                                     </option>
-                                    {months.map((item, index) => (
+                                    {indianStates.map((item, index) => (
                                       <option key={index} value={item}>
                                         {item}
                                       </option>
@@ -3205,10 +3198,7 @@ export function Artist_Profile() {
                                     <option selected hidden>
                                       Select
                                     </option>
-                                    {[
-                                      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
-                                      14, 15,
-                                    ].map((item) => (
+                                    {months.map((item) => (
                                       <option key={item} value={item}>
                                         {item}
                                       </option>

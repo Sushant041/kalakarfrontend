@@ -33,6 +33,44 @@ const filterAmount = [
     title: "Above 50,000",
   },
 ];
+const indianStates = [
+  "Andaman and Nicobar Islands",
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chandigarh",
+  "Chhattisgarh",
+  "Dadra and Nagar Haveli",
+  "Daman and Diu",
+  "Delhi",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu and Kashmir",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Lakshadweep",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Puducherry",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal"
+];
 
 export function Artist_Opportunities() {
 
@@ -297,7 +335,7 @@ export function Artist_Opportunities() {
                   <form>
                     <div className="OppotunitiesPage_allfilters_form_inputfield">
                       <label>Location</label>
-                      <input type="text"></input>
+                     
                     </div>
                     <div className="OppotunitiesPage_allfilters_form_inputfield">
                       <label>Amount</label>
@@ -380,43 +418,28 @@ export function Artist_Opportunities() {
             <form>
               <div className="OppotunitiesPage_allfilters_form_inputfield">
                 <label>Location</label>
-                <input
+                {/* <input
                   value={filterOption.location}
                   onChange={filterChangeHandler}
                   style={{ fontWeight: "500" }}
                   name="location"
                   type="text"
-                />
+                /> */}
+                 <select onChange={filterChangeHandler} name="language">
+                  <option value="" defaultChecked selected>
+                    Choose State
+                  </option>
+                  {indianStates.map((lan, index) => (
+                    <option value={lan} key={index}>
+                      {lan}
+                    </option>
+                  ))}
+                </select>
               </div>
               <div className="OppotunitiesPage_allfilters_form_inputfield">
                 <label>Amount</label>
                 <div className="minmaxamount">
-                  <label>Min</label>
-                  <input
-                    className="minAmount"
-                    style={{ outline: "none" }}
-                    value={filterOption.minAmount}
-                    name="minAmount"
-                    onChange={filterChangeHandler}
-                    type="number"
-                  />
-
-                  <label>Max</label>
-                  <input
-                    style={
-                      amountCondition
-                        ? {
-                            border: "1px solid red",
-                            outline: "red",
-                            color: "red",
-                          }
-                        : { outline: "none" }
-                    }
-                    value={filterOption.maxAmount}
-                    name="maxAmount"
-                    onChange={filterChangeHandler}
-                    type="number"
-                  />
+                 
                 </div>
                 <div className="minmaxamountradio">
                   {filterAmount.map((data, index) => (
