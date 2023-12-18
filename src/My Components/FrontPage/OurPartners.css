@@ -132,9 +132,7 @@
 
 
 @media(max-width:800px){
-  .OurPartners_heading1{
-    font-size: 24px !important;
-  }
+ 
   .OurPartners_image_text {
     width:  80%;
     overflow: scroll;

@@ -62,7 +62,8 @@
   text-align: center;
   text-shadow: 8px 4px 7px 0px rgba(0, 0, 0, 0.25);
   font-family: Plus Jakarta Sans;
-  font-size:var(--font-size-21xl);
+  font-size: 35px;
+  /* font-size:var(--font-size-21xl); */
   font-style: normal;
   font-weight: 700;
 }
@@ -136,14 +137,16 @@
   .Ekperformance_heading3{
     font-size: 14px;
   }
-  .Ekperformance_heading1{
-    font-size: 22px !important;
-  }
+  /* .Ekperformance_heading1{
+    font-size: 30px !important;
+  } */
   .Ekperformance_page{
     min-height: 80vh;
   }
   .performance_image{
-    width: 100%;
-    height: 30vh;
+    max-width: 100%;
+    height: auto;
+    /* width: 100%;
+    height: 30vh; */
   }
 }

@@ -238,9 +238,9 @@
   }
 
   @media(max-width:800px){
-    .MediaGallery_heading1{
+    /* .MediaGallery_heading1{
       font-size: 30px !important;
-    }
+    } */
     .MediaGallery_Carousel{
       top: 20%;
   }

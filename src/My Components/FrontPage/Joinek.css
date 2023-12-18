@@ -375,6 +375,9 @@ color: transparent;
     margin: 0px;
     margin-top: 5vh !important;
   }
+  .joinTheCultural{
+    padding: 10px;
+  }
 }
 
 @media (max-width:368px) {

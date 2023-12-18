@@ -110,7 +110,7 @@
 }
 
 @media (max-width: 800px) {
-  .OurPatrons_heading1 {
-    font-size: 24px !important;
-  }
+  /* .OurPatrons_heading1 {
+    font-size: 30px !important;
+  } */
 }
