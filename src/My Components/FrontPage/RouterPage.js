@@ -61,6 +61,7 @@ import MoreinfoArtistOppurtunity from "../AdminPages/ViewApplicants/ViewArtistAp
 import TermAndCondition from "./TermAndCondition";
 import Contactus from "../PatronPages/ContactUs/ContactUs";
 import ArtistDashboard from "../ArtisitPages/Dashboard/ArtistDashboard";
+import Privacypolicy from "./Privacypolicy";
 
 export default function RouterPage() {
   const { role, accessToken } = useSelector((state) => state.auth);
@@ -97,7 +98,7 @@ export default function RouterPage() {
             <Route path="/Login" exact element={<LoginPage />} />
             <Route path="/Choose" exact element={<Choosing />} />
             <Route path="/register" exact element={<Signup />} />
-            <Route path="/termAndCondition" element={<TermAndCondition />} />
+           
             <Route path="/resetPassword" exact element={<ResetPassword />} />
             <Route path="/forgetPassword" exact element={<ForgetPassword />} />
             <Route path="/verifyCode" exact element={<VerificationCode />} />
@@ -105,6 +106,8 @@ export default function RouterPage() {
         )}
         <Route path="/" exact element={<HomePage />} />
         <Route path="/EkPhotos" exact element={<EkPhotos />} />
+        <Route path="/termAndCondition" element={<TermAndCondition />} />
+        <Route path="/Privacypolicy" element={<Privacypolicy/>} />
         <Route path="/EkVideos" exact element={<EkVideos />} />
         <Route path="/EkPrint" exact element={<EkPrint />} />
         <Route path="/Ekevents" exact element={<Ekevents />} />
