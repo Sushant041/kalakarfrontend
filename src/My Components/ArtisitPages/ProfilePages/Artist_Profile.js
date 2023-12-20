@@ -2208,6 +2208,7 @@ export function Artist_Profile() {
                       name="firstName"
                       value={basicFormData.firstName}
                       type="text"
+                      pattern="[a-zA-Z ]+"
                     ></input>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -2219,6 +2220,7 @@ export function Artist_Profile() {
                       value={basicFormData.lastName}
                       name="lastName"
                       type="text"
+                      pattern="[a-zA-Z ]+"
                     ></input>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -2673,7 +2675,7 @@ export function Artist_Profile() {
                         />
                       </div>
                       <div className="BasicProfile_inputfield">
-                        <label>Valid Passport</label>
+                        <label>Valid Passport</label><br/>
                         <DatePicker
                           id="date"
                           name="Date"
