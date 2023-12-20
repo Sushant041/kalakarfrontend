@@ -78,7 +78,7 @@
 
 @media (max-width:376px){
   .EkPhotos_Page h1{
-    font-size: 30px;
+    font-size: 30px !important;
   }
 
   .EkPhotos_Media_Items{

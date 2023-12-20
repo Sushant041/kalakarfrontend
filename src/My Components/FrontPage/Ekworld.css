@@ -120,4 +120,7 @@ line-height: 142%; /* 25.56px */
   .Ekworld_content p{
     font-size: 16px;
   }
+  .Ekworld_heading1{
+    font-size: 35px !important;
+  }
 }

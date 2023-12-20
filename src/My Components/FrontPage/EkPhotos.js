@@ -4,7 +4,7 @@ import './EkPhotos.css';
 
 const ekphotosimages = [
   {
-    src: 'assets/EkPhotos/ek_Carnatic Music_Music_India.png',
+    src: 'assets/EkPhotos/ek_Carnatic_Music_Music_India.png',
     alt: 'Carnatic Music'
   },
   {
@@ -56,7 +56,7 @@ const ekphotosimages = [
     alt: ''
   },
   {
-    src: 'assets/EkPhotos/ek_Hindustani Music_Music_India.png',
+    src: 'assets/EkPhotos/ek_Hindustani_Music_Music_India.png',
     alt: ''
   },
   {
@@ -68,7 +68,7 @@ const ekphotosimages = [
     alt: ''
   },
   {
-    src: 'assets/EkPhotos/ek_Koli Dance_Dance_Maharashtra.png',
+    src: 'assets/EkPhotos/ek_Koli_Dance_Dance_Maharashtra.png',
     alt: ''
   },
   {
@@ -92,7 +92,7 @@ const ekphotosimages = [
     alt: ''
   },
   {
-    src: 'assets/EkPhotos/ek_Rauf Dance_Dance_J&K.png',
+    src: 'assets/EkPhotos/ek_Rauf_Dance_Dance_J&K.png',
     alt: ''
   },
   {

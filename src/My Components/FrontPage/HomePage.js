@@ -1,14 +1,13 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Navbar_frontpage } from './Navbar';
-import Carousel from 'react-bootstrap/Carousel';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import BackToTop from './BackToTop';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from "react";
+import { Helmet } from "react-helmet";
+import { Navbar_frontpage } from "./Navbar";
+import Carousel from "react-bootstrap/Carousel";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import BackToTop from "./BackToTop";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import rect205 from "../../../public/assets/Ekworld/Rectangle206.png"
-
 
 import {
   faFacebookF,
@@ -17,64 +16,72 @@ import {
   faInstagram,
   faLinkedinIn,
   faYoutube,
-} from '@fortawesome/free-brands-svg-icons';
-import { Link } from 'react-router-dom';
+} from "@fortawesome/free-brands-svg-icons";
+import { Link } from "react-router-dom";
 import {
   faCamera,
   faVideo,
   faPrint,
- faLanguage
-} from '@fortawesome/free-solid-svg-icons';
-import { useState, useEffect } from 'react';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import './Navbar.css';
+  faLanguage,
+} from "@fortawesome/free-solid-svg-icons";
+import { useState, useEffect } from "react";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import "./Navbar.css";
 
-import logo from './Images/eK_Logo_Trasnparent_1.png';
+import logo from "./Images/eK_Logo_Trasnparent_1.png";
 /*HomePage*/
-import './HomePage.css';
+import "./HomePage.css";
 /*About US*/
-import AboutUstyles from './AboutUs.module.css';
+import AboutUstyles from "./AboutUs.module.css";
 /*Benefits */
-import './Benefits.css';
+import "./Benefits.css";
 /*Services*/
-import './Services.css';
+import "./Services.css";
 /*Ekworld*/
-import './Ekworld.css';
+import "./Ekworld.css";
 /*EKperformances*/
-import './Ekperformances.css';
+import "./Ekperformances.css";
+/*our Patrons*/
+import "./OurPatrons.css"
 /*OurArtists*/
-import './OurArtists.css';
+import "./OurArtists.css";
 /*OurPartners*/
-import './OurPartners.css';
+import "./OurPartners.css";
 /*MediaGallery*/
-import './MediaGallery.css';
-import './Navbar.css';
+import "./MediaGallery.css";
+import "./Navbar.css";
 /*OurAdvisors*/
-import './Our_Advisors.css';
+import "./Our_Advisors.css";
+
+/*our experts */
+import "./Ekexperts.css";
 /*OurTeam*/
-import './Our_Team.css';
+import "./Our_Team.css";
 /*Joinek*/
+import "./Joinek.css";
+
 // import Joinekstyles from './Joinek.css';
-import Joinek_image from './Images/FrameComponent/pic.png';
+import Joinek_image from "./Images/FrameComponent/pic.png";
 /*JoinUs*/
 // import { faPaperclip } from '@fortawesome/free-solid-svg-icons';
-import './JoinUs.css';
+import "./JoinUs.css";
 /*EkPhotos*/
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 const HomePage_images = [
   {
-    src: 'assets/Homepage/img1.png',
+    src: "assets/Homepage/img1.png",
   },
   {
-    src: 'assets/Homepage/Odissi.mp4',
+    src: "assets/Homepage/Odissi.mp4",
   },
   {
-    src: 'assets/Homepage/Bharatnatyam.mp4',
+    src: "assets/Homepage/Bharatnatyam.mp4",
   },
 ];
-  {/** 
+{
+  /** 
   {
     src: 'assets/HomePage/3. Katthak.mp4',
   },
@@ -117,142 +124,185 @@ const HomePage_images = [
   {
     src: 'assets/HomePage/16. Lambadi.mp4',
   },
-  */}
-
+  */
+}
 
 const OurArtists_images = [
   {
-    src: 'assets/OurArtists/AshokChhauOdisha.jpg',
-    caption: 'Ashok',
-    subcaption: 'CHHAU',
+    src: "assets/OurArtists/AshokChhauOdisha.jpg",
+    caption: "Ashok",
+    subcaption: "CHHAU",
   },
   {
-    src: 'assets/OurArtists/SayliKathakMumbai.jpg',
-    caption: 'Sayli',
-    subcaption: 'KATHAK',
+    src: "assets/OurArtists/SayliKathakMumbai.jpg",
+    caption: "Sayli",
+    subcaption: "KATHAK",
   },
   {
-    src: 'assets/OurArtists/ChitrasenGOTIPUAOdisha.jpg',
-    caption: 'Chitrasen',
-    subcaption: 'GOTIPUA',
+    src: "assets/OurArtists/ChitrasenGOTIPUAOdisha.jpg",
+    caption: "Chitrasen",
+    subcaption: "GOTIPUA",
   },
   {
-    src: 'assets/OurArtists/MissSubhashriODISSIOdisha.jpeg',
-    caption: 'Subhashri',
-    subcaption: 'ODISSI',
+    src: "assets/OurArtists/MissSubhashriODISSIOdisha.jpeg",
+    caption: "Subhashri",
+    subcaption: "ODISSI",
   },
   {
-    src: 'assets/OurArtists/PadminiDoraFOLKOdisha.bmp',
-    caption: 'Padmini ',
-    subcaption: 'FOLK',
+    src: "assets/OurArtists/PadminiDoraFOLKOdisha.bmp",
+    caption: "Padmini ",
+    subcaption: "FOLK",
   },
   {
-    src: 'assets/OurArtists/SadasivaJiCHHAUOdisha.jpeg',
-    caption: 'Sadasiva',
-    subcaption: 'CHHAU',
+    src: "assets/OurArtists/SadasivaJiCHHAUOdisha.jpeg",
+    caption: "Sadasiva",
+    subcaption: "CHHAU",
   },
   {
-    src: 'assets/OurArtists/JayantiMalaKathakMumbai.jpg',
-    caption: 'Jayanti',
-    subcaption: 'KATHAK',
-  },
-
-  {
-    src: 'assets/OurArtists/BabitaMayurbhanjChhauOdisha.jpg',
-    caption: 'Babita',
-    subcaption: 'CHHAU',
+    src: "assets/OurArtists/JayantiMalaKathakMumbai.jpg",
+    caption: "Jayanti",
+    subcaption: "KATHAK",
   },
 
   {
-    src: 'assets/OurArtists/JyotirmayiOdissiOdisha.jpeg',
-    caption: 'Jyotirmayi',
-    subcaption: 'ODISSI',
-  },
-  {
-    src: 'assets/OurArtists/JyotiKathakMumbai.jpg',
-    caption: 'Jyoti',
-    subcaption: 'KATHAK',
-  },
-  {
-    src: 'assets/OurArtists/JayantiMalaKathakMumbai.jpg',
-    caption: 'Chitta',
-    subcaption: 'CHHAU',
-  },
-  {
-    src: 'assets/OurArtists/ManasiAtreKathakMumbai.jpg',
-    caption: 'Manasi',
-    subcaption: 'KATHAK',
-  },
-  {
-    src: 'assets/OurArtists/SomyashreeSambalpuriOdisha.jpeg',
-    caption: 'Somyashree',
-    subcaption: 'SAMBALPURI',
-  },
-  {
-    src: 'assets/OurArtists/RishikaKathakMumbai.bmp',
-    caption: 'Rishika',
-    subcaption: 'KATHAK',
+    src: "assets/OurArtists/BabitaMayurbhanjChhauOdisha.jpg",
+    caption: "Babita",
+    subcaption: "CHHAU",
   },
 
   {
-    src: 'assets/OurArtists/SmailshreeSambalpuriOdisha.jpeg',
-    caption: 'Smailshree',
-    subcaption: 'SAMBALPURI',
+    src: "assets/OurArtists/JyotirmayiOdissiOdisha.jpeg",
+    caption: "Jyotirmayi",
+    subcaption: "ODISSI",
   },
   {
-    src: 'assets/OurArtists/TapoiChhauOdisha.jpg',
-    caption: 'Tapoi',
-    subcaption: 'CHHAU',
+    src: "assets/OurArtists/JyotiKathakMumbai.jpg",
+    caption: "Jyoti",
+    subcaption: "KATHAK",
   },
   {
-    src: 'assets/OurArtists/TejashreeKathakMumbai.jpg',
-    caption: 'Tejashree',
-    subcaption: 'KATHAK',
+    src: "assets/OurArtists/JayantiMalaKathakMumbai.jpg",
+    caption: "Chitta",
+    subcaption: "CHHAU",
   },
   {
-    src: 'assets/OurArtists/AneriShethMohiniAttam.jpg',
-    caption: 'Aneri',
-    subcaption: 'Mohini Attam',
+    src: "assets/OurArtists/ManasiAtreKathakMumbai.jpg",
+    caption: "Manasi",
+    subcaption: "KATHAK",
   },
   {
-    src: 'assets/OurArtists/ShrutiRanadeBharatNatyam.jpg',
-    caption: 'Shruti',
-    subcaption: 'BharatNatyam',
+    src: "assets/OurArtists/SomyashreeSambalpuriOdisha.jpeg",
+    caption: "Somyashree",
+    subcaption: "SAMBALPURI",
+  },
+  {
+    src: "assets/OurArtists/RishikaKathakMumbai.bmp",
+    caption: "Rishika",
+    subcaption: "KATHAK",
+  },
+
+  {
+    src: "assets/OurArtists/SmailshreeSambalpuriOdisha.jpeg",
+    caption: "Smailshree",
+    subcaption: "SAMBALPURI",
+  },
+  {
+    src: "assets/OurArtists/TapoiChhauOdisha.jpg",
+    caption: "Tapoi",
+    subcaption: "CHHAU",
+  },
+  {
+    src: "assets/OurArtists/TejashreeKathakMumbai.jpg",
+    caption: "Tejashree",
+    subcaption: "KATHAK",
+  },
+  {
+    src: "assets/OurArtists/AneriShethMohiniAttam.jpg",
+    caption: "Aneri",
+    subcaption: "Mohini Attam",
+  },
+  {
+    src: "assets/OurArtists/ShrutiRanadeBharatNatyam.jpg",
+    caption: "Shruti",
+    subcaption: "BharatNatyam",
   },
 ];
 
-const OurPartners_images = [
+
+
+const OurPatrons_images = [
   {
-    src: 'assets/OurPartners/OurPartners_Suranjali.jpeg',
-    caption:
-      "'SURANJALI' is a group of Professional Artists ( Instrumental & Vocal ) bringing together on one platform. The Group has so far performed on various occasions such as ,prestigious Award celebrations & theater shows, Corporate events & parties, Festivals, reputed marriages & Wedding Receptions, well known Star Hotels & Clubs.",
-    //subcaption: "",
-    //url: "google.com"
+      src: "assets/OurPatrons/GIZ.jpg",
+      // caption: "Chitrasen",
+      subcaption: "GIZ",
   },
   {
-    src: 'assets/OurPartners/OurPartners_Gokul_Gurukul.png',
+      src: "assets/OurPatrons/Goregaon.jpg",
+      // caption: "Subhashri",
+      subcaption: "Goregaon",
+    
+  },
+  {
+      src: "assets/OurPatrons/Mayfair.jpg",
+      // caption: "Padmini ",
+      subcaption: "MayFair",
+      
+  },
+  {
+      src: "assets/OurPatrons/Pantiss.jpg",
+      // caption: "Sadasiva",
+      subcaption: "Pantiss",
+      
+  },
+  {
+      src: "assets/OurPatrons/Bhartiya.jpg",
+      // caption: "Ashok",
+      subcaption: "Bhartiya",
+      
+  },
+  {
+      src: "assets/OurPatrons/Tatapower.jpg",
+      // caption: "Chitta",
+      subcaption: "TataPower",
+      
+  },
+  {
+      src: "assets/OurPatrons/Tiss.jpg",
+      // caption: "TISS",
+      subcaption: "TISS",
+      
+  },
+  {
+      src: "assets/OurPatrons/Unicef.jpg",
+      // caption: "Hardik",
+      subcaption: "Unicef",
+      
+  }
+];
+const OurPartners_images = [
+ 
+  {
+    src: "assets/OurPartners/OurPartners_Kalakruti.jpeg",
+    caption:
+      "Jayanti Mala has given her best performance in every part of the world, in India as well as abroad for which she will be remembered forever about her Art in the Audience. mala is very versatile in Abhinaya & laikari, the clearity of her hand mudras and movements are just excellent.",
+    //subcaption: "",
+    //url:""
+  },
+  {
+    src: "assets/OurPartners/OurPartners_Aamad.jpg",
+    caption:
+      "AAMAD Dance Centre (NGO), founded by renowned Kathak exponent & Choreographer Rani Khanum in 1996 and considered  one of the premier performing arts organizations in India, its main mission is to enhance integration and diversity in the arts, uniting all abilities. It has been recognised by the Dept. of Culture & Sangeet Natak Akademi, empanelled under ICCR - (Ministry of External Affairs) & worked in cooperation with Kathak Kendra  New Delhi. ",
+  },
+  
+  {
+    src: "assets/OurPartners/OurPartners_Gokul_Gurukul.png",
     //caption: "Jayanti Mala has given her best performance in every part of the world, in India as well as abroad for which she will be remembered forever about her Art in the Audience. mala is very versatile in Abhinaya & laikari, the clearity of her hand mudras and movements are just excellent.",
     //subcaption: "",
     //url:""
   },
-  {
-    src: 'assets/OurPartners/OurPartners_Kalakruti.jpeg',
-    caption:
-      'Jayanti Mala has given her best performance in every part of the world, in India as well as abroad for which she will be remembered forever about her Art in the Audience. mala is very versatile in Abhinaya & laikari, the clearity of her hand mudras and movements are just excellent.',
-    //subcaption: "",
-    //url:""
-  },
-  {
-    src: 'assets/OurPartners/OurPartners_Aamad.jpg',
-    caption:
-      'AAMAD Dance Centre (NGO), founded by renowned Kathak exponent & Choreographer Rani Khanum in 1996 and considered  one of the premier performing arts organizations in India, its main mission is to enhance integration and diversity in the arts, uniting all abilities. It has been recognised by the Dept. of Culture & Sangeet Natak Akademi, empanelled under ICCR - (Ministry of External Affairs) & worked in cooperation with Kathak Kendra  New Delhi. ',
-  },
 ];
 
 function ReadMore({ children }) {
-
-
-  
   const [isExpanded, setIsExpanded] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
@@ -266,10 +316,10 @@ function ReadMore({ children }) {
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleReadMore = () => {
@@ -278,15 +328,15 @@ function ReadMore({ children }) {
 
   return (
     <>
-      <div style={{ display: isExpanded ? 'block' : 'none' }}>{children}</div>
+      <div style={{ display: isExpanded ? "block" : "none" }}>{children}</div>
       {showButton && !isExpanded && (
         <button
           style={{
-            outline: 'none',
-            color: 'blue',
-            background: 'none',
-            textDecoration: 'underline',
-            border: 'none',
+            outline: "none",
+            color: "blue",
+            background: "none",
+            textDecoration: "underline",
+            border: "none",
           }}
           onClick={handleReadMore}
         >
@@ -299,20 +349,22 @@ function ReadMore({ children }) {
 
 function ResponsiveCarousel({ children }) {
   const [showCarousel, setShowCarousel] = useState(false);
-
+  const [responsive, setResponsive] = useState(false);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 500) {
         setShowCarousel(true);
+        setResponsive(true);
       } else {
         setShowCarousel(false);
+        setResponsive(false);
       }
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return showCarousel ? (
@@ -327,9 +379,10 @@ function ResponsiveCarousel({ children }) {
 }
 
 export function HomePage() {
-  const {role , accessToken} = useSelector((state)=>state.auth);
-  const isSmallScreen = window.matchMedia('(max-width: 800px)').matches;
+  const { role, accessToken } = useSelector((state) => state.auth);
+  const isSmallScreen = window.matchMedia("(max-width: 800px)").matches;
   const OurArtistsimagesPerSlide = isSmallScreen ? 1 : 3;
+  const OurPatronsimagesPerSlide = isSmallScreen ? 1 : 3;
   const OurPartnersimagesPerSlide = isSmallScreen ? 1 : 2;
 
   let [inputData, setInputData] = useState({});
@@ -340,7 +393,7 @@ export function HomePage() {
     });
   };
 
-  const [interestedIn, setInterestedIn] = useState('');
+  const [interestedIn, setInterestedIn] = useState("");
 
   const onClickInterestedOptions = (e) => {
     setInterestedIn(e.target.name);
@@ -351,37 +404,37 @@ export function HomePage() {
   const formSubmitHandler = (e) => {
     e.preventDefault();
 
-    fetch('https://api-ekalakaar-com.onrender.com/api/v1/quries/post-query', {
-      method: 'POST',
+    fetch("https://api-ekalakaar-com.onrender.com/api/v1/quries/post-query", {
+      method: "POST",
       body: JSON.stringify({ ...inputData, intrestedIn: interestedIn }),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((res) => {
         return res.json();
       })
       .then((res) => {
-        console.log("ine 359",res);
+        console.log("ine 359", res);
         console.log(
-          res.statusCode === 201 ? 'Form submitted' : 'Form not submitted'
+          res.statusCode === 201 ? "Form submitted" : "Form not submitted"
         );
 
         if (res.statusCode === 201) {
           setInputData({
-            name: '',
-            organization: '',
-            email: '',
-            phoneNumber: '',
-            subject: '',
-            message: '',
-            link: '',
-            location: '',
+            name: "",
+            organization: "",
+            email: "",
+            phoneNumber: "",
+            subject: "",
+            message: "",
+            link: "",
+            location: "",
           });
 
           setFormStatus(true);
-          toast.success('Form submitted successfully!', {
-            position: 'top-right',
+          toast.success("Form submitted successfully!", {
+            position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -391,8 +444,8 @@ export function HomePage() {
           });
         } else {
           setFormStatus(false);
-          toast.error('Unable to submit form. Please try again.', {
-            position: 'top-right',
+          toast.error("Unable to submit form. Please try again.", {
+            position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -405,16 +458,15 @@ export function HomePage() {
   };
 
   const mystyle = {
-    fontSize: 'large',
-    fontWeight: '500',
-    color: 'black',
+    fontSize: "large",
+    fontWeight: "500",
+    color: "black",
   };
   const back = {
-    backgroundColor: 'transparent',
-    marginLeft: '0vh',
-    marginTop: '0vh',
+    backgroundColor: "transparent",
+    marginLeft: "0vh",
+    marginTop: "0vh",
   };
-
 
   return (
     <>
@@ -428,7 +480,7 @@ export function HomePage() {
       <BackToTop />
       <div id="HomePage" className="HomePage">
         <Navbar
-          style={{ zIndex: '99' }}
+          style={{ zIndex: "99" }}
           className="navbar nav_frontpage navbar-expand-lg "
           id="#navbar"
           // bg="light"
@@ -438,9 +490,9 @@ export function HomePage() {
           <div className="container-fluid">
             <Navbar.Brand
               className="navbar-brand"
-              style={{ position: 'static', marginLeft: '0px' }}
+              style={{ position: "static", marginLeft: "0px" }}
             >
-              {' '}
+              {" "}
               <Link to="/">
                 <img src={logo} height="60px" width="80px" alt="logo" />
               </Link>
@@ -452,7 +504,7 @@ export function HomePage() {
                   <Link
                     to="/"
                     className="nav-item nav-link link-padding"
-                    style={{ color: 'black' }}
+                    style={{ color: "black" }}
                     onClick={() => window.location.reload()}
                   >
                     Home
@@ -460,81 +512,80 @@ export function HomePage() {
                   <a
                     href="#Benefits"
                     className="nav-item nav-link link-padding"
-                    style={{ color: 'black' }}
+                    style={{ color: "black" }}
                   >
                     Benefits
                   </a>
                   <a
                     href="#Services"
                     className="nav-item nav-link link-padding"
-                    style={{ color: 'black' }}
+                    style={{ color: "black" }}
                   >
                     Services
                   </a>
                   <a
                     href="#Mediagallery"
                     className="nav-item nav-link link-padding"
-                    style={{ color: 'black' }}
+                    style={{ color: "black" }}
                   >
                     Gallery
                   </a>
                   <a
                     href="#Joinek"
                     className="nav-item nav-link link-padding"
-                    style={{ color: 'black' }}
+                    style={{ color: "black" }}
                   >
                     Join eK
                   </a>
                   <Link
                     to="/Ekevents"
                     className="nav-item nav-link link-padding"
-                    style={{ color: '#AD2F3B' }}
+                    style={{ color: "#AD2F3B" }}
                   >
-                    Events
+                    Updates
                   </Link>
                 </Nav>
               </div>
 
               <div className="navbar-nav ms-auto" style={back}>
-                        <button
-                                className="nav-item nav-link language"
-                                style={{ color: "black", fontSize:"25px", marginRight:"20px" }}
-                            >
-                               <FontAwesomeIcon icon={faLanguage} />
-                            </button>
-                            {
-                              accessToken === null  && 
-                               <Link
-                              to="/Login"
-                              className="nav-item nav-link"
-                              style={{ color: "black", border: "1px solid black" }}
-                          >
-                              Login/Signup
-                          </Link>
-                            
-                            }
-                           {
-                             (accessToken !== null && role === 'Artist') && 
-                             <Link
-                              to="/artist_profile"
-                              className="nav-item nav-link"
-                              style={{ color: "black", border: "1px solid black" }}
-                          >
-                            Go To Profile
-                          </Link>
-                           }
-                           {
-                             (accessToken !== null && role === 'Patron') && 
-                             <Link
-                              to="/Patron_Profile"
-                              className="nav-item nav-link"
-                              style={{ color: "black", border: "1px solid black" }}
-                          >
-                            Go To Profile
-                          </Link>
-                           }
-
-                        </div>
+                <button
+                  className="nav-item nav-link language"
+                  style={{
+                    color: "black",
+                    fontSize: "25px",
+                    marginRight: "20px",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faLanguage} />
+                </button>
+                {accessToken === null && (
+                  <Link
+                    to="/Login"
+                    className="nav-item nav-link"
+                    style={{ color: "black", border: "1px solid black" }}
+                  >
+                    Login/Signup
+                  </Link>
+                )}
+                {accessToken !== null && role === "Artist" && (
+                  <Link
+                    to="/artist_profile"
+                    className="nav-item nav-link"
+                    style={{ color: "black", border: "1px solid black" }}
+                  >
+                    Go To Profile
+                  </Link>
+                )}
+                {accessToken !== null && role === "Patron" && (
+                  <Link
+                    to="/Patron_Profile"
+                    className="nav-item nav-link"
+                    style={{ color: "black", border: "1px solid black" }}
+                  >
+                    Go To Profile
+                  </Link>
+                )}
+              </div>
             </Navbar.Collapse>
             {/* </Container> */}
           </div>
@@ -545,7 +596,7 @@ export function HomePage() {
         <Carousel interval={3000}>
           {/* Display the first image */}
           <Carousel.Item>
-            <div className="HomePage_Items" style={{ display: 'flex' }}>
+            <div className="HomePage_Items" style={{ display: "flex" }}>
               <div className="HomePage_imgitems" style={{ flex: 1 }}>
                 <a href={HomePage_images[0].url}>
                   <div className="HomePage_image_container" style={{}}>
@@ -559,12 +610,12 @@ export function HomePage() {
                       href="https://www.facebook.com/eKalakaarIndia"
                       target="_blank"
                       style={{
-                        position: 'absolute',
-                        top: '85%',
-                        left: '10%',
-                        fontSize: '2.5rem',
-                        transform: 'translate(-50%, -50%)',
-                        color: '#4267B2',
+                        position: "absolute",
+                        top: "85%",
+                        left: "10%",
+                        fontSize: "2.5rem",
+                        transform: "translate(-50%, -50%)",
+                        color: "#4267B2",
                       }}
                     >
                       <FontAwesomeIcon icon={faFacebookF} />
@@ -573,12 +624,12 @@ export function HomePage() {
                       href="https://twitter.com/eKalakaarIndia"
                       target="_blank"
                       style={{
-                        position: 'absolute',
-                        top: '85%',
-                        left: '17%',
-                        fontSize: '2.5rem',
-                        transform: 'translate(-50%, -50%)',
-                        color: '#00ACEE',
+                        position: "absolute",
+                        top: "85%",
+                        left: "17%",
+                        fontSize: "2.5rem",
+                        transform: "translate(-50%, -50%)",
+                        color: "#00ACEE",
                       }}
                     >
                       <FontAwesomeIcon icon={faTwitter} />
@@ -587,12 +638,12 @@ export function HomePage() {
                       href="https://www.instagram.com/ekalakaar/"
                       target="_blank"
                       style={{
-                        position: 'absolute',
-                        top: '85%',
-                        fontSize: '2.5rem',
-                        left: '24%',
-                        transform: 'translate(-50%, -50%)',
-                        color: '#E4405F',
+                        position: "absolute",
+                        top: "85%",
+                        fontSize: "2.5rem",
+                        left: "24%",
+                        transform: "translate(-50%, -50%)",
+                        color: "#E4405F",
                       }}
                     >
                       <FontAwesomeIcon icon={faInstagram} />
@@ -601,12 +652,12 @@ export function HomePage() {
                       href="https://www.linkedin.com/company/96085233/admin/"
                       target="_blank"
                       style={{
-                        position: 'absolute',
-                        top: '85%',
-                        fontSize: '2.5rem',
-                        left: '31%',
-                        transform: 'translate(-50%, -50%)',
-                        color: '#0077B5',
+                        position: "absolute",
+                        top: "85%",
+                        fontSize: "2.5rem",
+                        left: "31%",
+                        transform: "translate(-50%, -50%)",
+                        color: "#0077B5",
                       }}
                     >
                       <FontAwesomeIcon icon={faLinkedinIn} />
@@ -615,12 +666,12 @@ export function HomePage() {
                       href="https://www.youtube.com/@eKalakaarIndia"
                       target="_blank"
                       style={{
-                        position: 'absolute',
-                        top: '85%',
-                        fontSize: '2.5rem',
-                        left: '38%',
-                        transform: 'translate(-50%, -50%)',
-                        color: '#FF0606',
+                        position: "absolute",
+                        top: "85%",
+                        fontSize: "2.5rem",
+                        left: "38%",
+                        transform: "translate(-50%, -50%)",
+                        color: "#FF0606",
                       }}
                     >
                       <FontAwesomeIcon icon={faYoutube} />
@@ -629,12 +680,12 @@ export function HomePage() {
                       href="https://wa.me/917701872112?text="
                       target="_blank"
                       style={{
-                        position: 'absolute',
-                        top: '85%',
-                        fontSize: '2.5rem',
-                        left: '45%',
-                        transform: 'translate(-50%, -50%)',
-                        color: 'Green',
+                        position: "absolute",
+                        top: "85%",
+                        fontSize: "2.5rem",
+                        left: "45%",
+                        transform: "translate(-50%, -50%)",
+                        color: "Green",
                       }}
                     >
                       <FontAwesomeIcon icon={faWhatsapp} />
@@ -648,17 +699,12 @@ export function HomePage() {
           {/* Display the rest of the images and videos */}
           {HomePage_images.slice(1).map((image, i) => (
             <Carousel.Item key={i}>
-
-              <div className="HomePage_Items" style={{ display: 'flex' }}>
-
-                {image.type === 'image' ? (
+              <div className="HomePage_Items" style={{ display: "flex" }}>
+                {image.type === "image" ? (
                   // Display an image
                   <div className="HomePage_imgitems" style={{ flex: 1 }}>
-
                     <div className="HomePage_image_container">
-
                       <video src={image.src} alt={`Slide ${i + 2}`} />
-
                     </div>
                   </div>
                 ) : (
@@ -682,7 +728,10 @@ export function HomePage() {
       <div className={AboutUstyles.frameParent}>
         <div className={AboutUstyles.aboutUsParent}>
           <b className={AboutUstyles.aboutUs}>ABOUT eK</b>
-            <b style={{width:"100%",fontSize:"20px"}}>Our mission is to take Art beyond entertainment and harness it's untapped potential for business and society</b>
+          <b style={{ width: "100%", fontSize: "20px" }}>
+            Our mission is to take Art beyond entertainment and harness it's
+            untapped potential for business and society
+          </b>
           <div className={AboutUstyles.frameGroup}>
             <div className={AboutUstyles.ekalakaarekIsBuildingTheParent}>
               <div className={AboutUstyles.ekalakaarekIsBuilding}>
@@ -693,10 +742,10 @@ export function HomePage() {
                 opportunities with talent seekers- Patrons such as high-end
                 hospitality, corporates and development sector organizations.
                 <ReadMore id="AboutUS_text_Readmore">
-                  {' '}
+                  {" "}
                   <br></br>
                   We provide Indian traditional performing Artists with
-                  <i> Naam</i> (recognition), <i>Kaam</i> (opportunities) and{' '}
+                  <i> Naam</i> (recognition), <i>Kaam</i> (opportunities) and{" "}
                   <i>Daam</i> (fair compensation). We are doing this by curating
                   unique experiences for discerning patrons that seek
                   authenticity, experiential engagement, and cultural immersion
@@ -737,7 +786,7 @@ export function HomePage() {
             <img
               className={AboutUstyles.pg22}
               alt=""
-              src={'assets/AboutUs/pg2.png'}
+              src={"assets/AboutUs/pg2.png"}
             />
           </div>
         </div>
@@ -774,7 +823,7 @@ export function HomePage() {
                 <p className="Benefits_hover">
                   Our Artists (Kalakaars) are talented, aspiring and ambitious
                   Indian traditional performing artists,individual or
-                  groups,seeking performing opportunities and growth.{' '}
+                  groups,seeking performing opportunities and growth.{" "}
                 </p>
               </div>
             </Carousel.Item>
@@ -850,14 +899,14 @@ export function HomePage() {
                 </p>
 
                 <a href="#Joinus">
-                  {' '}
+                  {" "}
                   <button>Contact Us</button>
                 </a>
               </div>
               <div className="Benefits_Carousel_Items">
                 <img
                   className="Benefits_Carousel_Item"
-                  src={'assets/Benefits/Benefits_img_1.png'}
+                  src={"assets/Benefits/Benefits_img_1.png"}
                 />
               </div>
             </div>
@@ -888,14 +937,14 @@ export function HomePage() {
                 </p>
 
                 <a href="#Joinus">
-                  {' '}
+                  {" "}
                   <button>Contact Us</button>
                 </a>
               </div>
               <div className="Benefits_Carousel_Items">
                 <img
                   className="Benefits_Carousel_Item"
-                  src={'assets/Benefits/Benefits_img_2.png'}
+                  src={"assets/Benefits/Benefits_img_2.png"}
                 />
               </div>
             </div>
@@ -923,14 +972,14 @@ export function HomePage() {
                 </p>
 
                 <a href="#Joinus">
-                  {' '}
+                  {" "}
                   <button>Contact Us</button>
                 </a>
               </div>
               <div className="Benefits_Carousel_Items">
                 <img
                   className="Benefits_Carousel_Item"
-                  src={'assets/Benefits/Benefits_img_3.png'}
+                  src={"assets/Benefits/Benefits_img_3.png"}
                 />
               </div>
             </div>
@@ -966,14 +1015,14 @@ export function HomePage() {
                 </p>
 
                 <a href="#Joinus">
-                  {' '}
+                  {" "}
                   <button>Contact Us</button>
                 </a>
               </div>
               <div className="Benefits_Carousel_Items">
                 <img
                   className="Benefits_Carousel_Item"
-                  src={'assets/Benefits/Benefits_img_4.png'}
+                  src={"assets/Benefits/Benefits_img_4.png"}
                 />
               </div>
             </div>
@@ -983,10 +1032,14 @@ export function HomePage() {
 
       {/*Services first Page */}
       <div className="Services_Page" id="Services">
-        <h1 className="Services_heading1"> eK SERVICES: <span style={{color:"#EDAB41"}}>ABCDE</span> OF PERFORMING ART </h1>
+        <h1 className="Services_heading1">
+          {" "}
+          eK SERVICES: <span style={{ color: "#EDAB41" }}>ABCDE</span> OF
+          PERFORMING ART{" "}
+        </h1>
         <img
           className="Services_Main_image"
-          src={'assets/Services/Services_img_1.png'}
+          src={"assets/Services/Services_img_1.png"}
           alt="First slide"
         />
       </div>
@@ -995,7 +1048,7 @@ export function HomePage() {
       <div className="Services_Page">
         <Carousel>
           <Carousel.Item>
-            <h1 className="Services_heading1" style={{ height: '130px' }}>
+            <h1 className="Services_heading1" style={{ height: "130px" }}>
               ART FOR ENTERTAINMENT
             </h1>
             <div className="Services_Carousel">
@@ -1033,14 +1086,14 @@ export function HomePage() {
               <div className="Services_Carousel_Items">
                 <img
                   className="Services_Carousel_Item"
-                  src={'assets/Services/Services_img_2.png'}
+                  src={"assets/Services/Services_img_2.png"}
                 />
               </div>
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
-            <h1 className="Services_heading1" style={{ height: '130px' }}>
+            <h1 className="Services_heading1" style={{ height: "130px" }}>
               ART FOR DEVELOPMENT
             </h1>
             <div className="Services_Carousel">
@@ -1071,14 +1124,14 @@ export function HomePage() {
               <div className="Services_Carousel_Items">
                 <img
                   className="Services_Carousel_Item"
-                  src={'assets/Services/Services_img_3.png'}
+                  src={"assets/Services/Services_img_3.png"}
                 />
               </div>
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
-            <h1 className="Services_heading1" style={{ height: '130px' }}>
+            <h1 className="Services_heading1" style={{ height: "130px" }}>
               ART FOR CARE
             </h1>
             <div className="Services_Carousel">
@@ -1108,14 +1161,14 @@ export function HomePage() {
               <div className="Services_Carousel_Items">
                 <img
                   className="Services_Carousel_Item"
-                  src={'assets/Services/Services_img_4.png'}
+                  src={"assets/Services/Services_img_4.png"}
                 />
               </div>
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
-            <h1 className="Services_heading1" style={{ height: '130px' }}>
+            <h1 className="Services_heading1" style={{ height: "130px" }}>
               ART FOR BUSINESS
             </h1>
             <div className="Services_Carousel">
@@ -1148,14 +1201,14 @@ export function HomePage() {
               <div className="Services_Carousel_Items">
                 <img
                   className="Services_Carousel_Item"
-                  src={'assets/Services/Services_img_5.png'}
+                  src={"assets/Services/Services_img_5.png"}
                 />
               </div>
             </div>
           </Carousel.Item>
 
           <Carousel.Item>
-            <h1 className="Services_heading1" style={{ height: '130px' }}>
+            <h1 className="Services_heading1" style={{ height: "130px" }}>
               ART FOR ALL
             </h1>
             <div className="Services_Carousel">
@@ -1181,7 +1234,7 @@ export function HomePage() {
               <div className="Services_Carousel_Items">
                 <img
                   className="Services_Carousel_Item"
-                  src={'assets/Services/Services_img_6.png'}
+                  src={"assets/Services/Services_img_6.png"}
                 />
               </div>
             </div>
@@ -1226,7 +1279,7 @@ export function HomePage() {
           <a href="#Mediagallery">
             <div className="Ekworld_Media_Items">
               <img
-                src="assets/Ekworld/12(10).png"
+                src="assets/Ekworld/image49.png"
                 className="Ekworld_Media_Item"
                 alt="Song"
               />
@@ -1236,7 +1289,7 @@ export function HomePage() {
           <a href="#Mediagallery">
             <div className="Ekworld_Media_Items">
               <img
-                src="assets/EkWorld/rec1.png"
+                src="assets/Ekworld/MUSIC.jpg"
                 alt="Music"
                 className="Ekworld_Media_Item"
               />
@@ -1260,11 +1313,90 @@ export function HomePage() {
       <div div className="Ekperformance_page">
         <h1 className="Ekperformance_heading1">eK PERFORMANCES</h1>
         <Carousel className="Ekperformance_Carousel">
+        <Carousel.Item>
+            <img
+              className="performance_image"
+              src={"assets/Ekperformances/EK-performance-3.jpg"}
+              alt="First slide"
+            />
+
+            <Carousel.Caption>
+              <h3 className="Ekperformance_heading3">
+                Diwali Pahat, GSC, Mumbai
+              </h3>
+              <p className="Ekperformance_p">
+                On the auspicious morning of Diwali, eKalakaar organized a
+                special cultural program that captivated the audience with a
+                vibrant display of Maharashtra and Northern Indian mixed
+                cultural practices. A talented team of 14 artists delivered
+                captivating live performances, including songs, dances, and
+                musical instruments. The event created a festive atmosphere, and
+                the audience enthusiastically joined professional dancers in
+                celebrating the significance of the day through dance. eKalakaar
+                extends its heartfelt gratitude to Goregaon Sports Club (GSC),
+                the supportive audience, and the talented group of artists who
+                contributed to making this Diwali celebration truly memorable.{" "}
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
           <Carousel.Item>
             <img
-              className=""
-              src={'assets/Ekperformances/Ekperformance_img_1.png'}
-              alt="First slide"
+              className="performance_image"
+              src={"assets/Ekperformances/EK-performance-4.jpg"}
+              alt="Second slide"
+            />
+
+            <Carousel.Caption>
+              <h3 className="Ekperformance_heading3">
+                National Consultation on Disability in TISS, Mumbai{" "}
+              </h3>
+              <p className="Ekperformance_p">
+                During the National Consultation on Persons with Disability
+                (PwD) at TISS, Mumbai, eKalakaar played a significant role by
+                presenting a specific program. A blend of talented musical
+                instrumentalists and singers curated performances directly
+                related to the theme of disability. The program commenced with a
+                soulful rendition of Vishwa Shanti Prayer, setting an uplifting
+                tone. Motivational songs followed, fostering an inclusive
+                environment where the audience actively participated by joining
+                the chorus with the artists. eKalakaar extends its gratitude to
+                TISS, experts from Tata Steel, RCI (Govt of India), SBI
+                Foundation, all other organisations; and the groups of artists
+                involved, acknowledging their contribution to this meaningful
+                initiative.{" "}
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="performance_image"
+              src={"assets/Ekperformances/EK-performance-5.jpg"}
+              alt="Third slide"
+            />
+
+            <Carousel.Caption>
+              <h3 className="Ekperformance_heading3">
+                Purple Bharat Ustav, New Delhi
+              </h3>
+              <p className="Ekperformance_p">
+                During the Purple Bharat Ustav held in New Delhi, with a special
+                focus on Disability and EGS (Employment Guarantee Scheme),
+                eKalakaar supplemented with a captivating performance, including
+                a live Rajasthani Ghoomar dance presented by folk artists
+                accompanied by experienced musicians performing patriotic and
+                motivational tunes. The program also showcased talented
+                disability artists, who delivered inspiring songs and dances.
+                eKalakaar expresses its gratitude to partners IDEA, FIIB, and
+                the various artist groups involved, contributing to the success
+                and inclusivity of the event.{" "}
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              className="performance_image"
+              src={"assets/Ekperformances/Ekperformance_img_1.png"}
+              alt="fourth slide"
             />
             <Carousel.Caption>
               <h3 className="Ekperformance_heading3">
@@ -1283,15 +1415,15 @@ export function HomePage() {
                 and social sector who were participating in the Seminar on
                 Aquaculture, was immersed in a truly remarkable experience. eK
                 expresses deep gratitude to esteemed partners, including
-                Artists, GIZ, Pantiss, and others, for their invaluable support.{' '}
+                Artists, GIZ, Pantiss, and others, for their invaluable support.{" "}
               </p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img
-              className=""
-              src={'assets/Ekperformances/Ekperformance_img_2.png'}
-              alt="Second slide"
+              className="performance_image"
+              src={"assets/Ekperformances/Ekperformance_img_2.png"}
+              alt="Fifth slide"
             />
 
             <Carousel.Caption>
@@ -1303,14 +1435,51 @@ export function HomePage() {
                 Classical Odissi and energetic Sambalpuri dance, centered around
                 the theme of sanitation. The event attracted a diverse audience,
                 including international guests, spreading awareness and
-                fostering meaningful conversations on the subject.{' '}
+                fostering meaningful conversations on the subject.{" "}
               </p>
             </Carousel.Caption>
           </Carousel.Item>
+          
+         
+         
         </Carousel>
       </div>
+      {/*our patrons */}
 
-      
+      <div div className="OurPatrons_page">
+        <h1 className="OurPatrons_heading1">eK PATRONS</h1>
+        <Carousel interval={1000}>
+          {Array.from({
+            length: Math.ceil(
+              OurPatrons_images.length / OurPatronsimagesPerSlide
+            ),
+          }).map((_, i) => (
+            <Carousel.Item key={i}>
+              <div className="OurPatrons_Items" style={{ display: "flex" }}>
+                {OurPatrons_images.slice(
+                  i * OurPatronsimagesPerSlide,
+                  i * OurPatronsimagesPerSlide + OurPatronsimagesPerSlide
+                ).map((image, j) => (
+                  <div
+                    className="OurPatrons_imgitems"
+                    key={j}
+                    style={{ flex: 1 }}
+                  >
+                    <img
+                      src={image.src}
+                      alt={`Slide ${i * OurPatronsimagesPerSlide + j + 1}`}
+                      // alt={`Slide ${i * OurPatronsimagesPerSlide + j + 1}`}
+                    />
+                    <h3>{image.caption}</h3>
+                    <p>{image.subcaption}</p>
+                  </div>
+                ))}
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
+     
       {/*OurArtists*/}
 
       <div div className="OurArtists_page">
@@ -1322,7 +1491,7 @@ export function HomePage() {
             ),
           }).map((_, i) => (
             <Carousel.Item key={i}>
-              <div className="OurArtists_Items" style={{ display: 'flex' }}>
+              <div className="OurArtists_Items" style={{ display: "flex" }}>
                 {OurArtists_images.slice(
                   i * OurArtistsimagesPerSlide,
                   i * OurArtistsimagesPerSlide + OurArtistsimagesPerSlide
@@ -1334,7 +1503,6 @@ export function HomePage() {
                   >
                     <img
                       src={image.src}
-                      
                       alt={`Slide ${i * OurArtistsimagesPerSlide + j + 1}`}
                       // alt={`Slide ${i * OurArtistsimagesPerSlide + j + 1}`}
                     />
@@ -1359,7 +1527,7 @@ export function HomePage() {
             ),
           }).map((_, i) => (
             <Carousel.Item key={i}>
-              <div className="OurPartners_Items" style={{ display: 'flex' }}>
+              <div className="OurPartners_Items" style={{ display: "flex" }}>
                 {OurPartners_images.slice(
                   i * OurPartnersimagesPerSlide,
                   i * OurPartnersimagesPerSlide + OurPartnersimagesPerSlide
@@ -1405,18 +1573,18 @@ export function HomePage() {
     </div>*/}
         <div className="MediaGallery_Media">
           <div className="MediaGallery_Media_Items">
-            <Link style={{ textDecoration: 'none' }} to="/EkPhotos">
+            <Link style={{ textDecoration: "none" }} to="/EkPhotos">
               <img
                 src="assets/MediaGallery/MediaGallerry_img_1.png"
                 className="MediaGallery_Media_Item"
                 alt="Photos"
               />
               <h3>
-                <span style={{ display: 'inline-block' }}>
-                  Photos{' '}
+                <span style={{ display: "inline-block" }}>
+                  Photos{" "}
                   <FontAwesomeIcon
                     icon={faCamera}
-                    style={{ color: '#ffffff' }}
+                    style={{ color: "#000" }}
                   />
                 </span>
               </h3>
@@ -1424,18 +1592,18 @@ export function HomePage() {
           </div>
 
           <div className="MediaGallery_Media_Items">
-            <Link style={{ textDecoration: 'none' }} to="/EkVideos">
+            <Link style={{ textDecoration: "none" }} to="/EkVideos">
               <img
                 src="assets/MediaGallery/MediaGallery_img_2.png"
                 className="MediaGallery_Media_Item"
                 alt="Videos"
               />
               <h3>
-                <span style={{ display: 'inline-block' }}>
-                  Videos{' '}
+                <span style={{ display: "inline-block" }}>
+                  Videos{" "}
                   <FontAwesomeIcon
                     icon={faVideo}
-                    style={{ color: '#ffffff' }}
+                    style={{ color: "#000" }}
                   />
                 </span>
               </h3>
@@ -1443,25 +1611,25 @@ export function HomePage() {
           </div>
 
           <div className="MediaGallery_Media_Items">
-            <Link style={{ textDecoration: 'none' }} to="/EkPrint">
+            <Link style={{ textDecoration: "none" }} to="/EkPrint">
               <img
                 src="assets/MediaGallery/MediaGallery_img_3.png"
                 alt="Media Print"
                 className="MediaGallery_Media_Item"
               />
               <h3>
-                <span style={{ display: 'inline-block' }}>
-                  Print{' '}
+                <span style={{ display: "inline-block" }}>
+                  Print{" "}
                   <FontAwesomeIcon
                     icon={faPrint}
-                    style={{ color: '#ffffff' }}
+                    style={{ color: "#000" }}
                   />
                 </span>
               </h3>
             </Link>
           </div>
         </div>
-        <div className="MediaGallery_Upcoming">
+        {/* <div className="MediaGallery_Upcoming">
           <h4>eK Update</h4>
           <Carousel className="MediaGallery_Carousel">
             <Carousel.Item>
@@ -1473,14 +1641,17 @@ export function HomePage() {
               September 2023
             </Carousel.Item>
           </Carousel>
-        </div>
+        </div> */}
       </div>
 
       {/*OurAdvisors*/}
       <div div className="OurAdvisors_Page">
         <h1 className="OurAdvisors_heading1">eK ADVISORS</h1>
         <div className="OurAdvisors_Media">
-          <div style={{overflowY:"hidden"}} className="OurAdvisors_Media_Items">
+          <div
+            style={{ overflowY: "hidden" }}
+            className="OurAdvisors_Media_Items"
+          >
             <img
               src="assets/OurAdvisors/Amarendra.png"
               className="OurAdvisors_Media_Item"
@@ -1488,9 +1659,9 @@ export function HomePage() {
             />
             <h3>
               Dr. Amarendra Khatua
-              <span style={{ display: 'inline-block' }}>IFS (Retd.)</span>
+              <span style={{ display: "inline-block" }}>IFS (Retd.)</span>
             </h3>
-            <div style={{overflowY:"hidden"}} className="OurAdvisors_hover">
+            <div style={{ overflowY: "hidden" }} className="OurAdvisors_hover">
               <p st>
                 Dr. Amarendra is a senior Indian Foreign Service (IFS), Former
                 Secretary (Special Assignment) at Ministry of External Affairs,
@@ -1502,7 +1673,10 @@ export function HomePage() {
             </div>
           </div>
 
-          <div style={{overflowY:"hidden"}} className="OurAdvisors_Media_Items">
+          <div
+            style={{ overflowY: "hidden" }}
+            className="OurAdvisors_Media_Items"
+          >
             <img
               src="assets/OurAdvisors/Prakash.png"
               className="OurAdvisors_Media_Item"
@@ -1510,9 +1684,9 @@ export function HomePage() {
             />
             <h3>
               Dr. T Krishna Prasad
-              <span style={{ display: 'inline-block' }}>IPS (Retd.)</span>
+              <span style={{ display: "inline-block" }}>IPS (Retd.)</span>
             </h3>
-            <div style={{overflowY:"hidden"}} className="OurAdvisors_hover">
+            <div style={{ overflowY: "hidden" }} className="OurAdvisors_hover">
               <p>
                 He is retired Telangana Director General of Police (DGP). He
                 studied Engineering in REC Warangal and masters from IIM
@@ -1524,7 +1698,10 @@ export function HomePage() {
             </div>
           </div>
 
-          <div style={{overflowY:"hidden"}} className="OurAdvisors_Media_Items">
+          <div
+            style={{ overflowY: "hidden" }}
+            className="OurAdvisors_Media_Items"
+          >
             <img
               src="assets/OurAdvisors/Krishna.png"
               alt="Media Print"
@@ -1532,7 +1709,7 @@ export function HomePage() {
             />
             <h3>
               Col Prakash Tewari
-              <span style={{ display: 'inline-block' }}>(Retd.)</span>
+              <span style={{ display: "inline-block" }}>(Retd.)</span>
             </h3>
             <div className="OurAdvisors_hover">
               <p>
@@ -1547,11 +1724,142 @@ export function HomePage() {
         </div>
       </div>
 
+      {/*ek experts */}
+      <div className="Ourexperts_Page">
+        <h1 className="Ourexperts_heading1">eK EXPERTS</h1>
+        <div className="Ourexperts_Media">
+          <div className="Ourexperts_Media_Items">
+            <img
+              src="assets/Ekexperts/Picture1.png"
+              className="Ourexperts_Media_Item"
+              alt="Photos"
+            />
+            <h3>
+              Shri Harish Dash
+              <span style={{ display: "inline-block" }}>Technology Expert</span>
+            </h3>
+            <div className="Ourexperts_hover">
+              <p>
+                Harish is a seasoned professional with over 23 years of
+                experience, excelling in entrepreneurship, business excellence,
+                analysis, product management, and sustainability. He's both a
+                founder and mentor to successful start-ups, combining strategic
+                insight with hands-on experience. His corporate journey includes
+                leadership roles at Tata Motors, GE, and Tata Capital, where he
+                led product launches, digital transformations, and drove
+                sustainability initiatives. Currently, as the Co-founder and
+                Chief Product Officer at Ciphense, he leverages AI to empower
+                Small and Medium Businesses. Harish is a sought-after mentor,
+                offering guidance in strategy, fundraising, and more. He holds
+                an impressive academic and certification record and has a strong
+                commitment to sustainability and academic pursuits. He is an
+                alumnus of NIT Rourkela, and pursuing MTech from BITS Pilani.
+              </p>
+            </div>
+          </div>
+
+          <div className="Ourexperts_Media_Items">
+            <img
+              src="assets/Ekexperts/Picture2.png"
+              className="Ourexperts_Media_Item"
+              alt="Videos"
+            />
+            <h3>
+              Maitreyi Tripathyi
+              <span style={{ display: "inline-block" }}>
+                Communication Expert{" "}
+              </span>
+            </h3>
+            <div className="Ourexperts_hover">
+              <p>
+                Her diverse career journey includes managing stakeholder
+                relations and communication strategy for PMKVY (Skill India) at
+                NSDC, heading communications for the United Nations Industrial
+                Development Organisation (UNIDO), and currently leading
+                Organizational Change Management and Communication at HCL
+                Technologies. With her strong communication skills and
+                adaptability, she excels in roles that demand effective
+                communication, strategic planning, and navigating complex
+                organizational changes, making her a valuable asset in her
+                current position.
+              </p>
+            </div>
+          </div>
+
+          <div className="Ourexperts_Media_Items">
+            <img
+              src="assets/Ekexperts/Picture3.png"
+              alt="Media Print"
+              className="Ourexperts_Media_Item"
+            />
+            <h3>
+              Dr. Sreeram Darbha
+              <span style={{ display: "inline-block" }}>
+                Art, HR, Hospitality Expert
+              </span>
+            </h3>
+            <div className="Ourexperts_hover">
+              <p>
+                Dr. Sreeram is a highly accomplished professional with a diverse
+                educational background, holding double Masters in English and
+                Human Resources Management from the prestigious Tata Institute
+                of Social Sciences-Mumbai, as well as a Ph.D. from Acharya
+                Nagarjuna University, Andhra Pradesh. With approximately three
+                decades of extensive leadership experience in HR with prominent
+                roles such as Head-HR at BSE and Senior Vice President-HR in a
+                Mumbai-based financial services company. He received numerous
+                National and International HR leadership awards. Additionally,
+                his deep spiritual practice as a 'Srividya' practitioner and his
+                passion for integrating ancient wisdom into modern management
+                practices make him a unique and influential figure in the
+                industry. He has launched a groundbreaking initiative,
+                www.gotogita.in, which offers psycho-spiritual counseling
+                services based on Ancient Wisdom and Modern Management
+                principles for holistic work-life balance and well-being. Dr.
+                Sreeram's professional and personal passions align in his
+                commitment to leveraging human potential through strategic HR,
+                learning, and OD interventions, while also promoting values and
+                principles rooted in Indian Vedanta Philosophy and the Bhagavad
+                Gita, earning him the title of a Practical Vedantin and a
+                Work-Life Guru. He has been promoting Indian Arts and Artists.
+              </p>
+            </div>
+          </div>
+
+          <div className="Ourexperts_Media_Items">
+            <img
+              src="assets/Ekexperts/Picture4.png"
+              className="Ourexperts_Media_Item"
+              alt="Videos"
+            />
+            <h3>
+              Nidhi Basu
+              <span style={{ display: "inline-block" }}>Art Expert </span>
+            </h3>
+            <div className="Ourexperts_hover">
+              <p>
+                Nidhi Basu is the Co-founder and Director of Logicbox
+                Communications Pvt Ltd, a company renowned for providing
+                comprehensive media services in India and internationally. As a
+                highly acclaimed voice actor, her distinctive voice resonates on
+                premium trains throughout India, in numerous national museums,
+                leading banks, and e-learning companies. She is the founder of
+                'Hindi Diary,' a program designed to empower individuals by
+                enhancing their Hindi speaking and writing skills to create
+                livelihood opportunities. Since her college days in NIFT Delhi,
+                Nidhi has passionately promoted Indian cultural heritage and
+                performing arts in various roles, and she continues to be a
+                dedicated advocate for these cultural treasures.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       {/*OurTeam*/}
       <div div className="OurTeam_Page">
         <h1 className="OurTeam_heading1">eK TEAM</h1>
         <div className="OurTeam_Media">
-          <div style={{overflowY:"hidden"}} className="OurTeam_Media_Items">
+          <div style={{ overflowY: "hidden" }} className="OurTeam_Media_Items">
             <img
               src="assets/OurTeam/Sanjaya.png"
               className="OurTeam_Media_Item"
@@ -1559,9 +1867,9 @@ export function HomePage() {
             />
             <h3>
               Dr. Sanjaya Pradhan
-              <span style={{ display: 'inline-block' }}>Founder & CEO</span>
+              <span style={{ display: "inline-block" }}>Founder & CEO</span>
             </h3>
-            <div style={{overflowY:"hidden"}} className="OurTeam_hover">
+            <div style={{ overflowY: "hidden" }} className="OurTeam_hover">
               <p>
                 Sanjaya is an accomplished and versatile leader with a strong
                 social compass. He brings over two decades of experience working
@@ -1574,7 +1882,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div style={{overflowY:"hidden"}} className="OurTeam_Media_Items">
+          <div style={{ overflowY: "hidden" }} className="OurTeam_Media_Items">
             <img
               src="assets/OurTeam/Amit.png"
               className="OurTeam_Media_Item"
@@ -1582,11 +1890,11 @@ export function HomePage() {
             />
             <h3>
               Amit Dutta
-              <span style={{ display: 'inline-block' }}>
+              <span style={{ display: "inline-block" }}>
                 Co-Founder and Chief Strategy Officer
               </span>
             </h3>
-            <div style={{overflowY:"hidden"}} className="OurTeam_hover">
+            <div style={{ overflowY: "hidden" }} className="OurTeam_hover">
               <p>
                 Amit is a senior strategy leader, who is passionate about social
                 impact. He brings 20+ years of experience in Government & Social
@@ -1599,7 +1907,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div style={{overflowY:"hidden"}} className="OurTeam_Media_Items">
+          <div style={{ overflowY: "hidden" }} className="OurTeam_Media_Items">
             <img
               src="assets/OurTeam/Yogesh.png"
               alt="Media Print"
@@ -1607,9 +1915,9 @@ export function HomePage() {
             />
             <h3>
               Yogesh Pandey
-              <span style={{ display: 'inline-block' }}>Head-Operations</span>
+              <span style={{ display: "inline-block" }}>Head-Operations</span>
             </h3>
-            <div style={{overflowY:"hidden"}} className="OurTeam_hover">
+            <div style={{ overflowY: "hidden" }} className="OurTeam_hover">
               <p>
                 Yogesh is a seasoned professional and multi-talented artist. He
                 has over 15 years of experience in Administration & Operations
@@ -1628,14 +1936,14 @@ export function HomePage() {
         id="Joinek"
         className="row"
         style={{
-          backgroundColor: '#ad2f3b',
-          width: '100vw',
-          maxWidth: '100%',
-          minHeight: '100vh',
+          backgroundColor: "#ad2f3b",
+          width: "100vw",
+          maxWidth: "100%",
+          minHeight: "100vh",
         }}
       >
         <div className="joinUs">CONTACT eK</div>
-        <div className="col-lg-8 col-md-12" style={{ '  width': '100%' }}>
+        <div className="col-lg-8 col-md-12" style={{ "  width": "100%" }}>
           <div className="joinUsParent">
             <div className="joinTheCulturalContainer">
               <p className="joinTheCultural">
@@ -1744,7 +2052,7 @@ export function HomePage() {
         <div className="col-lg-4" style={{}}>
           <img
             className="Joinek_Page_Image"
-            style={{ width: '30vw', height: '60vh' }}
+            style={{ width: "30vw", height: "60vh" }}
             alt=""
             src={Joinek_image}
           />
@@ -1842,9 +2150,9 @@ export function HomePage() {
                 <form className="full-name-parent" onSubmit={formSubmitHandler}>
                   <h2
                     style={{
-                      marginBottom: '5vh',
-                      alignItems: 'center',
-                      textAlign: 'center',
+                      marginBottom: "5vh",
+                      alignItems: "center",
+                      textAlign: "center",
                     }}
                   >
                     CONTACT US
@@ -1859,9 +2167,9 @@ export function HomePage() {
                         className="JoinUs_frame-item"
                         type="text"
                         onChange={inputChangeHandler}
-                        value={inputData.name || ''}
+                        value={inputData.name || ""}
                         name="name"
-                        style={{ color: 'white' }}
+                        style={{ color: "white" }}
                         required
                       />
                     </div>
@@ -1875,7 +2183,7 @@ export function HomePage() {
                         onChange={inputChangeHandler}
                         value={inputData?.organization}
                         name="organization"
-                        style={{ color: 'white' }}
+                        style={{ color: "white" }}
                       />
                     </div>
                   </div>
@@ -1891,7 +2199,7 @@ export function HomePage() {
                         name="email"
                         onChange={inputChangeHandler}
                         value={inputData.email}
-                        style={{ color: 'white' }}
+                        style={{ color: "white" }}
                         required
                       />
                     </div>
@@ -1910,7 +2218,7 @@ export function HomePage() {
                         onChange={inputChangeHandler}
                         value={inputData.phoneNumber}
                         name="phoneNumber"
-                        style={{ color: 'white' }}
+                        style={{ color: "white" }}
                         required
                       />
                     </div>
@@ -1941,7 +2249,7 @@ export function HomePage() {
                   </div>
                   <div className="how-do-you-want-to-associate-w-parent ml-3">
                     <div className="full-name">
-                      Write your message{' '}
+                      Write your message{" "}
                       <span className="required-asterisk">*</span>
                     </div>
                     <textarea
@@ -1950,10 +2258,10 @@ export function HomePage() {
                       onChange={inputChangeHandler}
                       value={inputData.message}
                       style={{
-                        color: 'white',
-                        height: '100px',
-                        resize: 'none',
-                        fontSize: '16px',
+                        color: "white",
+                        height: "100px",
+                        resize: "none",
+                        fontSize: "16px",
                       }}
                       required
                     />
@@ -1969,7 +2277,7 @@ export function HomePage() {
                         onChange={inputChangeHandler}
                         value={inputData?.link}
                         name="link"
-                        style={{ color: 'white' }}
+                        style={{ color: "white" }}
                       />
                     </div>
 
@@ -1981,7 +2289,7 @@ export function HomePage() {
                         onChange={inputChangeHandler}
                         value={inputData?.location}
                         name="location"
-                        style={{ color: 'white' }}
+                        style={{ color: "white" }}
                       />
                     </div>
                     {/* Attachment (optional) 
@@ -2001,18 +2309,14 @@ export function HomePage() {
             {/* Add the icon or text for the paper clip here 
           </label>
         </div>*/}
-                    {formStatus === true && (
-                      console.log(formStatus)
-                    )}
+                    {formStatus === true && console.log(formStatus)}
 
-                    {formStatus === false && (
-                        console.log(formStatus)
-                    )}
+                    {formStatus === false && console.log(formStatus)}
                   </div>
 
                   <button className="msg-1 ml-3">Submit</button>
                 </form>
-                 <ToastContainer />
+                <ToastContainer />
               </div>
             </div>
           </div>

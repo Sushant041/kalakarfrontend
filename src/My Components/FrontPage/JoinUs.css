@@ -362,7 +362,8 @@ span {
 }
 
 .msg-1 {
-  background-color: #fbdfaf;
+  background-color: #ad2f3b;
+
   width: 178px;
   height: 45px;
   border-radius: 155px;
@@ -371,7 +372,7 @@ span {
 
 .footer button:hover {
   border: 0px solid wheat !important;
-  background-color: #ad2f3b;
+  background-color: #fbdfaf;
   color: white;
 }
 

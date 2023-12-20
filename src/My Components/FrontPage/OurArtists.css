@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap");
 
 .OurArtists_page {
-  background: #fbdfaf;
+  background: #ad2f3b;
   min-height: 90vh;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .OurArtists_page h1 {
-  color: #000;
+  color: #fff;
   text-align: center;
   font-family: Plus Jakarta Sans;
   font-size: 40px;
@@ -57,7 +57,7 @@
 }
 
 .OurArtists_imgitems h3 {
-  color: #000;
+  color: #fff;
   padding-top: 3vh;
   text-align: center;
   text-shadow: 8px 4px 7px 0px rgba(0, 0, 0, 0.25);
@@ -68,14 +68,14 @@
   line-height: normal;
 }
 .OurArtists_imgitems p {
-  color: #000;
+  color: #fff;
   padding: 0vh 0px;
   text-align: center;
   text-shadow: 8px 4px 7px 0px rgba(0, 0, 0, 0.25);
   font-family: Plus Jakarta Sans;
   font-size: 20px;
   font-style: normal;
-  font-weight: 600;
+  font-weight: bold;
   line-height: normal;
 }
 
@@ -112,6 +112,6 @@
 
 @media (max-width: 800px) {
   .OurArtists_heading1 {
-    font-size: 24px !important;
+    font-size: 30px;
   }
 }

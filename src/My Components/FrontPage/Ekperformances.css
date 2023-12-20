@@ -22,7 +22,7 @@
   background-color: #ad2f3b;
   width: 100%;
   padding: 1vh 0px;
-  min-height: 104vh;
+  min-height: 110vh;
 }
 
 .Ekperformance_page .carousel-indicators button {
@@ -62,7 +62,8 @@
   text-align: center;
   text-shadow: 8px 4px 7px 0px rgba(0, 0, 0, 0.25);
   font-family: Plus Jakarta Sans;
-  font-size:var(--font-size-21xl);
+  font-size: 35px;
+  /* font-size:var(--font-size-21xl); */
   font-style: normal;
   font-weight: 700;
 }
@@ -78,6 +79,10 @@
   line-height: 189%;
   letter-spacing: 5.7px;
   text-transform: uppercase;
+}
+.performance_image{
+  width: 50vw;
+  height: 55vh;
 }
 
 .Ekperformance_p {
@@ -132,10 +137,16 @@
   .Ekperformance_heading3{
     font-size: 14px;
   }
-  .Ekperformance_heading1{
-    font-size: 22px !important;
-  }
+  /* .Ekperformance_heading1{
+    font-size: 30px !important;
+  } */
   .Ekperformance_page{
     min-height: 80vh;
+  }
+  .performance_image{
+    max-width: 100%;
+    height: auto;
+    /* width: 100%;
+    height: 30vh; */
   }
 }
