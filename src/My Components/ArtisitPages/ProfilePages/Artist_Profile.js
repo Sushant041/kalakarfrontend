@@ -620,6 +620,9 @@ export function Artist_Profile() {
     const { name, value } = event.target;
     const filledFields = Object.values(basicFormData).filter(field => field).length;
     const tryy = Object.values(basicFormData).sort().reverse().slice(0, 5);
+    console.log("==>");
+      console.log("Check By", tryy)
+      console.log("==>");
    
     setNumberOfAward(value);
     sethightLevel(value);
@@ -776,7 +779,7 @@ export function Artist_Profile() {
       );
 
       if (response.status === "success") {
-        toast.success(" successfully updated", {
+        toast.success(" successFully updated", {
           position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -2208,7 +2211,6 @@ export function Artist_Profile() {
                       name="firstName"
                       value={basicFormData.firstName}
                       type="text"
-                      pattern="[a-zA-Z ]+"
                     ></input>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -2220,7 +2222,6 @@ export function Artist_Profile() {
                       value={basicFormData.lastName}
                       name="lastName"
                       type="text"
-                      pattern="[a-zA-Z ]+"
                     ></input>
                   </div>
                   <div className="BasicProfile_inputfield">
@@ -2272,10 +2273,9 @@ export function Artist_Profile() {
                       </select>
                       <input
                         name="contactNumber.number"
-                        maxlength={10}
+                        maxLength={10}
                         pattern="[0-9]{10}"
                         onChange={changeHandler}
-                        type="number"
                         value={basicFormData?.contactNumber?.number}
                         placeholder="1234567890"
                         style={{ width: "83%" }}
@@ -2322,6 +2322,22 @@ export function Artist_Profile() {
                     <label>
                       Gender <span className="red">*</span>
                     </label>
+
+                    {/* <div className="Genderinfo">
+                  <label>
+                    <input type="radio" name="gender" value="Male" checked={basicFormData.gender === "Male"} onChange={changeHandler} />
+                    &nbsp; Male
+                  </label>
+                  <label>
+                    <input type="radio" name="gender" value="Female" checked={basicFormData.gender === "Female"} onChange={changeHandler} />
+                    &nbsp; Female
+                  </label>
+                  <label>
+                    <input type="radio" name="gender" value="Others" checked={basicFormData.gender === "Others"} onChange={changeHandler} />
+                    &nbsp; Others
+                  </label>
+                </div> */}
+
                     <div className="Genderinfo1">
                       <select
                         style={{
@@ -2332,7 +2348,6 @@ export function Artist_Profile() {
                           height: "60px",
                           border: "1px solid black",
                         }}
-                        name="gender"
                         onChange={changeHandler}
                         value={basicFormData.gender}
                       >
@@ -2342,7 +2357,8 @@ export function Artist_Profile() {
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Transgender">Transgender</option>
-                        <option value="Prefer_not_to_say">
+                        <option value="Any Other">Any Other</option>
+                        <option value="Prefer not to say">
                           Prefer not to say
                         </option>
                       </select>
@@ -2675,7 +2691,7 @@ export function Artist_Profile() {
                         />
                       </div>
                       <div className="BasicProfile_inputfield">
-                        <label>Valid Passport</label><br/>
+                        <label>Valid Passport</label>
                         <DatePicker
                           id="date"
                           name="Date"

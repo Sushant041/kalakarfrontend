@@ -56,7 +56,7 @@ export function LoginPage() {
       }
 
       if (response.status === "success") {
-        toast.success("Successfully logged in");
+        toast.success("successfully Login");
         const { accessToken, refreshToken, role } = response.data;
         dispatch(setAccessToken(accessToken));
         dispatch(setRefreshToken(refreshToken));
@@ -66,8 +66,8 @@ export function LoginPage() {
         localStorage.setItem("role", role);
 
         if (role === "Artist") {
-          navigate("/artist_profile");
-          // navigate("/Artist_limited_Profile");
+          // navigate("/artist_profile");
+          navigate("/Artist_limited_Profile");
         } else {
           navigate("/Patron_Profile");
         }

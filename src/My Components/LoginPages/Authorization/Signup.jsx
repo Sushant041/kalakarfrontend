@@ -194,26 +194,22 @@ console.log(formData.phoneNumber.number.length);
             />
           </label>
         </div>
-         <label style={{marginLeft:"-264px"}} htmlFor="">
+         <label htmlFor="">
                       Contact Number <span className="red">*</span>
                     </label> 
                      
-                    <div className="phoneNumberWrapper" style={{width:"100%",paddingLeft: "24px",
-    paddingRight: "43px"}}>
+                    <div className="phoneNumberWrapper">
                     
                    
-                  <div style={{display:"flex",alignItems:"center",padding:"0px",}}>
+                  <div>
                       <select
                         onChange={changeHandler}
                         name="phoneNumber.countryCode"
-                        value={formData?.phoneNumber?.countryCode || "+91"}
+                        value={formData?.phoneNumber?.countryCode}
                         style={{
-                          width:"20%",
+                          width: "15%",
                           marginRight: "4px",
                           paddingRight: "2px",
-                          border:"1px solid #adadad",
-                          height:"40px",
-                          padding:"0px"
                         }}
                       >
                         {numbersArray.map((number) => (
@@ -226,12 +222,11 @@ console.log(formData.phoneNumber.number.length);
                       <input
                         name="phoneNumber.number"
                         maxLength={10}
-                        type="number"
                         pattern="[0-9]{10}"
                         onChange={changeHandler}
                         value={formData?.phoneNumber?.number}
                         placeholder="1234567890"
-                        style={{ width: "80%" ,height:"40px" }}
+                        style={{ width: "83%" }}
                         required
                       />
                     </div>
@@ -265,7 +260,7 @@ console.log(formData.phoneNumber.number.length);
           <span
         onClick={togglePasswordVisibility}
         className={`fa fa-fw field-icon toggle-password ${
-          passwordVisible ? 'fa-eye' : 'fa-eye-slash'
+          passwordVisible ? 'fa-eye-slash' : 'fa-eye'
         }`}
       ></span>
         </label>
@@ -304,7 +299,7 @@ console.log(formData.phoneNumber.number.length);
         <p onClick={()=>navigate("/termAndCondition")} style={{marginTop:"10px" , color:"red" , cursor:"pointer"}}>I Agree to theTerms And Condition</p>
         </div>        */}
         <p className=" navigateLoginPara">
-          I have an account{" "}
+          Don’t have an account?{" "}
           <span onClick={() => navigate("/Login")} className="">
             Login
           </span>
