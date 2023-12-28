@@ -1,0 +1,151 @@
+.artist_top-division {
+  width: 80%;
+  margin: auto;
+  font-family: Poppins;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: 0em;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #ad2f3b;
+}
+
+.artist_circleprofile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ad2f3b;
+  margin-top: 20px;
+  border-radius: 50%;
+  width: 170px;
+  height: 170px;
+  justify-content: center;
+}
+
+.artist_circleprofile img{
+    border-radius: 50%;
+    border: 1px solid;
+    height: 170px;
+    width: 170px;
+}
+.artist-ManageProfile {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 70px;
+  margin-bottom: 70px;
+  width: 760px;
+  height: 360px;
+  flex-shrink: 0;
+  padding: auto 10px;
+  background: rgba(255, 240, 241, 0.7);
+  border-radius: 31px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+
+.artist_art-ManageProfile {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 70px;
+  margin-bottom: 70px;
+  width: 760px;
+  height: 200px;
+  flex-shrink: 0;
+  padding: auto 10px;
+  background: rgba(255, 240, 241, 0.7);
+  border-radius: 31px;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+.artist-ManageProfile h1 {
+  width: 75%;
+  margin: auto;
+  color: #ad2f3b;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.artist_art-ManageProfile h1 {
+  width: 75%;
+  margin: auto;
+  color: #ad2f3b;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.left-division {
+  flex: 1 1;
+  padding: 20px;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: 0em;
+  color: #ad2f3b;
+}
+
+.profile_heading {
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #000;
+}
+
+.right-division {
+  flex: 1;
+  padding: 20px;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-left: 10px;
+  color: #ad2f3b;
+}
+
+.profilesection-heading {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.profileparagraph-text {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #818181;
+  font-weight: 500;
+}
+
+.profile-card {
+  display: flex;
+  width: 80%;
+  margin: auto;
+}
+.view_more {
+  border: none;
+  display: flex;
+  margin: auto;
+  background: #ad2f3b;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  width: fit-content;
+  border-radius: 50px;
+  color: white;
+  padding: 15px 28px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}

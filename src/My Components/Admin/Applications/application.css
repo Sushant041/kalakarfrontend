@@ -1,0 +1,101 @@
+.manageapplication {
+  display: flex;
+  flex-direction: row;
+}
+.filter-dropdown-applications{
+    margin: 5rem auto  0rem  auto;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    color: #000;
+    gap: 10px;
+    align-items: center;
+    font-family: Poppins;
+    font-size: 18px;
+}
+.dropdown-applications{
+    width: 203px;
+    height: 35px;
+    flex-shrink: 0;
+    color: #818181;
+    border-radius: 5px;
+    background: transparent;
+  border: 1px solid #4F4F4F;
+}
+.filter {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.traditionaldance {
+  display: flex;
+  margin: auto;
+  width: 840px;
+}
+.filter-dropdown-applications input {
+  background: transparent;
+  width: 465px;
+  height: 35px;
+  top: 329px;
+  font-size: 18px;
+  left: 606px;
+ border: none;
+}
+
+.traditionaldance-left-div {
+  flex: 1;
+  padding: 20px;
+  font-family: Poppins;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 33px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.applicationdrop{
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+
+.traditionaldance-right-div {
+  flex: 1;
+  padding: 20px;
+}
+
+.traditionaldance-left-div ul {
+  list-style-type: none;
+  padding: 0;
+  margin-left: 21px;
+}
+
+.traditionaldance-left-div li {
+  margin-bottom: 8px;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #818181;
+}
+
+.traditionaldance-right-div img {
+    padding: 80px;
+    width: 50%;
+    height: auto;
+}
+
+
+
+.dashboard-filter{
+  width: 200px;
+}
+.dashboard-select{
+  margin-left: -4px;
+  font-family: Poppins;
+  font-size: 18px;
+  border: none;
+  background: transparent;
+}
+

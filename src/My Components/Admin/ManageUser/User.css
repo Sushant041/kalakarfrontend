@@ -1,0 +1,180 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 70px;
+  padding-bottom: 10px;
+  width: 940px;
+  height: 700px;
+  padding: auto 10px;
+  background: rgba(255, 240, 241, 0.7);
+  border-radius: 31px;
+ 
+}
+.row-container {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  justify-content: space-between;
+}
+.left-heading {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.row-container input {
+  background: transparent;
+  width: 336px;
+  height: 35px;
+  top: 330px;
+  left: 919px;
+  font-size: 20px;
+ border: none;
+
+}
+.search{
+  display: flex;
+  gap: 8px;
+  color: #818181;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid #4f4f4f;
+  align-items: center;
+ 
+}
+.searchicon{
+  margin-left: 3px;
+  font-size: 25px;
+  color: #5B5959;
+}
+.plus{
+  color: #AD2F3B;
+margin-top: 20px;
+  font-size: 30px;
+}
+.right-content {
+  display: flex;
+  flex-direction: row;
+}
+.d-inline-block {
+  margin-top: 10px;
+}
+#icon-info {
+  margin-top: 10em;
+}
+
+#search-bar {
+ 
+  width: 30%;
+}
+#query {
+  border: none;
+}
+.filter-dropdown {
+  margin: auto;
+  width: 90%;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 20px;
+  color: #000;
+  gap: 10px;
+  align-items: center;
+  font-family: Poppins;
+  font-size: 18px;
+}
+.artistdropdown {
+  width: 203px;
+  height: 35px;
+  flex-shrink: 0;
+  color: #818181;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid #4f4f4f;
+}
+table {
+  width: 830px;
+  margin: auto;
+  border-collapse: collapse;
+}
+.block,.approve,.verify {
+  color: #00ff38;
+  cursor: pointer;
+}
+
+th {
+  border-bottom: 1px solid black;
+  padding: 8px;
+  width: auto;
+  text-align: left;
+}
+td {
+  padding: 8px;
+  width: auto;
+  text-align: left;
+  color: #444;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.viewicon{
+  display: flex;
+  gap: 10px;
+}
+.viewicon:hover{
+  cursor: pointer;
+}
+button {
+  margin-right: 5px;
+}
+
+.opportunitytd1,.opportunitytd7{
+  width: 15%;
+}
+.jobsicons{
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+
+
+.pagination{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ margin-top: 15px;
+  font-size: 1.2rem;
+  gap: 5px;
+}
+
+.pagination .page-num{
+ 
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: 400;
+}
+
+.pagination .active{
+  background-color: #6c757d 
+}
+
+@media screen and (max-width: 600px) {
+  th, td {
+     overflow: scroll;
+  }
+  .viewicon{
+    width: 100%;
+  }
+  .container{
+    overflow: scroll;
+  }
+  .row-container{
+    width: 80%;
+  }
+}
