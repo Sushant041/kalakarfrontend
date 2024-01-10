@@ -45,8 +45,8 @@ class PortfolioPhotoSection extends React.Component {
         <div className="box">thirteenth</div>
         <div className="box">fourteenth</div>
         <div className="box">fifteenth</div> */}
-        <a className="prev" onClick={this.goPrevious}><img src={Vector} alt="vector" /></a>
-        <a className="next" onClick={this.goNext}><img src={Vector1} alt="vector" /></a>
+        <a className="prev1" onClick={this.goPrevious}><img src={Vector} alt="vector" /></a>
+        <a className="next1" onClick={this.goNext}><img src={Vector1} alt="vector" /></a>
       </div>
     );
   }

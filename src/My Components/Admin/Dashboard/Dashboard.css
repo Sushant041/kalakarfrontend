@@ -14,18 +14,10 @@
   height: 170px;
   justify-content: center;
 }
-.circle p {
-  font-family: Poppins;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 27px;
-  letter-spacing: 0em;
-
-}
 
 .circle p:nth-child(2) {
   font-weight: 600;
-  margin-top: -15px;
+  margin-top: 0px;
 }
 .dashboard_circle {
   display: flex;
@@ -94,6 +86,18 @@ padding: 40px;
   height: 30px;
 }
 
+
+.Link{
+  font-weight: bold;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: center;
+  color: black;
+  text-decoration: none;
+}
 .applicationprogress{
   
   position: relative;

@@ -35,7 +35,7 @@ const YourComponent = () => {
           <img src="./logo.png" alt=""  className="sidebarlogo"/>
         </div>
 
-        <a href="#">Dashboard</a>
+        <a href="/">Dashboard</a>
         <button
           onClick={() => {
             toggledropdown();
@@ -47,24 +47,25 @@ const YourComponent = () => {
         <div class="dropdown-container">
           <ul>
             <li>
-              <a href="#">Artist</a>
+              <a href="/artist">Artist</a>
             </li>
             <li>
-              <a href="#">Patron</a>
+              <a href="/UserPatron">Patron</a>
             </li>
             <li>
-              <a href="#">Partners</a>
+              <a href="/UserPartner">Partners</a>
             </li>
             <li>
-              <a href="#">Art-Lover</a>
+              <a href="/UserArt-lover">Art-Lover</a>
             </li>
           </ul>
         </div>
         <a href="#">ManageProfile</a>
-        <a href="#">Manage Opportunities</a>
+        <a href="/ArtsistManagement">Manage Artists</a>
+        <a href="/Opportunity">Manage Opportunities</a>
         <a href="#">Manage Art </a>
-        <a href="#">Manage Skills</a>
-        <a href="#">Manage Languages</a>
+        <a href="/ManageSkills">Manage Skills</a>
+        <a href="/ManageLanguages">Manage Languages</a>
         <a href="#">Manage Jobs</a>
         <a href="">Manage Banners</a>
         <a href="#">Manage Advertisement</a>

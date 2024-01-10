@@ -21,7 +21,7 @@
   
   
   /* Next & previous buttons */
-  .prev, .next {
+  .prev1, .next1 {
     cursor: pointer;
     position:absolute;
     width: auto;
@@ -37,14 +37,14 @@
   }
   
   /* Position the "next button" to the right */
-  .next {
+  .next1 {
     right:10%;
     border-radius: 3px 0 0 3px;
     margin-right:5.5px;
   }
   
   /* On hover, add a black background color with a little bit see-through */
-  .prev:hover, .next:hover {
+  .prev1:hover, .next1:hover {
     background-color: rgba(252, 249, 249, 0.8);
   }
 

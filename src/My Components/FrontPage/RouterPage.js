@@ -62,12 +62,37 @@ import TermAndCondition from "./TermAndCondition";
 import Contactus from "../PatronPages/ContactUs/ContactUs";
 import ArtistDashboard from "../ArtisitPages/Dashboard/ArtistDashboard";
 import Privacypolicy from "./Privacypolicy";
+import AdminDashboard from "../Admin/Dashboard/Dashboard"
+import AdminNavbar from "../Admin/Navbar/Navbar"
+import AdminFooter from "../Admin/footer/footer"
+import AdminUserArtist from "../Admin/ManageUser/UserArtist";
+import AdminUserPatron from "../Admin/ManageUser/UserPatron";
+import AdminUserArtLover from "../Admin/ManageUser/UserArt-lover";
+import AdminUserPartner from "../Admin/ManageUser/UserPartner";
+import AdminOpportunity from "../Admin/ManageOpportunities/Opportunity";
+import DashboardArtist from "../Admin//Dashboard/DashboardArtist";
+import DashboardApplication from "../Admin//Dashboard/DashboardApplications";
+import DashboardArtLover from "../Admin//Dashboard/DashboardArtlover";
+import DashboardRevenue from "../Admin//Dashboard/Dashboardrevenue";
+import DashboardOpportunity from "../Admin//Dashboard/Dashboardopportunity";
+import Dashboardpartner from "../Admin//Dashboard/Dashboardpartner";
+import DashboardPerformance from "../Admin//Dashboard/Dashboardperformance";
+import Profile from '../Admin/ManageOpportunities/profile'
+import Skills from "../Admin/Skills/Manageskills";
+import Language from "../Admin/Languages/ManageLanguages";
+import Artistprofile from '../Admin/ArtistManagement/artistprofile'
+import ArtsistManagement from "../Admin/ArtistManagement/artistmanagement";
+import AdminUploadOpportunities from "../Admin/ManageOpportunities/OpportunitesforArtist/UploadOpportunities";
+import AdminUploadedOpportunities from "../Admin/ManageOpportunities/OpportunitesforArtist/UploadedOpportunities";
 
 export default function RouterPage() {
   const { role, accessToken } = useSelector((state) => state.auth);
 
   return (
     <div>
+      {
+        role === "Admin" && <AdminNavbar/>
+      }
       <Routes>
         <Route path="admin" element={<RootAdmin />}/>
           <Route
@@ -111,6 +136,46 @@ export default function RouterPage() {
         <Route path="/EkVideos" exact element={<EkVideos />} />
         <Route path="/EkPrint" exact element={<EkPrint />} />
         <Route path="/Ekevents" exact element={<Ekevents />} />
+
+        {
+          role === "Admin" && (
+            <>
+            <Route path="/AdminDashboard" exact element={<AdminDashboard/>} />
+            <Route path="/Opportunity" element={<AdminOpportunity/>} />
+            <Route path="/Patron" element={<AdminUserPatron />} />
+            <Route path="/Partner" element={<AdminUserPartner />} />
+            <Route path="/artLover" element={<AdminUserArtLover />} />
+            <Route path="/artist" element={<AdminUserArtist />} />
+            <Route path="/ArtsistManagement" element={<ArtsistManagement />} />
+            <Route path="/artistProfile" element={<Artistprofile />} />
+            <Route path="/UploadOpportunities" element={<AdminUploadOpportunities/>}/>
+            <Route path="/UploadedOpps" element={<AdminUploadedOpportunities/>}/>
+            <Route path="/DashboardArtist" element={<DashboardArtist />}></Route>
+            <Route
+              path="/DashboardApplication"
+              element={<DashboardApplication />}
+            />
+            <Route path="/DashboardArtLover" element={<DashboardArtLover />} />
+            <Route
+            path="/DashboardOpportunity"
+              element={<DashboardOpportunity />}
+            />
+            <Route
+              path="/DashboardPerformance"
+              element={<DashboardPerformance />}
+            ></Route>
+            <Route path="/Dashboardpartner" element={<Dashboardpartner />} />
+
+            <Route
+              path="/DashboardRevenue"
+              element={<DashboardRevenue />}
+            ></Route>
+            <Route path="/OppProfile" element={<Profile />} />
+           <Route path="/ManageLanguages" element={<Language />} />
+           <Route path="/Manageskills" element={<Skills />} />
+            </>
+          )
+        }
 
         {role === "Artist" && (
           <>
@@ -230,6 +295,9 @@ export default function RouterPage() {
           element={<MyProductsandCourses />}
         />
       </Routes>
+      {
+        role === "Admin" && <AdminFooter/>
+      }
     </div>
   );
 }

@@ -1,26 +1,25 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { IoSearch } from "react-icons/io5";
-import './application.css'
+import "application.css";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
 const YourComponent = () => {
   return (
-    <div className="container">
-
-<div className="filter-dropdown-applications">
-<div className="search">
-          <IoSearch className="searchicon"/>
-          <input type="search" placeholder="Search"  />
-          </div>
-    <div className="filter">
-     Filter
-        <select className="dropdown-applications">
-          <option value="0"></option>
-          <option value="filter2">Patron</option>
-        </select>
+    <div className="Application">
+      <div className="filter-dropdown-applications">
+        <div className="search">
+          <IoSearch className="searchicon" />
+          <input type="search" placeholder="Search" />
+        </div>
+        <div className="filter">
+          Filter
+          <select className="dropdown-applications">
+            <option value="0"></option>
+            <option value="filter2">Patron</option>
+          </select>
+        </div>
       </div>
-      </div>
-<div className="traditionaldance">
+      <div className="traditionaldance">
         <div className="traditionaldance-left-div">
           <h2>Traditional Musicians</h2>
           <ul>
@@ -29,7 +28,9 @@ const YourComponent = () => {
             <li>Kuchipudi</li>
             <li>Kathakali</li>
             <li>Odissi</li>
-            <li> <div className="dashboard-filter">
+            <li>
+              {" "}
+              <div className="dashboard-filter">
                 {/* <label className="filter-label">See More </label> */}
                 <select className="dashboard-select" defaultValue="seeMore">
                   <option value="seeMore">
@@ -44,7 +45,8 @@ const YourComponent = () => {
                   <option value="Tulu">Tulu</option>
                   <option value="Kashmiri">Kashmiri</option>
                 </select>
-              </div></li>
+              </div>
+            </li>
           </ul>
           <h2>Traditional Music</h2>
           <ul>
@@ -52,7 +54,9 @@ const YourComponent = () => {
             <li>Classical</li>
             <li>Western</li>
             <li>Carnatic</li>
-            <li> <div className="dashboard-filter">
+            <li>
+              {" "}
+              <div className="dashboard-filter">
                 {/* <label className="filter-label">See More </label> */}
                 <select className="dashboard-select" defaultValue="seeMore">
                   <option value="seeMore">
@@ -67,14 +71,14 @@ const YourComponent = () => {
                   <option value="Tulu">Tulu</option>
                   <option value="Kashmiri">Kashmiri</option>
                 </select>
-              </div></li>
+              </div>
+            </li>
           </ul>
         </div>
         <div className="traditionaldance-right-div">
           <img src="./Dance.png" alt="Traditional Dance" />
         </div>
       </div>
-      
     </div>
   );
 };

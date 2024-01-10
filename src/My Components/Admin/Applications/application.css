@@ -1,6 +1,45 @@
+.manage_languages_heading{
+  width: 940px;
+  margin: auto;
+  text-align: left;
+}
 .manageapplication {
   display: flex;
   flex-direction: row;
+}
+.Application {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 20px;
+  padding-bottom: 10px;
+  width: 960px;
+  height: 700px;
+  padding: auto 10px;
+  background: rgba(255, 240, 241, 0.7);
+  border-radius: 31px;
+ 
+}
+
+.search{
+  display: flex;
+  gap: 8px;
+  color: #818181;
+  border-radius: 5px;
+  background: transparent;
+  border: 1px solid #4f4f4f;
+  align-items: center;
+ 
+}
+.searchicon{
+  margin-left: 3px;
+  font-size: 25px;
+  color: #5B5959;
+}
+.plus{
+  color: #AD2F3B;
+margin-top: 20px;
+  font-size: 30px;
 }
 .filter-dropdown-applications{
     margin: 5rem auto  0rem  auto;
@@ -99,3 +138,51 @@
   background: transparent;
 }
 
+
+
+
+
+/* YourComponent.css */
+
+.pagination {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  cursor: pointer;
+  padding: 5px;
+  border: none;
+  margin: 0 5px;
+  color: #333;
+  text-decoration: none;
+
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+}
+
+.pagination .active {
+ 
+  color: black;
+}
+
+.pagination .break-me {
+  cursor: default;
+}
+
+.pagination ul {
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination li {
+  list-style: none;
+}
