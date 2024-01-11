@@ -60,7 +60,7 @@ export default function Dashboard() {
       </div>
       <div className="dashboard_circle">
         <div className="circle">
-          <Link to="/Dashboard" className="Link">
+          <Link to="/" className="Link">
             <p>Total Patrons</p>
             <p>{totalPatrons}</p>
           </Link>

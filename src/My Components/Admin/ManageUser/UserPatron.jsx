@@ -16,6 +16,8 @@ const UserArtist = () => {
     setCurrentPage(selectedPage.selected);
   };
 
+  const token = localStorage.getItem("accessToken");
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -24,7 +26,7 @@ const UserArtist = () => {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQwODJjYzU1NzBkODY1NjA2NGVmNjciLCJpYXQiOjE3MDQzODE3NDMsImV4cCI6MTcwNDQ2ODE0M30.j5PpZQA-m4PC-6JYgYWVOGeVoBImNOOCR1vsrdp44Vw`, // replace with your access token
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           }

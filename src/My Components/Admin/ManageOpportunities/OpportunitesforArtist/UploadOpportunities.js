@@ -56,7 +56,6 @@ function UploadOpportunities() {
     console.log(formData);
     const toastId = toast.loading("Loading...");
     
-    toast.success("hello world")
     try {
       const response = await makeAuthenticatedPOSTRequest(`${BASE_URL}/admin/postopps`, formData, token);
        console.log(response.status);

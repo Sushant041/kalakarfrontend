@@ -69,7 +69,7 @@ export function LoginPage() {
           // navigate("/artist_profile");
           navigate("/Artist_limited_Profile");
         } else if(role === "Admin"){
-          navigate("/AdminDashboard");
+          navigate("/");
         } else {
           navigate("/Patron_Profile");
         }

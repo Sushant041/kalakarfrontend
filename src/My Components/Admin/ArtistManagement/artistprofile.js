@@ -123,8 +123,8 @@ const YourComponent = () => {
     try {
       setLoading(true);
       const artistData = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/user/${artId}`, token)
-      
-      console.log(artistData.data.data);
+
+      console.log(artistData);
       setArtData(artistData.data.data)
       setLoading(false);
     } catch (error) {
@@ -140,7 +140,7 @@ const YourComponent = () => {
     return 
   }
   
-  return (
+  return ( artdata &&
     <div className="main-container">
       <div className="left-container">
       <div className="artist_top-division">

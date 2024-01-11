@@ -14,16 +14,17 @@ const UserArtist = () => {
   const handlePageClick = (selectedPage) => {
     setCurrentPage(selectedPage.selected);
   };
-
+  
+  const token = localStorage.getItem('accessToken');
   useEffect(() => {
     const getUser = async () => {
       try {
         const response = await fetch(
-          "https://api.ekalakaar.com/api/v1/admin/user?role=Artist",
+          "https://api.ekalakaar.com/api/v1/admin/user?role=Art-lover",
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTQwODJjYzU1NzBkODY1NjA2NGVmNjciLCJpYXQiOjE3MDQxMDMzMDQsImV4cCI6MTcwNDE4OTcwNH0.nvG5H4Ih2ll0HE9cyiAkxiEb7ngmq4p-H_8LIeJBzKk`,
+              Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
             },
           }

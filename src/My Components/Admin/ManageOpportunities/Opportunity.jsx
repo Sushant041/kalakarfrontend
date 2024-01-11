@@ -162,6 +162,8 @@ import ReactPaginate from "react-paginate";
 import { FaPlus } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { makeAuthenticatedGETRequest, makeAuthenticatedDATADELETERequest } from "../../../services/serverHelper";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -198,9 +200,11 @@ const ManageOpportunity = () => {
 
   const deleteOpportunity = async (id) => {
     try {
+      toast.loading("Deleting opportunity")
       const response = await makeAuthenticatedDATADELETERequest(`${BASE_URL}/admin/deleteopps?id=${id}`, token);
       console.log(response);
       window.location.reload();
+      toast.success("Successfully deleted opportunity");
     } catch (error) {
       console.error("Error fetching opportunity data:", error);
     }

@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./Navbar.css"; // Import your CSS file
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 const YourComponent = () => {
   const [sideNavWidth, setSideNavWidth] = useState(0);
@@ -29,13 +32,13 @@ const YourComponent = () => {
         style={{ width: sideNavWidth + "px" }}
       >
         <div className="sidebar-header">
-          <a href="javascript:void(0)" onClick={closeNav} className="header-icon" >
+          <Link to="javascript:void(0)" onClick={closeNav} className="header-icon" >
             &times;
-          </a>
+          </Link>
           <img src="./logo.png" alt=""  className="sidebarlogo"/>
         </div>
 
-        <a href="/">Dashboard</a>
+        <Link to="/">Dashboard</Link>
         <button
           onClick={() => {
             toggledropdown();
@@ -47,36 +50,40 @@ const YourComponent = () => {
         <div class="dropdown-container">
           <ul>
             <li>
-              <a href="/artist">Artist</a>
+              <Link to="/artist">Artist</Link>
             </li>
             <li>
-              <a href="/UserPatron">Patron</a>
+              <Link to="/Patron">Patron</Link>
             </li>
             <li>
-              <a href="/UserPartner">Partners</a>
+              <Link to="/Partner">Partners</Link>
             </li>
             <li>
-              <a href="/UserArt-lover">Art-Lover</a>
+              <Link to="/Artlover">Art-Lover</Link>
             </li>
           </ul>
         </div>
-        <a href="#">ManageProfile</a>
-        <a href="/ArtsistManagement">Manage Artists</a>
-        <a href="/Opportunity">Manage Opportunities</a>
-        <a href="#">Manage Art </a>
-        <a href="/ManageSkills">Manage Skills</a>
-        <a href="/ManageLanguages">Manage Languages</a>
-        <a href="#">Manage Jobs</a>
-        <a href="">Manage Banners</a>
-        <a href="#">Manage Advertisement</a>
-        <a href="#">Manage Payments</a>
-        <a href="">Plans</a>
-        <a href="">Review</a>
-        <a href="">Credit</a>
-        <a href="">Feedbacks</a>
-        <a href="">Users Notification</a>
-        <a href="">Reports</a>
-        <a href="">Logout</a>
+        <Link to="#">ManageProfile</Link>
+        <Link to="/ArtsistManagement">Manage Artists</Link>
+        <Link to="/Opportunity">Manage Opportunities</Link>
+        <Link to="#">Manage Art </Link>
+        <Link to="/ManageSkills">Manage Skills</Link>
+        <Link to="/ManageLanguages">Manage Languages</Link>
+        <Link to="#">Manage Jobs</Link>
+        <Link to="">Manage Banners</Link>
+        <Link to="#">Manage Advertisement</Link>
+        <Link to="#">Manage Payments</Link>
+        <Link to="">Plans</Link>
+        <Link to="">Review</Link>
+        <Link to="">Credit</Link>
+        <Link to="">Feedbacks</Link>
+        <Link to="">Users Notification</Link>
+        <Link to="">Reports</Link>
+        <Link to="/" onClick={() =>{
+          toast.dismiss(toast.loading("loading..."));
+          toast.success("Successfully Log-out");
+          localStorage.clear();
+        }}>Logout </Link>
       </div>
       <div className="Navbar">
         <img

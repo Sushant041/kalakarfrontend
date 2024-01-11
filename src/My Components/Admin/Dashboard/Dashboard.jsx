@@ -3,6 +3,9 @@ import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 // import { Calendar } from 'primereact/calendar';
 import "./Dashboard.css";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -12,7 +15,13 @@ export default function Dashboard() {
   const [totalOpportunities, setTotalOpportunities] = useState(0);
 
   const token = localStorage.getItem('accessToken');
+  
+  const navigate = useNavigate();
 
+   if(!token) {
+    toast.error("Please login to access")
+    window.location.reload();
+   }
 
   useEffect(() => {
     const getUser = async (role) => {
@@ -59,7 +68,7 @@ export default function Dashboard() {
     </div>
     <div className="dashboard_circle">
       <div className="circle">
-        <Link to="/AdminDashboard" className="Link">
+        <Link to="/" className="Link">
           <p>Total Patrons</p>
           <p>{totalPatrons}</p>
         </Link>

@@ -4,6 +4,8 @@ import { FaFacebook } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { MdOutlineLocationOn, MdOutlineMailOutline } from "react-icons/md";
 import "./profile.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -11,26 +13,27 @@ const OpportunityProfile= () => {
 
   const [oppData, setOppData] = useState({});
   const [patData, setPatData] = useState({});
-  const [loading, setLoading] = useState(false);
 
   const id  = localStorage.getItem("oppid");
 
   const token = localStorage.getItem("accessToken");
+
   const getopp = async() =>{
 
     try {
-      setLoading(true);
+
       const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/opps/${id}`, token)
       console.log(response);
+      toast.dismiss(toast.loading("Loading..."));
       setOppData(response.data);
+      toast.success("Opportunity profile loaded successfully");
 
       const userdata = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/user/${oppData.userId}`, token)
       console.log(userdata)
       setPatData(userdata.data);
-      setLoading(false);
     } catch (error) {
        console.log(error);
-      setLoading(false);
+      toast.error(error);
     }
   }
   useEffect(()=>{
@@ -39,9 +42,6 @@ const OpportunityProfile= () => {
 
   const formattedDate = oppData && oppData.performanceDate ? new Date(oppData.performanceDate).toLocaleString() : '';
 
-  if(loading){
-    return 
-  }
   
   return ( oppData &&
     <div className="opportunity-profile">

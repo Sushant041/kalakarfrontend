@@ -129,7 +129,10 @@ export default function RouterPage() {
             <Route path="/verifyCode" exact element={<VerificationCode />} />
           </>
         )}
-        <Route path="/" exact element={<HomePage />} />
+        
+        {
+          role !== "Admin" && <Route path="/" exact element={<HomePage />} />
+        }
         <Route path="/EkPhotos" exact element={<EkPhotos />} />
         <Route path="/termAndCondition" element={<TermAndCondition />} />
         <Route path="/Privacypolicy" element={<Privacypolicy/>} />
@@ -140,7 +143,7 @@ export default function RouterPage() {
         {
           role === "Admin" && (
             <>
-            <Route path="/AdminDashboard" exact element={<AdminDashboard/>} />
+            <Route path="/" exact element={<AdminDashboard/>} />
             <Route path="/Opportunity" element={<AdminOpportunity/>} />
             <Route path="/Patron" element={<AdminUserPatron />} />
             <Route path="/Partner" element={<AdminUserPartner />} />
