@@ -271,7 +271,7 @@ function UploadOpportunities() {
                 className="ArtistOpportunities_Page_Infoform_inputfield"
               >
                 <label>
-                  <strong>Name of the event*</strong>
+                  <strong>Name of the Event*</strong>
                   </label>
                 <select
                   required
@@ -310,7 +310,7 @@ function UploadOpportunities() {
                 className="ArtistOpportunities_Page_Infoform_inputfield"
               >
                 <label>
-                  <strong>Type of organization*</strong>
+                  <strong>Type of Organization*</strong>
                   </label>
                 <select
                   required

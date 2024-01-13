@@ -3,7 +3,7 @@ import "./EditOpportunities.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import { makeAuthenticatedGETRequest, makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
+import { makeAuthenticatedGETRequest, makeAuthenticatedPATCHRequest, makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function EditOpportunities() {
@@ -57,17 +57,15 @@ function EditOpportunities() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    setFormData({
-      ...formData,
-    });
 
     console.log(formData);
     const toastId = toast.loading("Loading...");
     
     try {
-      const response = await makeAuthenticatedPOSTRequest(`${BASE_URL}/admin/postopps`, formData, token);
-       console.log(response.status);
-      if (response.status === 201) {
+      const response = await makeAuthenticatedPATCHRequest(`${BASE_URL}/admin/updateopps?id=${oppId}`, formData, token);
+
+       console.log(response);
+      if (response) {
 
         toast.success("Successfully uploaded");
 
@@ -269,6 +267,18 @@ function EditOpportunities() {
     "Video",
     "Any other",
   ];
+
+  function splitDate(date) {
+    const dateToSplit = String(date);
+    
+    if (dateToSplit) {
+      const dateParts = dateToSplit.split("T");
+      return dateParts[0];
+    } else {
+      console.error("Invalid date:", date);
+      return null; // or handle the error in your preferred way
+    }
+  }
   return (
     <>
       <div className="ArtistOpportunities_Page">
@@ -290,7 +300,7 @@ function EditOpportunities() {
                 <select
                   required
                   name="purpose"
-                  value={formData?.purpose}
+                  value={formData.purpose}
                   onChange={inputChangeHandler}
                   style={{ width: "100%", height: "50px", boxShadow: "#a2a2a2 0px 3px", marginTop : "10px" }}
                 >
@@ -312,7 +322,7 @@ function EditOpportunities() {
                 </label>
                 <input
                   required
-                  value={formData?.performanceDate}
+                  value={splitDate(formData.performanceDate)}
                   name="performanceDate"
                   onChange={inputChangeHandler}
                   type="date"
@@ -353,7 +363,7 @@ function EditOpportunities() {
                   required
                   onChange={inputChangeHandler}
                   name="end"
-                  value={formData?.applicationPeriod?.end}
+                  value={splitDate(formData?.applicationPeriod?.end)}
                   type="date"
                   placeholder="Enter application last date"
                   style={{ width: "100%", height: "50px", boxShadow: "#a2a2a2 0px 3px", marginTop : "10px" }}
@@ -456,7 +466,7 @@ function EditOpportunities() {
                   onChange={inputChangeHandler}
                   value={formData?.performanceDuration}
                   name="performanceDuration"
-                  type="number"
+                  type="text"
                   placeholder="Enter Performance Duration"
                   style={{ width: "100%", height: "50px", boxShadow: "#a2a2a2 0px 3px", marginTop : "10px" }}
                 />
@@ -545,7 +555,7 @@ function EditOpportunities() {
                 <label>
                   <strong>Live/Recorded/Part Live*</strong>
                 </label>
-                <select onChange={inputChangeHandler} name="mediaType"
+                <select onChange={inputChangeHandler} name="mediaType" value={formData.mediaType}
                 style={{ width: "100%", height: "50px", boxShadow: "#a2a2a2 0px 3px", marginTop : "10px" }}
                 >
                   <option selected hidden>
