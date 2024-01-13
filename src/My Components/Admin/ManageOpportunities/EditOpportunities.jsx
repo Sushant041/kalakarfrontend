@@ -1,21 +1,15 @@
-import React, { useState } from "react";
-import "./UploadOpportunities.css";
-// import Patron_Navbar from "../Patron_Navbar";
+import React, { useEffect, useState } from "react";
+import "./EditOpportunities.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { useSelector } from "react-redux";
-// import { makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
-// import { patronProfilePoints } from "../../../services/apis";
 import { useNavigate } from "react-router-dom";
-import { makeAuthenticatedPOSTRequest } from "../../../../services/serverHelper";
+import { makeAuthenticatedGETRequest, makeAuthenticatedPOSTRequest } from "../../../services/serverHelper";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-function UploadOpportunities() {
-  // const { accessToken } = useSelector((state) => state.auth);
+function EditOpportunities() {
 
   const [formData, setFormData] = useState({});
   const [uploadTab, setUploadTab] = useState(1);
-  const navigate = useNavigate();
 
   const token = localStorage.getItem("accessToken")
 
@@ -44,8 +38,28 @@ function UploadOpportunities() {
     });
   };
 
+  const oppId = localStorage.getItem('oppid');
+
+  useEffect(() =>{
+      
+    const getOppData = async () =>{
+      try {
+        const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/opps/${oppId}`, token);
+        console.log(response);
+        setFormData(response.data)
+      } catch (error) {
+         console.error(error);
+      }
+    }
+
+    getOppData();
+  }, [])
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    setFormData({
+      ...formData,
+    });
 
     console.log(formData);
     const toastId = toast.loading("Loading...");
@@ -260,7 +274,7 @@ function UploadOpportunities() {
       <div className="ArtistOpportunities_Page">
         <div className="opportunity_container">
         <div className="" >
-            <strong style={{marginTop: "3%", color : "#AD2F3B", fontSize: "35px"}}>Create Opportunity</strong>
+            <strong style={{marginTop: "3%", color : "#AD2F3B", fontSize: "35px"}}>Edit Opportunity</strong>
         </div>
         <div className="ArtistOpportunities_Page_Infoform">
           <form onSubmit={submitHandler}>
@@ -519,7 +533,7 @@ function UploadOpportunities() {
                 <input
                   required
                   onChange={inputChangeHandler}
-                  value={formData?.theme}
+                  value={formData.theme}
                   name="theme"
                   type="text"
                   placeholder="Theme for Performmance/Event"
@@ -800,7 +814,6 @@ function UploadOpportunities() {
                     ...formData,
                      contactEmail: e.target.value,
                   })}
-                  
                   style={{ width: "100%", height: "50px", boxShadow: "#a2a2a2 0px 3px", marginTop : "10px" }}
                 />
               </div>
@@ -820,7 +833,7 @@ function UploadOpportunities() {
               
             </div>
             <div className="ArtistOpportunities_Page_Infoform_btns" style={{textAlign: "center", width: "100%"}}>
-              <button type="Submit" style={{cursor: "pointer"}}>Upload</button>
+              <button type="Submit" style={{cursor: "pointer"}}>Upload Edits</button>
               {/* <Link
                 style={{ textDecoration: "none" }}
                 to={"/UploadedOpportunities"}
@@ -837,4 +850,4 @@ function UploadOpportunities() {
   );
 }
 
-export default UploadOpportunities;
+export default EditOpportunities;

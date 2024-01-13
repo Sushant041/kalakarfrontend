@@ -468,6 +468,8 @@ export function HomePage() {
     marginTop: "0vh",
   };
 
+  const token = localStorage.getItem("accessToken");
+
   return (
     <>
       <Helmet>
@@ -558,7 +560,7 @@ export function HomePage() {
                 >
                   <FontAwesomeIcon icon={faLanguage} />
                 </button>
-                {accessToken === null && (
+                {!token && (
                   <Link
                     to="/Login"
                     className="nav-item nav-link"

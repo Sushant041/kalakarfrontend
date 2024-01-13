@@ -104,6 +104,9 @@ import { BiSolidHide } from "react-icons/bi";
 import ReactPaginate from "react-paginate";
 import "./artistmanage.css";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -131,6 +134,7 @@ const ArtsistManagement = () => {
   };
    
   const token = localStorage.getItem("accessToken")
+  const navigate = useNavigate();
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -138,6 +142,8 @@ const ArtsistManagement = () => {
 
         setData(response.data);
         console.log(response);
+        toast.dismiss(toast.loading("loading..."));
+        toast.success("Artists loaded successfully")
       } catch (error) {
         console.error("Error fetching artist data:", error);
       }
@@ -250,7 +256,7 @@ const ArtsistManagement = () => {
               .slice(rowIndex * itemsPerRow, (rowIndex + 1) * itemsPerRow)
               .map((profile) => (
                 <div key={profile._id} className="artist_management_profile">
-                  <Link to="/artistProfile" style={{textDecoration: "none"}} >
+                  <Link to="/artistProfile" style={{textDecoration: "none"}}  onClick={ () => localStorage.setItem("artId", profile._id)}>
                   <img src={profile.avatar?.url} alt="" />
                   <h1>{profile.firstName}</h1>
                   <h2>{profile.role}</h2>

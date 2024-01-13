@@ -84,6 +84,7 @@ import Artistprofile from '../Admin/ArtistManagement/artistprofile'
 import ArtsistManagement from "../Admin/ArtistManagement/artistmanagement";
 import AdminUploadOpportunities from "../Admin/ManageOpportunities/OpportunitesforArtist/UploadOpportunities";
 import AdminUploadedOpportunities from "../Admin/ManageOpportunities/OpportunitesforArtist/UploadedOpportunities";
+import EditOpportunities from "../Admin/ManageOpportunities/EditOpportunities";
 
 export default function RouterPage() {
   const { role, accessToken } = useSelector((state) => state.auth);
@@ -130,9 +131,7 @@ export default function RouterPage() {
           </>
         )}
         
-        {
-          role !== "Admin" && <Route path="/" exact element={<HomePage />} />
-        }
+        <Route path="/" exact element={<HomePage />} />
         <Route path="/EkPhotos" exact element={<EkPhotos />} />
         <Route path="/termAndCondition" element={<TermAndCondition />} />
         <Route path="/Privacypolicy" element={<Privacypolicy/>} />
@@ -143,8 +142,10 @@ export default function RouterPage() {
         {
           role === "Admin" && (
             <>
-            <Route path="/" exact element={<AdminDashboard/>} />
+            <Route path="/AdminDashboard" exact element={<AdminDashboard/>} />
+            <Route path="/Login" exact element={<LoginPage />} />
             <Route path="/Opportunity" element={<AdminOpportunity/>} />
+            <Route path="/EditOpportunity" element={<EditOpportunities/>} />
             <Route path="/Patron" element={<AdminUserPatron />} />
             <Route path="/Partner" element={<AdminUserPartner />} />
             <Route path="/artLover" element={<AdminUserArtLover />} />

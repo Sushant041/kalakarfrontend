@@ -4,6 +4,11 @@ import ReactPaginate from "react-paginate";
 import "../ManageUser/User.css";
 import { FaPlus } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const UserArtist = () => {
   const [data, setData] = useState([]);
@@ -21,19 +26,12 @@ const UserArtist = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await fetch(
-          "https://api.ekalakaar.com/api/v1/admin/user?role=Patron",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response =  await makeAuthenticatedGETRequest(`${BASE_URL}/admin/users?role=Patron`, token)
 
-        const responseData = await response.json();
-        setData(responseData.data);
+        setData(response.data);
+        console.log(response)
+        toast.dismiss(toast.loading("loading..."));
+        toast.success("Artists loaded successfully")
       } catch (error) {
         console.error("Error fetching artist data:", error);
       }
@@ -143,7 +141,7 @@ const UserArtist = () => {
         <tbody className="table_body">
           {currentItems.map((item, index) => (
             <tr key={index}>
-              <td>{item._id}</td>
+              <td>{item.customID}</td>
               <td>{item.firstName}</td>
               <td>{item.email}</td>
               <td>{item.phoneNumber?.number}</td>

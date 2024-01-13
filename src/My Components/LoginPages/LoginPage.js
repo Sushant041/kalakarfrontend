@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthTemplate from "../Common/AuthTemplate";
 import { useNavigate } from "react-router-dom";
 import google from "./Images/Google.svg";
 import facebook from "./Images/Facebook.svg";
-import { artistProfilePoints, endpoints } from "../../services/apis";
+import { endpoints } from "../../services/apis";
 import {
-  makeUnauthenticatedGETRequest,
   makeUnauthenticatedPOSTRequest,
 } from "../../services/serverHelper";
 import { useDispatch } from "react-redux";
@@ -69,7 +68,7 @@ export function LoginPage() {
           // navigate("/artist_profile");
           navigate("/Artist_limited_Profile");
         } else if(role === "Admin"){
-          navigate("/");
+          navigate("/AdminDashboard");
         } else {
           navigate("/Patron_Profile");
         }

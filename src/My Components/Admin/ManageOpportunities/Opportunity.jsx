@@ -164,7 +164,7 @@ import { IoSearch } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { makeAuthenticatedGETRequest, makeAuthenticatedDATADELETERequest } from "../../../services/serverHelper";
+import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const ManageOpportunity = () => {
@@ -173,6 +173,7 @@ const ManageOpportunity = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [searchLanguages, setSearchLanguages] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
+  const [oppApp, setOppApp] = useState([]);
 
   const itemsPerPage = 10;
   const pageCount = Math.ceil(data && data.length / itemsPerPage);
@@ -183,30 +184,64 @@ const ManageOpportunity = () => {
   const handlePageClick = (selectedPage) => {
     setCurrentPage(selectedPage.selected);
   };
+  
 
-  useEffect(() => {
+  const getOppApplications = async (id) =>{
+
+    try {
+      const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/oppapps?opportunityId=${id}`, token);
+
+      console.log(response.length)
+      return response.length;
+      
+    } catch (error) {
+       console.log("Error fetching application data:", error);
+    }
+  }
+ 
+ 
     const getOpportunity = async () => {
       try {
         const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/opps`, token)
-
+        
+        console.log(response);
         setData(response.data);
+
+        const newOppAppPromises = response.data.map((item) => getOppApplications(item.id));
+        const newOppApp = await Promise.all(newOppAppPromises);
+        setOppApp(newOppApp); 
+
+        toast.dismiss(toast.loading("Loading..."));
+        toast.success("Opportunities loaded successfully");
       } catch (error) {
         console.error("Error fetching opportunity data:", error);
+        toast.error("Error fetching opportunity data");
       }
     };
 
+
+  useEffect(() => {
     getOpportunity();
   }, []);
 
   const deleteOpportunity = async (id) => {
+    console.log(id);
     try {
-      toast.loading("Deleting opportunity")
-      const response = await makeAuthenticatedDATADELETERequest(`${BASE_URL}/admin/deleteopps?id=${id}`, token);
-      console.log(response);
-      window.location.reload();
-      toast.success("Successfully deleted opportunity");
+      toast.dismiss(toast.loading("Deleting opportunity"))
+      const response = await fetch(`${BASE_URL}/admin/deleteopps?id=${id}`,{
+        method: "DELETE",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const responsedata = await response.json();
+      console.log(responsedata);
+       getOpportunity();
+      if(responsedata.success) toast.success("Successfully deleted opportunity");
     } catch (error) {
       console.error("Error fetching opportunity data:", error);
+      toast.error(error);
     }
   };
   
@@ -279,7 +314,7 @@ const ManageOpportunity = () => {
       <table style={{border : "none"}}>
         <thead>
           <tr>
-            <th>eK ID</th>
+            <th>Name of Opportunity</th>
             <th></th>
             <th>
               Block/ <br /> Unblock
@@ -293,13 +328,14 @@ const ManageOpportunity = () => {
             </th>
             <th>Budget</th>
             <th>Location</th>
+            <th>Total Applications</th>
           </tr>
         </thead>
         <tbody className="table_body">
           {data &&
             data.map((item, index) => (
-              <tr key={index}>
-                <td>{item.id}</td>
+              <tr key={index} >
+                <td>{item.purpose}</td>
                 <td className="viewicon">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -307,6 +343,10 @@ const ManageOpportunity = () => {
                     height="16"
                     viewBox="0 0 12 12"
                     fill="none"
+                    onClick={() =>{
+                      localStorage.setItem("oppid", item.id)
+                      navigateto("/EditOpportunity");
+                    }}
                   >
                     <path
                       d="M2.76469 3.35303H2.17646C1.86445 3.35303 1.56521 3.47698 1.34458 3.69761C1.12395 3.91824 1 4.21747 1 4.52949V9.82358C1 10.1356 1.12395 10.4348 1.34458 10.6555C1.56521 10.8761 1.86445 11 2.17646 11H7.47055C7.78256 11 8.0818 10.8761 8.30243 10.6555C8.52306 10.4348 8.64701 10.1356 8.64701 9.82358V9.23534"
@@ -369,6 +409,12 @@ const ManageOpportunity = () => {
                 <td>{item.languages}</td>
                 <td>{item.budget}</td>
                 <td>{item.location}</td>
+                
+                <td style={{textAlign: "center"}}>
+                  {
+                    oppApp[index]
+                  }
+                </td>
               </tr>
             ))}
         </tbody>

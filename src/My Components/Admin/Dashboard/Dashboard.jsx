@@ -12,7 +12,13 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 export default function Dashboard() {
   const [totalArtists, setTotalArtists] = useState(0);
   const [totalPatrons, setTotalPatrons] = useState(0);
+  const [totalPartners, setTotalPartners] = useState(0);
+  const [totalArtlovers, setTotalArtlovers] = useState(0);
   const [totalOpportunities, setTotalOpportunities] = useState(0);
+  const [totalApplications, setTotalApplications] = useState(0);
+  const [totalperformances, setTotalPerformances] = useState(0);
+  const [totalrevenue, setTotalRevenue] = useState(0);
+
 
   const token = localStorage.getItem('accessToken');
   
@@ -20,19 +26,23 @@ export default function Dashboard() {
 
    if(!token) {
     toast.error("Please login to access")
-    window.location.reload();
+    navigate("/login");
    }
 
   useEffect(() => {
     const getUser = async (role) => {
       try {
-        const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/users?${role}`, token);
+        const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/users?role=${role}`, token);
        
-         console.log(response)
+        //  console.log(response)
         if (role === "Artist") {
           setTotalArtists(response.data.length);
         } else if (role === "Patron") {
           setTotalPatrons(response.data.length);
+        } else if(role === "Partner"){
+          setTotalPartners(response.data.length);
+        } else if(role === "Art-lover"){
+          setTotalArtlovers(response.data.length);
         }
       } catch (error) {
         console.error(`Error fetching ${role} data:`, error);
@@ -43,16 +53,48 @@ export default function Dashboard() {
       try {
         const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/opps`, token);
         
-        console.log(response)
+        // console.log(response)
         setTotalOpportunities(response.data.length);
       } catch (error) {
         console.error("Error fetching opportunity data:", error);
       }
     };
 
+    const getApplications = async () =>{
+
+      try {
+        const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/allapps`, token);
+
+        console.log(response)
+        setTotalApplications(response.length);
+        toast.dismiss(toast.loading("loading..."));
+         
+        const data = response.filter((a) => {
+          return a.status === 'Hired';
+        })
+        console.log(data);
+        setTotalPerformances(data.length);
+        
+        let sum = 0;
+        data.forEach((elm) =>{
+            sum += elm.opportunity.budget
+        })
+        setTotalRevenue(sum);
+        console.log(sum)
+        toast.success("Dashboard loaded successfully")
+      } catch (error) {
+         console.log("Error fetching application data:", error);
+      }
+    }
+      
+    
     getUser("Artist");
     getUser("Patron");
+    getUser("Partner");
+    getUser("Art-lover");
     getOpportunity();
+    getApplications();
+
   }, []);
 
   return (
@@ -68,33 +110,33 @@ export default function Dashboard() {
     </div>
     <div className="dashboard_circle">
       <div className="circle">
-        <Link to="/" className="Link">
+        <Link to="/Patron" className="Link">
           <p>Total Patrons</p>
           <p>{totalPatrons}</p>
         </Link>
       </div>
       <div className="circle">
-        <Link to="/DashboardArtist" className="Link">
+        <Link to="/Artist" className="Link">
           <p>Total Artists</p>
           <p>{totalArtists}</p>
         </Link>
       </div>
       <div className="circle">
-        <Link to="/Dashboardpartner" className="Link">
+        <Link to="/partner" className="Link">
           <p>Total Partners</p>
-          <p>12</p>
+          <p>{totalPartners}</p>
         </Link>
       </div>
       <div className="circle">
-        <Link to="/DashboardArtLover" className="Link">
+        <Link to="/ArtLover" className="Link">
           <p>Total Art-Lovers</p>
-          <p>12</p>
+          <p>{totalArtlovers}</p>
         </Link>
       </div>
     </div>
     <div className="dashboard_circle">
       <div className="circle">
-        <Link to="/DashboardOpportunity" className="Link">
+        <Link to="/Opportunity" className="Link">
           <p>Opportunities</p>
           <p>{totalOpportunities}</p>
         </Link>
@@ -104,7 +146,7 @@ export default function Dashboard() {
           <div className="progressbar1">M</div>
           <Link to="/DashboardApplication" className="Link">
             <p>Applications</p>
-            <p>12</p>
+            <p>{totalApplications}</p>
           </Link>
           <div className="progressbar2">M</div>
         </div>
@@ -112,13 +154,13 @@ export default function Dashboard() {
       <div className="circle">
         <Link to="/DashboardPerformance" className="Link">
           <p>Performances</p>
-          <p>12</p>
+          <p>{totalperformances}</p>
         </Link>
       </div>
       <div className="circle" style={{ border: "3px solid #AD2F3B" }}>
         <Link to="/DashboardRevenue" className="Link">
           <p>Revenue</p>
-          <p>12</p>
+          <p>₹{totalrevenue}</p>
         </Link>
       </div>
     </div>

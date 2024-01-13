@@ -6,7 +6,6 @@
   margin-top: 70px;
   margin-bottom: 70px;
   width: 838px;
-  height: 1318px;
   flex-shrink: 0;
   padding: auto 10px;
   background: rgba(255, 240, 241, 0.7);
@@ -68,7 +67,7 @@
 }
 .top-division {
   width: 80%;
-  margin: auto;
+  margin: 3% auto 1%;
   font-family: Poppins;
   font-size: 22px;
   font-weight: 600;
@@ -98,6 +97,7 @@
   font-family: Poppins;
   font-size: 16px;
   margin-bottom: 15px;
+  font-weight: 500;
   line-height: 27px;
   letter-spacing: 0em;
   text-align: left;
@@ -195,12 +195,14 @@
 }
 .profileicons{
 font-size: 23px;
-padding: 8px;
 color: white;
 }
 .icons{
   background-color: #AD2F3B;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

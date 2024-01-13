@@ -24,8 +24,8 @@ const OpportunityProfile= () => {
 
       const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/opps/${id}`, token)
       console.log(response);
-      toast.dismiss(toast.loading("Loading..."));
       setOppData(response.data);
+      toast.dismiss(toast.loading("Loading..."));
       toast.success("Opportunity profile loaded successfully");
 
       const userdata = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/user/${oppData.userId}`, token)
@@ -87,7 +87,7 @@ const OpportunityProfile= () => {
           </div>
           <div class="section-heading">Languages</div>       
           <ul class="list-items">
-            <li class="list-item" style={{fontWeight: "600", color: "black"}} >
+            <li class="list-item" style={{color: "black"}} >
               {oppData.languages}
             </li>
           </ul>

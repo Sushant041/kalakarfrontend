@@ -4,6 +4,11 @@ import ReactPaginate from "react-paginate";
 import "../ManageUser/User.css";
 import { FaPlus } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const UserArtist = () => {
   const [data, setData] = useState([]);
@@ -20,20 +25,12 @@ const UserArtist = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await fetch(
-          "https://api.ekalakaar.com/api/v1/admin/user?role=Artist",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/users?role=Artist`, token)
 
-        const responseData = await response.json();
-        setData(responseData.data);
-        console.log(responseData)
+        setData(response.data);
+        console.log(response)
+        toast.dismiss(toast.loading("loading..."));
+        toast.success("Artists loaded successfully")
       } catch (error) {
         console.error("Error fetching artist data:", error);
       }
@@ -47,7 +44,7 @@ const UserArtist = () => {
     setCurrentPage(0); // Reset page when search query changes
   };
 
-  const filteredData = data.filter(
+  const filteredData = data && data.filter(
     (item) =>
       item.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -55,10 +52,10 @@ const UserArtist = () => {
         item.phoneNumber.number.includes(searchQuery.toLowerCase()))
   );
 
-  const pageCount = Math.ceil(filteredData.length / itemsPerPage);
+  const pageCount = Math.ceil(filteredData && filteredData.length / itemsPerPage);
   const indexOfLastItem = (currentPage + 1) * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredData && filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
    function toggleBlock(e) {
      if(e.target.textContent==="Block")
@@ -141,9 +138,9 @@ const UserArtist = () => {
           </tr>
         </thead>
         <tbody className="table_body">
-          {currentItems.map((item, index) => (
+          {currentItems && currentItems.map((item, index) => (
             <tr key={index}>
-              <td>{item._id}</td>
+              <td>{item.customID}</td>
               <td>{item.firstName}</td>
               <td>{item.email}</td>
               <td>{item.phoneNumber?.number}</td>

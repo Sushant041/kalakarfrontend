@@ -3,6 +3,7 @@ import "./Navbar.css"; // Import your CSS file
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const YourComponent = () => {
   const [sideNavWidth, setSideNavWidth] = useState(0);
@@ -10,6 +11,10 @@ const YourComponent = () => {
   const openNav = () => {
     setSideNavWidth(250);
   };
+
+  const navigate = useNavigate();
+
+  const token  = localStorage.getItem("accessToken");
 
   const closeNav = () => {
     setSideNavWidth(0);
@@ -23,6 +28,12 @@ const YourComponent = () => {
     } else {
       console.error("Element with class 'dropdown-container' not found.");
     }
+  }
+  
+  if(!token){
+    return <div>
+
+    </div>
   }
   return (
     <div>
@@ -38,7 +49,7 @@ const YourComponent = () => {
           <img src="./logo.png" alt=""  className="sidebarlogo"/>
         </div>
 
-        <Link to="/">Dashboard</Link>
+        <Link to="/AdminDashboard">Dashboard</Link>
         <button
           onClick={() => {
             toggledropdown();
@@ -80,9 +91,10 @@ const YourComponent = () => {
         <Link to="">Users Notification</Link>
         <Link to="">Reports</Link>
         <Link to="/" onClick={() =>{
-          toast.dismiss(toast.loading("loading..."));
-          toast.success("Successfully Log-out");
-          localStorage.clear();
+           toast.dismiss(toast.loading("loading..."));
+           toast.success("Successfully Log-out");
+           localStorage.clear();
+           navigate("/login");
         }}>Logout </Link>
       </div>
       <div className="Navbar">

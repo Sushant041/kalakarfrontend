@@ -107,6 +107,8 @@ import React ,{useEffect, useState}from "react";
 import { FaInstagram,FaFacebook,FaYoutube,FaLinkedin,FaTwitter } from "react-icons/fa";
 import "./artistprofile.css"; 
 import { FaUser } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { makeAuthenticatedGETRequest } from "../../../services/serverHelper";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -114,19 +116,19 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 const YourComponent = () => {
 
   const [artdata, setArtData] = useState({})
-  const [loading, setLoading] = useState(false);
 
   const artId = localStorage.getItem("artId");
   const token = localStorage.getItem("accessToken");
   
   const getartist = async() =>{
     try {
-      setLoading(true);
+
       const artistData = await makeAuthenticatedGETRequest(`${BASE_URL}/admin/user/${artId}`, token)
 
       console.log(artistData);
-      setArtData(artistData.data.data)
-      setLoading(false);
+      setArtData(artistData.data)
+      toast.dismiss(toast.loading("loading..."));
+      toast.success("Artist loaded successfully")
     } catch (error) {
       console.error(error);
     }
@@ -136,10 +138,6 @@ const YourComponent = () => {
     getartist();
   }, [])
 
-  if(loading){
-    return 
-  }
-  
   return ( artdata &&
     <div className="main-container">
       <div className="left-container">
